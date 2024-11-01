@@ -1,0 +1,190 @@
+
+matomo_reports.matomo_reports_settings:
+  path: '/admin/config/system/matomo-reports'
+  defaults:
+    _form: '\Drupal\matomo_reports\Form\MatomoReportsSettings'
+    _title: 'Matomo Reports Settings'
+  requirements:
+    _permission: 'administer matomo reports'
+  options:
+    _admin_route: TRUE
+
+matomo_reports.reports:
+  path: '/admin/reports/matomo-reports'
+  defaults:
+    _controller: '\Drupal\matomo_reports\Controller\MatomoReportsController::reports'
+    _title: 'Matomo Web Analytics'
+    report: 'visitors_overview'
+  requirements:
+    _permission: 'access matomo reports'
+
+matomo_reports.visitors.settings:
+  path: '/admin/reports/matomo-reports/visitors/settings'
+  defaults:
+    _controller: '\Drupal\matomo_reports\Controller\MatomoReportsController::reports'
+    _title: 'Visitors Settings'
+    report: 'visitors_settings'
+  requirements:
+    _permission: 'access matomo reports'
+
+matomo_reports.visitors.times:
+  path: '/admin/reports/matomo-reports/visitors/times'
+  defaults:
+    _controller: '\Drupal\matomo_reports\Controller\MatomoReportsController::reports'
+    _title: 'Visitors Times'
+    report: 'visitors_times'
+  requirements:
+    _permission: 'access matomo reports'
+
+matomo_reports.visitors.locations:
+  path: '/admin/reports/matomo-reports/visitors/locations'
+  defaults:
+    _controller: '\Drupal\matomo_reports\Controller\MatomoReportsController::reports'
+    _title: 'Visitors Locations'
+    report: 'visitors_locations'
+  requirements:
+    _permission: 'access matomo reports'
+
+matomo_reports.visitors.variables:
+  path: '/admin/reports/matomo-reports/visitors/variables'
+  defaults:
+    _controller: '\Drupal\matomo_reports\Controller\MatomoReportsController::reports'
+    _title: 'Visitors Custom Variables'
+    report: 'visitors_variables'
+  requirements:
+    _permission: 'access matomo reports'
+
+matomo_reports.actions:
+  path: '/admin/reports/matomo_reports/actions'
+  defaults:
+    _controller: '\Drupal\matomo_reports\Controller\MatomoReportsController::reports'
+    _title: 'Actions'
+    report: 'actions_pages'
+  requirements:
+    _permission: 'access matomo reports'
+
+matomo_reports.actions.pages:
+  path: '/admin/reports/matomo_reports/actions/pages'
+  defaults:
+    _controller: '\Drupal\matomo_reports\Controller\MatomoReportsController::reports'
+    _title: 'Actions Pages'
+    report: 'actions_pages'
+  requirements:
+    _permission: 'access matomo reports'
+
+matomo_reports.actions.entrypages:
+  path: '/admin/reports/matomo_reports/actions/entrypages'
+  defaults:
+    _controller: '\Drupal\matomo_reports\Controller\MatomoReportsController::reports'
+    _title: 'Actions Entry Pages'
+    report: 'actions_entrypages'
+  requirements:
+    _permission: 'access matomo reports'
+
+matomo_reports.actions.exitpages:
+  path: '/admin/reports/matomo_reports/actions/exitpages'
+  defaults:
+    _controller: '\Drupal\matomo_reports\Controller\MatomoReportsController::reports'
+    _title: 'Actions Exit Pages'
+    report: 'actions_exitpages'
+  requirements:
+    _permission: 'access matomo reports'
+
+matomo_reports.actions.sitesearch:
+  path: '/admin/reports/matomo_reports/actions/sitesearch'
+  defaults:
+    _controller: '\Drupal\matomo_reports\Controller\MatomoReportsController::reports'
+    _title: 'Actions Site Search'
+    report: 'actions_sitesearch'
+  requirements:
+    _permission: 'access matomo reports'
+
+matomo_reports.actions.outlinks:
+  path: '/admin/reports/matomo_reports/actions/outlinks'
+  defaults:
+    _controller: '\Drupal\matomo_reports\Controller\MatomoReportsController::reports'
+    _title: 'Actions Outlinks'
+    report: 'actions_outlinks'
+  requirements:
+    _permission: 'access matomo reports'
+
+matomo_reports.actions.downloads:
+  path: '/admin/reports/matomo_reports/actions/downloads'
+  defaults:
+    _controller: '\Drupal\matomo_reports\Controller\MatomoReportsController::reports'
+    _title: 'Actions Downloads'
+    report: 'actions_downloads'
+  requirements:
+    _permission: 'access matomo reports'
+
+matomo_reports.events:
+  path: '/admin/reports/matomo_reports/events'
+  defaults:
+    _controller: '\Drupal\matomo_reports\Controller\MatomoReportsController::reports'
+    _title: 'Events'
+    report: 'events'
+  requirements:
+    _permission: 'access matomo reports'
+
+matomo_reports.referrers:
+  path: '/admin/reports/matomo_reports/referrers'
+  defaults:
+    _controller: '\Drupal\matomo_reports\Controller\MatomoReportsController::reports'
+    _title: 'Referrers Overview'
+    report: 'referrers_overview'
+  requirements:
+    _permission: 'access matomo reports'
+
+matomo_reports.referrers.allreferrers:
+  path: '/admin/reports/matomo_reports/referrers/referrers'
+  defaults:
+    _controller: '\Drupal\matomo_reports\Controller\MatomoReportsController::reports'
+    _title: 'All Referrers'
+    report: 'referrers_allreferrers'
+  requirements:
+    _permission: 'access matomo reports'
+
+matomo_reports.referrers.search:
+  path: '/admin/reports/matomo_reports/referrers/search'
+  defaults:
+    _controller: '\Drupal\matomo_reports\Controller\MatomoReportsController::reports'
+    _title: 'Referrers Search Engines & Keywords'
+    report: 'referrers_search'
+  requirements:
+    _permission: 'access matomo reports'
+
+matomo_reports.referrers.websites:
+  path: '/admin/reports/matomo_reports/referrers/websites'
+  defaults:
+    _controller: '\Drupal\matomo_reports\Controller\MatomoReportsController::reports'
+    _title: 'Referrers Websites'
+    report: 'referrers_websites'
+  requirements:
+    _permission: 'access matomo reports'
+
+matomo_reports.referrers.campaigns:
+  path: '/admin/reports/matomo_reports/referrers/campaigns'
+  defaults:
+    _controller: '\Drupal\matomo_reports\Controller\MatomoReportsController::reports'
+    _title: 'Campaigns'
+    report: 'referrers_campaigns'
+  requirements:
+    _permission: 'access matomo reports'
+
+matomo_reports.goals:
+  path: '/admin/reports/matomo_reports/goals'
+  defaults:
+    _controller: '\Drupal\matomo_reports\Controller\MatomoReportsController::reports'
+    _title: 'Goals'
+    report: 'goals'
+  requirements:
+    _permission: 'access matomo reports'
+
+matomo_reports.transitions:
+  path: '/admin/reports/matomo_reports/transitions'
+  defaults:
+    _controller: '\Drupal\matomo_reports\Controller\MatomoReportsController::reports'
+    _title: 'Transitions'
+    report: 'transitions'
+  requirements:
+    _permission: 'access matomo reports'

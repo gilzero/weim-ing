@@ -1,0 +1,43 @@
+/**
+ * @file
+ * Skin based on safe CSS file name: ultimenu--dark.
+ */
+
+:root {
+  --ultidark: #222;
+  --ultidark-light: #333;
+  --ultidarker: #111;
+}
+
+.ultimenu--dark {
+  --ultibg: var(--ultidark);
+  --ultinormal: #eaeaea;
+  --ultiactive: #fff;
+  --ultilink-normal: var(--ultinormal);
+  --ultilink-active: var(--ultiactive);
+  --ultilink-bg-active: var(--ultidarker);
+  --ultiflyout: var(--ultidarker);
+  --ultiregion: var(--ultidark);
+
+  background-color: var(--ultidark);
+}
+
+.ultimenu--dark .ultimenusub .menu {
+  --ulticaret-normal: var(--ultinormal);
+  --ulticaret-active: var(--ultiactive);
+}
+
+.ultimenu--dark .ultimenu__flyout,
+.ultimenu--dark .ultimenu__link {
+  border-top: 1px solid var(--ultidark-light);
+}
+
+/**
+ * When hamburger is visible, desktop or mobile.
+ */
+html.is-ultimenu--active
+  .ultimenu--dark
+  .is-uitem-expanded
+  > .ultimenu__flyout {
+  padding: 0;
+}

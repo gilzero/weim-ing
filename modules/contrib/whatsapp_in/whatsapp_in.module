@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * @file
+ * To implement different hooks.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_page_attachments().
+ */
+function whatsapp_in_page_attachments(array &$attachments) {
+  // Attach library.
+  $attachments['#attached']['library'][] = 'whatsapp_in/whatsapp_in';
+  $config = \Drupal::config('whatsapp.settings');
+  $phone_number = $config->get('phone_number');
+  $attachments['#attached']['drupalSettings']['phone_number'] = $phone_number;
+}
+
+/**
+ * Implements hook_help().
+ *
+ * Displays help and documentation for the `whatsapp_in` module.
+ *
+ * @param string $route_name
+ *   The name of the current route.
+ * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
+ *   The current route match object.
+ */
+function whatsapp_in_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.whatsapp_in':
+      return t('
+        <p>The <strong>WhatsAppIn</strong> module allows you to add a WhatsApp contact link to your site.</p>
+        <h2>Features</h2>
+        <ul>
+          <li>Configure a phone number to be used for WhatsApp contact.</li>
+          <li>Automatically generate a WhatsApp link on your site.</li>
+        </ul>
+        <h2>Configuration</h2>
+        <p>To configure the WhatsAppIn module, navigate to the <strong>Configuration</strong> page, and select <em>WhatsApp Settings</em>. Here, you can enter the phone number that will be used for the WhatsApp link.</p>
+      ');
+
+    default:
+  }
+}

@@ -1,0 +1,16 @@
+{
+    "name": "drupal/rest_log",
+    "type": "drupal-module",
+    "description": "Logs all REST responses and errors.",
+    "keywords": ["Drupal"],
+    "license": "GPL-2.0+",
+    "homepage": "https://www.drupal.org/project/rest_log",
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/rest_log",
+        "source": "https://git.drupalcode.org/project/rest_log"
+    },
+    "require": {
+        "php": ">=7.4",
+        "drupal/core": "^8 || ^9 || ^10 || ^11"
+    }
+}

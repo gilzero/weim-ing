@@ -1,0 +1,11 @@
+# Schema for the configuration files of the Compound title module.
+field.value.compound_title:
+  type: mapping
+  label: 'Default value'
+  mapping:
+    first_line:
+      type: label
+      label: 'First line of text'
+    second_line:
+      type: label
+      label: 'Second line of text'

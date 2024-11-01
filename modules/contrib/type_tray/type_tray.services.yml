@@ -1,0 +1,6 @@
+services:
+  type_tray.route_subscriber:
+    class: Drupal\type_tray\Routing\TypeTrayRouteSubscriber
+    autowire: true
+    tags:
+    - { name: event_subscriber }

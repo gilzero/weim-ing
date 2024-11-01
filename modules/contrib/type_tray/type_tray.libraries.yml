@@ -1,0 +1,11 @@
+type_tray:
+  js:
+    js/type_tray.js: {}
+  css:
+    theme:
+      css/type_tray.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/drupal.debounce

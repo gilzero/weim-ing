@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * Module file for auto_translation.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+use Drupal\Core\Render\Markup;
+
+
+/**
+ * Implements hook_help().
+ */
+function auto_translation_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.auto_translation':
+    $settings_link = Url::fromRoute('auto_translation.settings');
+    $list[] = t('To enable Server Side integration you need to create your own Google Translate App @google_link', ['@google_link' => Markup::create('<a href="https://cloud.google.com/translate/docs/quickstart-client-libraries" target="_blank" >'.t("from this google page").'</a>')]);
+      $list[] = t('You can add your Google API credentials or configure Google Translate browser Free API in the Auto Translation module @settings_link.', ['@settings_link' => Markup::create('<a href="' . $settings_link->toString() . '">'.t("settings page").'</a>')]);
+      $list[] = t('To use Drupal AI provdier you need to configure on the module settings and enable Drupal AI Translate module.');
+      $render_array['arguments']['items'] = [
+        '#theme' => 'item_list',
+        '#title' => t('Auto translation Help tips'),
+        '#attributes' => ['style' => ['margin:20px auto;max-width: 80%;padding:30px;font-size:14px;border: 1px solid #e6e6e6;margin-left:0;line-height: 1.4;']],
+        '#items' => $list,
+      ];
+      return $render_array;
+  }
+}
+
+/**
+ * Implements hook_form_node_alter() for node_form.
+ */
+function auto_translation_form_node_form_alter(&$form, FormStateInterface $form_state) {
+  $translationUtility = \Drupal::service('auto_translation.utility');
+  $form = $translationUtility->formTranslate($form, $form_state);
+  return $form;
+}
+
+/**
+ * Implements hook_form_media_alter() for node_form.
+ */
+function auto_translation_form_media_form_alter(&$form, FormStateInterface $form_state) {
+  $translationUtility = \Drupal::service('auto_translation.utility');
+  $form = $translationUtility->formTranslate($form, $form_state);
+  return $form;
+}

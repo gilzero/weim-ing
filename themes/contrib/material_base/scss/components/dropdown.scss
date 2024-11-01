@@ -1,0 +1,13 @@
+.mb-dropdown {
+  &__toggle {
+    cursor: pointer;
+  }
+
+  &__panel {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    background: $color-bg-body;
+    min-width: 160px;
+  }
+}

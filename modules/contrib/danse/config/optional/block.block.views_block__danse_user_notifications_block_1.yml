@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.danse_user_notifications
+  module:
+    - views
+  theme:
+    - olivero
+id: views_block__danse_user_notifications_block_1
+theme: olivero
+region: secondary_menu
+weight: -5
+provider: null
+plugin: 'views_block:danse_user_notifications-block_1'
+settings:
+  id: 'views_block:danse_user_notifications-block_1'
+  label: ''
+  label_display: '0'
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: none
+visibility: {  }

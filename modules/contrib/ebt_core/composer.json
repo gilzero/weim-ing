@@ -1,0 +1,21 @@
+{
+    "name": "drupal/ebt_core",
+    "type": "drupal-module",
+    "description": "Extra Block Types (EBT): Core",
+    "keywords": ["Drupal"],
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://drupal.org/project/ebt_core",
+    "minimum-stability": "dev",
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/ebt_core",
+        "source": "https://git.drupalcode.org/project/ebt_core"
+    },
+    "require": {
+        "drupal/field_group": "^3.0",
+        "drupal/media_library_form_element": "^2.0",
+        "levmyshkin/jquery-colorpicker": "^1.0",
+        "levmyshkin/jquery-mb-ytplayer": "^3.3.10",
+        "levmyshkin/parallaxjs": "^1.5",
+        "levmyshkin/vidbg": "^2.1.0"
+    }
+}

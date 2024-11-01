@@ -1,0 +1,4 @@
+services:
+  unstructured.api:
+    class: Drupal\unstructured\UnstructuredApi
+    arguments: ['@http_client', '@config.factory', '@key.repository']

@@ -1,0 +1,27 @@
+///
+/// Editorial by HTML5 UP
+/// html5up.net | @ajlkn
+/// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+///
+
+	/* Custom */
+
+	.region-content {
+		.block-block-content {
+			float: left;
+			width: 45%;
+			@include media(msp) {
+				width: 100%;
+				float: none;
+			}
+		}
+	}
+
+	.contact-message-feedback-form {
+		float: right;
+		width: 45%;
+		@include media(msp) {
+			width: 100%;
+			float: none;
+		}
+	}

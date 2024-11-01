@@ -1,0 +1,14 @@
+parameters:
+    ignoreErrors:
+      -
+        message: "#implements deprecated interface Symfony\\\\Component\\\\DependencyInjection\\\\ContainerAwareInterface#"
+        reportUnmatched: false
+      -
+        message: "#Usage of deprecated trait Symfony\\\\Component\\\\DependencyInjection\\\\ContainerAwareTrait#"
+        reportUnmatched: false
+    level: 5
+    treatPhpDocTypesAsCertain: false
+    excludePaths:
+      - tests/*
+    scanDirectories:
+      - %currentWorkingDirectory%/web/core

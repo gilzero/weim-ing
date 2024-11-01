@@ -1,0 +1,8 @@
+site_key: ''
+secret_key: ''
+hcaptcha_src: 'https://hcaptcha.com/1/api.js'
+widget:
+  theme: ''
+  size: ''
+  tabindex: 0
+  max_score: 0.8

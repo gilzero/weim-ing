@@ -1,0 +1,121 @@
+<?php
+
+/**
+ * @file
+ * Verifies if user is a human without necessity to solve a CAPTCHA.
+ */
+
+use Drupal\hcaptcha\HCaptcha\Drupal8Post;
+use Drupal\hcaptcha\HCaptcha\HCaptcha;
+use Drupal\Core\Url;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_captcha().
+ */
+function hcaptcha_captcha($op, $captcha_type = '') {
+
+  switch ($op) {
+    case 'list':
+      return ['hCaptcha'];
+
+    case 'generate':
+      $captcha = [];
+      if ($captcha_type == 'hCaptcha') {
+        $config = \Drupal::config('hcaptcha.settings');
+        $renderer = \Drupal::service('renderer');
+        $hcaptcha_site_key = $config->get('site_key');
+        $hcaptcha_secret_key = $config->get('secret_key');
+
+        if (!empty($hcaptcha_site_key) && !empty($hcaptcha_secret_key)) {
+          $attributes = [
+            'class' => 'h-captcha',
+            'data-sitekey' => $hcaptcha_site_key,
+            'data-theme' => $config->get('widget.theme'),
+            'data-size' => $config->get('widget.size'),
+            'data-tabindex' => $config->get('widget.tabindex'),
+          ];
+          $hcaptcha = new HCaptcha($hcaptcha_site_key, $hcaptcha_secret_key, $attributes);
+          $captcha = $hcaptcha->getWidget('hcaptcha_captcha_validation');
+
+          $hcaptcha_src = $config->get('hcaptcha_src');
+          $captcha['form']['hcaptcha_widget']['#attached'] = [
+            'library' => ['hcaptcha/loader'],
+            'drupalSettings' => [
+              'hcaptcha' => [
+                'src' => Url::fromUri($hcaptcha_src, [
+                  'query' => [
+                    'hl' => \Drupal::service('language_manager')->getCurrentLanguage()->getId(),
+                    'render' => 'explicit',
+                    'onload' => 'drupalHcaptchaOnload',
+                  ],
+                  'absolute' => true,
+                ])->toString()
+              ],
+            ],
+          ];
+        } else {
+          // Fallback to Math captcha as hCaptcha is not configured.
+          $captcha = captcha_captcha('generate', 'Math');
+        }
+
+        // If module configuration changes the form cache need to be refreshed.
+        $renderer->addCacheableDependency($captcha['form'], $config);
+      }
+      return $captcha;
+  }
+}
+
+/**
+ * CAPTCHA Callback; Validates the hCaptcha code.
+ */
+function hcaptcha_captcha_validation($solution, $response, $element, $form_state) {
+  $config = \Drupal::config('hcaptcha.settings');
+
+  $hcaptcha_site_key = $config->get('site_key');
+  $hcaptcha_secret_key = $config->get('secret_key');
+  $hcaptcha_max_score = $config->get('widget.max_score');
+
+  if (!isset($_POST['h-captcha-response']) || empty($_POST['h-captcha-response']) || empty($hcaptcha_secret_key)) {
+    return false;
+  }
+
+  $captcha = new HCaptcha($hcaptcha_site_key, $hcaptcha_secret_key, array(), new Drupal8Post());
+  $captcha->validate($_POST['h-captcha-response'], \Drupal::request()->getClientIp(), $hcaptcha_max_score);
+
+  if ($captcha->isSuccess()) {
+    // Verified!
+    return true;
+  } else {
+    foreach ($captcha->getErrors() as $error) {
+      \Drupal::logger('hCaptcha')->error('@error', ['@error' => $error]);
+    }
+  }
+  return false;
+}
+
+/**
+ * Implements hook_help().
+ */
+function hcaptcha_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+
+    case 'help.page.hcaptcha':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('hCaptcha is designed to solve the most labor intensive problem in machine learning: labeling massive amounts of data in a timely, affordable, and reliable way.') . '</p>';
+      $output .= '<p>' . t('More data generally produces better results in training machine learning models. The recent success of deep models has led to increasingly large datasets, almost always with some human review. However, creating large human-reviewed datasets via Mechanical Turk, Crowdflower, etc. is both slow and expensive.') . '</p>';
+      $output .= '<p>' . t('hCaptcha allows websites to make money serving this demand while blocking bots and other forms of abuse.') . '</p>';
+
+      // Add a link to the Drupal.org project.
+      $output .= '<p>';
+      $output .= t('Visit the <a href=":project_link">hCaptcha project page</a> on Drupal.org for more information.',[
+        ':project_link' => 'https://www.drupal.org/project/hcaptcha'
+        ]);
+      $output .= '</p>';
+
+      return $output;
+
+    default:
+  }
+}

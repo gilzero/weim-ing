@@ -1,0 +1,2 @@
+maximum_lifetime: 2592000
+include_same_host: true

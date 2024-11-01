@@ -1,0 +1,7 @@
+push_framework.settings:
+  path: '/admin/config/system/push_framework'
+  defaults:
+    _title: 'Push Framework'
+    _form: 'Drupal\push_framework\Form\SettingsGeneral'
+  requirements:
+    _permission: 'administer site configuration'

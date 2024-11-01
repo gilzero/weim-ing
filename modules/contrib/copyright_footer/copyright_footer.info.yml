@@ -1,0 +1,11 @@
+name: Copyright Footer
+type: module
+description: Provides a block for Copyright indication.
+core_version_requirement: ^9 || ^10 || ^11
+dependencies:
+  - drupal:block
+
+# Information added by Drupal.org packaging script on 2024-08-13
+version: '3.1.1'
+project: 'copyright_footer'
+datestamp: 1723584666

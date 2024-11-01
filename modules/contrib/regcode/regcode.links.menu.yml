@@ -1,0 +1,5 @@
+regcode.admin_list:
+  title: 'Registration codes'
+  description: 'Manage registration codes.'
+  route_name: view.regcode.page_admin
+  parent: user.admin_index

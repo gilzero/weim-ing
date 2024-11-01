@@ -1,0 +1,13 @@
+ai_provider_aws_bedrock.settings:
+  type: mapping
+  label: 'AWS Bedrock Settings'
+  mapping:
+    profile:
+      type: string
+      label: 'The profile to use for the request.'
+    moderation:
+      type: boolean
+      label: 'Enable moderation requests before each request.'
+    on_demand:
+      type: boolean
+      label: 'Only show on-demand models.'

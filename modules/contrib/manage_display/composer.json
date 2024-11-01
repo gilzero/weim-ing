@@ -1,0 +1,26 @@
+{
+  "name": "drupal/manage_display",
+  "description": "This project makes base fields such as 'title' available in 'Manage Display'.",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "keywords": ["Drupal"],
+  "homepage": "https://www.drupal.org/project/manage_display",
+  "authors": [
+    {
+      "name": "Adam Shepherd (AdamPS)",
+      "homepage": "https://www.drupal.org/u/adamps",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Viktor Holovachek (AstonVictor)",
+      "homepage": "https://www.drupal.org/u/astonvictor",
+      "role": "Maintainer"
+    }
+  ],
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/manage_display",
+    "source": "https://git.drupalcode.org/project/manage_display"
+  },
+  "require": {  }
+}

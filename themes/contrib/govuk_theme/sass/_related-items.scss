@@ -1,0 +1,35 @@
+// This is an experimental component:
+// @see https://government-frontend.herokuapp.com/component-guide/related_navigation
+// @see https://github.com/alphagov/govuk-design-system-backlog/issues/86
+
+.app-related-items {
+  border-top: 2px solid govuk-colour("blue");
+  padding-top: govuk-spacing(2);
+}
+
+.app-related-items .govuk-list > li {
+  margin-bottom: govuk-spacing(2);
+}
+ul.links.inline {
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  margin-top: 25px;
+  margin-bottom: 40px;
+
+  li {
+    margin-right: 20px;
+    a {
+      background-color: #1d70b8;
+      color: #fff;
+      padding: 8px 20px;
+      border: 1px solid #1d70b8;
+      border-radius: 5px;
+      text-decoration: none;
+      &:hover {
+        background-color: #003078;
+        border: 1px solid #003078;
+      }
+    }
+  }
+}

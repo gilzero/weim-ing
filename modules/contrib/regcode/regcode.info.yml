@@ -1,0 +1,16 @@
+name: Registration codes
+type: module
+description: 'Provides functionality for using/enabling/requiring registration codes upon user registration.'
+package: Registration
+core_version_requirement: ^10.3 || ^11
+dependencies:
+  - drupal:views
+test_dependencies:
+  - rules:rules
+
+configure: regcode.admin_settings
+
+# Information added by Drupal.org packaging script on 2024-10-28
+version: '2.0.1'
+project: 'regcode'
+datestamp: 1730074650

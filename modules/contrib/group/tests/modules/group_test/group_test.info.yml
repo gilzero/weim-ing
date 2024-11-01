@@ -1,0 +1,13 @@
+name: 'Group test'
+description: 'Support module for Group tests.'
+package: 'Testing'
+type: 'module'
+core_version_requirement: ^10.3 || ^11
+dependencies:
+  - 'group:group'
+  - 'drupal:user'
+
+# Information added by Drupal.org packaging script on 2024-10-18
+version: '3.3.0'
+project: 'group'
+datestamp: 1729244040

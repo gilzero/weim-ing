@@ -1,0 +1,27 @@
+services:
+  ultimenu.base:
+    abstract: true
+    class: Drupal\ultimenu\UltimenuBase
+    parent: blazy.base
+
+  ultimenu.skin:
+    class: Drupal\ultimenu\UltimenuSkin
+    parent: ultimenu.base
+    calls:
+      - [setThemeHandler, ['@theme_handler']]
+      - [setFileSystem, ['@file_system']]
+
+  ultimenu.tool:
+    class: Drupal\ultimenu\UltimenuTool
+    arguments: ['@config.factory', '@current_user', '@path.matcher', '@path_alias.repository', '@info_parser', '@language_manager', '@transliteration']
+
+  ultimenu.tree:
+    class: Drupal\ultimenu\UltimenuTree
+    arguments: ['@menu.active_trail', '@module_handler']
+
+  ultimenu.manager:
+    class: Drupal\ultimenu\UltimenuManager
+    parent: ultimenu.base
+    calls:
+      - [setTree, ['@ultimenu.tree']]
+      - [setTool, ['@ultimenu.tool']]

@@ -1,0 +1,15 @@
+name: 'REST Log'
+type: module
+description: 'Logs REST API requests and responses.'
+package: Web services
+core_version_requirement: ^8 || ^9 || ^10 || ^11
+configure: rest_log.settings
+dependencies:
+  - drupal:rest
+  - drupal:views
+  - drupal:file
+
+# Information added by Drupal.org packaging script on 2024-10-17
+version: '2.3.1'
+project: 'rest_log'
+datestamp: 1729195148

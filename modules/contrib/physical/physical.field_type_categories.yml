@@ -1,0 +1,4 @@
+physical:
+  label: 'Physical'
+  description: 'Physical related field types.'
+  weight: -40

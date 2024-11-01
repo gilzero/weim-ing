@@ -1,0 +1,9 @@
+video {
+  background: var(--black);
+}
+
+@media (max-width: $screen-sm-max) {
+  video {
+    width: 100% !important;
+  }
+}

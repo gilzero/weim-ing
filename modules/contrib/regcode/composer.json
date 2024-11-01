@@ -1,0 +1,17 @@
+{
+    "name": "drupal/regcode",
+    "description": "Provides functionality for using/enabling/requiring registration codes upon user registration.",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://www.drupal.org/project/regcode",
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/regcode",
+        "source": "https://git.drupalcode.org/project/regcode"
+    },
+    "require": {
+        "drupal/core": "^10.3 || ^11"
+    },
+    "require-dev": {
+        "drupal/rules": "^4.0"
+    }
+}

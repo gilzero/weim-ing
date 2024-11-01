@@ -1,0 +1,69 @@
+/**
+ * @file
+ *
+ * .is-ultimobile is defined via JS, see ultimenu.css.
+ * .is-ultimenu__canvas-off: #header or .region-primary-menu, etc.
+ * .is-ultimenu__canvas-on: any sibling of #header.
+ *
+ * Tips: Use blazy:3.0.7 to have [no-]touchevents HTML classes.
+ * Note the `transform` transitions, it is faster and smoother than `left` ones.
+ */
+
+@keyframes ultizoomin {
+  0% {
+    transform: scale3d(0.3, 0.3, 0.3);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale3d(1, 1, 1);
+    opacity: 1;
+  }
+}
+
+@keyframes ultizoomout {
+  0% {
+    transform: scale3d(1, 1, 1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale3d(0.3, 0.3, 0.3);
+    opacity: 0;
+  }
+}
+
+/** The #header alike element, out of canvas by default, can exist once. */
+html.is-ultimenu--active .is-ultimenu__canvas-off {
+  z-index: -1;
+  left: 0;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+}
+
+html.is-ultimenu.is-ultimenu--expanded .is-ultimenu__canvas-off {
+  z-index: 9998;
+  animation-name: ultizoomin;
+}
+
+html.is-ultimenu.is-ultimenu--hiding .is-ultimenu__canvas-off {
+  animation-name: ultizoomout;
+  animation-duration: 0.5s;
+}
+
+/**
+ * 944px = 58.999em with 16px base font.
+ * We are here at mobile devices.
+ * .is-ultimobile is for touch devices, see ultimenu.css.
+ */
+/** The #header alike element, out of canvas by default, can exist once. */
+html.is-ultimobile .is-ultimenu__canvas-off {
+  z-index: -1;
+}
+
+html.is-ultimobile.is-ultimenu--expanded .is-ultimenu__canvas-off {
+  z-index: 9998;
+}

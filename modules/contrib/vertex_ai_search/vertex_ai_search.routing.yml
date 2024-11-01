@@ -1,0 +1,7 @@
+vertex_ai_search.autocomplete:
+  path: '/vertex_autocomplete/{search_page_id}'
+  defaults:
+    _controller: '\Drupal\vertex_ai_search\Controller\AutocompleteController::handleAutocomplete'
+    _format: json
+  requirements:
+    _access: 'TRUE'

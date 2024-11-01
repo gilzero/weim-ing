@@ -1,0 +1,8 @@
+<div class="vais-form-elements">
+  <div class="vais-element vais-keys">  {{ form.keys }} </div>
+  <div class="vais-element vais-page"> {{ form.searchPage }} </div>
+  <div class="vais-element vais-submit"> {{ form.submit }} </div>
+</div>
+<div class="vais-remainder">
+    {{ form |without('keys')|without('searchPage')|without('submit')}}
+</div> 

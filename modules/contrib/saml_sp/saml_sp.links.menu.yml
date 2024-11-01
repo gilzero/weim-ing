@@ -1,0 +1,12 @@
+saml_sp.admin:
+  title: 'SAML'
+  route_name: saml_sp.admin
+  description: 'Configuration SAML Service and Identity Providers'
+  parent: user.admin_index
+entity.idp.collection:
+  title: 'Identity Providers'
+  route_name: entity.idp.collection
+  parent: saml_sp.admin
+  description: 'Configure Identity Providers.'
+  position: left
+  weight: -20

@@ -1,0 +1,103 @@
+.form-item {
+  margin-top: $spacing * 2;
+  margin-bottom: $spacing * 2;
+  max-width: $ms;
+
+  &.js-form-type-vertical-tabs {
+    max-width: none;
+  }
+
+  .form-item {
+    margin-top: $spacing;
+    margin-bottom: $spacing;
+  }
+
+  legend,
+  label:not(.mdc-text-field):not(.option) {
+    font-size: $font-size-text-small;
+    line-height: $line-height-text-small;
+  }
+
+  label:not(.mdc-text-field):not(.option) {
+    display: block;
+    margin-bottom: $spacing;
+  }
+
+  .description {
+    font-size: $font-size-caption;
+    line-height: $line-height-caption;
+  }
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  margin: $spacing * 2 0;
+  gap: $spacing;
+  max-width: $ms;
+
+  &.full-width {
+    max-width: none;
+  }
+
+  & > .full-width {
+    width: 100%;
+  }
+}
+
+details {
+  margin-top: $spacing * 2;
+  margin-bottom: $spacing * 2;
+  padding: ($spacing * 2) - 1;
+  border: 1px solid darken($color-bg-body, 10);
+  border-radius: 4px;
+
+  & > summary {
+    font-size: $font-size-text-small;
+    line-height: $line-height-text-small;
+  }
+
+  & > summary + .form-item {
+    margin-top: $spacing;
+  }
+
+  & > .form-item:last-child {
+    margin-bottom: 0;
+  }
+
+  &.vertical-tabs__pane > summary + .form-item {
+    margin-top: 0;
+  }
+}
+
+fieldset {
+  border: 1px solid darken($color-bg-body, 10);
+  margin-left: 0;
+  margin-right: 0;
+  padding: ($spacing * 2) - 1;
+  border-radius: 4px;
+}
+
+// Styles for clear button for text fields
+.input-clear {
+  outline: none;
+  padding: $spacing;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    color: lighten($color-text-base, 40);
+    fill: lighten($color-text-base, 40);
+    transition: fill .15s;
+  }
+
+  &:hover {
+    .input-clear__icon {
+      color: $color-text-base;
+      fill: $color-text-base;
+    }
+  }
+}

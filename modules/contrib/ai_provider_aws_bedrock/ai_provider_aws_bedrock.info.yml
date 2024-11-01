@@ -1,0 +1,16 @@
+name: AWS Bedrock Provider
+description: This enables the use of AWS Bedrock for the AI module.
+package: AI Providers
+type: module
+core_version_requirement: ^10.3 || ^11
+configure: ai_provider_aws_bedrock.settings_form
+
+dependencies:
+  - ai:ai
+  - key:key
+  - aws:aws
+
+# Information added by Drupal.org packaging script on 2024-09-18
+version: '1.0.0-beta1'
+project: 'ai_provider_aws_bedrock'
+datestamp: 1726653423

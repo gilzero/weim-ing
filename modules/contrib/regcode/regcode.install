@@ -1,0 +1,109 @@
+<?php
+
+/**
+ * @file
+ * Install, uninstall and scheme functions for the regcode module.
+ */
+
+// cspell:ignore lastused
+
+/**
+ * Implements hook_schema().
+ */
+function regcode_schema() {
+
+  // Definition for the regcode table.
+  $schema['regcode'] = [
+    'description' => 'Hold registration codes',
+    'fields' => [
+      'rid' => [
+        'description' => 'RID',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'uid' => [
+        'description' => 'User ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+      ],
+      'created' => [
+        'description' => 'Code creation time',
+        'type' => 'int',
+        'not null' => FALSE,
+      ],
+      'lastused' => [
+        'description' => 'Code last used time',
+        'type' => 'int',
+        'not null' => FALSE,
+      ],
+      'begins' => [
+        'description' => 'Code activation date',
+        'type' => 'int',
+        'not null' => FALSE,
+      ],
+      'expires' => [
+        'description' => 'Code expiry date',
+        'type' => 'int',
+        'not null' => FALSE,
+      ],
+      'code' => [
+        'description' => 'The registration code',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'is_active' => [
+        'description' => 'Whether the code is active',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+      ],
+      'maxuses' => [
+        'description' => 'Maximum times a code can be used',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+      ],
+      'uses' => [
+        'description' => 'Number of times the code has been used',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => ['rid'],
+    'unique keys' => [
+      'code' => ['code'],
+    ],
+  ];
+
+  return $schema;
+}
+
+/**
+ * Change default regcode View to use plain_text instead of full_html.
+ */
+function regcode_update_10200() {
+  $config = \Drupal::configFactory()->getEditable('views.view.regcode');
+  $key = 'display.default.display_options.empty.area.content';
+  $key_format = $key . '.format';
+  $key_value = $key . '.value';
+
+  // The assumption here is that if the format of the $key is something other
+  // than full_html, or if the value of the $key is something other than the
+  // default string, then the site builder must have deliberately changed it.
+  // In that case we shouldn't mess with the values chosen by the site builder.
+  if ($config->get($key_format) === 'full_html'
+    && $config->get($key_value) === 'You have not created any registration codes.') {
+    $config->set($key_format, 'plain_text');
+    $config->set($key_value, 'No registration codes have been created.');
+    $config->save(TRUE);
+  }
+
+}

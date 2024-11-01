@@ -1,0 +1,4 @@
+create modules:
+  title: 'Create modules'
+  decription: 'Generate module code with Module Builder'
+  restrict access: true

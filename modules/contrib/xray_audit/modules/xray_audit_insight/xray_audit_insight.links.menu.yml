@@ -1,0 +1,6 @@
+xray_audit_insight.settings_form:
+  title: 'Xray Audit Insight'
+  route_name: xray_audit_insight.settings_form
+  description: 'Configure Xray Audit Insight module.'
+  parent: system.admin_config_development
+  weight: 99

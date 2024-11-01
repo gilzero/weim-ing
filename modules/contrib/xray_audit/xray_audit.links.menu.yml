@@ -1,0 +1,5 @@
+xray_audit.home:
+  route_name: xray_audit.home
+  parent: system.admin_reports
+  title: 'Xray Audit Reports'
+  description: 'Get different type of data about this Drupal installation'

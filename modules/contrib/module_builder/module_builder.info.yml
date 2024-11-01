@@ -1,0 +1,11 @@
+name: Module Builder
+description: 'Builds scaffolding for custom modules.'
+package: Development
+configure: module_builder.settings
+type: module
+core_version_requirement: ^8 || ^9 || ^10 || ^11
+
+# Information added by Drupal.org packaging script on 2024-10-19
+version: '4.0.6'
+project: 'module_builder'
+datestamp: 1729364445

@@ -1,0 +1,64 @@
+:root {
+  /*
+   * This is default Farmers market color scheme. It will be overriden when you change it in theme settings.
+   */
+  --color-top: #712c1e;
+  --color-bottom: #ffd34e;
+  --color-bg: #ffffff;
+  --color-sidebar: #105b63;
+  --color-sidebarborders: #fffad5;
+  --color-footer: #db9e36;
+  --color-titleslogan: #ffd147;
+  --color-text: #333333;
+  --color-link: #534400;
+  /* static colors */
+  --color-ui: #712c1e;
+  --color-ui-hover: #db9e36;
+  --color-ui-bg: #ffffff;
+  --color-ui-text: #333333;
+  --color-danger: #ff0000;
+  --color-status: #712c1e;
+  --color-warning: #db9e36;
+  /*
+   * Typography.
+   */
+  --font-family: "Open Sans", Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  --font-family-headings: "Lobster", cursive, sans-serif;
+  --line-height: 1.5;
+  --line-height-heading: 1.3;
+  --font-size-base: 1rem; /* 1rem = 16px if font root is 100% ands browser defaults are used. */
+  --font-size-h1: 4rem; /* ~64px */
+  --font-size-h2: 3rem; /* ~48px */
+  --font-size-h3: 2rem; /* ~32px */
+  --font-size-h4: 1.5rem; /* ~24px */
+  --font-size-h5: 1.25rem; /* ~20px */
+  --font-size-h6: 1rem; /* 16px */
+  --font-size-s: 0.889rem; /* ~14px */
+  --font-size-xs: 0.79rem; /* ~13px */
+  --font-size-xxs: 0.702rem; /* ~11px */
+  --font-size-label: var(--font-size-s);
+  --font-size-description: var(--font-size-xs);
+  /**
+   * Spaces.
+   */
+  --space-xxl: 4rem; /* 4 * 16px = 64px */
+  --space-xl: 3rem; /* 3 * 16px = 48px */
+  --space-l: 2rem; /* 2 * 16px = 32px */
+  --space-m: 1rem; /* 1 * 16px = 16px */
+  --space-s: 0.75rem; /* 0.75 * 16px = 12px */
+  --space-xs: 0.5rem; /* 0.5 * 16px = 8px */
+  --space-xxs: 0.25rem; /* 0.25 * 16px = 4px */
+  --site-max-width: 120rem; /* 120 * 16px = 1920px */
+  --site-content-max-width: 101.25rem; /* 101.25 * 16px = 1620px */
+  /**
+   * Common.
+   */
+  --focus-outline: 5px dashed transparent;
+  --focus-box-shadow: 0 0 0 1px var(--color-ui-bg), 0 0 0 4px var(--color-ui);
+  --transition-hover: background-color 0.3s ease-out;
+  --transition-hover-rotate: transform 0.3s ease-out;
+  /**
+   * Inputs.
+   */
+  --input-border-size: 3px;
+}

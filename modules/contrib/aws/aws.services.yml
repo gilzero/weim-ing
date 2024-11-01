@@ -1,0 +1,15 @@
+services:
+  plugin.manager.aws_service_manager:
+    class: Drupal\aws\ServiceManager
+    arguments: ['@module_handler', '@cache.discovery']
+
+  aws:
+    class: Drupal\aws\Aws
+    calls:
+      - [setConfigFactory, ['@config.factory']]
+      - [setEntityTypeManager, ['@entity_type.manager']]
+
+  aws.client_factory:
+    class: Drupal\aws\AwsClientFactory
+    calls:
+      - [setAws, ['@aws']]

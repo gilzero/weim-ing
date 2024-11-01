@@ -1,0 +1,19 @@
+{% if content %}
+  <div {{ attributes.addClass('moderation-dashboard') }}>
+    {% if content.left %}
+      <div {{ region_attributes.left.addClass('layout__region', 'moderation-dashboard-region') }}>
+        {{ content.left }}
+      </div>
+    {% endif %}
+    {% if content.middle %}
+      <div {{ region_attributes.middle.addClass('layout__region', 'moderation-dashboard-region') }}>
+        {{ content.middle }}
+      </div>
+    {% endif %}
+    {% if content.right %}
+      <div {{ region_attributes.right.addClass('layout__region', 'moderation-dashboard-region') }}>
+        {{ content.right }}
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the MaxLength module.
+ */
+
+use Drupal\Core\Url;
+
+/**
+* Implements hook_install().
+*/
+function maxlength_install() {
+  $linkUrl = Url::fromUri('internal:/admin/help/maxlength');
+  $link = [
+    '#type' => 'link',
+    '#title' => t('MaxLength Help Page'),
+    '#url' => $linkUrl,
+  ];
+  \Drupal::messenger()->addMessage(t("To set a character limit on a field, visit the Manage form display administration page for the entity the field is associated with. See the @link for more information.
+  ", ['@link' => \Drupal::service('renderer')->renderPlain($link)]));
+}

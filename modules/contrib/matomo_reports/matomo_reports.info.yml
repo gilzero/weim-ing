@@ -1,0 +1,11 @@
+name: 'Matomo Reports'
+type: module
+description: 'Display analytics reports from Matomo server.'
+core_version_requirement: ^9 || ^10 || ^11
+package: 'Statistics'
+configure: matomo_reports.matomo_reports_settings
+
+# Information added by Drupal.org packaging script on 2024-06-01
+version: '8.x-1.6'
+project: 'matomo_reports'
+datestamp: 1717204428

@@ -1,0 +1,37 @@
+includes:
+    - phpstan-baseline.neon
+
+parameters:
+  level: 2
+  ignoreErrors:
+    # new static() is a best practice in Drupal, so we cannot fix that.
+    - "#^Unsafe usage of new static#"
+    # Entity property $original is common in Drupal.
+    - "#^Access to an undefined property [a-zA-Z0-9\\\\]+\\:\\:\\$original.#"
+    # Ignore common errors for now.
+    - "#Drupal calls should be avoided in classes, use dependency injection instead#"
+    # Can only remove use of membership loader in 4.0.0
+    - "#^Fetching class constant class of deprecated class Drupal\\\\group\\\\GroupMembership\\:#"
+    - "#^Fetching class constant class of deprecated interface Drupal\\\\group\\\\GroupMembershipLoaderInterface\\:#"
+    - "#has typehint with deprecated class Drupal\\\\group\\\\GroupMembership\\:#"
+    - "#has typehint with deprecated interface Drupal\\\\group\\\\GroupMembershipLoaderInterface\\:#"
+    - "#^Constructor of class Drupal\\\\group\\\\GroupMembershipLoader has an unused parameter#"
+  drupal:
+    entityMapping:
+      group:
+        class: Drupal\group\Entity\Group
+        storage: Drupal\group\Entity\Storage\GroupStorage
+      group_config_wrapper:
+        class: Drupal\group\Entity\ConfigWrapper
+        storage: Drupal\group\Entity\Storage\ConfigWrapperStorage
+      group_relationship:
+        class: Drupal\group\Entity\GroupRelationship
+        storage: Drupal\group\Entity\Storage\GroupRelationshipStorage
+      group_relationship_type:
+        class: Drupal\group\Entity\GroupRelationshipType
+        storage: Drupal\group\Entity\Storage\GroupRelationshipTypeStorage
+      group_role:
+        class: Drupal\group\Entity\GroupRole
+        storage: Drupal\group\Entity\Storage\GroupRoleStorage
+      group_type:
+        class: Drupal\group\Entity\GroupType

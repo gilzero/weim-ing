@@ -1,0 +1,177 @@
+global:
+  css:
+    theme:
+      css/tweaks.css: {}
+      css/drupal-overrides.css: {}
+      css/bulma-overrides.css: {}
+  dependencies:
+    - drulma/bulma
+
+bulma:
+  remote: https://github.com/jgthms/bulma
+  version: 0.9.1
+  license:
+    name: MIT
+    url: https://github.com/jgthms/bulma/blob/master/LICENSE
+    gpl-compatible: true
+  css:
+    base:
+      https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css:
+        type: external
+        minified: true
+  libraries_provider:
+    enabled: true
+    source: cdn.jsdelivr.net
+    custom_options:
+      requirements:
+        libraries:
+          drulma__bulma: local
+        extensions:
+          sass: https://github.com/absalomedia/sassphp
+      schema: "libraries_provider/custom_options.schema.[library:version].json"
+      process:
+        sass:
+          source:
+            - "custom_options"
+            - "libraries/bulma/bulma.sass"
+    blacklist_releases:
+      - 0.7.3
+
+drulmajs:
+  js:
+    js/drulma.js: {}
+  dependencies:
+    - drulma/bulmajs
+    - core/drupal
+
+bulmajs:
+  remote: https://github.com/VizuaaLOG/BulmaJS
+  version: 0.11.0
+  license:
+    name: MIT
+    url: https://github.com/VizuaaLOG/BulmaJS/blob/master/LICENSE
+    gpl-compatible: true
+  js:
+    https://cdn.jsdelivr.net/npm/@vizuaalog/bulmajs@0.11.0/dist/bulma.js:
+      type: external
+      minified: false
+  libraries_provider:
+    enabled: true
+    source: cdn.jsdelivr.net
+    npm_name: '@vizuaalog/bulmajs'
+    # The release does not provide minified versions.
+    minified: never
+
+bulmaswatch:
+  remote: https://github.com/jenil/bulmaswatch
+  version: 0.8.1
+  license:
+    name: MIT
+    url: https://github.com/jenil/bulmaswatch/blob/gh-pages/LICENSE
+    gpl-compatible: true
+  css:
+    base:
+      https://cdn.jsdelivr.net/npm/bulmaswatch@0.8.1/default/bulmaswatch.min.css:
+        type: external
+        minified: true
+  libraries_provider:
+    enabled: false
+    source: cdn.jsdelivr.net
+    # The release only provides minified versions.
+    minified: always
+    custom_options:
+      requirements:
+        libraries:
+          drulma__bulma: local
+          drulma__bulmaswatch: local
+        extensions:
+          sass: https://github.com/absalomedia/sassphp
+      schema: "libraries_provider/custom_options.schema.[library:version].json"
+      process:
+        sass:
+          source:
+            - "libraries/bulmaswatch/[library:variant]/_variables.scss"
+            - "custom_options"
+            - "libraries/bulma/bulma.sass"
+            - "libraries/bulmaswatch/[library:variant]/_overrides.scss"
+    replaces:
+      - drulma__bulma
+    variant: 'default'
+    variant_regex: '~^\/[A-Za-z]+~'
+    variants_available:
+      - name: Cerulean
+        description: A calm blue sky
+        url: https://jenil.github.io/bulmaswatch/cerulean/
+      - name: Cosmo
+        description: An ode to Metro
+        url: https://jenil.github.io/bulmaswatch/cosmo/
+      - name: Cyborg
+        description: Jet black and electric blue
+        url: https://jenil.github.io/bulmaswatch/cyborg/
+      - name: Darkly
+        description: Flatly in night-mode
+        url: https://jenil.github.io/bulmaswatch/darkly/
+      - name: Default
+        description: Bulma as-is
+        url: https://jenil.github.io/bulmaswatch/default/
+      - name: Flatly
+        description: Flat and thick
+        url: https://jenil.github.io/bulmaswatch/flatly/
+      - name: Journal
+        description: Crisp like a new sheet of paper
+        url: https://jenil.github.io/bulmaswatch/journal/
+      - name: Litera
+        description: The medium is the message
+        url: https://jenil.github.io/bulmaswatch/litera/
+      - name: Lumen
+        description: Light and shadow
+        url: https://jenil.github.io/bulmaswatch/lumen/
+      - name: Lux
+        description: A touch of class
+        url: https://jenil.github.io/bulmaswatch/lux/
+      - name: Materia
+        description: Material is the metaphor
+        url: https://jenil.github.io/bulmaswatch/materia/
+      - name: Minty
+        description: A fresh feel
+        url: https://jenil.github.io/bulmaswatch/minty/
+      - name: Nuclear
+        description: A dark theme with irradiated highlights
+        url: https://jenil.github.io/bulmaswatch/nuclear/
+      - name: Pulse
+        description: A trace of purple
+        url: https://jenil.github.io/bulmaswatch/pulse/
+      - name: Sandstone
+        description: A touch of warmth
+        url: https://jenil.github.io/bulmaswatch/sandstone/
+      - name: Simplex
+        description: Mini and minimalist
+        url: https://jenil.github.io/bulmaswatch/simplex/
+      - name: Slate
+        description: Shades of gunmetal gray
+        url: https://jenil.github.io/bulmaswatch/slate/
+      - name: Solar
+        description: A spin on Solarized
+        url: https://jenil.github.io/bulmaswatch/solar/
+      - name: Spacelab
+        description: Silvery and sleek
+        url: https://jenil.github.io/bulmaswatch/spacelab/
+      - name: Superhero
+        description: The brave and the blue
+        url: https://jenil.github.io/bulmaswatch/superhero/
+        thumb: https://jenil.github.io/bulmaswatch/thumb/?superhero
+      - name: United
+        description: Ubuntu orange and unique font
+        url: https://jenil.github.io/bulmaswatch/united/
+      - name: Yeti
+        description: A friendly foundation
+        url: https://jenil.github.io/bulmaswatch/yeti/
+
+# libraries-extend from the .info.yml file.
+drupal.contextual-links:
+  css:
+    component:
+      css/contextual.module.css: {}
+drupal.dropbutton:
+  js:
+    js/dropbutton.js: {}

@@ -1,0 +1,17 @@
+regcode.admin_create:
+  title: Create
+  route_name: regcode.admin_create
+  base_route: view.regcode.page_admin
+  weight: 20
+
+regcode.admin_manage:
+  title: Manage
+  route_name: regcode.admin_manage
+  base_route: view.regcode.page_admin
+  weight: 30
+  
+regcode.admin_settings:
+  title: Settings
+  route_name: regcode.admin_settings
+  base_route: view.regcode.page_admin
+  weight: 40

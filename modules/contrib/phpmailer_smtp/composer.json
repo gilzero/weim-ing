@@ -1,0 +1,21 @@
+{
+	  "name": "drupal/phpmailer_smtp",
+  "type": "drupal-module",
+  "description": "Uses the PHPMailer library to send emails via SMTP.",
+  "homepage": "https://drupal.org/project/phpmailer_smtp",
+  "license": "GPL-2.0+",
+  "require": {
+    "phpmailer/phpmailer": "^6.9.1"
+  },
+  "authors": [
+    {
+      "name": "Ian McLean (imclean)",
+      "homepage": "http://drupal.org/u/imclean"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/phpmailer_smtp",
+    "source": "https://git.drupalcode.org/project/phpmailer_smtp"
+  },
+  "keywords": ["drupal", "phpmailer", "smtp", "email", "mail", "mailsystem", "mail system"]
+}

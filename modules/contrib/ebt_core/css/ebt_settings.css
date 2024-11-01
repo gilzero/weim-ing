@@ -1,0 +1,411 @@
+.colorpicker {
+  z-index: 600;
+}
+
+.paragraph-type-title {
+  font-size: 16px;
+}
+
+#drupal-off-canvas .confirm-remove input[type=submit].button,
+#drupal-off-canvas .restore input[type=submit].button {
+  background: none;
+}
+
+/**
+ * tab content
+ */
+body.js-off-canvas-dialog-open #drupal-off-canvas div.field-group-htabs-wrapper .field-group-format-wrapper {
+  clear: both;
+  padding: 0 0 0.6em;
+}
+
+#drupal-off-canvas td .form-type-textfield {
+  margin-bottom: 10px;
+}
+
+#drupal-off-canvas .horizontal-tabs-pane details > summary,
+#drupal-off-canvas details > summary {
+  background: #555;
+}
+
+#drupal-off-canvas .horizontal-tabs-pane details[open] > summary,
+#drupal-off-canvas details[open] > summary,
+.field--name-field-ebt-settings .horizontal-tabs-pane details[open] > summary {
+  color: #eee;
+  background-color: #333;
+}
+
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs-pane details summary,
+body.js-off-canvas-dialog-open #drupal-off-canvas details summary,
+.field--name-field-ebt-settings .horizontal-tabs-pane details summary {
+  cursor: pointer;
+}
+
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs-pane details,
+body.js-off-canvas-dialog-open #drupal-off-canvas details,
+.field--name-field-ebt-settings .horizontal-tabs-pane details {
+  margin: 0 -10px;
+  padding: 0 10px;
+}
+
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs-pane details > summary:first-of-type,
+body.js-off-canvas-dialog-open #drupal-off-canvas details > summary:first-of-type,
+.field--name-field-ebt-settings .horizontal-tabs-pane details > summary:first-of-type {
+  display: list-item;
+  counter-increment: list-item 0;
+  list-style: inside disclosure-closed;
+  list-style-position: inside;
+  list-style-image: initial;
+  list-style-type: disclosure-closed;
+}
+
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs-pane details[open] > summary:first-of-type,
+body.js-off-canvas-dialog-open #drupal-off-canvas details[open] > summary:first-of-type,
+.field--name-field-ebt-settings .horizontal-tabs-pane details[open] > summary:first-of-type {
+  list-style-type: disclosure-open;
+}
+
+#drupal-off-canvas .horizontal-tabs-pane details[open] > summary:hover,
+#drupal-off-canvas details[open] > summary:hover,
+.horizontal-tabs-pane details[open] > summary:hover {
+  cursor: pointer;
+}
+
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs-pane .details-wrapper .details-wrapper,
+body.js-off-canvas-dialog-open #drupal-off-canvas .details-wrapper .details-wrapper,
+.horizontal-tabs-pane .details-wrapper .details-wrapper {
+  padding-left: 30px;
+}
+
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs-pane .details-wrapper .detaildesign-options__border-boxs-wrapper details > summary,
+body.js-off-canvas-dialog-open #drupal-off-canvas .details-wrapper .detaildesign-options__border-boxs-wrapper details > summary,
+.horizontal-tabs-pane .details-wrapper .detaildesign-options__border-boxs-wrapper details > summary {
+  padding-left: 30px;
+  margin-left: -30px;
+}
+
+#drupal-off-canvas .design-options__margin-box label,
+.field--name-field-ebt-settings .design-options__margin-box label {
+  color: #000;
+}
+
+#drupal-off-canvas .design-options__margin-box .form-item,
+.field--name-field-ebt-settings .design-options__margin-box .form-item,
+#drupal-off-canvas td .design-options__margin-box .form-item,
+td .design-options__margin-box .form-item {
+  margin: 0;
+}
+
+#drupal-off-canvas .design-options__margin-box input[type=text],
+.field--name-field-ebt-settings .design-options__margin-box input[type=text] {
+  margin: 0;
+}
+
+.design-options__margin-box label {
+  color: #000;
+}
+
+.design-options__margin-box {
+  background: #ffcca2;
+  border: 1px dashed #000;
+  position: relative;
+  color: #000;
+  padding: 3px;
+  height: 240px;
+  width: 443px;
+  margin-top: 20px;
+}
+
+.design-options__border-box {
+  background: #fcdc9f;
+  border: 1px solid #000;
+  padding: 3px;
+  margin: 2px;
+  position: relative;
+  left: 52px;
+  width: 328px;
+  height: 164px;
+  top: 15px;
+}
+
+.design-options__padding-box {
+  background: #c4cc8c;
+  border: 1px dashed #000;
+  padding: 3px;
+  margin: 3px;
+  position: relative;
+  left: 52px;
+  height: 90px;
+  width: 210px;
+  top: 12px;
+}
+
+.design-options__margin-box .form-item label {
+  display: none !important;
+}
+.design-options__margin-box input[type=text] {
+  width: 45px !important;
+  padding: 7px;
+}
+
+.claro-details__wrapper.details-wrapper .design-options__padding-box {
+  height: 125px;
+  top: 29px;
+}
+.claro-details__wrapper.details-wrapper .design-options__border-box {
+  height: 238px;
+  top: 29px;
+}
+.claro-details__wrapper.details-wrapper .design-options__margin-box {
+  height: 350px;
+}
+
+div[class$=design-options-box1-margin-top],
+div[class$=design-options-box1-box2-border-top],
+div[class$=design-options-box1-box2-box3-padding-top] {
+  position: absolute;
+  left: 50%;
+  margin-left: -14px !important;
+  top: 3px;
+}
+
+div[class$=design-options-box1-margin-right],
+div[class$=design-options-box1-box2-border-right],
+div[class$=design-options-box1-box2-box3-padding-right] {
+  position: absolute;
+  right: 3px;
+  top: 50%;
+  margin-top: -14px !important;
+}
+
+div[class$=design-options-box1-margin-bottom],
+div[class$=design-options-box1-box2-border-bottom],
+div[class$=design-options-box1-box2-box3-padding-bottom] {
+  position: absolute;
+  left: 50%;
+  margin-left: -14px !important;
+  bottom: 3px;
+}
+
+div[class$=design-options-box1-margin-left],
+div[class$=design-options-box1-box2-border-left],
+div[class$=design-options-box1-box2-box3-padding-left] {
+  position: absolute;
+  left: 3px;
+  top: 50%;
+  margin-top: -14px !important;
+}
+
+.design-options__logo-box {
+  position: absolute;
+  top: 50%;
+  margin-top: -9px;
+  left: 50%;
+  margin-left: -4px;
+  width: 24px;
+  white-space: nowrap;
+  height: 18px;
+  color: #81875d;
+}
+.design-options__logo-box label {
+  color: #81875d;
+  text-shadow: 1px 1px 2px #fff;
+}
+
+.js-off-canvas-dialog-open .dialog-off-canvas-main-canvas {
+  padding-right: 420px !important;
+}
+.js-off-canvas-dialog-open .ui-widget.ui-dialog.ui-dialog-off-canvas {
+  width: 420px !important;
+}
+.js-off-canvas-dialog-open .field-multiple-drag .tabledrag-handle {
+  margin-right: 0;
+  margin-left: 5px;
+}
+
+#drupal-off-canvas .design-options__margin-box .design-options__logo-box label {
+  color: #81875d;
+  text-shadow: 1px 1px 2px #fff;
+}
+#drupal-off-canvas td:first-child {
+  width: 40px;
+}
+#drupal-off-canvas tr th:first-child {
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 30px;
+}
+
+body.js-off-canvas-dialog-open #drupal-off-canvas tr th:first-child {
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 30px;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas th:first-child,
+body.js-off-canvas-dialog-open #drupal-off-canvas td:first-child {
+  width: 40px;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .field--name-thumbnail {
+  margin-bottom: 5px;
+  text-align: center;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .media-library-item__name {
+  margin-bottom: 10px;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas legend {
+  margin-bottom: 5px;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas legend .fieldset-legend {
+  font-size: 14px;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .form-textarea-wrapper {
+  margin-top: 3px;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .text-format-wrapper .form-type-textarea > label {
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .field--type-text-long {
+  margin-bottom: 15px;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .paragraphs-dropbutton-wrapper {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .tabledrag-toggle-weight-wrapper {
+  padding-top: 0;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas h4 {
+  margin-top: 0;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs-panes {
+  padding: 0 1em;
+  border: 0;
+  background-color: unset;
+  box-shadow: unset;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs-panes .horizontal-tabs-pane > summary {
+  display: none;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs {
+  margin: 0 0 1em 0;
+  padding: 0;
+  border: none;
+  position: relative;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tabs-list {
+  display: inline-block;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  list-style: none;
+  background: none;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+  height: auto;
+  clear: both;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs ul.horizontal-tabs-list :focus {
+  outline: none;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tab-button {
+  background: #eee;
+  border-right: 1px solid #888;
+  border-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0;
+  min-width: 5em;
+  float: left;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tab-button.first, body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tab-button.first a {
+  border-top-left-radius: 5px;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tab-button.last, body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tab-button.last a {
+  border-top-right-radius: 5px;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tab-button a {
+  display: block;
+  text-decoration: none;
+  padding: 0.5em 0.6em;
+  cursor: pointer;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tab-button li:hover,
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tab-button li:focus {
+  background-color: #ddd;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tab-button a:hover {
+  outline: none;
+  background-color: #fff;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tab-button a:focus strong,
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tab-button a:active strong,
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tab-button a:hover strong {
+  text-decoration: none;
+  outline: none;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tab-button.selected {
+  background-color: #fff;
+  border-bottom: 1px solid #fff;
+  margin-bottom: -1px;
+  padding-bottom: 0;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tab-button ul.horizontal-tabs-list li a,
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tab-button ul.horizontal-tabs-list li.selected a {
+  display: block;
+  text-decoration: none;
+  padding: 0.6em 1em;
+  position: relative;
+  top: 0;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tab-button .summary {
+  line-height: normal;
+  margin-bottom: 0;
+  display: block;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tab-button strong {
+  cursor: pointer;
+  color: #777;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tab-button.selected strong {
+  color: #000;
+}
+
+[dir=rtl] body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs {
+  margin: 0 0 1em 0;
+}
+[dir=rtl] body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tab-button {
+  border-right: 0;
+  border-left: 1px solid #888;
+  float: right;
+}
+[dir=rtl] body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tab-button.selected {
+  border-left-width: 0;
+  border-right-width: 1px;
+}
+[dir=rtl] body.js-off-canvas-dialog-open #drupal-off-canvas .horizontal-tabs .horizontal-tabs-list {
+  border-right: 0;
+  border-left: 1px solid #dedede;
+}
+
+@media only screen and (min-width: 1100px) {
+  .js-off-canvas-dialog-open .dialog-off-canvas-main-canvas {
+    padding-right: 520px !important;
+  }
+
+  .js-off-canvas-dialog-open .ui-widget.ui-dialog.ui-dialog-off-canvas {
+    width: 520px !important;
+  }
+}
+@media only screen and (min-width: 1600px) {
+  .js-off-canvas-dialog-open .dialog-off-canvas-main-canvas {
+    padding-right: 620px !important;
+  }
+
+  .js-off-canvas-dialog-open .ui-widget.ui-dialog.ui-dialog-off-canvas {
+    width: 620px !important;
+  }
+}
+.layout-builder .ebt-container .contextual {
+  right: 40px;
+}

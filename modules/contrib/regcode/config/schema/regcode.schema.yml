@@ -1,0 +1,19 @@
+regcode.settings:
+  type: config_object
+  label: Settings
+  mapping:
+    regcode_field_title:
+      type: label
+      label: 'Field label'
+    regcode_field_description:
+      type: text
+      label: 'Field description'
+    regcode_optional:
+      type: boolean
+      label: 'Make registration code optional'
+    regcode_generate_format:
+      type: string
+      label: 'Format of the generated codes'
+    regcode_generate_case:
+      type: boolean
+      label: 'Convert generated codes to uppercase'

@@ -1,0 +1,12 @@
+name: 'Length Indicator'
+description: 'Adds an optional length indicator to fields'
+type: module
+core_version_requirement: ^9.2 || ^10.0 || ^11
+dependencies:
+  - drupal:field
+package: Fields
+
+# Information added by Drupal.org packaging script on 2024-06-13
+version: '8.x-1.4'
+project: 'length_indicator'
+datestamp: 1718276252

@@ -1,0 +1,11 @@
+name: 'Security Review'
+type: module
+description: 'Site security and configuration review module.'
+package: Security
+core_version_requirement: ^10 || ^11
+configure: security_review.settings
+
+# Information added by Drupal.org packaging script on 2024-08-06
+version: '3.0.3'
+project: 'security_review'
+datestamp: 1722973233

@@ -1,0 +1,31 @@
+aws.profile.*:
+  type: config_entity
+  label: AWS Profile
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    name:
+      type: string
+      label: 'Name'
+    default:
+      type: integer
+      label: 'Default'
+    aws_role_arn:
+      type: string
+      label: 'Role ARN'
+    aws_role_session_name:
+      type: string
+      label: 'Role Session Name'
+    aws_access_key_id:
+      type: string
+      label: 'Access Key ID'
+    aws_secret_access_key:
+      type: string
+      label: 'Secret Access Key'
+    region:
+      type: string
+      label: 'Region'
+    encryption_profile:
+      type: string
+      label: 'Encryption Profile'

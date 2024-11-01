@@ -1,0 +1,5 @@
+services:
+  registration_code:
+    class: \Drupal\regcode\RegistrationCode
+    autowire: true
+  Drupal\regcode\RegistrationCodeInterface: '@registration_code'

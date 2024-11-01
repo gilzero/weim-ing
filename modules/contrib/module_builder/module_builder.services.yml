@@ -1,0 +1,13 @@
+services:
+  module_builder.drupal_code_builder:
+    class: Drupal\module_builder\DrupalCodeBuilder
+
+  module_builder.module_file_writer:
+    class: Drupal\module_builder\ModuleFileWriter
+    arguments:
+      - '@extension.list.module'
+      - '@file_system'
+
+  logger.channel.module_builder:
+    parent: logger.channel_base
+    arguments: ['module_builder']

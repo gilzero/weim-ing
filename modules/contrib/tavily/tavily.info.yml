@@ -1,0 +1,14 @@
+name: Tavily Core
+description: Core module for doing calls to Tavily including AI Automators.
+package: AI
+type: module
+core_version_requirement: ^10.3 || ^11
+configure: tavily.settings
+
+dependencies:
+  - key:key
+
+# Information added by Drupal.org packaging script on 2024-07-06
+version: '2.0.0-rc2'
+project: 'tavily'
+datestamp: 1720254323

@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @file
+ * Contains rest_log.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function rest_log_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the rest_log module.
+    case 'help.page.rest_log':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('all rest log') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function rest_log_cron() {
+  // Automatic cleanup is disabled if $maximum_lifetime set to 0.
+  $maximum_lifetime = \Drupal::config('rest_log.settings')->get('maximum_lifetime');
+  if (!$maximum_lifetime) {
+    return;
+  }
+
+  // Only delete logs if older than $time - $maximum_lifetime.
+  $current_time = \Drupal::time()->getCurrentTime();
+  $connection = \Drupal::database();
+  $time = $current_time - $maximum_lifetime;
+  $number_of_rows = $connection->select('rest_log')
+    ->condition('created', $time, '<')
+    ->countQuery()
+    ->execute()
+    ->fetchField();
+  $chunks = ceil($number_of_rows / 10000);
+  for ($i = 0; $i < $chunks; $i++) {
+    $connection->query('DELETE FROM {rest_log} WHERE created < :time LIMIT 10000', [':time' => $time]);
+  }
+}

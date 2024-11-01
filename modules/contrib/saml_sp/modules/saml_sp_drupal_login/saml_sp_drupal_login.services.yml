@@ -1,0 +1,6 @@
+services:
+  saml_sp_drupal_login.event_subscriber:
+    class: Drupal\saml_sp_drupal_login\EventSubscriber\SamlSpDrupalLoginSubscriber
+    arguments: ['@config.factory', '@module_handler', '@current_user', '@messenger']
+    tags:
+      - { name: event_subscriber }

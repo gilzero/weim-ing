@@ -1,0 +1,22 @@
+{
+    "name": "drupal/saml_sp",
+    "description": "API module to validate SAML IdP (Identity Provider) credentials.",
+    "type": "drupal-module",
+    "homepage": "https://drupal.org/project/saml_sp",
+    "authors": [
+        {
+          "name": "James Glasgow (jrglasgow)",
+          "homepage": "https://www.drupal.org/u/jrglasgow",
+          "role": "Maintainer"
+        }
+    ],
+    "support": {
+        "issues": "https://drupal.org/project/issues/saml_sp",
+        "irc": "irc://irc.freenode.org/drupal-contribute",
+        "source": "http://cgit.drupalcode.org/saml_sp"
+    },
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "onelogin/php-saml": "^3.7.0 | ^4.2.0"
+    }
+}

@@ -1,0 +1,6 @@
+azure_ai_faq_bot.azure_ai_faq_bot_config_form:
+  title: Azure AI FAQ Bot
+  description: 'Configure the Direct Line Secret Key.'
+  parent: system.admin_config_services
+  route_name: azure_ai_faq_bot.azure_ai_faq_bot_config_form
+  weight: 10

@@ -1,0 +1,95 @@
+/**
+ * @file
+ * This file contains all Ultimenu vertical layout.
+ */
+
+/**
+ * Orientation.
+ * -vtr: vertical to right
+ * -vtl: vertical to left
+ * -htt: horizontal to top
+ * -htb: horizontal to bottom
+ */
+.ultimenu--vertical {
+  z-index: 96;
+  height: auto;
+}
+
+.ultimenu.ultimenu--vertical > li {
+  position: relative;
+  display: block;
+  float: none;
+}
+
+.ultimenu--vtr .ultimenu__flyout,
+.ultimenu--vtl .ultimenu__flyout {
+  top: 0;
+}
+
+.is-ultidesktop .ultimenu--vtr .ultimenu__flyout {
+  left: 100%; /* LTR */
+}
+
+.is-ultidesktop .ultimenu--vtl .ultimenu__flyout {
+  right: 100%; /* LTR */
+  left: auto; /* LTR */
+}
+
+[dir="rtl"].is-ultidesktop .ultimenu--vtr .ultimenu__flyout {
+  right: 100%;
+  left: auto;
+}
+
+[dir="rtl"].is-ultidesktop .ultimenu--vtl .ultimenu__flyout {
+  right: auto;
+  left: 100%;
+}
+
+.ultimenu--vertical .ultimenu__link {
+  padding: 0.5em var(--ultispace);
+}
+
+/**
+ * We are here at desktop up.
+ */
+@media all and (min-width: 944px) {
+  .ultimenu--vtl .ultimenu__flyout {
+    margin-right: var(--ultispace); /* LTR */
+  }
+
+  .ultimenu--vtr .ultimenu__flyout {
+    margin-left: var(--ultispace); /* LTR */
+  }
+
+  [dir="rtl"] .ultimenu--vtl .ultimenu__flyout {
+    margin-right: auto;
+    margin-left: var(--ultispace);
+  }
+
+  [dir="rtl"] .ultimenu--vtr .ultimenu__flyout {
+    margin-right: var(--ultispace);
+    margin-left: auto;
+  }
+
+  .ultimenu--vtl li:hover .ultimenu__flyout,
+  .ultimenu--vtl li.is-uitem-expanded .ultimenu__flyout {
+    margin-right: 0; /* LTR */
+  }
+
+  .ultimenu--vtr li:hover .ultimenu__flyout,
+  .ultimenu--vtr li.is-uitem-expanded .ultimenu__flyout {
+    margin-left: 0; /* LTR */
+  }
+
+  [dir="rtl"] .ultimenu--vtl li:hover .ultimenu__flyout,
+  [dir="rtl"] .ultimenu--vtl li.is-uitem-expanded .ultimenu__flyout {
+    margin-right: auto;
+    margin-left: 0;
+  }
+
+  [dir="rtl"] .ultimenu--vtr li:hover .ultimenu__flyout,
+  [dir="rtl"] .ultimenu--vtr li.is-uitem-expanded .ultimenu__flyout {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}

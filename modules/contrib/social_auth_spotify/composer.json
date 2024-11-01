@@ -1,0 +1,42 @@
+{
+  "name": "drupal/social_auth_spotify",
+  "type": "drupal-module",
+  "description": "Social Auth integration for Spotify.",
+  "keywords": [
+    "Drupal"
+  ],
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://www.drupal.org/project/social_auth_spotify",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/social_auth_spotify",
+    "source": "https://git.drupalcode.org/project/social_auth_spotify"
+  },
+  "authors": [
+    {
+      "name": "Owen Bush (owenbush)",
+      "email": "owen@obush.co.uk"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    }
+  ],
+  "require": {
+    "kerox/oauth2-spotify": "^2.0",
+    "drupal/social_auth": "^4.1",
+    "drupal/core": "^9.5 || ^10 || ^11"
+  },
+  "require-dev": {
+    "drupal/coder": "^8.3",
+    "phpcompatibility/php-compatibility": "^9.3"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}

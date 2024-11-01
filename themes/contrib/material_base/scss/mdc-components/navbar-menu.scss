@@ -1,0 +1,9 @@
+.navbar-menu--dropdown {
+  .mdc-menu-dropdown__toggle .icon {
+    transition: transform 0.25s;
+  }
+
+  .mdc-menu-dropdown--expanded .mdc-menu-dropdown__toggle .icon {
+    transform: rotate(180deg);
+  }
+}

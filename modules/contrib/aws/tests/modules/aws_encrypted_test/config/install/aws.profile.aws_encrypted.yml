@@ -1,0 +1,7 @@
+id: aws_encrypted
+name: AWS Encrypted
+default: 0
+aws_access_key_id: TestAccessKey
+aws_secret_access_key: def502002fd6de3f153b1d328e68d7c7a2c99b8869973b69a20b0ca5e951ff9cd5382861c7d1e46bdb4f0115c339dcf274289d3a788660af12b7572e5bd03498d05b880f81b94a71b1f1c8b62c264a64a25e23d11f3ca9a03635ffbe90b0cf433b
+region: us-east-1
+encryption_profile: aws_test_profile

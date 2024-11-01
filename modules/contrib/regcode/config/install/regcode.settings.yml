@@ -1,0 +1,5 @@
+regcode_optional: false
+regcode_generate_format: alpha
+regcode_generate_case: false
+regcode_field_title: 'Registration Code'
+regcode_field_description: 'Please enter your registration code.'

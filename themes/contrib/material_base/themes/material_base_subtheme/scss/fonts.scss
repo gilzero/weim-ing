@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+@import "theme/variables";
+@import "../../contrib/material_base/scss/base/variables"; // ! Check path
+
+// Define your fonts here
+
+// Google Fonts example:
+// Not worked properly with Drupal CSS aggregation
+// @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap');
+// Use old sytax
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Roboto:300,400,500,700&display=swap');
+
+// Self hosted fonts example (source folder is `fonts`):
+/*
+@font-face {
+  font-family: 'FONTNAME';
+  src: url('../fonts/FONTNAME-bold.woff2') format('woff2'),
+       url('../fonts/FONTNAME-bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FONTNAME';
+  src: url('../fonts/FONTNAME-medium.woff2') format('woff2'),
+       url('../fonts/FONTNAME-medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FONTNAME';
+  src: url('../fonts/FONTNAME-regular.woff2') format('woff2'),
+       url('../fonts/FONTNAME-regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+*/

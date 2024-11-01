@@ -1,0 +1,42 @@
+.node--view-mode-full {
+
+  .field--name-field-image {
+    margin-bottom: 25px;
+  }
+
+  .node-info {
+    margin-bottom: 30px;
+  }
+
+  @media (min-width: $screen-md-min) {
+
+    .node-info {
+      margin-bottom: 50px;
+    }
+  
+  }
+}
+
+#center.no-sidebars {
+
+  .node--view-mode-full {
+
+    @media (min-width: $screen-lg-min) {
+
+      .field--name-field-image {
+        margin-left: -100px;
+        margin-right: -100px;
+        margin-bottom: 50px;
+
+        img {
+          width: 100%;
+          max-width: none;
+          height: auto;
+        }
+      }
+
+    }
+  
+  }
+  
+}

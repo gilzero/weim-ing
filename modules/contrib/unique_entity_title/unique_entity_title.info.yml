@@ -1,0 +1,10 @@
+name: 'Unique Entity Title'
+type: module
+description: 'Check the uniqueness of the titles of entities within bundles.'
+core_version_requirement: ^8 || ^9 || ^10 || ^11
+package: 'Others'
+
+# Information added by Drupal.org packaging script on 2024-05-10
+version: '8.x-1.5'
+project: 'unique_entity_title'
+datestamp: 1715370547

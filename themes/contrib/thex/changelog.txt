@@ -1,0 +1,84 @@
+version 9.1.0
+15 Dec 2021
++-----------------------------+
+# Initial release of series 9.x.x
+
+
+version 9.1.1
+15 Dec 2021
++-----------------------------+
+# Minor improvements
+
+
+version 9.1.2
+23 Dec 2021
++-----------------------------+
+# Fixed minor known bugs.
+
+
+version 9.1.3
+08 Feb 2022
++-----------------------------+
+- Added two new css variables --color-text, --color-heading
+- Added new shortcode for light background "bg-light"
+- Changed scroll to top arrow icon path.
+
+
+version 9.2.0
+29 August 2022
++-----------------------------+
+- Theme now supports Drupal 10
+- Added shortcode for text color - dark, light
+- Added shortcode section-small
+- Other minor changes and improvements.
+
+
+version 10.0.0
+30 August 2023
++-----------------------------+
+- Initial release of 10.x.x series
+- Minor improvements.
+
+
+version 10.0.1
+30 August 2023
++-----------------------------+
+- Add custom font icon library. https://drupar.com/node/2875/
+- Updated Bootstrap Font Icons to version 1.10.5
+- Updated FontAwesome 5 Font Icons to version 5.15.4
+- Added styling for EU Cookie Compliance module.
+- Minor improvements.
+
+
+version 10.0.2
+31 August 2023
++-----------------------------+
+- Removed menu--main.html.twig template file.
+- Theme now uses menu.html.twig
+- New animated mobile menu icon.
+- Minor improvements.
+
+
+version 10.0.3
+01 September 2023
++-----------------------------+
+- New template file: header-primary-menu.html.twig
+- Minor improvements of main menu.
+
+
+version 10.0.4
+05 September 2023
++-----------------------------+
+- Removed padding from sidebar.
+- Removed margin-bottom from sidebar block.
+- Removed margin bottom from main.
+- Fixed display of contextual-links in header-top region.
+- Added a default background color for footer.
+- Added a default background color for sidebar blocks.
+
+
+version 11.0.0
+14 Aug 2024
++-----------------------------+
+- Initial release of 11.1.x series.
+- Drupal 11 compatible.

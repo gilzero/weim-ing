@@ -1,0 +1,170 @@
+/**
+ * @file
+ * This file contains extra overrides, and few more to save headaches.
+ *
+ * You can disable this file inclusion via UI: /admin/structure/ultimenu.
+ * .is-ultimobile is defined via JS, see ultimenu.css.
+ *
+ * Tips:
+ * If flyout was covered by another content, add higher z-index layering to its
+ * parent block, e.g.: .block-ultimenu {position: relative; z-index: 9999;}
+ */
+
+/* Remove this box-sizing if your theme is already using one globally */
+.ultimenu *,
+.ultimenu *::before,
+.ultimenu *::after {
+  box-sizing: border-box;
+}
+
+/** Prevents flyout from being covered by other contents, adjust it.
+Adjust it to the relevant block class, e.g.: .block--ultimenu, etc. */
+.block-ultimenu {
+  position: relative;
+  z-index: 98;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/** Adjust it to the relevant sidebar class, e.g.: .l-sidebar, etc. */
+.sidebar .block-ultimenu {
+  z-index: 96;
+}
+
+.block .ultimenu {
+  margin: 0;
+  padding: 0;
+}
+
+/** Prevents overflowing block contents. */
+.ultimenu__flyout .block {
+  max-width: 100%;
+  padding: 1em 0;
+}
+
+/**
+ * Link.
+ */
+.ultimenu--offcanvas .ultimenu__link,
+.ultimenu .ultimenu__ajax {
+  min-height: 42px;
+  padding: 15px var(--ultispace);
+}
+
+.ultimenusub .ultimenu__item:not(.is-uitem-expanded) > .ultimenu__link {
+  padding-left: 0;
+}
+
+.ultimenu .ultimenu__ajax {
+  display: block;
+}
+
+/**
+ * With Bartik too many borders.
+ */
+.ultimenu__link {
+  border-bottom: 0;
+}
+
+/**
+ * Menu description.
+ */
+.ultimenu__link small {
+  display: block;
+  line-height: 1;
+}
+
+/**
+ * Default icon styling.
+ */
+.is-iconized .ultimenu__icon,
+.is-iconized .ultimenu__title,
+.ultimenu__icon::before {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.ultimenu__icon {
+  width: 42px;
+  text-align: center;
+  font-size: 28px;
+}
+
+/**
+ * Core Bartik do not have clearfix for region, add support for floating blocks
+ * with micro clearfix.
+ */
+.ultimenu__flyout::after,
+.ultimenu__region::after {
+  display: table;
+  clear: both;
+  content: " ";
+}
+
+/** Overrides Bartik footer region. */
+.block .ultimenu__flyout .ultimenu__region {
+  margin: 0;
+}
+
+/**
+ * Overrides Bartik to avoid confusion with disappearing Ultimenu menu items.
+ * One prime sample why Ultimenu refuses to deal with theme compatibility.
+ */
+body:not(:target) .ultimenu .ultimenu__region .ultimenusub .menu > li {
+  height: auto;
+}
+
+/* Prevents floating blocks inside small estate of off-canvas. */
+.is-ultimenu--active .is-ultimenu__canvas-off .block {
+  float: none;
+  width: 100%;
+}
+
+/* Toolbar RHS overlaps mobile button. */
+.is-ultimenu .contextual-toolbar-tab {
+  margin-right: 64px;
+}
+
+.ultimenu .ultimenu__link:focus {
+  outline: 0;
+  outline-offset: 0;
+}
+
+/**
+ * We are here at desktop up.
+ */
+@media all and (min-width: 944px) {
+  .ultimenu .ultimenu__link {
+    line-height: 1.4;
+  }
+
+  .ultimenu--htb .ultimenu__region {
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  .ultimenu--htb.is-ultihover .ultimenu__flyout,
+  .ultimenu--htb.is-ultihover .ultimenu__region {
+    border-radius: 0 0 9px 0;
+  }
+
+  .ultimenu--htt.is-ultihover .ultimenu__flyout,
+  .ultimenu--htt.is-ultihover .ultimenu__region {
+    border-radius: 0 9px 0 0;
+  }
+
+  /** The AJAX fallback link. Do not display block so to have correct throbber. */
+  .ultimenu .ultimenu__ajax {
+    display: inline-block;
+    padding: 0 1.25em;
+    vertical-align: middle;
+  }
+
+  /** Different themes different markups, and CSS rules, this is just an idea. */
+  .sidebar .ultimenu__flyout,
+  .is-ultihover.ultimenu--offcanvas:not(.ultimenu--vertical),
+  .is-ultihover.ultimenu--offcanvas .ultimenu__flyout,
+  #header .is-ultihover .ultimenu__flyout,
+  #footer .is-ultihover .ultimenu__flyout {
+    min-width: 600px;
+  }
+}

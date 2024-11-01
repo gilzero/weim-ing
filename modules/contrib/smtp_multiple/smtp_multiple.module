@@ -1,0 +1,32 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ *Implements hook_help().
+ *
+ * @param $route_name
+ * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
+ * @return \Drupal\Component\Render\MarkupInterface|null
+ */
+function smtp_multiple_help($route_name, RouteMatchInterface $route_match) {
+  return $route_name === 'help.page.smtp_multiple'
+    ? check_markup(file_get_contents(__DIR__ . "/README.md"))
+    : NULL;
+}
+
+/**
+ * Implements hook_mail_backend_info_alter().
+ *
+ * Override smtp's plugin mail backend plugin with this module's plugin keeping
+ * the original ID in order to keep references to the old plugin.
+ */
+function smtp_multiple_mail_backend_info_alter(&$info) {
+  if (isset($info['SMTPMailSystem'])) {
+    $info['SMTPMailSystem'] = array_merge(
+      $info['smtp_multiple_mail_system'], ['id' => 'SMTPMailSystem']
+    );
+
+    unset($info['smtp_multiple_mail_system']);
+  }
+}

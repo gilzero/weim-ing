@@ -1,0 +1,16 @@
+{
+  "name": "drupal/type_tray",
+  "type": "drupal-module",
+  "description": "Improve usability of the 'Node Add' page with more help text, functional grouping and iconography.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://www.drupal.org/project/type_tray",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/type_tray",
+    "source": "http://cgit.drupalcode.org/type_tray"
+  },
+  "require": { },
+  "require-dev": { },
+  "extra": { }
+}

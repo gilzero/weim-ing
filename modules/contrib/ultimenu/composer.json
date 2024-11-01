@@ -1,0 +1,25 @@
+{
+  "name": "drupal/ultimenu",
+  "description": "Provides Ultimenu blocks, and regions based on available menus.",
+  "keywords": ["megamenu", "mega", "menu", "block"],
+  "type": "drupal-module",
+  "homepage": "https://drupal.org/project/ultimenu",
+  "license": "GPL-2.0-or-later",
+  "support": {
+    "issues": "https://drupal.org/project/issues/ultimenu",
+    "source": "https://git.drupalcode.org/project/ultimenu"
+  },
+  "authors": [
+    {
+      "name": "Gaus Surahman",
+      "homepage": "https://www.drupal.org/u/gausarts"
+    },
+    {
+      "name": "Committers for Ultimenu",
+      "homepage": "https://www.drupal.org/node/1897426/committers"
+    }
+  ],
+  "require": {
+    "drupal/blazy": "^3.0"
+  }
+}

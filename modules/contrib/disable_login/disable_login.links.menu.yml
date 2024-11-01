@@ -1,0 +1,12 @@
+disable_login.settings_form:
+  title: 'Disable Login Page'
+  description: 'Settings for Disable Login module'
+  parent:  system.admin_config_security
+  route_name: disable_login.settings_form
+
+system.admin_config_security:
+  route_name: system.admin_config_security
+  parent: system.admin_config
+  title: Security
+  description: 'Configure and use security tools.'
+  weight: -10

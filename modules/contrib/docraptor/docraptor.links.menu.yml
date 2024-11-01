@@ -1,0 +1,6 @@
+docraptor.settings:
+  title: Docraptor settings
+  description: Docraptor PDF generator settings
+  parent: system.admin_config_services
+  route_name: docraptor.settings
+  weight: 10

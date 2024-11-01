@@ -1,0 +1,21 @@
+init:
+  version: VERSION
+  js:
+    js/pf_notifications.init.js: { }
+  dependencies:
+    - core/drupal.ajax
+    - core/drupalSettings
+service_worker:
+  version: VERSION
+  js:
+    js/pf_notifications.service_worker.js: { }
+  dependencies:
+    - pf_notifications/init
+subscribe:
+  js:
+    js/pf_notifications.subscribe.js: {}
+  dependencies:
+    - core/drupal.ajax
+    - core/drupal.dropbutton
+    - danse/widget
+    - pf_notifications/service_worker

@@ -1,0 +1,93 @@
+.iconify-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.iconify-result {
+  display: flex;
+  align-items: center;
+}
+
+.iconify-result svg {
+  height: 35px;
+  padding-right: 15px;
+}
+
+.iconify-result .iconify-result-collection {
+  margin-left: auto;
+  color: #849fdc;
+  font-size: 12px;
+}
+
+.iconify-icons-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.iconify-icons-wrapper label {
+  margin-left: -3.5rem;
+}
+
+.iconify-icons-wrapper .form-item__description {
+  margin-left: -3.5rem;
+}
+
+.iconify-icons-wrapper .form-item {
+  width: 100%;
+  margin: unset;
+}
+
+.iconify-icons-wrapper .form-item > div,
+.iconify-icons-wrapper .form-item > div input {
+  width: 100%;
+}
+
+/* Claro and default */
+.iconify-icons-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.9rem;
+  height: 2.9rem;
+  margin-right: 0.5rem;
+  border: 1px solid #d3d4d987;
+  border-radius: 0.3rem;
+  background-color: var(--color-gray-050);
+}
+
+.iconify-icons-preview svg {
+  width: auto;
+  height: 35px;
+}
+
+.iconify-icons-widget-collections .form-checkboxes {
+  display: block;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.iconify-icons-widget-modal .ui-autocomplete {
+  overflow: auto;
+  overflow-x: hidden;
+  max-height: 100%;
+}
+
+img.iconify-icons-ckeditor {
+  display: inline-block;
+  vertical-align: -0.125rem;
+  inline-size: auto;
+}
+
+.iconify-icons-widget-collections .fieldset__wrapper .form-checkboxes {
+  -moz-column-count: 6;
+  -webkit-column-count: 6;
+  column-count: 6;
+}
+
+ul.ui-autocomplete:has(.iconify-result) {
+  overflow: hidden;
+  overflow-y: scroll;
+  max-height: 100%;
+}

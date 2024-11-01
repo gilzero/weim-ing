@@ -1,0 +1,4 @@
+administer ultimenu:
+  title: 'Administer ultimenu'
+  # Minor housekeeping till xchecks. Consider helping frontend vurns for now.
+  restrict access: true

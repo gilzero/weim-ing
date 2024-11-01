@@ -1,0 +1,11 @@
+.region-content-home-top,
+.region-content-home-bottom {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.region-content-home-top {
+  margin-bottom: 2rem;
+}

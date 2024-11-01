@@ -1,0 +1,4 @@
+services:
+  docraptor.manager:
+    class: Drupal\docraptor\DocraptorManager
+    arguments: ['@config.factory', '@logger.factory', '@cache.data', '@language_manager', '@key.repository']

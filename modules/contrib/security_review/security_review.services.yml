@@ -1,0 +1,12 @@
+services:
+  security_review:
+    class: Drupal\security_review\SecurityReview
+    arguments: ['@config.factory', '@state', '@module_handler', '@current_user', '@plugin.manager.security_review.security_check']
+
+  security_review.data:
+    class: Drupal\security_review\SecurityReviewData
+    arguments: ['@security_review', '@module_handler', '@config.factory', '@kernel', '@user.permissions']
+
+  plugin.manager.security_review.security_check:
+    class: Drupal\security_review\SecurityCheckPluginManager
+    parent: default_plugin_manager

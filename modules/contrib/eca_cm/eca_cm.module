@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * @file
+ * ECA Classic Modeller module file.
+ */
+
+use Drupal\Component\Serialization\Yaml;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function eca_cm_form_eca_import_alter(&$form, FormStateInterface $form_state) {
+  $form['eca_cm_mode'] = [
+    '#type' => 'checkbox',
+    '#title' => 'Import into Classic modeller',
+  ];
+  $form['#validate'][] = 'eca_cm_form_eca_import_validate';
+}
+
+/**
+ * Validates the import form and adjusts the values if necessary.
+ *
+ * @param array $form
+ *   The form array.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state object.
+ */
+function eca_cm_form_eca_import_validate(array &$form, FormStateInterface $form_state): void {
+  if (empty($form_state->getValue('eca_cm_mode'))) {
+    return;
+  }
+  $model = $form_state->getValue('model');
+  if (is_array($model)) {
+    $model['modellerId'] = 'core';
+    $form_state->setValue('model', $model);
+  }
+  else {
+    foreach (scandir($model) as $file) {
+      if (strpos($file, 'eca.eca.') === 0) {
+        $data = Yaml::decode(file_get_contents($model . '/' . $file));
+        if (isset($data['modeller']) && $data['modeller'] !== 'core') {
+          $data['id'] .= '_from_' . $data['modeller'];
+          $data['label'] .= ' (from ' . $data['modeller'] . ')';
+          $data['modeller'] = 'core';
+          if (isset($data['uuid'])) {
+            unset($data['uuid']);
+          }
+          unlink($model . '/' . $file);
+          file_put_contents($model . '/eca.eca.' . $data['id'] . '.yml', Yaml::encode($data));
+        }
+      }
+      elseif (strpos($file, 'eca.model.') === 0) {
+        unlink($model . '/' . $file);
+      }
+    }
+  }
+}

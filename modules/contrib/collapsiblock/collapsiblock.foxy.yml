@@ -1,0 +1,8 @@
+core:
+  js:
+    theme/src/js/collapsiblock.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - js_cookie/js-cookie
+    - core/once

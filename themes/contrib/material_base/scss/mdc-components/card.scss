@@ -1,0 +1,68 @@
+@use "@material/typography";
+
+.card {
+
+  &--disabled {
+    pointer-events: none;
+  }
+
+  &__section {
+    padding: 0 $spacing * 2;
+
+    &:first-child {
+      padding-top: $spacing * 2;
+    }
+
+    &:last-child {
+      padding-bottom: $spacing * 1.5;
+    }
+
+    & + & {
+      padding-top: $spacing * 2;
+    }
+  }
+
+  .mdc-card__media img {
+    display: block;
+    width: 100%;
+  }
+
+  .mdc-card__media + &__section {
+    padding-top: $spacing * 2;
+  }
+
+  .mdc-card__primary-action:last-child {
+    .card__section:last-child {
+      padding-bottom: $spacing * 2;
+    }
+  }
+
+  &__label {
+    @include typography.typography(overline);
+    line-height: 1;
+  }
+
+  &__title {
+    @include typography.typography(headline6);
+    color: $color-heading;
+  }
+
+  &__subtitle {
+    @include typography.typography(subtitle2);
+  }
+
+  &__secondary {
+    @include typography.typography(body2);
+  }
+}
+
+a.card {
+  text-decoration: none;
+  color: $color-text;
+
+  &:hover {
+    .mdc-button__ripple:before {
+      opacity: 0.04;
+    }
+  }
+}

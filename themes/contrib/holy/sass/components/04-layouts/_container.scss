@@ -1,0 +1,17 @@
+.container {
+  position: relative;
+  padding: 0 30px;
+
+  @media (min-width: $screen-md-min) {
+    padding: 0 50px;
+  }
+
+  @media (min-width: $screen-lg-min) {
+    & {
+      width: 59%; // 1140 / 1920
+      min-width: 1140px;
+      margin: 0 auto;
+      padding: 0;
+    }
+  }
+}

@@ -1,0 +1,33 @@
+# === Plugin configuration ===
+
+ckeditor5_icons_icon:
+  # Configuration that will be sent to CKEditor 5 JavaScript plugins.
+  ckeditor5:
+    plugins:
+      - icon.Icon
+      - icon.IconGeneralHtmlSupport
+      - icon.IconLinkEditing
+    config:
+      icon:
+        toolbarItems:
+          - iconSize
+          - iconAlignment
+          - iconStyle
+        faVersion: '6'
+        faStyles:
+          - solid
+          - regular
+          - brands
+        recommendedIcons: null
+  # Configuration that will be used directly by Drupal.
+  drupal:
+    label: Icons
+    library: ckeditor5_icons/icon.editor
+    admin_library: ckeditor5_icons/icon.admin
+    toolbar_items:
+      icon:
+        label: Icons
+    elements:
+      - <i>
+      - <i class>
+    class: Drupal\ckeditor5_icons\Plugin\CKEditor5Plugin\Icon

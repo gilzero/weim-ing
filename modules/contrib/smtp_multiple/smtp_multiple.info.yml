@@ -1,0 +1,11 @@
+name: 'SMTP Authentication Support (multiple)'
+description: 'Allows for SMTP configurations on a per email key basis'
+type: module
+core_version_requirement: ^10 || ^11
+dependencies:
+  - smtp:smtp
+
+# Information added by Drupal.org packaging script on 2024-10-23
+version: '2.0.0'
+project: 'smtp_multiple'
+datestamp: 1729689514

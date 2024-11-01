@@ -1,0 +1,149 @@
+<?php
+
+/**
+ * @file
+ * Requirements for Raven module.
+ */
+
+use Drupal\raven\LogLevel;
+use Drupal\user\Entity\Role;
+use Sentry\Client;
+use Sentry\SentrySdk;
+
+/**
+ * Implements hook_requirements().
+ *
+ * @phpstan-ignore-next-line Hook implementations should not duplicate @return
+ *   documentation.
+ */
+function raven_requirements(string $phase): array {
+  $requirements['raven_curl'] = [
+    'title' => t('cURL PHP extension'),
+    'description' => t('Sentry requires the cURL PHP extension to send events.'),
+  ];
+  if (extension_loaded('curl')) {
+    $requirements['raven_curl']['value'] = t('Enabled');
+  }
+  else {
+    $requirements['raven_curl']['value'] = t('Not enabled');
+    $requirements['raven_curl']['severity'] = REQUIREMENT_WARNING;
+  }
+  $requirements['raven_library']['title'] = t('Sentry PHP SDK');
+  if (defined(Client::class . '::SDK_VERSION')) {
+    $requirements['raven_library']['value'] = Client::SDK_VERSION;
+    if ($phase == 'runtime') {
+      if ($client = SentrySdk::getCurrentHub()->getClient()) {
+        if ($client->getOptions()->getEnvironment()) {
+          $requirements['raven_environment'] = [
+            'title' => t('Sentry environment'),
+            'value' => $client->getOptions()->getEnvironment(),
+          ];
+        }
+        if ($client->getOptions()->getRelease()) {
+          $requirements['raven_release'] = [
+            'title' => t('Sentry release'),
+            'value' => $client->getOptions()->getRelease(),
+          ];
+        }
+        if ($client->getOptions()->getDsn()) {
+          $requirements['raven_dsn'] = [
+            'description' => t('Sentry client key is configured. Events will be sent to Sentry.'),
+            'value' => t('Configured'),
+          ];
+        }
+        else {
+          $requirements['raven_dsn'] = [
+            'description' => t('Sentry client key is not configured. No events will be sent to Sentry.'),
+            'value' => gettype($client->getOptions()->getDsn()),
+          ];
+        }
+        $requirements['raven_dsn']['title'] = t('Sentry DSN');
+        $requirements['raven_trace']['title'] = t('Sentry reflection tracing');
+        if (Drupal::config('raven.settings')->get('trace')) {
+          $requirements['raven_trace']['description'] = t('Sentry reflection tracing is enabled, which may result in sensitive data being logged by Sentry.');
+          $requirements['raven_trace']['value'] = t('Enabled');
+        }
+        else {
+          $requirements['raven_trace']['value'] = t('Disabled');
+        }
+        if (Drupal::config('raven.settings')->get('http_compression')) {
+          $requirements['raven_zlib']['title'] = t('Zlib PHP extension');
+          $requirements['raven_zlib']['description'] = t('Sentry HTTP request compression requires the Zlib PHP extension.');
+          $requirements['raven_zlib']['value'] = extension_loaded('zlib') ? t('Enabled') : t('Not enabled');
+        }
+      }
+      else {
+        try {
+          Drupal::service('logger.raven')->getClient(FALSE, TRUE);
+        }
+        catch (Exception $e) {
+          $requirements['raven_client'] = [
+            'title' => t('Sentry client'),
+            'value' => get_class($e),
+            'description' => $e->getMessage(),
+            'severity' => REQUIREMENT_ERROR,
+          ];
+        }
+      }
+      $requirements['raven_excimer']['title'] = t('Excimer PHP extension (optional)');
+      $requirements['raven_excimer']['description'] = t('Sentry profiling requires the Excimer PHP extension.');
+      $requirements['raven_excimer']['value'] = extension_loaded('excimer') ? t('Enabled') : t('Not enabled');
+    }
+  }
+  else {
+    $requirements['raven_library']['description'] = t('Sentry PHP SDK version 4.x is required by Raven module, but is not available. Run <code>composer require drupal/raven</code> to install dependencies automatically (or <code>composer require sentry/sentry:^4</code> to install the missing SDK only).');
+    $requirements['raven_library']['severity'] = REQUIREMENT_ERROR;
+    $requirements['raven_library']['value'] = t('Not found');
+  }
+  return $requirements;
+}
+
+/**
+ * Remove obsolete polyfill_promise config.
+ */
+function raven_update_8201(): void {
+  Drupal::configFactory()->getEditable('raven.settings')
+    ->clear('polyfill_promise')
+    ->save();
+}
+
+/**
+ * Remove obsolete send_attempts config.
+ */
+function raven_update_8301(): void {
+  Drupal::configFactory()->getEditable('raven.settings')
+    ->clear('send_attempts')
+    ->save();
+}
+
+/**
+ * Rename log_levels config keys.
+ */
+function raven_update_10601(): void {
+  $config = Drupal::configFactory()->getEditable('raven.settings');
+  $old_levels = $config->get('log_levels');
+  if (!is_array($old_levels)) {
+    $old_levels = [];
+  }
+  $config->set('log_levels', LogLevel::migrateLogLevels($old_levels))->save();
+}
+
+/**
+ * Remove interactions_sample_rate config.
+ */
+function raven_update_10602(): void {
+  Drupal::configFactory()->getEditable('raven.settings')
+    ->clear('interactions_sample_rate')
+    ->save();
+}
+
+/**
+ * Grant the send performance traces permission if request tracing is enabled.
+ */
+function raven_update_10603(): void {
+  if (Drupal::configFactory()->get('raven.settings')->get('request_tracing')) {
+    foreach (Role::loadMultiple() as $role) {
+      $role->grantPermission('send performance traces to sentry')->save();
+    }
+  }
+}

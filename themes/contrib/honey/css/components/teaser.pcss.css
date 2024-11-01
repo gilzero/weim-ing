@@ -1,0 +1,43 @@
+/**
+ * Article teaser styles.
+ */
+
+@import "../base/variables.pcss.css";
+
+.node--view-mode-teaser > h2 > a {
+  text-decoration: none;
+}
+
+.node--view-mode-teaser > h2 > a:hover {
+  text-decoration: underline;
+}
+
+.node--view-mode-teaser .node__meta {
+  margin-bottom: 0.5rem;
+  font-size: var(--font-size-h6);
+  font-weight: bold;
+}
+
+.node--view-mode-teaser .links {
+  display: flex;
+  margin: 1rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.node--view-mode-teaser .links li {
+  margin-right: 1rem;
+  text-transform: lowercase;
+  font-family: var(--font-family-headings);
+  font-size: var(--font-size-h6);
+  font-weight: bold;
+}
+
+ul.links.inline li {
+  list-style: none;
+  display: inline;
+  padding: 0 1rem;
+  font-family: var(--font-family-headings);
+  font-size: var(--font-size-h6);
+  font-weight: bold;
+}

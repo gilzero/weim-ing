@@ -1,0 +1,12 @@
+# === Admin / editing interface libraries ===
+
+icon.admin: { css: { theme: { css/icon.admin.css: { } } } }
+icon.editor:
+  js:
+    js/build/icon.js: { preprocess: false, minified: true }
+  dependencies:
+    - core/ckeditor5
+    - core/drupal.ajax
+  css:
+    theme:
+      css/icon.editor.css: { }

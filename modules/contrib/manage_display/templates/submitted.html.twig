@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display 'submitted' information.
+ *
+ * This template is formed from the part of node.html.twig conditional on
+ * 'display_submitted', modified to allow the date to be optional.
+ *
+ * Available variables:
+ * - user_picture: The rendered author user entity
+ * - author_picture: Same as user_picture, to match node.html.twig.
+ * - metadata: Metadata for this entity.
+ * - date: (optional) Themed creation date field.
+ * - author_name: Themed author name field.
+ * - author_attributes: HTML attributes for the containing element.
+ * - entity_type: Containing entity type.
+ *
+ * @see template_preprocess_submitted()
+ *
+ * @ingroup themeable
+ */
+#}
+<footer>
+  {{ author_picture }}
+  <div{{ author_attributes }}>
+    {% if date -%}
+      {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
+    {%- else -%}
+      {% trans %}Submitted by {{ author_name }}{% endtrans %}
+    {%- endif -%}
+    {{ metadata }}
+  </div>
+</footer>

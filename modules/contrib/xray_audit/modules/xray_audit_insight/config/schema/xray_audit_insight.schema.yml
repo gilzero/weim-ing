@@ -1,0 +1,10 @@
+xray_audit_insight.settings:
+  type: config_object
+  label: 'Insight configuration'
+  mapping:
+    excluded_insights:
+      type: sequence
+      label: 'Excluded insights'
+      sequence:
+        type: string
+        label: 'Insight'

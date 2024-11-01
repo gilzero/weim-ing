@@ -1,0 +1,6 @@
+hcaptcha.admin_settings_form:
+  title: 'hCaptcha'
+  parent: captcha.settings
+  description: 'Administer the hCaptcha web service.'
+  route_name: hcaptcha.admin_settings_form
+  weight: 1

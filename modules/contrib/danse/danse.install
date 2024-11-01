@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * @file
+ * DANSE install file.
+ */
+
+use Drupal\danse\Entity\Event;
+
+/**
+ * Add new base field uid to event entities.
+ */
+function danse_update_8001(): void {
+  if ($entity_type = Drupal::entityTypeManager()->getDefinition('danse_event')) {
+    $field_definition = Event::baseFieldDefinitions($entity_type);
+    Drupal::entityDefinitionUpdateManager()->installFieldStorageDefinition(
+      'uid',
+      $entity_type->id(),
+      $entity_type->getProvider(),
+      // @phpstan-ignore-next-line
+      $field_definition['uid']
+    );
+    // Explicitly set the default value.
+    Drupal::database()->update('danse_event')
+      ->fields(['uid' => 0])
+      ->execute();
+  }
+}
+
+/**
+ * Remove false "actions" records from user data.
+ */
+function danse_update_8002(): void {
+  \Drupal::database()->delete('users_data')
+    ->condition('module', 'danse')
+    ->condition('name', 'actions')
+    ->execute();
+}
+
+/**
+ * Update access control on user notifications view.
+ */
+function danse_update_8003(): void {
+  $view = \Drupal::configFactory()->getEditable('views.view.danse_user_notifications');
+  $view->set('display.default.display_options.access.type', 'danse_own_user');
+  $view->set('display.default.display_options.access.options', []);
+  $view->save();
+}

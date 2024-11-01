@@ -1,0 +1,14 @@
+name: Auto Translation
+type: module
+description: The Auto Translation module provides automatic translation capabilities for Drupal 10 websites. It integrates with Google translation services free or paid to automatically translate content on your site.
+configure: auto_translation.settings
+package: Multilingual
+core_version_requirement: ^9 || ^10 || ^11
+dependencies:
+  - drupal:content_translation
+
+
+# Information added by Drupal.org packaging script on 2024-10-17
+version: '1.2.5'
+project: 'auto_translation'
+datestamp: 1729165168

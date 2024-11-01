@@ -1,0 +1,86 @@
+section_layout_one_column_extra:
+  label: 'One column extra'
+  category: 'Holy Layouts'
+  template: templates/section_layouts/section_layout_one_column_extra
+  icon: templates/section_layouts/images/section_layout_one_column_extra.png
+  default_region: first
+  regions:
+    title:
+      label: Title
+    first:
+      label: First
+    footer:
+      label: Footer
+section_layout_two_column_extra:
+  label: 'Two column extra'
+  category: 'Holy Layouts'
+  template: templates/section_layouts/section_layout_two_column_extra
+  icon: templates/section_layouts/images/section_layout_two_column_extra.png
+  default_region: first
+  regions:
+    title:
+      label: Title
+    first:
+      label: First
+    second:
+      label: Second
+    footer:
+      label: Footer
+section_layout_three_column_extra:
+  label: 'Three column extra'
+  category: 'Holy Layouts'
+  template: templates/section_layouts/section_layout_three_column_extra
+  icon: templates/section_layouts/images/section_layout_three_column_extra.png
+  default_region: first
+  regions:
+    title:
+      label: Title
+    first:
+      label: First
+    second:
+      label: Second
+    third:
+      label: Third
+    footer:
+      label: Footer
+section_layout_four_column_extra:
+  label: 'Four column extra'
+  category: 'Holy Layouts'
+  template: templates/section_layouts/section_layout_four_column_extra
+  icon: templates/section_layouts/images/section_layout_four_column_extra.png
+  default_region: first
+  regions:
+    title:
+      label: Title
+    first:
+      label: First
+    second:
+      label: Second
+    third:
+      label: Third
+    fourth:
+      label: Fourth
+    footer:
+      label: Footer
+section_layout_hero:
+  label: 'Hero'
+  category: 'Holy Layouts'
+  template: templates/section_layouts/section_layout_hero
+  icon: templates/section_layouts/images/section_layout_hero.png
+  default_region: hero
+  regions:
+    hero:
+      label: Hero
+section_layout_fluid_column:
+  label: 'Fluid column'
+  category: 'Holy Layouts'
+  template: templates/section_layouts/section_layout_fluid_column
+  icon: templates/section_layouts/images/section_layout_fluid_column.png
+  default_region: fluid
+  regions:
+    title:
+      label: Title
+    fluid:
+      label: fluid
+    footer:
+      label: Footer

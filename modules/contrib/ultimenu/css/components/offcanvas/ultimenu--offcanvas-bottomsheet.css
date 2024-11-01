@@ -1,0 +1,44 @@
+/**
+ * @file
+ *
+ * .is-ultimobile is defined via JS, see ultimenu.css.
+ * .is-ultimenu__canvas-off: #header or .region-primary-menu, etc.
+ * .is-ultimenu__canvas-on: any sibling of #header.
+ *
+ * Tips: Use blazy:3.0.7 to have [no-]touchevents HTML classes.
+ * Note the `transform` transitions, it is faster and smoother than `left` ones.
+ */
+
+/** The #header alike element, out of canvas by default, can exist once. */
+html.is-ultimenu--active .is-ultimenu__canvas-off {
+  left: 0;
+  max-width: 100%;
+  -ms-transition: -webkit-transform 500ms ease;
+  transition: transform 500ms ease;
+  -ms-transform: translateY(100%);
+  transform: translateY(100%);
+}
+
+html.is-ultimenu.is-ultimenu--expanded .is-ultimenu__canvas-off {
+  margin-top: 82px;
+  -ms-transform: translateY(0);
+  transform: translateY(0);
+}
+
+html.is-ultimenu.is-ultimenu--expanded
+  .is-ultimenu__canvas-off
+  .ultimenu__item:last-child {
+  padding-bottom: 82px;
+}
+
+/**
+ * 944px = 58.999em with 16px base font.
+ * We are here at mobile devices.
+ * .is-ultimobile is for touch devices, see ultimenu.css.
+ */
+/** The #header alike element, out of canvas by default, can exist once. */
+html.is-ultimobile .is-ultimenu__canvas-off {
+  max-width: 100%;
+  -ms-transform: translateY(100%);
+  transform: translateY(100%);
+}

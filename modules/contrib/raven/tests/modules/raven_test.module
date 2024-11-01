@@ -1,0 +1,112 @@
+<?php
+
+/**
+ * @file
+ * Raven test module.
+ */
+
+use Sentry\Event;
+use Sentry\EventHint;
+use Sentry\SentrySdk;
+use Sentry\State\Scope;
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * @phpstan-ignore-next-line Hook implementations should not duplicate @param
+ *   documentation.
+ */
+function raven_test_page_attachments(array &$attachments): void {
+  $client = \Drupal::service('logger.raven')->getClient();
+  if (!$client) {
+    return;
+  }
+  $client->getOptions()->setBeforeSendCallback(function (Event $event, ?EventHint $hint) use (&$attachments): ?Event {
+    if ($event->getLogger() === 'php') {
+      $attachments['#attached']['http_header'][] = [
+        'X-Uninterpolated',
+        $event->getMessage(),
+        FALSE,
+      ];
+    }
+    if (!empty($event->getLogger()) && !empty($event->getMessageFormatted())) {
+      $attachments['#attached']['http_header'][] = [
+        $event->getLogger(),
+        $event->getMessageFormatted(),
+        FALSE,
+      ];
+      if ($stacktrace = $event->getStacktrace()) {
+        $frames = $stacktrace->getFrames();
+        if ($last_frame = end($frames)) {
+          $attachments['#attached']['http_header'][] = [
+            'X-Stacktrace-File',
+            basename($last_frame->getFile()),
+            FALSE,
+          ];
+        }
+      }
+    }
+    if (!empty($event->getExceptions())) {
+      if (preg_match('/Allowed memory size of ([0-9]+) bytes exhausted/', $event->getExceptions()[0]->getValue(), $matches)) {
+        echo $matches[1];
+      }
+      elseif ($mechanism = $event->getExceptions()[0]->getMechanism()) {
+        file_put_contents('public://x-handled.txt', (int) $mechanism->isHandled());
+      }
+    }
+    return NULL;
+  });
+  \Drupal::logger('X-Logged')->error('Logged');
+  \Drupal::logger('X-Not-Logged')->debug('Not logged');
+  \Sentry\configureScope(function (Scope $scope): void {
+    $scope->addEventProcessor(function (Event $event, EventHint $eventHint): ?Event {
+      if ($event->getLogger() === 'X-Not-Logged') {
+        return NULL;
+      }
+      return $event;
+    });
+  });
+  \Drupal::logger('X-Not-Logged')->error('Not logged');
+  \Drupal::logger('X-Logged')->error('Logged');
+  $attachments['#cache']['contexts'][] = 'url.query_args';
+  if ($memory_limit = \Drupal::request()->query->get('memory_limit')) {
+    ini_set('memory_limit', $memory_limit);
+    // @phpstan-ignore-next-line Yes, while loop condition is always true :)
+    while (TRUE) {
+      $attachments[] = 1;
+    }
+  }
+  if (\Drupal::request()->query->get('throw')) {
+    throw new \Exception('doh!');
+  }
+  if (\Drupal::request()->query->get('fatal')) {
+    // phpcs:ignore
+    define('SIMPLETEST_COLLECT_ERRORS', FALSE);
+    // @phpstan-ignore-next-line Break things intentionally.
+    new \NoSuchClass();
+  }
+  if (\Drupal::request()->query->get('error')) {
+    // phpcs:ignore
+    define('SIMPLETEST_COLLECT_ERRORS', FALSE);
+    trigger_error('o_O', E_USER_ERROR);
+  }
+  $client->getOptions()->setBeforeSendTransactionCallback(function (Event $event, ?EventHint $hint) use (&$attachments): ?Event {
+    $count = 0;
+    if ($stacktrace = $event->getStacktrace()) {
+      foreach ($stacktrace->getFrames() as $frame) {
+        $count += count($frame->getVars());
+      }
+    }
+    $attachments['#attached']['http_header'][] = [
+      'X-Sentry-Transaction-Frame-Vars',
+      $count,
+      FALSE,
+    ];
+    return NULL;
+  });
+  if (\Drupal::request()->query->get('send_transaction')) {
+    if ($transaction = SentrySdk::getCurrentHub()->getTransaction()) {
+      $transaction->finish();
+    }
+  }
+}

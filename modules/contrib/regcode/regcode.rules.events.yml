@@ -1,0 +1,10 @@
+regcode.code_used:
+  label: 'User has used a registration code'
+  category: 'Regcode'
+  context_definitions:
+    user:
+      type: entity:user
+      label: 'The user using the code'
+    regcode:
+      type: string
+      label: 'The regcode which was used'

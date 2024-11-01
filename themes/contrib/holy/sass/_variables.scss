@@ -1,0 +1,38 @@
+// COLORS
+$white: #fff;
+
+$black: #0f2154;
+$black-80: #3F4D76;
+$black-60: #6F7A98;
+$black-05: #F3F4F6;
+
+$primary: #009cde;
+$primary-10: #E5F5FC;
+$primary-vivid: #30cdff;
+$primary-vivid-25: #CBF2FF;
+$primary-vivid-40: #99D7F2;
+$primary-vivid-60: #66C4EB;
+$primary-vivid-80: #33B0E5;
+$primary-darker: #006894;
+$primary-damped: #BAD9E5;
+$primary-dark: #122a70;
+
+$gray-10: #1a1a1a;
+$gray-20: #333333;
+$gray-30: #4d4d4d;
+$gray-40: #666666;
+$gray-50: #808080;
+$gray-60: #999999;
+$gray-70: #b3b3b3;
+$gray-80: #cccccc;
+$gray-90: #e6e6e6;
+
+// BREAKPOINTS
+$screen-xs-min: 320px;
+$screen-sm-min: 480px;
+$screen-md-min: 850px;
+$screen-lg-min: 1360px;
+
+$screen-xs-max: ($screen-sm-min - 1px);
+$screen-sm-max: ($screen-md-min - 1px);
+$screen-md-max: ($screen-lg-min - 1px);

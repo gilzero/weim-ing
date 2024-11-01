@@ -1,0 +1,10 @@
+logout: false
+update_email: false
+update_language: false
+no_account_authenticated_user_role: false
+no_account_authenticated_user_account: null
+force_authentication: false
+force_saml_only: false
+account_request_request_account: false
+account_request_create_account: false
+logged_in_redirect: '<front>'

@@ -1,0 +1,10 @@
+{#
+/**
+ * @file
+ * Drulma theme implementation for a link to an executable file.
+ */
+#}
+
+{{ attach_library('lp_fontawesome/fontawesome') }}
+<i class="fas fa-terminal"></i>
+<span{{ attributes.removeClass('file') }}>{{ link }}</span>

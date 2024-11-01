@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall logic for EBT Core.
+ */
+
+use Drupal\ebt_core\Constants\EbtConstants;
+
+/**
+ * Set the new field "ebt_core_background_color" with default value = '#0d77b5'.
+ */
+function ebt_core_update_9101() {
+  // Get the config object editable.
+  $config = \Drupal::service('config.factory')->getEditable('ebt_core.settings');
+
+  // Set the default value for "ebt_core_background_color" field.
+  $config->set('ebt_core_background_color', EbtConstants::COLOR_BLUE);
+
+  // Save.
+  $config->save();
+}

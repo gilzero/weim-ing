@@ -1,0 +1,11 @@
+type: module
+name: Monolog
+description: A Framework for integrating with the Monolog library.
+core_version_requirement: ^10 || ^11
+php: 7.4
+package: Development
+
+# Information added by Drupal.org packaging script on 2024-08-12
+version: '3.0.4'
+project: 'monolog'
+datestamp: 1723450253

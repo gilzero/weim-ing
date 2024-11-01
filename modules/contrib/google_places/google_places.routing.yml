@@ -1,0 +1,7 @@
+google_places.settings:
+  path: '/admin/config/google_places/settings'
+  defaults:
+    _form: '\Drupal\google_places\Form\GooglePlacesConfigForm'
+    _title: 'Setup Google Places'
+  requirements:
+    _permission: 'administer site configuration'

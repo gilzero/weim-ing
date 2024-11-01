@@ -1,0 +1,21 @@
+build:
+  assessment:
+    validate_codebase:
+      phplint:
+      phpcs:
+        sniff-all-files: false
+        halt-on-fail: false
+    testing:
+      container_command:
+        commands: "cd ${SOURCE_DIR} && sudo -u www-data composer require drupal/encrypt drupal/real_aes"
+        halt-on-fail: true
+      run_tests.standard:
+        types: 'PHPUnit-Unit,PHPUnit-Kernel,PHPUnit-Functional'
+        testgroups: '--all'
+        suppress-deprecations: false
+      run_tests.javascript:
+        concurrency: 1
+        types: 'PHPUnit-FunctionalJavascript'
+        testgroups: '--all'
+        suppress-deprecations: false
+        halt-on-fail: false

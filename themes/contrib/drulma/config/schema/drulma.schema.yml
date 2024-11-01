@@ -1,0 +1,50 @@
+# Schema for the configuration files of the theme.
+drulma.settings:
+  type: theme_settings
+  label: 'Settings'
+  mapping:
+    general:
+      type: mapping
+      mapping:
+        wrap_content_in_container:
+          type: boolean
+          label: 'Wrap content in container'
+        teaser_title_size:
+          type: string
+          label: 'Size of the teaser title'
+    hero:
+      type: mapping
+      mapping:
+        color:
+          type: string
+          label: 'Color of the hero'
+    forms:
+      type: mapping
+      mapping:
+        input_size:
+          type: string
+          label: 'Size of the inputs'
+        label_size:
+          type: string
+          label: 'Size of the input labels'
+        input_rounded:
+          type: boolean
+          label: 'Round the edges of the inputs'
+    table:
+      type: mapping
+      mapping:
+        bordered:
+          type: boolean
+          label: 'Cells of the table will have borders'
+        striped:
+          type: boolean
+          label: 'Use different colors for odd or even rows'
+        narrow:
+          type: boolean
+          label: 'Use narrower cells'
+        hoverable:
+          type: boolean
+          label: 'Add a hover effect to the rows'
+        fullwidth:
+          type: boolean
+          label: 'Make the table occupy all the width available'

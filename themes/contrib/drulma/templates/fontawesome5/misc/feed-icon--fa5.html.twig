@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Fontawesome theme implementation for a feed icon.
+ *
+ * @see
+ * core/modules/system/templates/feed-icon.html.twig
+ *
+ * @ingroup themeable
+ */
+#}
+{% if not title %}
+  {% set title = 'this feed'|t %}
+{% endif %}
+{{ attach_library('lp_fontawesome/fontawesome') }}
+<a href="{{ url }}"{{ attributes }}>
+  <span class="fas fa-rss"></span> {{ 'Subscribe to @title'|t({'@title': title}) }}
+</a>

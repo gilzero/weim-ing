@@ -1,0 +1,14 @@
+name: 'IP2Location'
+type: module
+description: 'IP2Location helps you to identify visitor’s geographical location, e.g, country, region, city, latitude, longitude and so on, based on the IP address.'
+package: 'IP2Location'
+core_version_requirement: ^10 || ^11
+configure: ip2location.settings
+
+# version: '11.x-1.1'
+peoject: 'ip2location'
+# datestamp: 1729208799
+# Information added by Drupal.org packaging script on 2024-10-18
+version: '11.0.1'
+project: 'ip2location'
+datestamp: 1729209619

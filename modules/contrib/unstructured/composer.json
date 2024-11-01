@@ -1,0 +1,14 @@
+{
+  "name": "drupal/unstructured",
+  "description": "Module for doing calls to Unstructured.io or self hosted",
+  "type": "drupal-module",
+  "require": {
+    "drupal/key": "^1.18"
+  },
+  "authors": [
+    {
+      "name": "Marcus Johansson",
+      "email": "me@marcusmailbox.com"
+    }
+  ]
+}

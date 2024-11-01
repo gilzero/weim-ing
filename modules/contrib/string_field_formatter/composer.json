@@ -1,0 +1,6 @@
+{
+    "type": "drupal-module",
+    "name": "drupal/string_field_formatter",
+    "description": "Adds formatters to plain string type field.",
+    "license": "GPL-2.0-or-later"
+}

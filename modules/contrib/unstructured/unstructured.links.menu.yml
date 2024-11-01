@@ -1,0 +1,5 @@
+unstructured.settings_menu:
+  title: "Unstructured Config"
+  description: "Setup Unstructured"
+  route_name: unstructured.settings
+  parent: system.admin_config_services

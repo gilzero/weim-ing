@@ -1,0 +1,3124 @@
+{% set classes = [
+  'node',
+  'node--type-' ~ node.bundle|clean_class,
+  node.isPromoted() ? 'node--promoted',
+  node.isSticky() ? 'node--sticky',
+  not node.isPublished() ? 'node--unpublished',
+  view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  'style-guide',
+] %}
+<article{{ attributes.addClass(classes) }}>
+
+  {{ title_prefix }}
+  {{ title_suffix }}
+
+  <div{{ content_attributes.addClass('node__content') }}>
+    <div class="style-guide__section">
+      <h2 class="style-guide__section-title">Colors</h2>
+
+      <div class="style-guide__items">
+        <div class="style-guide__item style-guide__items style-guide__items--stacked">
+          <div class="style-guide__item">
+            <div class="style-guide__example-color bg-primary">Primary</div>
+          </div>
+          <div class="style-guide__item">
+            <div class="style-guide__example-color bg-primary-light">Primary light</div>
+          </div>
+          <div class="style-guide__item">
+            <div class="style-guide__example-color bg-primary-dark">Primary dark</div>
+          </div>
+        </div>
+
+        <div class="style-guide__item style-guide__items style-guide__items--stacked">
+          <div class="style-guide__item">
+            <div class="style-guide__example-color bg-secondary">Secondary</div>
+          </div>
+          <div class="style-guide__item">
+            <div class="style-guide__example-color bg-secondary-light">Secondary light</div>
+          </div>
+          <div class="style-guide__item">
+            <div class="style-guide__example-color bg-secondary-dark">Secondary dark</div>
+          </div>
+        </div>
+
+        <div class="style-guide__item style-guide__items style-guide__items--stacked">
+          <div class="style-guide__item">
+            <div class="style-guide__example-color bg-accent">Accent</div>
+          </div>
+          <div class="style-guide__item">
+            <div class="style-guide__example-color bg-accent-light">Accent light</div>
+          </div>
+          <div class="style-guide__item">
+            <div class="style-guide__example-color bg-accent-dark">Accent dark</div>
+          </div>
+        </div>
+
+        <div class="style-guide__item style-guide__items style-guide__items--stacked">
+          <div class="style-guide__item">
+              <div class="style-guide__example-color bg-light">Light</div>
+          </div>
+          <div class="style-guide__item">
+              <div class="style-guide__example-color bg-dark">Dark</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'<div class="bg-primary">Primary</div>
+<div class="bg-primary-light">Primary light</div>
+<div class="bg-primary-dark">Primary dark</div>
+
+<div class="bg-secondary">Secondary</div>
+<div class="bg-secondary-light">Secondary light</div>
+<div class="bg-secondary-dark">Secondary dark</div>
+
+<div class="bg-accent">Accent</div>
+<div class="bg-accent-light">Accent light</div>
+<div class="bg-accent-dark">Accent dark</div>
+
+<div class="bg-light">Light</div>
+<div class="bg-dark">Dark</div>
+
+// Only text colors
+<div class="text-on-primary">Text on primary</div>
+<div class="text-on-primary-light">Text on primary light</div>
+<div class="text-on-primary-dark">Text on primary dark</div>
+
+<div class="text-on-secondary">Text on secondary</div>
+<div class="text-on-secondary-light">Text on secondary light</div>
+<div class="text-on-secondary-dark">Text on secondary dark</div>
+
+<div class="text-on-accent">Text on accent</div>
+<div class="text-on-accent-light">Text on accent light</div>
+<div class="text-on-accent-dark">Text on accent dark</div>
+
+<div class="text-on-light">Text on light</div>
+<div class="text-on-dark">Text on dark</div>'
+          |escape }}</code></pre>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="style-guide__section">
+      <h2 class="style-guide__section-title">Typography</h2>
+
+      <div class="style-guide__items">
+        <div class="style-guide__item">
+          <h3 class="style-guide__section-subtitle">Headings</h3>
+          <div>
+            <h1>Heading 1</h1>
+            <h2>Heading 2</h2>
+            <h3>Heading 3</h3>
+            <h4>Heading 4</h4>
+            <h5>Heading 5</h5>
+            <h6>Heading 6</h6>
+          </div>
+        </div>
+
+        <div class="style-guide__item">
+          <h3 class="style-guide__section-subtitle">Titles</h3>
+          <div>
+            <div class="page-title-large">Page title large</div>
+            <div class="page-title-standard">Page title standard</div>
+            <div class="page-title-small">Page title small</div>
+            <div class="block-title-large">Block title large</div>
+            <div class="block-title-standard">Block title standard</div>
+            <div class="block-title-small">Block title small</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'<h1>Heading 1</h1>
+<h2>Heading 2</h2>
+<h3>Heading 3</h3>
+<h4>Heading 4</h4>
+<h5>Heading 5</h5>
+<h6>Heading 6</h6>
+
+<div class="h1">Heading 1</div>
+<div class="h2">Heading 2</div>
+<div class="h3">Heading 3</div>
+<div class="h4">Heading 4</div>
+<div class="h5">Heading 5</div>
+<div class="h6">Heading 6</div>
+
+// Titles
+<div class="page-title-large">Page title large</div>
+<div class="page-title-standard">Page title standard</div>
+<div class="page-title-small">Page title small</div>
+<div class="block-title-large">Block title large</div>
+<div class="block-title-standard">Block title standard</div>
+<div class="block-title-small">Block title small</div>'
+          |escape }}</code></pre>
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Text examples</h3>
+      <div>
+        <h1>Heading 1</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi reprehenderit necessitatibus eveniet consequuntur cumque accusantium voluptate tenetur, totam earum harum facere cum fuga mollitia molestiae neque alias? Vero, fuga, in.</p>
+        <h2>Heading 2</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint consectetur, quas, quibusdam nesciunt dicta perspiciatis porro sed iste asperiores reiciendis fuga in magni officiis cumque minima, voluptate ab facilis magnam.</p>
+        <h3>Heading 3</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi voluptates blanditiis nobis obcaecati ea magni minus, tempora unde voluptatum iste, dignissimos, aspernatur odit, temporibus reiciendis. Expedita accusamus similique, animi cupiditate.</p>
+        <h4>Heading 4</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error possimus sequi reprehenderit officiis iusto at, adipisci nobis fuga magni iure ex voluptas accusamus exercitationem, veritatis laborum dolorum eligendi soluta porro?</p>
+        <h5>Heading 5</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus corporis magni impedit mollitia quia quo dolore minus praesentium quis excepturi, voluptates officiis itaque, assumenda dolor, illum enim ullam? Fuga, totam.</p>
+        <h6>Heading 6</h6>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit, ipsa! Consectetur est, quisquam quas asperiores tenetur odio ratione, sunt voluptatibus voluptate odit a culpa dolorum eum voluptates cumque ullam minus!</p>
+        <p>Lorem ipsum dolor sit amet <a href="#">this is a link</a>, consectetur adipisicing elit. Ducimus deserunt, aut ex, voluptatem facere possimus quae. Dolor provident unde, laboriosam eveniet tempore deleniti laborum consequuntur quo voluptas voluptatibus consequatur qui.</p>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Default lists</h3>
+
+      <div class="style-guide__items">
+        <div class="style-guide__item">
+          <ul class="text-list">
+            <li>List intem lorem ipsum dolor sit amet</li>
+            <li>Consectetur adipisicing elit</li>
+            <li>Hic provident cupiditate mollitia praesentium iste nisi</li>
+            <li>Aliquam deserunt harum</li>
+          </ul>
+        </div>
+
+        <div class="style-guide__item">
+          <ol class="text-list">
+            <li>List intem lorem ipsum dolor sit amet</li>
+            <li>Consectetur adipisicing elit</li>
+            <li>Hic provident cupiditate mollitia praesentium iste nisi</li>
+            <li>Aliquam deserunt harum</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="style-guide__items">
+        <div class="style-guide__item">
+          <h3 class="style-guide__section-subtitle">Bulleted list</h3>
+          <ul class="text-list text-list--bulleted">
+            <li>List intem lorem ipsum dolor sit amet</li>
+            <li>Consectetur adipisicing elit</li>
+            <li>Hic provident cupiditate mollitia praesentium iste nisi</li>
+            <li>Aliquam deserunt harum</li>
+          </ul>
+        </div>
+
+        <div class="style-guide__item">
+          <h3 class="style-guide__section-subtitle">Iconed list</h3>
+          <ul class="text-list text-list--iconed">
+            <li><i class="icon material-icons">done</i>List intem lorem ipsum dolor sit amet</li>
+            <li><i class="icon material-icons">done</i>Consectetur adipisicing elit</li>
+            <li><i class="icon material-icons">done</i>Hic provident cupiditate mollitia praesentium iste nisi</li>
+            <li><i class="icon material-icons">done</i>Aliquam deserunt harum</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Unstyled list</h3>
+      <ul class="text-list text-list--unstyled">
+        <li>List intem lorem ipsum dolor sit amet</li>
+        <li>Consectetur adipisicing elit</li>
+        <li>Hic provident cupiditate mollitia praesentium iste nisi</li>
+        <li>Aliquam deserunt harum</li>
+      </ul>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'<ul class="text-list">
+  <li>List item</li>
+  ...
+</ul>
+
+// Ordered list
+<ol class="text-list">
+  <li>List item</li>
+  ...
+</ol>
+
+// Bulleted list
+<ul class="text-list text-list--bulleted">
+  <li>List item</li>
+  ...
+</ul>
+
+// List with icons
+<ul class="text-list text-list--iconed">
+  <li><i class="icon material-icons">done</i>List item</li>
+  ...
+</ul>
+
+// Unstyled
+<ul class="text-list text-list--unstyled">
+  <li>List item</li>
+  ...
+</ul>'
+          |escape }}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="style-guide__section">
+      <h2 class="style-guide__section-title">Icons</h2>
+
+      <h3 class="style-guide__section-subtitle">Icon font</h3>
+      <div class="style-guide__items">
+        <div class="style-guide__item">
+          {% include "@material_base/components/01_atoms/icon.twig" with {
+            data: {
+              value: 'account_box',
+            },
+            settings: {
+              type: 'font',
+              classes: ['material-icons'],
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base/components/01_atoms/icon.twig" with {
+            data: {
+              value: 'account_box',
+            },
+            settings: {
+              type: 'font',
+              classes: ['material-icons-outlined'],
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base/components/01_atoms/icon.twig" with {
+            data: {
+              value: 'account_box',
+            },
+            settings: {
+              type: 'font',
+              classes: ['material-icons-two-tone'],
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base/components/01_atoms/icon.twig" with {
+            data: {
+              value: 'account_box',
+            },
+            settings: {
+              type: 'font',
+              classes: ['material-icons-round'],
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base/components/01_atoms/icon.twig" with {
+            data: {
+              value: 'account_box',
+            },
+            settings: {
+              type: 'font',
+              classes: ['material-icons-sharp'],
+            }
+          } %}
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">SVG sprite icons</h3>
+
+      <div class="style-guide__items">
+        <div class="style-guide__item">
+          {% include "@material_base/components/01_atoms/icon.twig" with {
+            data: {
+              value: 'chevron_right',
+            },
+            settings: {
+              type: 'svg-sprite',
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base/components/01_atoms/icon.twig" with {
+            data: {
+              value: 'check_circle',
+            },
+            settings: {
+              type: 'svg-sprite',
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base/components/01_atoms/icon.twig" with {
+            data: {
+              value: 'info',
+            },
+            settings: {
+              type: 'svg-sprite',
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base/components/01_atoms/icon.twig" with {
+            data: {
+              value: 'warning',
+            },
+            settings: {
+              type: 'svg-sprite',
+            }
+          } %}
+        </div>
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'// Icon font
+{% include "@material_base/components/01_atoms/icon.twig" with {
+  data: {
+    value: \'account_box\',
+  },
+  settings: {
+    type: \'font\',
+    classes: [\'material-icons\'],
+  }
+} %}
+
+// SVG sprite icons
+{% include "@material_base/components/01_atoms/icon.twig" with {
+  data: {
+    value: \'chevron_right\',
+  },
+  settings: {
+    type: \'svg-sprite\',
+  }
+} %}'
+          |escape }}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="style-guide__section">
+      <h2 class="style-guide__section-title">Buttons</h2>
+
+      <h3 class="style-guide__section-subtitle">Text button</h3>
+
+      <div class="style-guide__items">
+        <div class="style-guide__item style-guide__items style-guide__items--stacked">
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Button',
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Outlined',
+              },
+              settings: {
+                classes: ['mdc-button--outlined'],
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Unelevated',
+              },
+              settings: {
+                classes: ['mdc-button--unelevated'],
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Raised',
+              },
+              settings: {
+                classes: ['mdc-button--raised'],
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Unstyled',
+              },
+            } %}
+          </div>
+        </div>
+
+        <div class="style-guide__item style-guide__items style-guide__items--stacked">
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Secondary',
+              },
+              settings: {
+                classes: ['button--secondary'],
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Outlined',
+              },
+              settings: {
+                classes: ['mdc-button--outlined', 'button--secondary'],
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Unelevated',
+              },
+              settings: {
+                classes: ['mdc-button--unelevated', 'button--secondary'],
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Raised',
+              },
+              settings: {
+                classes: ['mdc-button--raised', 'button--secondary'],
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Unstyled',
+              },
+              settings: {
+                classes: ['button--secondary'],
+              },
+            } %}
+          </div>
+        </div>
+
+        <div class="style-guide__item style-guide__item--bg-primary style-guide__items style-guide__items--stacked">
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Light',
+              },
+              settings: {
+                classes: ['button--light'],
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Outlined',
+              },
+              settings: {
+                classes: ['mdc-button--outlined', 'button--light'],
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Unelevated',
+              },
+              settings: {
+                classes: ['mdc-button--unelevated', 'button--light'],
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Raised',
+              },
+              settings: {
+                classes: ['mdc-button--raised', 'button--light'],
+              },
+            } %}
+          </div>
+
+          <div class="style-guide__item">
+            {% include "@material_base/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Unstyled',
+              },
+              settings: {
+                classes: ['button--light'],
+              },
+            } %}
+          </div>
+        </div>
+
+        <div class="style-guide__item style-guide__items style-guide__items--stacked">
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Disabled',
+              },
+              settings: {
+                disabled: TRUE,
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Outlined',
+              },
+              settings: {
+                classes: ['mdc-button--outlined'],
+                disabled: TRUE,
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Unelevated',
+              },
+              settings: {
+                classes: ['mdc-button--unelevated'],
+                disabled: TRUE,
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Raised',
+              },
+              settings: {
+                classes: ['mdc-button--raised'],
+                disabled: TRUE,
+              },
+            } %}
+          </div>
+
+          <div class="style-guide__item">
+            {% include "@material_base/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Unstyled',
+              },
+              settings: {
+                disabled: TRUE,
+              },
+            } %}
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'{% include "@material_base_mdc/components/02_molecules/button.twig" with {
+  data: {
+    label: \'Button\',
+  },
+} %}
+
+// Outlined
+{% include "@material_base_mdc/components/02_molecules/button.twig" with {
+  data: {
+    label: \'Outlined\',
+  },
+  settings: {
+    classes: [\'mdc-button--outlined\'],
+  },
+} %}
+
+// Unelevated
+{% include "@material_base_mdc/components/02_molecules/button.twig" with {
+  data: {
+    label: \'Unelevated\',
+  },
+  settings: {
+    classes: [\'mdc-button--unelevated\'],
+  },
+} %}
+
+// Raised
+{% include "@material_base_mdc/components/02_molecules/button.twig" with {
+  data: {
+    label: \'Raised\',
+  },
+  settings: {
+    classes: [\'mdc-button--raised\'],
+  },
+} %}
+
+// Secondary color
+{% include "@material_base_mdc/components/02_molecules/button.twig" with {
+  data: {
+    label: \'Secondary\',
+  },
+  settings: {
+    classes: [\'button--secondary\'],
+  },
+} %}
+
+// Unstyled
+{% include "@material_base/components/02_molecules/button.twig" with {
+  data: {
+    label: \'Unstyled\',
+  },
+} %}'
+          |escape }}</code></pre>
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Button with icon</h3>
+
+      <div class="style-guide__items">
+        <div class="style-guide__item style-guide__items style-guide__items--stacked">
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Btn with icon',
+                icon: {
+                  data: {
+                    value: 'info',
+                  },
+                  settings: {
+                    type: 'svg-sprite',
+                  },
+                },
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Outlined',
+                icon: {
+                  data: {
+                    value: 'info',
+                  },
+                  settings: {
+                    type: 'svg-sprite',
+                  },
+                },
+              },
+              settings: {
+                classes: ['mdc-button--outlined'],
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Unelevated',
+                icon: {
+                  data: {
+                    value: 'info',
+                  },
+                  settings: {
+                    type: 'svg-sprite',
+                  },
+                },
+              },
+              settings: {
+                classes: ['mdc-button--unelevated'],
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Raised',
+                icon: {
+                  data: {
+                    value: 'info',
+                  },
+                  settings: {
+                    type: 'svg-sprite',
+                  },
+                },
+              },
+              settings: {
+                classes: ['mdc-button--raised'],
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Unstyled',
+                icon: {
+                  data: {
+                    value: 'info',
+                  },
+                  settings: {
+                    type: 'svg-sprite',
+                  },
+                },
+              },
+            } %}
+          </div>
+        </div>
+
+        <div class="style-guide__item style-guide__items style-guide__items--stacked">
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Icon at right',
+                icon: {
+                  data: {
+                    value: 'chevron_right',
+                  },
+                  settings: {
+                    type: 'svg-sprite',
+                  },
+                },
+              },
+              settings: {
+                icon_trailing: TRUE,
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Outlined',
+                icon: {
+                  data: {
+                    value: 'chevron_right',
+                  },
+                  settings: {
+                    type: 'svg-sprite',
+                  },
+                },
+              },
+              settings: {
+                classes: ['mdc-button--outlined'],
+                icon_trailing: TRUE,
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Unelevated',
+                icon: {
+                  data: {
+                    value: 'chevron_right',
+                  },
+                  settings: {
+                    type: 'svg-sprite',
+                  },
+                },
+              },
+              settings: {
+                classes: ['mdc-button--unelevated'],
+                icon_trailing: TRUE,
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Raised',
+                icon: {
+                  data: {
+                    value: 'chevron_right',
+                  },
+                  settings: {
+                    type: 'svg-sprite',
+                  },
+                },
+              },
+              settings: {
+                classes: ['mdc-button--raised'],
+                icon_trailing: TRUE,
+              },
+            } %}
+          </div>
+          <div class="style-guide__item">
+            {% include "@material_base/components/02_molecules/button.twig" with {
+              data: {
+                label: 'Unstyled',
+                icon: {
+                  data: {
+                    value: 'chevron_right',
+                  },
+                  settings: {
+                    type: 'svg-sprite',
+                  },
+                },
+              },
+              settings: {
+                icon_trailing: TRUE,
+              },
+            } %}
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'// Icon at the left
+{% include "@material_base_mdc/components/02_molecules/button.twig" with {
+  data: {
+    label: \'Icon at left\',
+    icon: {
+      data: {
+        value: \'info\',
+      },
+      settings: {
+        type: \'svg-sprite\',
+      },
+    },
+  },
+} %}
+
+// Icon at the right
+{% include "@material_base_mdc/components/02_molecules/button.twig" with {
+  data: {
+    label: \'Icon at right\',
+    icon: {
+      data: {
+        value: \'chevron_right\',
+      },
+      settings: {
+        type: \'svg-sprite\',
+      },
+    },
+  },
+  settings: {
+    icon_trailing: TRUE,
+  },
+} %}'
+          |escape }}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="style-guide__section">
+      <h2 class="style-guide__section-title">Icon buttons</h2>
+
+      <h3 class="style-guide__section-subtitle">Styled icon buttons</h3>
+
+      <div class="style-guide__items">
+        <div class="style-guide__item">
+          {% include "@material_base_mdc/components/02_molecules/icon-button.twig" with {
+            data: {
+              icon: {
+                data: {
+                  value: 'info',
+                },
+                settings: {
+                  type: 'svg-sprite',
+                },
+              },
+            },
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base_mdc/components/02_molecules/icon-button.twig" with {
+            data: {
+              icon: {
+                data: {
+                  value: 'info',
+                },
+                settings: {
+                  type: 'svg-sprite',
+                },
+              },
+            },
+            settings: {
+              disabled: TRUE,
+            },
+          } %}
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Unstyled icon buttons</h3>
+      <div class="style-guide__items">
+        <div class="style-guide__item">
+          {% include "@material_base/components/02_molecules/button.twig" with {
+            data: {
+              icon: {
+                data: {
+                  value: 'info',
+                },
+                settings: {
+                  type: 'svg-sprite',
+                },
+              },
+            },
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base/components/02_molecules/button.twig" with {
+            data: {
+              icon: {
+                data: {
+                  value: 'info',
+                },
+                settings: {
+                  type: 'svg-sprite',
+                },
+              },
+            },
+            settings: {
+              disabled: TRUE,
+            },
+          } %}
+        </div>
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'{% include "@material_base_mdc/components/02_molecules/icon-button.twig" with {
+  data: {
+    icon: {
+      data: {
+        value: \'info\',
+      },
+      settings: {
+        type: \'svg-sprite\',
+      },
+    },
+  },
+} %}
+
+// Disabled
+{% include "@material_base_mdc/components/02_molecules/icon-button.twig" with {
+  data: {
+    icon: {
+      data: {
+        value: \'info\',
+      },
+      settings: {
+        type: \'svg-sprite\',
+      },
+    },
+  },
+  settings: {
+    disabled: TRUE,
+  },
+} %}
+
+// Unstyled
+{% include "@material_base/components/02_molecules/button.twig" with {
+  data: {
+    icon: {
+      data: {
+        value: \'info\',
+      },
+      settings: {
+        type: \'svg-sprite\',
+      },
+    },
+  },
+} %}'
+          |escape }}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="style-guide__section">
+      <h2 class="style-guide__section-title">Share button</h2>
+
+      <h3 class="style-guide__section-subtitle">Default buttons</h3>
+
+      <div class="style-guide__items">
+        <div class="style-guide__item">
+          {% include "@material_base/components/02_molecules/share-button.twig" with {
+            data: {
+              label: 'Share',
+              url: 'https://example.com',
+              title: 'Example site',
+            },
+            settings: {
+              network: 'facebook',
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base/components/02_molecules/share-button.twig" with {
+            data: {
+              label: 'Tweet',
+              url: 'https://example.com',
+              title: 'Example site',
+            },
+            settings: {
+              network: 'twitter',
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base/components/02_molecules/share-button.twig" with {
+            data: {
+              label: 'share',
+              url: 'https://example.com',
+              title: 'Example site',
+            },
+            settings: {
+              network: 'linkedin',
+            }
+          } %}
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Buttons with trailing icon</h3>
+
+      <div class="style-guide__items">
+        <div class="style-guide__item">
+          {% include "@material_base/components/02_molecules/share-button.twig" with {
+            data: {
+              label: 'Share',
+              url: 'https://example.com',
+              title: 'Example site',
+            },
+            settings: {
+              network: 'facebook',
+              icon_trailing: TRUE,
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base/components/02_molecules/share-button.twig" with {
+            data: {
+              label: 'Tweet',
+              url: 'https://example.com',
+              title: 'Example site',
+            },
+            settings: {
+              network: 'twitter',
+              icon_trailing: TRUE,
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base/components/02_molecules/share-button.twig" with {
+            data: {
+              label: 'share',
+              url: 'https://example.com',
+              title: 'Example site',
+            },
+            settings: {
+              network: 'linkedin',
+              icon_trailing: TRUE,
+            }
+          } %}
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Buttons without text</h3>
+
+      <div class="style-guide__items">
+        <div class="style-guide__item">
+          {% include "@material_base/components/02_molecules/share-button.twig" with {
+            data: {
+              url: 'https://example.com',
+              title: 'Example site',
+            },
+            settings: {
+              network: 'facebook',
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base/components/02_molecules/share-button.twig" with {
+            data: {
+              url: 'https://example.com',
+              title: 'Example site',
+            },
+            settings: {
+              network: 'twitter',
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base/components/02_molecules/share-button.twig" with {
+            data: {
+              url: 'https://example.com',
+              title: 'Example site',
+            },
+            settings: {
+              network: 'linkedin',
+            }
+          } %}
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Buttons without icon</h3>
+
+      <div class="style-guide__items">
+        <div class="style-guide__item">
+          {% include "@material_base/components/02_molecules/share-button.twig" with {
+            data: {
+              label: 'Facebook',
+              url: 'https://example.com',
+              title: 'Example site',
+              icon: FALSE,
+            },
+            settings: {
+              network: 'facebook',
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base/components/02_molecules/share-button.twig" with {
+            data: {
+              label: 'Twitter',
+              url: 'https://example.com',
+              title: 'Example site',
+              icon: FALSE,
+            },
+            settings: {
+              network: 'twitter',
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base/components/02_molecules/share-button.twig" with {
+            data: {
+              label: 'Linked In',
+              url: 'https://example.com',
+              title: 'Example site',
+              icon: FALSE,
+            },
+            settings: {
+              network: 'linkedin',
+            }
+          } %}
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Buttons with custom icons</h3>
+
+      <div class="style-guide__items">
+        <div class="style-guide__item">
+          {% include "@material_base/components/02_molecules/share-button.twig" with {
+            data: {
+              label: 'Share',
+              url: 'https://example.com',
+              title: 'Example site',
+              icon: {
+                data: {
+                  value: 'thumb_up',
+                },
+                settings: {
+                  type: 'font',
+                  classes: ['material-icons'],
+                },
+              },
+            },
+            settings: {
+              network: 'facebook',
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base/components/02_molecules/share-button.twig" with {
+            data: {
+              label: 'Tweet',
+              url: 'https://example.com',
+              title: 'Example site',
+              icon: {
+                data: {
+                  value: 'send',
+                },
+                settings: {
+                  type: 'font',
+                  classes: ['material-icons'],
+                },
+              },
+            },
+            settings: {
+              network: 'twitter',
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base/components/02_molecules/share-button.twig" with {
+            data: {
+              label: 'share',
+              url: 'https://example.com',
+              title: 'Example site',
+              icon: {
+                data: {
+                  value: 'share',
+                },
+                settings: {
+                  type: 'font',
+                  classes: ['material-icons'],
+                },
+              },
+            },
+            settings: {
+              network: 'linkedin',
+            }
+          } %}
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Buttons with brand background color</h3>
+
+      <div class="style-guide__items">
+        <div class="style-guide__item">
+          {% include "@material_base/components/02_molecules/share-button.twig" with {
+            data: {
+              label: 'Share',
+              url: 'https://example.com',
+              title: 'Example site',
+            },
+            settings: {
+              network: 'facebook',
+              classes: ['share-button--branded'],
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base/components/02_molecules/share-button.twig" with {
+            data: {
+              label: 'Tweet',
+              url: 'https://example.com',
+              title: 'Example site',
+            },
+            settings: {
+              network: 'twitter',
+              classes: ['share-button--branded'],
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base/components/02_molecules/share-button.twig" with {
+            data: {
+              label: 'share',
+              url: 'https://example.com',
+              title: 'Example site',
+            },
+            settings: {
+              network: 'linkedin',
+              classes: ['share-button--branded'],
+            }
+          } %}
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Buttons using MDC button styles</h3>
+
+      <div class="style-guide__items">
+        <div class="style-guide__item">
+          {% include "@material_base_mdc/components/02_molecules/share-button.twig" with {
+            data: {
+              label: 'Share',
+              url: 'https://example.com',
+              title: 'Example site',
+            },
+            settings: {
+              network: 'facebook',
+              classes: ['mdc-button--raised'],
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base_mdc/components/02_molecules/share-button.twig" with {
+            data: {
+              label: 'Tweet',
+              url: 'https://example.com',
+              title: 'Example site',
+            },
+            settings: {
+              network: 'twitter',
+              classes: ['mdc-button--raised'],
+            }
+          } %}
+        </div>
+        <div class="style-guide__item">
+          {% include "@material_base_mdc/components/02_molecules/share-button.twig" with {
+            data: {
+              label: 'share',
+              url: 'https://example.com',
+              title: 'Example site',
+              icon: true,
+            },
+            settings: {
+              network: 'linkedin',
+              classes: ['mdc-button--raised'],
+            }
+          } %}
+        </div>
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'{% include "@material_base/components/02_molecules/share-button.twig" with {
+  data: {
+    label: \'Share\',
+    url: \'https://example.com\',
+    title: \'Example site\',
+  },
+  settings: {
+    network: \'facebook\',
+  }
+} %}
+
+// Trailing icon
+{% include "@material_base/components/02_molecules/share-button.twig" with {
+  data: {
+    label: \'Share\',
+    url: \'https://example.com\',
+    title: \'Example site\',
+  },
+  settings: {
+    network: \'facebook\',
+    icon_trailing: TRUE,
+  }
+} %}
+
+// Without text
+{% include "@material_base/components/02_molecules/share-button.twig" with {
+  data: {
+    url: \'https://example.com\',
+    title: \'Example site\',
+  },
+  settings: {
+    network: \'facebook\',
+  }
+} %}
+
+// Without icon
+{% include "@material_base/components/02_molecules/share-button.twig" with {
+  data: {
+    label: \'Facebook\',
+    url: \'https://example.com\',
+    title: \'Example site\',
+    icon: FALSE,
+  },
+  settings: {
+    network: \'facebook\',
+  }
+} %}
+
+// Custom icon
+{% include "@material_base/components/02_molecules/share-button.twig" with {
+  data: {
+    label: \'Share\',
+    url: \'https://example.com\',
+    title: \'Example site\',
+    icon: {
+      data: {
+        value: \'thumb_up\',
+      },
+      settings: {
+        type: \'font\',
+        classes: [\'material-icons\'],
+      },
+    },
+  },
+  settings: {
+    network: \'facebook\',
+  }
+} %}
+
+// Brand background color
+{% include "@material_base/components/02_molecules/share-button.twig" with {
+  data: {
+    label: \'Share\',
+    url: \'https://example.com\',
+    title: \'Example site\',
+  },
+  settings: {
+    network: \'facebook\',
+    classes: [\'share-button--branded\'],
+  }
+} %}
+
+// MDC button
+{% include "@material_base_mdc/components/02_molecules/share-button.twig" with {
+  data: {
+    label: \'Share\',
+    url: \'https://example.com\',
+    title: \'Example site\',
+  },
+  settings: {
+    network: \'facebook\',
+    classes: [\'mdc-button--raised\'],
+  }
+} %}'
+          |escape }}</code></pre>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="style-guide__section">
+      <h2 class="style-guide__section-title">Forms</h2>
+
+      <div class="form-item">
+        <label class="mdc-text-field mdc-text-field--filled " data-mdc-auto-init="MDCTextField">
+          <div class="mdc-text-field__ripple"></div>
+          <input class="mdc-text-field__input" type="text" size="60" maxlength="100">
+          <span class="mdc-floating-label">Text filed</span>
+          <div class="mdc-line-ripple"></div>
+        </label>
+      </div>
+
+      <div class="form-item">
+        <label class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined" data-mdc-auto-init="MDCTextField">
+          <div class="mdc-text-field__ripple"></div>
+          <textarea class="form-textarea mdc-text-field__input" rows="6" cols="60"></textarea>
+          <div class="mdc-notched-outline">
+            <div class="mdc-notched-outline__leading"></div>
+            <div class="mdc-notched-outline__notch">
+              <span class="mdc-floating-label">Textarea</span>
+            </div>
+            <div class="mdc-notched-outline__trailing"></div>
+          </div>
+        </label>
+      </div>
+
+
+      <div class="form-item">
+        <div class="mdc-form-field" data-mdc-auto-init="MDCFormField" >
+          <div class="mdc-checkbox" data-mdc-auto-init="MDCCheckbox">
+            <input type="checkbox" id="sg-checkbox-single" value="1" class="form-checkbox mdc-checkbox__native-control">
+            <div class="mdc-checkbox__background">
+              <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
+              </svg>
+              <div class="mdc-checkbox__mixedmark"></div>
+            </div>
+            <div class="mdc-checkbox__ripple"></div>
+          </div>
+          <label class="option" for="sg-checkbox-single">Single checkbox</label>
+        </div>
+      </div>
+
+      <fieldset class="form-item fieldgroup">
+        <legend>
+          <span class="fieldset-legend">Checkboxes</span>
+        </legend>
+        <div class="fieldset-wrapper">
+          <div class="form-checkboxes">
+           <div class="form-item">
+            <div class="mdc-form-field" data-mdc-auto-init="MDCFormField">
+              <div class="mdc-checkbox" data-mdc-auto-init="MDCCheckbox">
+                <input type="checkbox" id="sg-checkbox-1" value="1" class="form-checkbox mdc-checkbox__native-control">
+                <div class="mdc-checkbox__background">
+                  <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                    <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
+                  </svg>
+                  <div class="mdc-checkbox__mixedmark"></div>
+                </div>
+                <div class="mdc-checkbox__ripple"></div>
+              </div>
+              <label class="option" for="sg-checkbox-1">Checkbox 1</label>
+            </div>
+          </div>
+          <div class="form-item">
+            <div class="mdc-form-field" data-mdc-auto-init="MDCFormField">
+              <div class="mdc-checkbox" data-mdc-auto-init="MDCCheckbox">
+                <input type="checkbox" id="sg-checkbox-2" value="2" class="form-checkbox mdc-checkbox__native-control">
+                <div class="mdc-checkbox__background">
+                  <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                    <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
+                  </svg>
+                  <div class="mdc-checkbox__mixedmark"></div>
+                </div>
+                <div class="mdc-checkbox__ripple"></div>
+              </div>
+              <label class="option" for="sg-checkbox-2">Checkbox 2</label>
+            </div>
+          </div>
+          <div class="form-item">
+            <div class="mdc-form-field" data-mdc-auto-init="MDCFormField">
+              <div class="mdc-checkbox" data-mdc-auto-init="MDCCheckbox">
+                <input type="checkbox" id="sg-checkbox-3" value="3" class="form-checkbox mdc-checkbox__native-control">
+                  <div class="mdc-checkbox__background">
+                    <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                      <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
+                    </svg>
+                    <div class="mdc-checkbox__mixedmark"></div>
+                  </div>
+                  <div class="mdc-checkbox__ripple"></div>
+                </div>
+                <label class="option" for="sg-checkbox-3">Checkbox 3</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldgroup form-item">
+        <legend>
+          <span class="fieldset-legend">Radios</span>
+        </legend>
+        <div class="fieldset-wrapper">
+          <div class="form-radios">
+            <div class="form-item">
+              <div class="mdc-form-field" data-mdc-auto-init="MDCFormField">
+                <div class="mdc-radio" data-mdc-auto-init="MDCRadio">
+                  <input type="radio" id="sg-radio-1" name="sg-radio" value="1" class="form-radio mdc-radio__native-control">
+                  <div class="mdc-radio__background">
+                    <div class="mdc-radio__outer-circle"></div>
+                    <div class="mdc-radio__inner-circle"></div>
+                  </div>
+                  <div class="mdc-radio__ripple"></div>
+                </div>
+                <label class="option" for="sg-radio-1">Radio button 1</label>
+              </div>
+            </div>
+            <div class="form-item">
+              <div class="mdc-form-field" data-mdc-auto-init="MDCFormField">
+                <div class="mdc-radio" data-mdc-auto-init="MDCRadio">
+                  <input type="radio" id="sg-radio-2" name="sg-radio" value="2" class="form-radio mdc-radio__native-control">
+                  <div class="mdc-radio__background">
+                    <div class="mdc-radio__outer-circle"></div>
+                    <div class="mdc-radio__inner-circle"></div>
+                  </div>
+                  <div class="mdc-radio__ripple"></div>
+                </div>
+                <label class="option" for="sg-radio-2">Radio button 2</label>
+              </div>
+            </div>
+            <div class="form-item">
+              <div class="mdc-form-field" data-mdc-auto-init="MDCFormField">
+                <div class="mdc-radio" data-mdc-auto-init="MDCRadio">
+                  <input type="radio" id="sg-radio-3" name="sg-radio" value="3" class="form-radio mdc-radio__native-control">
+                  <div class="mdc-radio__background">
+                    <div class="mdc-radio__outer-circle"></div>
+                    <div class="mdc-radio__inner-circle"></div>
+                  </div>
+                  <div class="mdc-radio__ripple"></div>
+                </div>
+                <label class="option" for="sg-radio-3">Radio button 3</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="form-actions">
+        <button data-mdc-auto-init="MDCRipple" class="form-submit mdc-button button-submit mdc-button--raised button button--primary">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">Submit button</span>
+          <input type="submit" value="Submit button" class="button-submit__input visually-hidden">
+        </button>
+        <button data-mdc-auto-init="MDCRipple" class="form-submit mdc-button button-submit button">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">Other button</span>
+          <input type="submit" value="Other button" class="button-submit__input visually-hidden">
+        </button>
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Usage
+        </div>
+        <div class="mb-dropdown__panel">
+          Form elements styles applied to Drupal forms by default. For more information see <a href="https://www.drupal.org/docs/drupal-apis/form-api">Form API documentation</a>.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="style-guide__section">
+      <h2 class="style-guide__section-title">Search</h2>
+
+      <h3 class="style-guide__section-subtitle">Search field</h3>
+
+      <div class="form-item form-no-label search-field">
+        <div class="search-field__group">
+          <svg class="icon search-field__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+          </svg>
+          <input placeholder="Search" type="text" size="30" maxlength="128">
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Search buttons</h3>
+
+      <div class="style-guide__items">
+        <div class="style-guide__item">
+          <div class="search-toggle">
+            <button class="search-toggle__button">
+              <svg class="icon search-toggle__icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="style-guide__item">
+          <div class="search-close">
+            <button class="search-close__button">
+              <svg class="icon search-close__icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Search result snippet</h3>
+
+      <article class="search-results-list__item">
+        <h3 class="item-title"><a href="#">Drupal</a></h3>
+        <div class="item-content">
+          Drupal lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia quis minus odio hic provident fugiat laudantium quae, architecto at! Blanditiis corporis non fuga voluptates vero tenetur ut deleniti beatae dicta …
+        </div>
+        <footer class="item-footer">
+          <a href="#" rel="bookmark">https://example.com/drupal</a>
+        </footer>
+      </article>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'// Search field example
+<div class="form-item form-no-label search-field">
+  <div class="search-field__group">
+    <svg class="icon search-field__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+      <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+    </svg>
+    <input placeholder="Search" type="text" size="30" maxlength="128">
+  </div>
+</div>
+
+// Toggle button example
+<div class="search-toggle">
+  <button class="search-toggle__button">
+    <svg class="icon search-toggle__icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+      <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+    </svg>
+  </button>
+</div>
+
+// Close button example
+<div class="search-close">
+  <button class="search-close__button">
+    <svg class="icon search-close__icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+    </svg>
+  </button>
+</div>
+
+// Search result snippet example
+<article class="search-results-list__item">
+  <h3 class="item-title"><a href="#">Drupal</a></h3>
+  <div class="item-content">
+    Drupal lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia quis minus odio hic provident fugiat laudantium quae, architecto at! Blanditiis corporis non fuga voluptates vero tenetur ut deleniti beatae dicta …
+  </div>
+  <footer class="item-footer">
+    <a href="#" rel="bookmark">https://example.com/drupal</a>
+  </footer>
+</article>'
+          |escape }}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="style-guide__section">
+      <h2 class="style-guide__section-title">Grid</h2>
+
+      <h3 class="style-guide__section-subtitle">Basic example</h3>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <div class="style-guide__example-block">Block 1</div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <div class="style-guide__example-block">Block 2</div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+          <div class="style-guide__example-block">Block 3</div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-12 col-lg-3">
+          <div class="style-guide__example-block">Block 4</div>
+        </div>
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+    <div>Block 1</div>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+    <div>Block 2</div>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+    <div>Block 3</div>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-12 col-lg-3">
+    <div>Block 4</div>
+  </div>
+</div>'
+          |escape }}</code></pre>
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Offsets</h3>
+
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+          <div class="style-guide__example-block">Block 1</div>
+        </div>
+        <div class="col-xs-12">
+          <div class="style-guide__example-block">Block 2</div>
+        </div>
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'<div class="row">
+  <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+    <div>Block 1</div>
+  </div>
+  <div class="col-xs-12">
+    <div>Block 2</div>
+  </div>
+</div>'
+          |escape }}</code></pre>
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Reordering</h3>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4 last-xs last-sm last-md">
+          <div class="style-guide__example-block">Block 1 (order last)</div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <div class="style-guide__example-block">Block 2</div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 first-xs first-sm first-md">
+          <div class="style-guide__example-block">Block 3 (order first)</div>
+        </div>
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-4 last-xs last-sm last-md">
+    <div>Block 1 (order last)</div>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-4">
+    <div>Block 2</div>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-4 first-xs first-sm first-md">
+    <div>Block 3 (order first)</div>
+  </div>
+</div>'
+          |escape }}</code></pre>
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Reversing</h3>
+
+      <div class="row reverse">
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <div class="style-guide__example-block">Block 1</div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <div class="style-guide__example-block">Block 2</div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4">
+          <div class="style-guide__example-block">Block 3</div>
+        </div>
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'<div class="row reverse">
+  <div class="col-xs-12 col-sm-6 col-md-4">
+    <div>Block 1</div>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-4">
+    <div>Block 2</div>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-4">
+    <div>Block 3</div>
+  </div>
+</div>'
+          |escape }}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="style-guide__section">
+      <h2 class="style-guide__section-title">Cards</h2>
+
+      <h3 class="style-guide__section-subtitle">Text card</h3>
+      <div class="style-guide__card-container">
+        {% include "@material_base_mdc/components/03_organisms/card.twig" with {
+          data: {
+            label: 'Label',
+            title: 'Title Lorem ipsum dolor sit amet',
+            subtitle: 'Subtitle consectetur adipisicing elit',
+            text: 'Text sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+          },
+        } %}
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'{% include "@material_base_mdc/components/03_organisms/card.twig" with {
+  data: {
+    label: \'Label\',
+    title: \'Card title\',
+    subtitle: \'Card subtitle\',
+    text: \'Card text.\',
+  },
+} %}'
+          |escape }}</code></pre>
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Card with media</h3>
+      <div class="style-guide__card-container">
+        {% include "@material_base_mdc/components/03_organisms/card.twig" with {
+          data: {
+            media: [{'#markup': '<img src="/' ~ base_theme_path ~ '/images/bg.png" />'}],
+            title: 'Title Lorem ipsum dolor sit amet',
+            subtitle: 'Subtitle consectetur adipisicing elit',
+            text: 'Text sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+          },
+        } %}
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'{% include "@material_base_mdc/components/03_organisms/card.twig" with {
+  data: {
+    media: [{\'#markup\': \'<img src="image.png" />\'}],
+    title: \'Card title\',
+    subtitle: \'Card subtitle\',
+    text: \'Card text.\',
+  },
+} %}'
+          |escape }}</code></pre>
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Card with action button</h3>
+      <div class="style-guide__card-container">
+        {% include "@material_base_mdc/components/03_organisms/card.twig" with {
+          data: {
+            media: [{'#markup': '<img src="/' ~ base_theme_path ~ '/images/bg.png" />'}],
+            title: 'Title Lorem ipsum dolor sit amet',
+            subtitle: 'Subtitle consectetur adipisicing elit',
+            button: {
+              data: {
+                label: 'Action',
+                url: '#',
+              },
+              settings: {
+                tag: 'a',
+              },
+            },
+          },
+        } %}
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'{% include "@material_base_mdc/components/03_organisms/card.twig" with {
+  data: {
+    media: [{\'#markup\': \'<img src="image.png" />\'}],
+    title: \'Card title\',
+    subtitle: \'Card subtitle\',
+    button: {
+      data: {
+        label: \'Action\',
+        url: \'#\',
+      },
+      settings: {
+        tag: \'a\',
+      },
+    },
+  },
+} %}'
+          |escape }}</code></pre>
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Card link</h3>
+      <div class="style-guide__card-container">
+        {% include "@material_base_mdc/components/03_organisms/card.twig" with {
+          data: {
+            url: '#',
+            media: [{'#markup': '<img src="/' ~ base_theme_path ~ '/images/bg.png" />'}],
+            title: 'Title Lorem ipsum dolor sit amet',
+            subtitle: 'Subtitle consectetur adipisicing elit',
+            button: {
+              data: {
+                label: 'Action',
+              },
+            },
+          },
+          settings: {
+            tag: 'a',
+          },
+        } %}
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'{% include "@material_base_mdc/components/03_organisms/card.twig" with {
+  data: {
+    url: \'#\',
+    media: [{\'#markup\': \'<img src="image.png" />\'}],
+    title: \'Card title\',
+    subtitle: \'Card subtitle\',
+    button: {
+      data: {
+        label: \'Action\',
+      },
+    },
+  },
+  settings: {
+    tag: \'a\',
+  },
+} %}'
+          |escape }}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="style-guide__section">
+      <h2 class="style-guide__section-title">Navbar</h2>
+
+      <h3 class="style-guide__section-subtitle">Branding</h3>
+
+      <header class="style-guide__navbar navbar mdc-top-app-bar mdc-top-app-bar--standard" data-mdc-auto-init="MDCTopAppBar">
+        <div class="navbar__container mdc-top-app-bar__row">
+          <section class="navbar__section mdc-top-app-bar__section">
+            <a href="#" rel="home" class="navbar-branding__logo site-logo">
+              <img src="{{ directory }}/logo.svg" alt="Home">
+            </a>
+            <div class="navbar-branding__title site-name">
+              <a href="#" title="Home" rel="home">Site name</a>
+            </div>
+            <div class="navbar-branding__slogan site-slogan">Site slogan</div>
+          </section>
+        </div>
+      </header>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Usage
+        </div>
+        <div class="mb-dropdown__panel">
+          Place and configure "Site branding" block at "Navbar" region.
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Buttons</h3>
+
+      <header class="style-guide__navbar navbar mdc-top-app-bar mdc-top-app-bar--standard" data-mdc-auto-init="MDCTopAppBar">
+        <div class="navbar__container mdc-top-app-bar__row">
+          <section class="navbar__section mdc-top-app-bar__section">
+            {% include "@material_base_mdc/components/02_molecules/icon-button.twig" with {
+              data: {
+                icon: {
+                  data: {
+                    value: 'menu',
+                  },
+                  settings: {
+                    type: 'svg-sprite',
+                  },
+                },
+              },
+              settings: {
+                classes: ['mdc-top-app-bar__navigation-icon'],
+              },
+            } %}
+
+            {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+              data: {
+                label: 'contact',
+              },
+              settings: {
+                classes: ['mdc-button--unelevated', 'button--light', 'navbar-item'],
+              },
+            } %}
+
+            {% include "@material_base_mdc/components/02_molecules/icon-button.twig" with {
+              data: {
+                icon: {
+                  data: {
+                    value: 'account_circle',
+                  },
+                  settings: {
+                    type: 'svg-sprite',
+                  },
+                },
+              },
+              settings: {
+                classes: ['mdc-top-app-bar__action-item', 'navbar-item--right'],
+              },
+            } %}
+
+          </section>
+        </div>
+      </header>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'// Overlay toggle
+{% include "@material_base_mdc/components/02_molecules/icon-button.twig" with {
+  data: {
+    icon: {
+      data: {
+        value: \'menu\',
+      },
+      settings: {
+        type: \'svg-sprite\',
+      },
+    },
+  },
+  settings: {
+    classes: [\'mdc-top-app-bar__navigation-icon\'],
+  },
+} %}
+
+// Navbar button
+{% include "@material_base_mdc/components/02_molecules/button.twig" with {
+  data: {
+    label: \'contact\',
+  },
+  settings: {
+    classes: [\'mdc-button--unelevated\', \'button--light\', \'navbar-item\'],
+  },
+} %}
+
+// Navbar icon buton (right aligneed)
+{% include "@material_base_mdc/components/02_molecules/icon-button.twig" with {
+  data: {
+    icon: {
+      data: {
+        value: \'account_circle\',
+      },
+      settings: {
+        type: \'svg-sprite\',
+      },
+    },
+  },
+  settings: {
+    classes: [\'mdc-top-app-bar__action-item\', \'navbar-item--right\'],
+  },
+} %}'
+          |escape }}</code></pre>
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Single level menu</h3>
+
+      <header class="style-guide__navbar navbar mdc-top-app-bar mdc-top-app-bar--standard" data-mdc-auto-init="MDCTopAppBar">
+        <div class="navbar__container mdc-top-app-bar__row">
+          <section class="navbar__section mdc-top-app-bar__section">
+            <nav>
+              <div class="navbar-menu navbar-menu--hoverable">
+                <ul class="menu menu--level-0">
+                  <li class="menu-item">
+                    <a href="" class="navbar-menu__item">
+                      <span class="navbar-menu__item-text">Home</span>
+                    </a>
+                  </li>
+                  <li class="menu-item menu-item--collapsed">
+                    <a href="" class="navbar-menu__item">
+                      <span class="navbar-menu__item-text">Section</span>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="" class="navbar-menu__item">
+                      <span class="navbar-menu__item-text">Contacts</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </section>
+        </div>
+      </header>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Usage
+        </div>
+        <div class="mb-dropdown__panel">
+          Place menu block at "Navbar" region. Configure block for displaying 1 level of menu deepness.
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Dropdown menu</h3>
+
+      <header class="style-guide__navbar navbar mdc-top-app-bar mdc-top-app-bar--standard" data-mdc-auto-init="MDCTopAppBar">
+        <div class="navbar__container mdc-top-app-bar__row">
+          <section class="navbar__section mdc-top-app-bar__section">
+            <nav>
+              <div class="navbar-menu navbar-menu--dropdown">
+                <ul class="menu menu--level-0 mdc-menu-dropdown__group">
+                  <li class="menu-item">
+                    <a href="" class="navbar-menu__item" data-mdc-auto-init="MDCRipple">
+                      <span class="navbar-menu__item-text ">Home</span>
+                    </a>
+                  </li>
+                  <li class="menu-item menu-item--expanded mdc-menu-dropdown">
+                    <a href="" class="navbar-menu__item mdc-menu-dropdown__toggle" data-mdc-auto-init="MDCRipple">
+                      <span class="navbar-menu__item-text ">Section</span>
+                      <svg class="icon navbar-menu__item-icon"><use xlink:href="#arrow_drop_down"></use></svg>
+                    </a>
+                    <div class="mdc-menu-surface--anchor">
+                      <div class="mdc-menu mdc-menu-surface navbar-menu--level-1" data-mdc-auto-init="MDCMenu">
+                        <ul class="menu menu--level-1 mdc-deprecated-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1" data-mdc-auto-init="MDCList">
+                          <li class="menu-item">
+                            <a href="" class="navbar-menu__item mdc-deprecated-list-item" data-mdc-auto-init="MDCRipple" tabindex="0">
+                              <span class="mdc-deprecated-list-item__ripple"></span>
+                              <span class="navbar-menu__item-text  mdc-deprecated-list-item__text">Section item 1</span>
+                            </a>
+                          </li>
+                          <li class="menu-item">
+                            <a href="" class="navbar-menu__item mdc-deprecated-list-item" data-mdc-auto-init="MDCRipple" tabindex="-1"><span class="mdc-deprecated-list-item__ripple"></span>
+                              <span class="navbar-menu__item-text  mdc-deprecated-list-item__text">Section item 2</span>
+                            </a>
+                          </li>
+                          <li class="menu-item">
+                            <a href="" class="navbar-menu__item mdc-deprecated-list-item" data-mdc-auto-init="MDCRipple" tabindex="-1">
+                              <span class="mdc-deprecated-list-item__ripple"></span>
+                              <span class="navbar-menu__item-text  mdc-deprecated-list-item__text">Section item 3</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="menu-item">
+                    <a href="" class="navbar-menu__item" data-mdc-auto-init="MDCRipple">
+                      <span class="navbar-menu__item-text ">Contacts</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </section>
+        </div>
+      </header>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Usage
+        </div>
+        <div class="mb-dropdown__panel">
+          Place menu block at "Navbar" region. Configure block for displaying 2 levels of menu deepness.
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Dropdown menu custom</h3>
+
+      <header class="style-guide__navbar navbar mdc-top-app-bar mdc-top-app-bar--standard" data-mdc-auto-init="MDCTopAppBar">
+        <div class="navbar__container mdc-top-app-bar__row">
+          <section class="navbar__section mdc-top-app-bar__section">
+            <nav>
+              <div class="navbar-menu navbar-menu--dropdown">
+                <ul region="navbar" class="menu menu--level-0 mb-dropdown__group">
+                  <li class="menu-item">
+                    <a href="" class="navbar-menu__item">
+                      <span class="navbar-menu__item-text">Home</span>
+                    </a>
+                  </li>
+                  <li class="menu-item menu-item--expanded mb-dropdown">
+                    <a href="" class="navbar-menu__item mb-dropdown__toggle">
+                      <span class="navbar-menu__item-text">Section</span>
+                      <svg class="icon navbar-menu__item-icon"><use xlink:href="#arrow_drop_down"></use></svg>
+                    </a>
+                    <div class="navbar-menu__panel navbar-menu--level-1 mb-dropdown__panel">
+                      <ul class="menu menu--level-1">
+                        <li class="menu-item">
+                          <a href="" class="navbar-menu__item">
+                            <span class="navbar-menu__item-text">Section item 1</span>
+                          </a>
+                        </li>
+                        <li class="menu-item">
+                          <a href="" class="navbar-menu__item">
+                            <span class="navbar-menu__item-text">Section item 2</span>
+                          </a>
+                        </li>
+                        <li class="menu-item">
+                          <a href="" class="navbar-menu__item">
+                            <span class="navbar-menu__item-text">Section item 3</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="menu-item">
+                    <a href="" class="navbar-menu__item">
+                      <span class="navbar-menu__item-text">Contacts</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </section>
+        </div>
+      </header>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Usage
+        </div>
+        <div class="mb-dropdown__panel">
+          Override <code>menu--navbar.html.twig</code> template by one from <code>templates/navigation</code> folder.<br />
+          Place menu block at "Navbar" region. Configure block for displaying 2 levels of menu deepness.
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Hover menu</h3>
+
+      <header class="style-guide__navbar navbar mdc-top-app-bar mdc-top-app-bar--standard" data-mdc-auto-init="MDCTopAppBar">
+        <div class="navbar__container mdc-top-app-bar__row">
+          <section class="navbar__section mdc-top-app-bar__section">
+            <nav>
+              <div class="navbar-menu navbar-menu--hoverable">
+                <ul class="menu menu--level-0">
+                  <li class="menu-item">
+                    <a href="" class="navbar-menu__item">
+                      <span class="navbar-menu__item-text">Home</span>
+                    </a>
+                  </li>
+                  <li class="menu-item menu-item--expanded">
+                    <a href="" class="navbar-menu__item">
+                      <span class="navbar-menu__item-text">Section</span>
+                    </a>
+                    <div class="navbar-menu__panel navbar-menu--level-1">
+                      <ul class="menu menu--level-1">
+                        <li class="menu-item">
+                          <a href="" class="navbar-menu__item">
+                            <span class="navbar-menu__item-text">Section item 1</span>
+                          </a>
+                        </li>
+                        <li class="menu-item">
+                          <a href="" class="navbar-menu__item">
+                            <span class="navbar-menu__item-text">Section item 2</span>
+                          </a>
+                        </li>
+                        <li class="menu-item">
+                          <a href="" class="navbar-menu__item">
+                            <span class="navbar-menu__item-text">Section item 3</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="menu-item">
+                    <a href="" class="navbar-menu__item">
+                      <span class="navbar-menu__item-text">Contacts</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </section>
+        </div>
+      </header>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Usage
+        </div>
+        <div class="mb-dropdown__panel">
+          Override <code>menu--navbar.html.twig</code> template by <code>menu--navbar--hoverable.html.twig</code> from <code>templates/navigation</code> folder.<br />
+          Place menu block at "Navbar" region. Configure block for displaying 2 levels of menu deepness.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="style-guide__section">
+      <h2 class="style-guide__section-title">Overlay</h2>
+
+      <h3 class="style-guide__section-subtitle">Default menu</h3>
+      <div class="style-guide__overlay overlay">
+        <div class="overay__bg"></div>
+        <div class="overay__container">
+          <div class="overlay__header">
+            <div class="overlay-close">
+              <button class="mdc-icon-button overlay-close__button">
+                <svg class="icon mdc-icon-button__icon"><use xlink:href="#close"></use></svg>
+              </button>
+            </div>
+          </div>
+          <div class="overlay__content">
+            <nav>
+              <div class="overlay-menu overlay-menu--accordion">
+                <ul class="menu menu--level-0 mb-accordion mdc-deprecated-list" data-mdc-auto-init="MDCList">
+                  <li class="menu-item">
+                    <a href="#" class="mdc-deprecated-list-item" data-mdc-auto-init="MDCRipple">
+                      <span class="mdc-deprecated-list-item__ripple"></span>
+                      <span class="mdc-deprecated-list-item__text">Home</span>
+                    </a>
+                  </li>
+                  <li class="menu-item menu-item--expanded mb-accordion__section">
+                    <a href="" class="mdc-deprecated-list-item mb-accordion__section-toggle" data-mdc-auto-init="MDCRipple">
+                      <span class="mdc-deprecated-list-item__ripple"></span>
+                      <span class="mdc-deprecated-list-item__text">Section</span>
+                      <span class="mdc-deprecated-list-item__meta">
+                        <svg class="icon"><use xlink:href="#arrow_drop_down"></use></svg>
+                      </span>
+                    </a>
+                    <ul class="menu menu--level-1 mb-accordion__section-panel">
+                      <li class="menu-item">
+                        <a href="" class="mdc-deprecated-list-item" data-mdc-auto-init="MDCRipple">
+                          <span class="mdc-deprecated-list-item__ripple"></span>
+                          <span class="mdc-deprecated-list-item__text">Section item 1</span>
+                        </a>
+                      </li>
+                      <li class="menu-item">
+                        <a href="" class="mdc-deprecated-list-item" data-mdc-auto-init="MDCRipple">
+                          <span class="mdc-deprecated-list-item__ripple"></span>
+                          <span class="mdc-deprecated-list-item__text">Section item 2</span>
+                        </a>
+                      </li>
+                      <li class="menu-item">
+                        <a href="" class="mdc-deprecated-list-item" data-mdc-auto-init="MDCRipple">
+                          <span class="mdc-deprecated-list-item__ripple"></span>
+                          <span class="mdc-deprecated-list-item__text">Section item 3</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="menu-item">
+                    <a href="" class="mdc-deprecated-list-item" data-mdc-auto-init="MDCRipple">
+                      <span class="mdc-deprecated-list-item__ripple"></span>
+                      <span class="mdc-deprecated-list-item__text">Contacts</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Usage
+        </div>
+        <div class="mb-dropdown__panel">
+          Place menu block at "Overlay" region. Configure block for displaying 1 or 2 levels of menu deepness.
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Custom menu</h3>
+      <div class="style-guide__overlay overlay">
+        <div class="overay__bg"></div>
+        <div class="overay__container">
+          <div class="overlay__header">
+            <div class="overlay-close">
+              <button class="mdc-icon-button overlay-close__button">
+                <svg class="icon mdc-icon-button__icon"><use xlink:href="#close"></use></svg>
+              </button>
+            </div>
+          </div>
+          <div class="overlay__content">
+            <nav>
+              <div class="overlay-menu overlay-menu--accordion">
+                <ul class="menu menu--level-0 mb-accordion">
+                  <li class="menu-item">
+                    <a href="" class="overlay-menu__item">
+                      <span class="overlay-menu__item-text">Home</span>
+                    </a>
+                  </li>
+                  <li class="menu-item menu-item--expanded mb-accordion__section">
+                    <a href="" class="overlay-menu__item mb-accordion__section-toggle">
+                      <span class="overlay-menu__item-text">Section</span>
+                      <svg class="icon overlay-menu__item-arrow"><use xlink:href="#arrow_drop_down"></use></svg>
+                    </a>
+                    <ul class="menu menu--level-1 mb-accordion__section-panel">
+                      <li class="menu-item">
+                        <a href="" class="overlay-menu__item">
+                          <span class="overlay-menu__item-text">Section item 1</span>
+                        </a>
+                      </li>
+                      <li class="menu-item">
+                        <a href="" class="overlay-menu__item">
+                          <span class="overlay-menu__item-text">Section item 2</span>
+                        </a>
+                      </li>
+                      <li class="menu-item">
+                        <a href="" class="overlay-menu__item">
+                          <span class="overlay-menu__item-text">Section item 3</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="menu-item">
+                    <a href="" class="overlay-menu__item"><span class="overlay-menu__item-text">Contacts</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Usage
+        </div>
+        <div class="mb-dropdown__panel">
+          Override <code>menu--overlay.html.twig</code> template by one from <code>templates/navigation</code> folder.<br />
+          Place menu block at "Overlay" region. Configure block for displaying 1 or 2 levels of menu deepness.
+        </div>
+      </div>
+    </div>
+
+    <div class="style-guide__section">
+      <h2 class="style-guide__section-title">Footer</h2>
+
+      <h3 class="style-guide__section-subtitle">Without menu</h3>
+      <footer class="style-guide__footer footer footer--standard">
+        <div class="footer__container">
+          <div class="footer__section">
+            <div class="footer-item">
+              Copyright message
+            </div>
+            <div class="footer-item">
+              <a href="#">Footer link</a>
+            </div>
+            <div class="footer-item footer-item--right">
+              <a href="#">Footer link</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'// Footer item
+<div class="footer-item">
+  Item text
+</div>
+
+// Footer item (centered)
+<div class="footer-item footer-item--center">
+  Item text
+</div>
+
+// Footer item (right aligned)
+<div class="footer-item footer-item--right">
+  Item text
+</div>'
+          |escape }}</code></pre>
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Single level menu</h3>
+      <footer class="style-guide__footer footer footer--standard">
+        <div class="footer__container">
+          <div class="footer__section">
+            <nav class="footer-item--full-width">
+              <div class="footer-menu footer-menu--depth-1 footer-menu--items-4">
+                <ul class="menu menu--level-0">
+                  <li class="menu-item">
+                    <a href="" class="footer-menu__item">
+                      <span class="footer-menu__item-text">Section 1</span>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="" class="footer-menu__item">
+                      <span class="footer-menu__item-text">Section 2</span>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="" class="footer-menu__item">
+                      <span class="footer-menu__item-text">Section 3</span>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="" class="footer-menu__item">
+                      <span class="footer-menu__item-text">Section 4</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+            <div class="footer-item">
+              Copyright message
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Usage
+        </div>
+        <div class="mb-dropdown__panel">
+          Place menu block at "Footer" region. Configure block for displaying 1 level of menu deepness.<br />
+          Add class <code>footer-item--full-width</code> to menu block, for exampple with "Block Class" module.
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Centered</h3>
+      <footer class="style-guide__footer footer footer--standard">
+        <div class="footer__container">
+          <div class="footer__section">
+            <nav class="footer-item--full-width footer-item--center">
+              <div class="footer-menu footer-menu--depth-1 footer-menu--items-4">
+                <ul class="menu menu--level-0">
+                  <li class="menu-item">
+                    <a href="" class="footer-menu__item">
+                      <span class="footer-menu__item-text">Section 1</span>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="" class="footer-menu__item">
+                      <span class="footer-menu__item-text">Section 2</span>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="" class="footer-menu__item">
+                      <span class="footer-menu__item-text">Section 3</span>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="" class="footer-menu__item">
+                      <span class="footer-menu__item-text">Section 4</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+            <div class="footer-item footer-item--center">
+              Copyright message
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Usage
+        </div>
+        <div class="mb-dropdown__panel">
+          Place menu block at "Footer" region. Configure block for displaying 1 level of menu deepness.<br />
+          Add classes <code>footer-item--full-width</code> and <code>footer-item--center</code> to menu block, for exampple with "Block Class" module.
+        </div>
+      </div>
+
+      <h3 class="style-guide__section-subtitle">Multicolumn menu</h3>
+
+      <footer class="style-guide__footer footer footer--standard">
+        <div class="footer__container">
+          <div class="footer__section">
+            <nav class="footer-item--full-width">
+              <div class="footer-menu footer-menu--depth-2 footer-menu--items-4">
+                <ul class="menu menu--level-0">
+                  <li class="menu-item menu-item--expanded">
+                    <a href="" class="footer-menu__item">
+                      <span class="footer-menu__item-text">Section 1</span>
+                    </a>
+                    <div class="footer-menu__panel footer-menu--level-1">
+                      <ul class="menu menu--level-1">
+                        <li class="menu-item">
+                          <a href="" class="footer-menu__item">
+                            <span class="footer-menu__item-text">Section item 1</span>
+                          </a>
+                        </li>
+                        <li class="menu-item">
+                          <a href="" class="footer-menu__item">
+                            <span class="footer-menu__item-text">Section item 2</span>
+                          </a>
+                        </li>
+                        <li class="menu-item">
+                          <a href="" class="footer-menu__item">
+                            <span class="footer-menu__item-text">Section item 3</span>
+                          </a>
+                        </li>
+                        <li class="menu-item">
+                          <a href="" class="footer-menu__item">
+                            <span class="footer-menu__item-text">Section item 4</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="menu-item menu-item--expanded">
+                    <a href="" class="footer-menu__item">
+                      <span class="footer-menu__item-text">Section 2</span>
+                    </a>
+                    <div class="footer-menu__panel footer-menu--level-1">
+                      <ul class="menu menu--level-1">
+                        <li class="menu-item">
+                          <a href="" class="footer-menu__item">
+                            <span class="footer-menu__item-text">Section item 1</span>
+                          </a>
+                        </li>
+                        <li class="menu-item">
+                          <a href="" class="footer-menu__item">
+                            <span class="footer-menu__item-text">Section item 2</span>
+                          </a>
+                        </li>
+                        <li class="menu-item">
+                          <a href="" class="footer-menu__item">
+                            <span class="footer-menu__item-text">Section item 3</span>
+                          </a>
+                        </li>
+                        <li class="menu-item">
+                          <a href="" class="footer-menu__item">
+                            <span class="footer-menu__item-text">Section item 4</span>
+                          </a>
+                        </li>
+                        <li class="menu-item">
+                          <a href="" class="footer-menu__item">
+                            <span class="footer-menu__item-text">Section item 5</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="menu-item menu-item--expanded">
+                    <a href="" class="footer-menu__item">
+                      <span class="footer-menu__item-text">Section 3</span>
+                    </a>
+                    <div class="footer-menu__panel footer-menu--level-1">
+                      <ul class="menu menu--level-1">
+                        <li class="menu-item">
+                          <a href="" class="footer-menu__item">
+                            <span class="footer-menu__item-text">Section item 1</span>
+                          </a>
+                        </li>
+                        <li class="menu-item">
+                          <a href="" class="footer-menu__item">
+                            <span class="footer-menu__item-text">Section item 2</span>
+                          </a>
+                        </li>
+                        <li class="menu-item">
+                          <a href="" class="footer-menu__item">
+                            <span class="footer-menu__item-text">Section item 3</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="menu-item menu-item--expanded">
+                    <a href="" class="footer-menu__item">
+                      <span class="footer-menu__item-text">Section 4</span>
+                    </a>
+                    <div class="footer-menu__panel footer-menu--level-1">
+                      <ul class="menu menu--level-1">
+                        <li class="menu-item">
+                          <a href="" class="footer-menu__item">
+                            <span class="footer-menu__item-text">Section item 1</span>
+                          </a>
+                        </li>
+                        <li class="menu-item">
+                          <a href="" class="footer-menu__item">
+                            <span class="footer-menu__item-text">Section item 2</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+            <div class="footer-item">
+              Copyright message
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Usage
+        </div>
+        <div class="mb-dropdown__panel">
+          Place menu block at "Footer" region. Configure block for displaying 2 levels of menu deepness.<br />
+          Add class <code>footer-item--full-width</code> to menu block, for exampple with "Block Class" module.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="style-guide__section">
+      <h2 class="style-guide__section-title">Accordion</h2>
+
+      <div class="mb-accordion style-guide__accordion">
+        <div class="mb-accordion__section">
+          <div class="mb-accordion__section-toggle">
+            Section 1 toggle
+          </div>
+          <div class="mb-accordion__section-panel">
+            Section 1 content lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium tempore quo, explicabo consectetur beatae atque molestiae eveniet culpa et, perferendis voluptate ad officiis fuga, unde quae tempora iste quasi numquam.
+          </div>
+        </div>
+        <div class="mb-accordion__section">
+          <div class="mb-accordion__section-toggle">
+            Section 2 toggle
+          </div>
+          <div class="mb-accordion__section-panel">
+            Section 2 content lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quidem facilis at qui repellendus distinctio sit inventore itaque quod. Cupiditate unde sed deserunt dignissimos nihil illo, optio tempore, delectus. Iste!
+          </div>
+        </div>
+        <div class="mb-accordion__section">
+          <div class="mb-accordion__section-toggle">
+            Section 3 toggle
+          </div>
+          <div class="mb-accordion__section-panel">
+            Section 3 content lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum ullam voluptate ipsam quisquam aliquid natus ea placeat minus officia. Nulla?
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'<div class="mb-accordion">
+  <div class="mb-accordion__section">
+    <div class="mb-accordion__section-toggle">
+      Section 1 toggle
+    </div>
+    <div class="mb-accordion__section-panel">
+      Section 1 content.
+    </div>
+  </div>
+  <div class="mb-accordion__section">
+    <div class="mb-accordion__section-toggle">
+      Section 2 toggle
+    </div>
+    <div class="mb-accordion__section-panel">
+      Section 2 content.
+    </div>
+  </div>
+  <div class="mb-accordion__section">
+    <div class="mb-accordion__section-toggle">
+      Section 3 toggle
+    </div>
+    <div class="mb-accordion__section-panel">
+      Section 3 content.
+    </div>
+  </div>
+</div>'
+          |escape }}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="style-guide__section">
+      <h2 class="style-guide__section-title">Dropdown</h2>
+
+      <div class="mb-dropdown style-guide__dropdown">
+        {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+          data: {
+            label: 'Dropdown',
+          },
+          settings: {
+            classes: ['mb-dropdown__toggle'],
+          },
+        } %}
+        <div class="mb-dropdown__panel">
+          Dropdown content
+        </div>
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'<div class="mb-dropdown style-guide__dropdown">
+  {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+    data: {
+      label: \'Dropdown\',
+    },
+    settings: {
+      classes: [\'mb-dropdown__toggle\'],
+    },
+  } %}
+  <div class="mb-dropdown__panel">
+    Dropdown content
+  </div>
+</div>'
+          |escape }}</code></pre>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="style-guide__section">
+      <h2 class="style-guide__section-title">Menu dropdown</h2>
+
+      <div class="mdc-menu-dropdown">
+        {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+          data: {
+            label: 'Dropdown',
+          },
+          settings: {
+            classes: ['mdc-menu-dropdown__toggle'],
+          },
+        } %}
+        <div class="mdc-menu-surface--anchor">
+          <div class="mdc-menu mdc-menu-surface" data-mdc-auto-init="MDCMenu">
+            <ul class="mdc-deprecated-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1" data-mdc-auto-init="MDCList">
+              <li class="mdc-deprecated-list-item" role="menuitem" data-mdc-auto-init="MDCRipple">
+                <span class="mdc-deprecated-list-item__ripple"></span>
+                <span class="mdc-deprecated-list-item__text">A Menu Item</span>
+              </li>
+              <li class="mdc-deprecated-list-item" role="menuitem" data-mdc-auto-init="MDCRipple">
+                <span class="mdc-deprecated-list-item__ripple"></span>
+                <span class="mdc-deprecated-list-item__text">Another Menu Item</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'<div class="mdc-menu-dropdown">
+  {% include "@material_base_mdc/components/02_molecules/button.twig" with {
+    data: {
+      label: \'Dropdown\',
+    },
+    settings: {
+      classes: [\'mdc-menu-dropdown__toggle\'],
+    },
+  } %}
+  <div class="mdc-menu-surface--anchor">
+    <div class="mdc-menu mdc-menu-surface" data-mdc-auto-init="MDCMenu">
+      ...
+    </div>
+  </div>
+</div>'
+          |escape }}</code></pre>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="style-guide__section">
+      <h2 class="style-guide__section-title">Tooltip</h2>
+
+      <div class="tooltip">
+        Tooltip
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'<div class="tooltip">
+  Tooltip
+</div>'
+          |escape }}</code></pre>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="style-guide__section">
+      <h2 class="style-guide__section-title">Chip</h2>
+
+      <div class="style-guide__items">
+        <div class="style-guide__item">
+          <div class="form-item form-item-chip">
+            <div class="mb-chip" data-mdc-auto-init="MDCRipple">
+              <input type="checkbox" id="chip-1" class="form-checkbox visually-hidden">
+              <label class="option" for="chip-1">
+                Chip
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="style-guide__item">
+          <div class="form-item form-item-chip">
+            <div class="mb-chip mb-chip--outlined" data-mdc-auto-init="MDCRipple">
+              <input type="checkbox" id="chip-2" class="form-checkbox visually-hidden">
+              <label class="option" for="chip-2">
+                Outlined
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="style-guide__item">
+          <div class="form-item form-item-chip">
+            <div class="mb-chip mb-chip--with-icon" data-mdc-auto-init="MDCRipple">
+              <input type="checkbox" id="chip-3" class="form-checkbox visually-hidden">
+              <label class="option" for="chip-3">
+                <div class="mb-chip__icon-background">
+                  <i class="material-icons mb-chip__icon" aria-hidden="true">filter_list</i>
+                </div>
+                With icon
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Usage
+        </div>
+        <div class="mb-dropdown__panel">
+          Override checkbox form item template, for example by extendending Drupal template suggestions.<br />
+          In overriden template erase everything and include <code>form-element--checkbox--chip.html.twig</code> template.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="style-guide__section">
+      <h2 class="style-guide__section-title">Copy target</h2>
+
+      <div class="style-guide__items style-guide__items--v-centered">
+        <div class="style-guide__item">Text to copy</div>
+        <div class="copy-target style-guide__item">
+          {% include "@material_base_mdc/components/02_molecules/icon-button.twig" with {
+            data: {
+              icon: {
+                data: {
+                  value: 'content_copy',
+                },
+                settings: {
+                  type: 'svg-sprite',
+                },
+              },
+            },
+            settings: {
+              target: 'Text to copy',
+              classes: ['copy-target__button'],
+            },
+          } %}
+          <div class="tooltip copy-target__tooltip">
+            Copied to clipboard
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-dropdown style-guide__code-snippet">
+        <div class="mb-dropdown__toggle">
+          Code
+        </div>
+        <div class="mb-dropdown__panel">
+          <pre><code>{{
+'<div class="style-guide__item">Text to copy</div>
+<div class="copy-target">
+  {% include "@material_base_mdc/components/02_molecules/icon-button.twig" with {
+    data: {
+      icon: {
+        data: {
+          value: \'content_copy\',
+        },
+        settings: {
+          type: \'svg-sprite\',
+        },
+      },
+    },
+    settings: {
+      target: \'Text to copy\',
+      classes: [\'copy-target__button\'],
+    },
+  } %}
+  <div class="tooltip copy-target__tooltip">
+    Copied to clipboard
+  </div>
+</div>'
+          |escape }}</code></pre>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</article>

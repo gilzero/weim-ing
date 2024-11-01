@@ -1,0 +1,13 @@
+name: Xray Audit
+type: module
+description: "Generates reports on various aspects of a Drupal site."
+package: Audit
+core_version_requirement: ^9.4 || ^10 || ^11
+dependencies:
+  - drupal:node
+  - drupal:views
+
+# Information added by Drupal.org packaging script on 2024-10-11
+version: '1.5.10'
+project: 'xray_audit'
+datestamp: 1728628858

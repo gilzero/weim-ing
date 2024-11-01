@@ -1,0 +1,26 @@
+core_version_requirement: ^8 || ^9 || ^10 || ^11
+type: theme
+base theme: false
+name: GOV.UK
+description: A fully responsive theme utilising the GOV.UK Design System Frontend v5.x.
+
+libraries:
+  - govuk/framework
+
+regions:
+  cookies: 'Cookies'
+  header: 'Header'
+  navigation: 'Navigation'
+  pre_content: 'Pre-content'
+  breadcrumb: Breadcrumb
+  highlighted: Highlighted
+  help: Help
+  content: Content
+  page_top: 'Page top'
+  sidebar_first: 'First sidebar'
+  footer: 'Footer'
+
+# Information added by Drupal.org packaging script on 2024-09-03
+version: '2.1.5'
+project: 'govuk_theme'
+datestamp: 1725376739

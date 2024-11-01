@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Disable Login module, for protecting login page from anonymous users.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function disable_login_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.disable_login':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The Disable Login page module protects the /user/login page from anonymous users.') . '</p>';
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<dl>';
+      $output .= '<dt>' . t('Configuring the module') . '</dt>';
+      $output .= '<dd>' . t('All settings for this module are on the Disable Login page module configuration page, under the Configuration section under the Security sub menu. You can visit the configuration page directly from the module configuration link below.') . '</dd>';
+      $output .= '<dt>' . t('Available configurations') . '</dt>';
+      $output .= '<dd>' . t('You can enable or disable the protection in the configuration page. You can also define the name of the secret key and the corresponding secret value for the key that will allow access to your login page.') . '</dd>';
+      $output .= '</dl>';
+      return $output;
+  }
+}

@@ -1,0 +1,27 @@
+module_builder.settings:
+  type: config_object
+  label: 'Module Builder settings'
+  mapping:
+    data_directory:
+      type: string
+      label: 'Data directory'
+    generator_settings:
+      type: mapping
+      label: 'Generator settings'
+      mapping:
+        module:
+          type: mapping
+
+module_builder.component.*:
+  type: config_entity
+  label: 'Example config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    name:
+      type: label
+      label: 'Name'
+    data:
+      type: mapping
+      label: 'Component data'

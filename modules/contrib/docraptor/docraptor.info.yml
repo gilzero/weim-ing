@@ -1,0 +1,14 @@
+name: 'DocRaptor'
+type: module
+description: 'DocRaptor is the HTML to PDF API that uses the Prince PDF generator.'
+core_version_requirement: ^10.2 || ^11
+package: PDF
+
+configure: docraptor.settings
+dependencies:
+  - key:key
+
+# Information added by Drupal.org packaging script on 2024-09-16
+version: '1.0.0-beta1'
+project: 'docraptor'
+datestamp: 1726491052

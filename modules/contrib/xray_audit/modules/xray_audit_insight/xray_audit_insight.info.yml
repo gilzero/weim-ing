@@ -1,0 +1,14 @@
+name: Xray Audit Insights (Experimental)
+type: module
+description: "Generates insights from Xray Audit reports and displays warnings in the Drupal Status Report."
+package: Audit
+configure: xray_audit_insight.settings_form
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:node
+  - xray_audit:xray_audit
+
+# Information added by Drupal.org packaging script on 2024-10-11
+version: '1.5.10'
+project: 'xray_audit'
+datestamp: 1728628858

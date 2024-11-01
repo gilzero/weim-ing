@@ -1,0 +1,7 @@
+ebt_core.settings:
+  path: '/admin/config/content/ebt-core'
+  defaults:
+    _form: '\Drupal\ebt_core\Form\EbtCoreSettingsForm'
+    _title: 'Extra Block Types (EBT) settings'
+  requirements:
+    _permission: 'administer site configuration'

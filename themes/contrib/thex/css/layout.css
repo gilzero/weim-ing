@@ -1,0 +1,73 @@
+/*
+ * Layout
+ */
+ /* Layout -> containers */
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 1170px;
+  margin: 0 auto;
+  padding: 0 10px;
+ }
+ /* Layout -> Main wrapper (Main + Sidebar) */
+ .main-wrapper {
+  position: relative;
+  display: block;
+  padding: 2rem 0;
+}
+.main-container {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+/* Main
+--------------------------------*/
+#main {
+ position: relative;
+ -webkit-box-ordinal-group: 1;
+     -ms-flex-order: 0;
+         order: 0;
+}
+#sidebar-left {
+ -webkit-box-ordinal-group: 2;
+     -ms-flex-order: 1;
+         order: 1;
+}
+#sidebar-right {
+ -webkit-box-ordinal-group: 3;
+     -ms-flex-order: 2;
+         order: 2;
+}
+/* No sidebar + main */
+.no-sidebar #main,
+.sidebar-left #main,
+.sidebar-right #main,
+.two-sidebar #main,
+#sidebar-left,
+#sidebar-right {
+ -webkit-box-flex: 1;
+     -ms-flex: 1 1 100%;
+         flex: 1 1 100%;
+ width: 100%;
+}
+#front-main {
+ -webkit-box-flex: 1;
+     -ms-flex: 1 1 100%;
+         flex: 1 1 100%;
+ width: 100%;
+ margin: 0;
+}
+
+/* Frontpage with Sidebar
+--------------------------------*/
+.front-content-with-sidebar {
+ display: -webkit-box;
+ display: -ms-flexbox;
+ display: flex;
+}

@@ -1,0 +1,21 @@
+//* custom *//
+
+.view-blog {
+  .views-row {
+    margin-bottom: 20px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #ddd;
+
+    &:after {
+      content: ' ';
+      display: block;
+      clear: both;
+    }
+  }
+
+  .field--name-field-image {
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+}

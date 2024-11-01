@@ -1,0 +1,8 @@
+type: module
+name: 'Extra Block Types (EBT): Views'
+description: 'Adds Views as EBT block.'
+core_version_requirement: ^9.3 || ^10 || ^11
+package: 'Extra Block Types'
+
+dependencies:
+  - ebt_core:ebt_core

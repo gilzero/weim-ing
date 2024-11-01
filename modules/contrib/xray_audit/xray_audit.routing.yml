@@ -1,0 +1,50 @@
+xray_audit.home:
+  path: '/admin/reports/xray-audit'
+  defaults:
+    _title: 'Xray Audit Reports'
+    _controller: '\Drupal\xray_audit\Controller\XrayAuditHomeController::build'
+  requirements:
+    _permission: 'xray_audit access'
+
+xray_audit.batch_process:
+  path: '/admin/reports/xray-audit/batch/{task_plugin}/{batch_process}'
+  defaults:
+    _controller: '\Drupal\xray_audit\Controller\XrayAuditTaskController::buildBatchProcess'
+  requirements:
+    _permission: 'xray_audit access'
+  options:
+    parameters:
+      task_plugin:
+        type: task_plugin
+      batch_process:
+        type: batch_process
+
+xray_audit.display_mode_example:
+  path: '/xray-audit/{entity_type}/{entity_id}/{view_mode}/example'
+  defaults:
+    _controller: '\Drupal\xray_audit\Controller\XrayAuditDisplayModeExampleController::displayEntity'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      entity_type:
+        type: string
+      entity_id:
+        type: string
+      view_mode:
+        type: string
+
+xray_audit.example_popup:
+  path: '/xray-audit/{entity_type}/{entity_bundle}/{view_mode}/popup'
+  defaults:
+    _controller: '\Drupal\xray_audit\Controller\XrayAuditDisplayModeExampleController::displayEntityPopupContent'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      entity_type:
+        type: string
+      entity_bundle:
+        type: string
+      view_mode:
+        type: string

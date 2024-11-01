@@ -1,0 +1,16 @@
+<footer class="footer-bottom-blocks footer">
+  <div class="container">
+    <div class="footer-bottom-blocks-container">
+      {% if page.footer_bottom_left %}
+        <div class="footer-bottom-block footer-bottom-block-left">
+          {{ page.footer_bottom_left }}
+        </div>
+      {% endif %}
+      {% if page.footer_bottom_right %}
+        <div class="footer-bottom-block footer-bottom-block-right">
+          {{ page.footer_bottom_right }}
+        </div>
+      {% endif %}
+    </div><!-- /footer-bottom-blocks-container -->
+  </div><!-- /container -->
+</footer><!-- /footer-bottom-blocks -->

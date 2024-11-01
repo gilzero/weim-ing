@@ -1,0 +1,217 @@
+
+/* Admin Toolbar */
+button.toolbar-item,
+button.toolbar-icon {
+  background: none;
+}
+
+/* Drupal system message */
+.message {
+  position: relative;
+  margin: 1rem 0;
+  padding: 1rem 1rem 1rem 4rem;
+  color: #ffffff;
+}
+.message a,
+.message a:visited {
+  color: #ffffff;
+  text-decoration: underline;
+}
+.message p:last-child {
+  margin: 0;
+}
+.message em {
+  font-style: italic;
+}
+.message-status {
+  background: #89ad32;
+}
+.message-status::before {
+  content: url(../images/icons/message/success.svg);
+  background: #759625;
+}
+.message-error {
+  background: #c94d1c;
+}
+.message-error::before {
+  content: url(../images/icons/message/error.svg);
+  background-color: #b3461b;
+}
+.message-warning {
+  background: #cd5a0a;
+}
+.message-warning::before {
+  content: url(../images/icons/message/warning.svg);
+  background-color: #a44707;
+}
+.message::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3.6rem;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  line-height: 0;
+}
+
+/* Main -> Admin Tabs */
+ul.page-tabs {
+  margin: 0 0 0.6rem 0;
+  padding: 0;
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-bottom: 2px solid var(--primary);
+}
+.page-tabs li {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  padding: 0;
+}
+.page-tabs li a {
+  background-color: var(--dark);
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-right: 2px solid var(--border);
+}
+.page-tabs li.active-page-tab a,
+.page-tabs li a:hover {
+  color: var(--primary);
+}
+/* Node submitted details */
+.node-submitted-details {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.node-submitted-details {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+/* Entity reference */
+.node-taxonomy-container, .node-links-container {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 1rem 0;
+}
+h3.term-title {
+  font-size: 1.2em;
+}
+ul.taxonomy-terms {
+  margin: 10px 0;
+  padding: 0;
+  list-style: none;
+  list-style-type: none;
+}
+li.taxonomy-term {
+  position: relative;
+  display: inline-block;
+  padding: 0;
+  word-break: break-all;
+}
+li.taxonomy-term:not(:last-child) {
+  margin-right: 1rem;
+}
+.taxonomy-term a {
+  padding: 6px 14px;
+  border: 2px solid var(--border);
+}
+/* Node Links */
+.node-links-container ul.links {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  list-style-type: none;
+}
+.node-links-container .links {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+ul.inline,
+ul.links.inline {
+  padding-left: 0;
+}
+ul.inline li {
+  position: relative;
+  display: inline-block;
+  list-style-type: none;
+}
+ul.inline li a {
+  display: inline-block;
+}
+/* Pager */
+.pager {
+  position: relative;
+}
+.pager ul.pager__items {
+  position: relative;
+  margin: 0;
+  padding: 1rem 0;
+  list-style: none;
+  list-style-type: none;
+}
+.pager__items {
+  clear: both;
+  text-align: center;
+}
+.pager__item {
+  display: inline-block;
+  padding: 12px 0;
+}
+.pager__item a {
+  padding: 8px 14px;
+  color: #fff;
+  background: var(--dark);
+}
+.pager__item a:hover,
+.pager__item.is-active a {
+  background: var(--primary);
+  color: #fff;
+}
+/* vertical Tabs */
+.vertical-tabs__panes {
+  padding: 1rem;
+}
+/* components -> Scroll To Top. */
+.scrolltop {
+  position: fixed;
+  display: none;
+  bottom: 10px;
+  right: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #ffffff;
+  font-size: 20px;
+  z-index: 20;
+  cursor: pointer;
+  text-align: center;
+  padding: 4px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.scrolltop:hover {
+  background: var(--secondary);
+}

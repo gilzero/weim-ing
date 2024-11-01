@@ -1,0 +1,4 @@
+push_framework.settings:
+  title: General
+  route_name: push_framework.settings
+  base_route: push_framework.settings

@@ -1,0 +1,32 @@
+/**
+ * Generic elements.
+ */
+
+@import "./variables.pcss.css";
+
+html {
+  font-family: var(--font-family);
+  font-size: 100%;
+  font-weight: normal;
+  font-style: normal;
+  line-height: var(--line-height);
+}
+
+/* https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+a:hover,
+a:focus,
+.link:hover,
+.link:focus {
+  text-decoration: none;
+  outline: 0;
+}

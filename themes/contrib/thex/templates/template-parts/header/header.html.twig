@@ -1,0 +1,21 @@
+<header class="header">
+  <div class="container">
+    <div class="header-container">
+      {% if page.header %}
+        <div class="site-brand">
+          {{ page.header }}
+        </div> <!--/.site-branding -->
+      {% endif %}
+      {% if page.primary_menu or page.search_box %}
+      <div class="header-right">
+        {% if page.primary_menu %}
+          {% include '@thex/template-parts/header/header-primary-menu.html.twig' %}
+        {% endif %} <!--  end if for primary_menu -->
+        {% if page.search_box %}
+          {% include '@thex/template-parts/header/search.html.twig' %}
+        {% endif %}
+      </div> <!-- /.header-right -->
+    {% endif %}
+    </div><!-- /header-container -->
+  </div><!-- /container -->
+</header><!-- /header -->

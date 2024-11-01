@@ -1,0 +1,62 @@
+@use "@material/typography";
+
+.form-item {
+  legend,
+  label:not(.mdc-text-field):not(.option) {
+    @include typography.typography(body2);
+  }
+
+  .description {
+    @include typography.typography(caption);
+  }
+}
+
+details > summary {
+  @include typography.typography(body2);
+}
+
+.button-submit {
+  position: relative;
+
+  &__input {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    appearance: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+}
+
+.form-item {
+  // Support of full width fields was removed from MDC, but we can do it ourself.
+  .mdc-text-field--fullwidth {
+    width: 100%;
+
+    .cke_chrome {
+      width: 100%;
+    }
+  }
+
+  // There is no easy way to know is CKEeditor enabled for the field or not.
+  // Placing CKEeditor above floatng label by default.
+  .mdc-text-field--textarea {
+    .cke_chrome {
+      position: relative;
+      z-index: 2;
+    }
+  }
+}
+
+.form-item__label {
+  .form-item--focused &.label-not-floating {
+    color: $theme-primary;
+  }
+}

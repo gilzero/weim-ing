@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Install/update/uninstall hooks for simple_block module.
+ */
+
+/**
+ * Update the simple_block entity type.
+ */
+function simple_block_update_9001(&$sandbox) {
+  /** @var \Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface $entity_definition_update_manager */
+  $entity_definition_update_manager = \Drupal::entityDefinitionUpdateManager();
+  $entity_type = $entity_definition_update_manager->getEntityType('simple_block');
+
+  $entity_type->setFormClass('clone', 'Drupal\simple_block\SimpleBlockCloneForm');
+  $entity_type->setLinkTemplate('clone-form', '/admin/structure/block/simple-block/manage/{simple_block}/clone');
+
+  $entity_definition_update_manager->updateEntityType($entity_type);
+}

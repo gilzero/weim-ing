@@ -1,0 +1,4 @@
+hcaptcha.admin_settings_form_tab:
+  route_name: hcaptcha.admin_settings_form
+  title: hCaptcha
+  base_route: captcha_settings

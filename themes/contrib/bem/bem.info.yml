@@ -1,0 +1,12 @@
+name: BEM
+type: theme
+base theme: false
+description: 'An opinionated Drupal base theme providing BEM style classes everywhere.'
+package: Core
+core_version_requirement: ^9.3 || ^10 || ^11
+hidden: true
+
+# Information added by Drupal.org packaging script on 2024-10-25
+version: '8.x-3.10'
+project: 'bem'
+datestamp: 1729847492

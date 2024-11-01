@@ -1,0 +1,22 @@
+default:
+  js:
+    js/iconify_icons.js: {}
+  css:
+    component:
+      css/iconify_icons.css: {}
+
+gin:
+  css:
+    component:
+      css/gin.css: {}
+
+iconify_icons.admin:
+  css:
+    component:
+      css/iconify_icons.admin.css: { }
+
+iconify_icons.editor:
+  js:
+    js/build/iconifyIcons.js: { preprocess: false, minified: true }
+  dependencies:
+    - ckeditor5/ckeditor5

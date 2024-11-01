@@ -1,0 +1,79 @@
+base:
+  version: VERSION
+  js:
+    js/ultimenu.base.min.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    # @todo replace with blazy/base post blazy:3.0.6
+    - blazy/drupal
+
+ultimenu:
+  version: VERSION
+  js:
+    js/ultimenu.min.js: {}
+  css:
+    theme:
+      css/ultimenu.css: {}
+      css/components/ultimenu.item.css: {}
+      css/components/ultimenu.caret.css: {}
+  dependencies:
+    - ultimenu/base
+
+ajax:
+  version: VERSION
+  js:
+    js/ultimenu.ajax.min.js: {}
+  dependencies:
+    - core/drupal.ajax
+    - ultimenu/ultimenu
+
+# Note we use theme, not component, simply to minimize over-specificity due to
+# its lighter weight. It is too fragile to be easily broken by other CSS rules.
+vertical:
+  version: VERSION
+  css:
+    theme:
+      css/components/ultimenu.vertical.css: {}
+  dependencies:
+    - ultimenu/ultimenu
+
+# Off-canvas applied to mobile devices only.
+offcanvas:
+  version: VERSION
+  css:
+    theme:
+      css/components/ultimenu.offcanvas.css: {}
+  dependencies:
+    - ultimenu/ultimenu
+
+# Off-canvas applied to all devices, including desktop.
+offcanvas.all:
+  version: VERSION
+  css:
+    theme:
+      css/components/ultimenu.offcanvas.all.css: {}
+  dependencies:
+    - ultimenu/ultimenu
+
+hamburger:
+  version: VERSION
+  css:
+    theme:
+      css/components/ultimenu.hamburger.css: {}
+  dependencies:
+    - ultimenu/offcanvas
+
+extras:
+  version: VERSION
+  css:
+    theme:
+      css/ultimenu.extras.css: {}
+  dependencies:
+    - ultimenu/ultimenu
+
+admin:
+  version: VERSION
+  css:
+    theme:
+      css/ultimenu.admin.css: {}

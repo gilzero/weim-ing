@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Install and update functions for the ui_patterns_views module.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Empty update hook, wrong ui_patterns_views_style merge.
+ */
+function ui_patterns_views_update_9101(): void {
+}

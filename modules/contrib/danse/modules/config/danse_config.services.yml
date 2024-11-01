@@ -1,0 +1,6 @@
+services:
+  danse_config.config_subscriber:
+    class: Drupal\danse_config\ConfigSubscriber
+    arguments: ['@plugin.manager.danse.plugin']
+    tags:
+      - { name: event_subscriber }

@@ -1,0 +1,19 @@
+name: 'Push framework notifications'
+type: module
+description: 'Provides web push notifications. Implements WebPush, DANSE and Push framework.'
+package: 'Push'
+core_version_requirement: ^10.3 || ^11
+dependencies:
+  - drupal:rest
+  - drupal:user
+  - drupal:views
+  - push_framework:push_framework
+  - danse:danse_content
+
+configure: pf_notifications.settings
+php: 8.1
+
+# Information added by Drupal.org packaging script on 2024-09-14
+version: '1.0.1-beta1'
+project: 'pf_notifications'
+datestamp: 1726312205

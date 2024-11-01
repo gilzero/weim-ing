@@ -1,0 +1,84 @@
+field.storage_settings.physical_measurement:
+  type: mapping
+  label: 'Measurement settings'
+  mapping:
+    measurement_type:
+      type: string
+      label: 'Measurement type'
+
+field.value.physical_dimensions:
+  type: mapping
+  label: 'Dimensions'
+  mapping:
+    length:
+      type: string
+      label: 'Length'
+    width:
+      type: string
+      label: 'Width'
+    height:
+      type: string
+      label: 'Height'
+    unit:
+      type: string
+      label: 'Unit'
+
+field.value.physical_measurement:
+  type: mapping
+  label: 'Measurement'
+  mapping:
+    number:
+      type: string
+      label: 'Number'
+    unit:
+      type: string
+      label: 'Unit'
+
+field.widget.settings.physical_dimensions_default:
+  type: mapping
+  label: 'Default dimension widget settings'
+  mapping:
+    default_unit:
+      type: string
+      label: 'Default unit'
+    allow_unit_change:
+      type: boolean
+      label: 'Allow unit change'
+    available_units:
+      type: sequence
+      label: 'Available Units'
+      sequence:
+        type: string
+        label: 'Unit'
+
+field.widget.settings.physical_measurement_default:
+  type: mapping
+  label: 'Default measurement widget settings'
+  mapping:
+    default_unit:
+      type: string
+      label: 'Default unit'
+    allow_unit_change:
+      type: boolean
+      label: 'Allow unit change'
+    available_units:
+      type: sequence
+      label: 'Available Units'
+      sequence:
+        type: string
+        label: 'Unit'
+
+field.formatter.settings.physical_base:
+  type: mapping
+  mapping:
+    output_unit:
+      type: string
+      label: 'Output unit'
+
+field.formatter.settings.physical_dimensions_default:
+  type: field.formatter.settings.physical_base
+  label: 'Default dimension formatter settings'
+
+field.formatter.settings.physical_measurement_default:
+  type: field.formatter.settings.physical_base
+  label: 'Default measurement formatter settings'

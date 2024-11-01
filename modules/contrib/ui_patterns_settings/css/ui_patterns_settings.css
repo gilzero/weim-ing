@@ -1,0 +1,50 @@
+.js-ui-patterns-settings__wrapper {
+  position: relative;
+}
+
+#ui-patterns-settings-token-link {
+  display: none;
+}
+
+.ui-patterns-settings-show-token-a {
+  display: block;
+}
+
+.js-ui-patterns-settings__toggler {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  right: 0;
+  top: 0;
+  display: block;
+  cursor: pointer;
+  background-image: url("toggler.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.js-ui-patterns-settings__wrapper .js-ui-patterns-settings__token-wrapper > * {
+  display: none !important;
+}
+
+.js-ui-patterns-settings__wrapper.js-ui-patterns-settings--token-has-value > .js-ui-patterns-settings__input-wrapper > * {
+  display: none !important;
+}
+
+.js-ui-patterns-settings__wrapper.js-ui-patterns-settings--token-has-value > .js-ui-patterns-settings__token-wrapper > * {
+  display: block !important;
+}
+
+.ui-patterns-media-edit {
+  position: relative;
+}
+
+.media-library-edit__link {
+  position: absolute;
+  right: 0;
+  z-index: 10;
+}
+
+.media-library-form-element .fieldset-wrapper {
+  position: relative;
+}

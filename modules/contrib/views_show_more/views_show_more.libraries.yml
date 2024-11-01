@@ -1,0 +1,9 @@
+views_show_more:
+  version: VERSION
+  js:
+    js/views_show_more.js: {}
+  dependencies:
+    - core/jquery
+    - core/once
+    - core/drupal
+    - core/drupal.ajax

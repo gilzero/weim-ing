@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Smart Trim translation module.
+ */
+
+use Drupal\locale\SourceString;
+
+/**
+ * Helper method to create string translations.
+ *
+ * Via https://drupal.stackexchange.com/questions/214803/is-there-a-way-to-programmatically-add-translations-for-strings.
+ *
+ * @param string $source_string
+ *   The string to be translated.
+ * @param string $translated_string
+ *   The translation of $source_string.
+ * @param string $langcode
+ *   The language of the translation.
+ *
+ * @throws \Drupal\locale\StringStorageException
+ */
+function smart_trim_translation_test_add_translation(string $source_string, string $translated_string, string $langcode): void {
+  // Find the existing source string.
+  /** @var Drupal\locale\StringDatabaseStorage $storage */
+  $storage = \Drupal::service('locale.storage');
+  $string = $storage->findString(['source' => $source_string]);
+  if (is_null($string)) {
+    $string = new SourceString();
+    $string->setString($source_string);
+    $string->setStorage($storage);
+    $string->save();
+  }
+  // Create the translation. If it already exists, it will be replaced.
+  $storage->createTranslation([
+    'lid' => $string->lid,
+    'language' => $langcode,
+    'translation' => $translated_string,
+  ])->save();
+}

@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - serialization
+    - user
+    - pf_notifications
+id: pf_notifications_subscription
+plugin_id: pf_notifications_subscription
+granularity: method
+configuration:
+  POST:
+    supported_formats:
+      - json
+    supported_auth:
+      - cookie

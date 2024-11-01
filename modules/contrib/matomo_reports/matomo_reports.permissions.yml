@@ -1,0 +1,7 @@
+
+access matomo reports:
+  title: 'Access Matomo Reports'
+  description: 'Allow access to Matomo reports.'
+administer matomo reports:
+  title: 'Administer Matomo reports'
+  description: 'Perform basic configuration tasks for Matomo reports.'

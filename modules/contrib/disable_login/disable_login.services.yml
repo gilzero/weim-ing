@@ -1,0 +1,10 @@
+services:
+  disable_login.route_subscriber:
+    class: Drupal\disable_login\Routing\DisableLoginRouteSubscriber
+    tags:
+      - { name: event_subscriber }
+  disable_login.access_checker:
+    class: Drupal\disable_login\Access\DisableLoginAccessCheck
+    arguments: ['@config.factory', '@request_stack', '@module_handler']
+    tags:
+      - { name: access_check, applies_to: disable_login_access_check }

@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Sa11y module.
+ */
+
+/**
+ * Implements hook_page_attachments().
+ */
+function sa11y_page_attachments(array &$page) {
+  $admin_theme = \Drupal::config('system.theme')->get('admin');
+  $active_theme = \Drupal::theme()->getActiveTheme()->getName();
+  $using_admin_theme = $admin_theme === $active_theme;
+
+  if (\Drupal::currentUser()->hasPermission('use_sa11y') && !$using_admin_theme) {
+    $page['#attached']['library'][] = 'sa11y/sa11y';
+  }
+}

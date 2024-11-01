@@ -1,0 +1,18 @@
+/**
+ * Layout for the generates_files form element.
+ */
+.generated-files {
+  display: grid;
+  grid-template-columns: auto 80ch;
+  column-gap: 10px;
+}
+
+/* Force filenames to wrap, as they may contain long words. */
+.generated-files .filename {
+  overflow-wrap: break-word;
+}
+
+.generated-files .form-item {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}

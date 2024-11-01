@@ -1,0 +1,22 @@
+@import 'variables';
+@import 'root';
+@import 'fonts';
+@import 'global';
+@import 'class';
+@import 'color';
+
+%atoms-styles {
+    @import 'components/01-atoms/**/*';
+}
+
+.ck-editor {
+    .ck-content {
+        padding: 25px !important;
+        min-height: 150px;
+        & > :first-child {
+            margin-top: 0 !important;
+        }
+    }
+
+    @extend %atoms-styles;
+}

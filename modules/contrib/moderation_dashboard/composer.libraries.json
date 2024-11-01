@@ -1,0 +1,37 @@
+{
+  "name": "drupal/moderation_dashboard",
+  "description": "Downloads chartjs library for Moderation Dashboard.",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "homepage": "https://drupal.org/project/moderation_dashboard",
+  "authors": [
+    {
+      "name": "Stephen Mustgrave (smustgrave)",
+      "homepage": "https://www.drupal.org/u/smustgrave",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/moderation_dashboard",
+    "source": "https://git.drupalcode.org/project/moderation_dashboard"
+  },
+  "require": {
+    "composer/installers": "*",
+    "nnnick/chartjs": "*"
+  },
+  "repositories": {
+    "nnnick/chartjs": {
+      "type": "package",
+      "package": {
+        "name": "nnnick/chartjs",
+        "version": "v3.9.1",
+        "type": "drupal-library",
+        "dist": {
+          "url": "https://github.com/chartjs/Chart.js/releases/download/v3.9.1/chart.js-3.9.1.tgz",
+          "type": "tar"
+        }
+      }
+    }
+  }
+}

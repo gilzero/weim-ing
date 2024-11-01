@@ -1,0 +1,26 @@
+# Schema for the configuration files of the Docraptor module.
+docraptor.settings:
+  type: config_object
+  label: 'Docraptor settings'
+  mapping:
+    enable_test:
+      type: boolean
+      label: 'Enable test'
+    document_type:
+      type: string
+      label: 'Document type'
+    username_key:
+      type: string
+      label: 'Username'
+    pdf_profile:
+      type: string
+      label: 'PDF profile'
+    color_conversion:
+      type: string
+      label: 'Color conversion'
+    enable_pdf_forms:
+      type: boolean
+      label: 'Enable PDF forms'
+    enable_icc_profile:
+      type: boolean
+      label: 'Enable ICC profile'

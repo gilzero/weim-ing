@@ -1,0 +1,25 @@
+saml_sp_drupal_login.config:
+  path: /admin/config/people/saml_sp/login
+  defaults:
+    _title: 'SAML'
+    _form: \Drupal\saml_sp_drupal_login\Form\SamlSpDrupalLoginConfig
+  requirements:
+    _permission: 'configure saml sp'
+
+saml_sp_drupal_login.login:
+  path: /saml/drupal_login/{idp}
+  defaults:
+    _title: 'Initiate SAML SP Drupal Login'
+    _controller: \Drupal\saml_sp_drupal_login\Controller\SamlSPDrupalLoginController::initiate
+  requirements:
+    _access: 'TRUE'
+  options:
+    _maintenance_access: TRUE
+
+saml_sp_drupal_login.register:
+  path: '/user/saml_sp_drupal_login_register'
+  defaults:
+    _entity_form: 'user.register'
+    _title: 'Request an account'
+  requirements:
+    _custom_access: '\Drupal\saml_sp_drupal_login\Controller\SamlSPDrupalLoginController::access'

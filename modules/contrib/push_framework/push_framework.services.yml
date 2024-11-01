@@ -1,0 +1,14 @@
+services:
+  push_framework.channel.plugin.manager:
+    class: Drupal\push_framework\ChannelPluginManager
+    parent: default_plugin_manager
+    arguments: ['@config.factory']
+  push_framework.source.plugin.manager:
+    class: Drupal\push_framework\SourcePluginManager
+    parent: default_plugin_manager
+  logger.channel.push_framework:
+    parent: logger.channel_base
+    arguments: ['push_framework']
+  push_framework.service:
+    class: Drupal\push_framework\Service
+    arguments: ['@push_framework.source.plugin.manager', '@advancedqueue.processor', '@database', '@user.data']

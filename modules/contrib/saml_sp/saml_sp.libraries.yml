@@ -1,0 +1,6 @@
+idp_form:
+  version: 8.x
+  js:
+    js/idp_form.js: {}
+  dependencies:
+    - core/jquery

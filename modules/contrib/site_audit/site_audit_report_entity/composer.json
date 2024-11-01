@@ -1,0 +1,15 @@
+{
+    "name": "drupal/site_audit_report_entity",
+    "description": "This extension provides an entity for saving Site Audit Reports.",
+    "type": "drupal-module",
+    "authors": [
+        {
+            "name": "Jon Pugh",
+            "email": "jon@thinkdrop.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.0"
+    },
+    "minimum-stability": "dev"
+}

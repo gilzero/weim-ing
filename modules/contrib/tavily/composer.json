@@ -1,0 +1,14 @@
+{
+  "name": "drupal/tavily",
+  "description": "Tavily for Drupal",
+  "type": "drupal-module",
+  "require": {
+    "drupal/key": "^1.18"
+  },
+  "authors": [
+    {
+      "name": "Marcus Johansson",
+      "email": "me@marcusmailbox.com"
+    }
+  ]
+}

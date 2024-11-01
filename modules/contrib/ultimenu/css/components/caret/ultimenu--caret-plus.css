@@ -1,0 +1,21 @@
+/**
+ * @file
+ */
+
+.is-ulticaret--plus .ultimenu__caret i::after {
+  right: 14px;
+  width: 18px;
+  height: 18px;
+  content: "+";
+  transform: translateY(-50%);
+  transform-origin: center center;
+}
+
+[dir="rtl"] .is-ulticaret--plus .ultimenu__caret i::after {
+  left: 14px;
+}
+
+.is-ulticaret--plus .is-ulink-active .ultimenu__caret i::after {
+  transform: translateY(-50%) rotate(45deg);
+  color: var(--ulticaret-active);
+}

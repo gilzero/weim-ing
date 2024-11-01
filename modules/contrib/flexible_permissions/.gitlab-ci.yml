@@ -1,0 +1,15 @@
+# Not copying all comments from template, original found here:
+# https://git.drupalcode.org/project/gitlab_templates/-/blob/1.0.x/gitlab-ci/template.gitlab-ci.yml
+include:
+  - project: $_GITLAB_TEMPLATES_REPO
+    ref: 'main'
+    file:
+      - '/includes/include.drupalci.main.yml'
+      - '/includes/include.drupalci.variables.yml'
+      - '/includes/include.drupalci.workflows.yml'
+
+variables:
+  SKIP_ESLINT: '1'
+  OPT_IN_TEST_MAX_PHP: '1'
+  OPT_IN_TEST_NEXT_MINOR: '1'
+  _CURL_TEMPLATES_REF: 'main'

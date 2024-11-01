@@ -1,0 +1,13 @@
+{
+    "name": "levmyshkin/vidbg",
+    "description": "An HTML5 video player.",
+    "type": "drupal-library",
+    "keywords": [
+        "video background",
+        "html5",
+        "video",
+        "player"
+    ],
+    "homepage": "https://drupalbook.org/",
+    "license": "MIT"
+}

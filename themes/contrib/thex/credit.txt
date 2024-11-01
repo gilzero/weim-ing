@@ -1,0 +1,10 @@
+FontAwesome font icons
++---------------------------+
+https://fontawesome.com
+
+
+
+
+Bootstrap Icons
++---------------------------+
+https://icons.getbootstrap.com/

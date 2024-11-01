@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * Format an HTML email using PHPMailer SMTP.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the body element of the message.
+ * - key: The message identifier.
+ * - module: The machine name of the sending module.
+ * - css: Internal style sheets.
+ * - recipient: The recipient of the message.
+ * - subject: The message subject.
+ * - body: The message body.
+ *
+ * To override this template use either of the following template names:
+ * - phpmailer-smtp--[module].html.twig
+ * - phpmailer-smtp--[module]--[key].html.twig
+ *
+ * @see template_preprocess_phpmailer_smtp()
+ *
+ * @ingroup themeable
+ */
+#}
+{% set classes = module ? (key ? module ~ '-' ~ key) %}
+<!DOCTYPE html">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>PHPMailer SMTP template</title>
+{% if css %}
+    <style type="text/css">
+      <!-- {{ css }} -->
+    </style>
+{% endif %}
+  </head>
+  <body id="phpmailer-smtp-body"{{ attributes.addClass(classes) }}>
+    <div id="center">
+      <div id="main">
+        {{ body|raw }}
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+iconify_icons.autocomplete:
+  path: '/iconify-autocomplete'
+  defaults:
+    _controller: '\Drupal\iconify_icons\Controller\AutocompleteController::handleAutocomplete'
+    _format: json
+  requirements:
+    # We don't need any access restriction here.
+    _access: 'TRUE'
+
+iconify_icons.dialog:
+  path: '/iconify_icons/dialog'
+  defaults:
+    _form: '\Drupal\iconify_icons\Form\IconDialog'
+    _title: 'Select Iconify Icon'
+  requirements:
+    _permission: 'access content'

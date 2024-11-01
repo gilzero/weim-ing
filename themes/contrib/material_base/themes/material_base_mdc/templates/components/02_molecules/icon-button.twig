@@ -1,0 +1,94 @@
+{#
+/**
+ * Accepted variables:
+ * - data:
+ *   - url: The value for 'href' attribute if using 'a' tag or 'data-url' attribute in other cases.
+ *   - icon: (icon component) icon for display.
+ * - settings:
+ *   - attributes: (object) element attributes.
+ *   - classes: (array) classes for adding to the element.
+ *   - id: HTML 'id' attribute.
+ *   - disabled: (bool) makes button looks and behave as inactive.
+ *   - tag: HTML tag for the element: 'button' (default), 'a', 'span'.
+ *   - label: The value for 'aria-label' attribute.
+ *   - target: The value for 'data-target' attribute.
+ *
+ * Examples:
+ * @code
+ * {% include "@material_base_mdc/components/02_molecules/icon-button.twig" with {
+ *   data: {
+ *     icon: {
+ *       data: {
+ *         value: 'info',
+ *       },
+ *       settings: {
+ *         type: 'svg-sprite',
+ *       },
+ *     },
+ *   },
+ * } %}
+ * @endcode  
+ */
+#}
+
+{% if settings.attributes %}
+  {% set attributes = settings.attributes %}
+{% else %}
+  {% set attributes = create_attribute() %}
+{% endif %}
+
+{# Not work properly, TODO: fix #}
+{# set attributes = attributes.setAttribute('data-mdc-auto-init', 'MDCRipple') #}
+
+{% set attributes = attributes.setAttribute('aria-pressed', 'false') %}
+
+{% if settings.id %}
+  {% set attributes = attributes.setAttribute('id', settings.id) %}
+{% endif %}
+
+{% if settings.target %}
+  {% set attributes = attributes.setAttribute('data-target', settings.target) %}
+{% endif %}
+
+{% if settings.label %}
+  {% set attributes = attributes.setAttribute('aria-label', settings.label) %}
+{% endif %}
+
+{% if settings.disabled %}
+  {% set attributes = attributes.setAttribute('disabled', 1) %}
+{% endif %}
+
+{# TODO: support Icon Button Toggle variant #}
+
+{% if settings.tag %}
+  {% set tag = settings.tag %}
+  {% if settings.tag == 'a' %}
+    {% set attributes = attributes.setAttribute('href', data.url) %}
+  {% else %}
+    {% set attributes = attributes.setAttribute('data-url', data.url) %}
+  {% endif %}
+{% else %}
+  {% set tag = 'button' %}
+  {% set attributes = attributes.setAttribute('data-url', data.url) %}
+{% endif %}
+
+{% set classes = [
+    'mdc-icon-button',
+] %}
+
+{% if settings.classes %}
+  {% set classes = classes|merge(settings.classes) %}
+{% endif %}
+
+<{{ tag }}{{ attributes.addClass(classes) }}>
+  <div class="mdc-icon-button__ripple"></div>
+  {% include "@material_base/components/01_atoms/icon.twig" with {
+    data: {
+      value: data.icon.data.value,
+    },
+    settings: {
+      type: data.icon.settings.type,
+      classes: data.icon.settings.classes|default([])|merge(['mdc-icon-button__icon']),
+    }
+  } %}
+</{{ tag }}>

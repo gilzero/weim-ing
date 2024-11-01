@@ -1,0 +1,4 @@
+saml_sp_drupal_login.config_tab:
+  route_name: saml_sp_drupal_login.config
+  base_route: saml_sp.admin
+  title: 'Login'

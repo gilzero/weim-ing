@@ -1,0 +1,11 @@
+name: WhatsAppIN
+type: module
+description: This module integrates with WhatsApp API and initiates a chat window for the configured phone number.
+core_version_requirement: ^10 || ^11
+configure: whatsapp_in.phone_number
+package: Other
+
+# Information added by Drupal.org packaging script on 2024-09-26
+version: '1.0.5'
+project: 'whatsapp_in'
+datestamp: 1727344887

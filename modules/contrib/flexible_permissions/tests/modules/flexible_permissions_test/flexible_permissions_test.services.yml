@@ -1,0 +1,9 @@
+services:
+  access_policy.flexible_permissions_test:
+    class: 'Drupal\flexible_permissions_test\NewAccessPolicy'
+    tags:
+      - { name: 'access_policy' }
+  old_access_policy.flexible_permissions_test:
+    class: 'Drupal\flexible_permissions_test\OldAccessPolicy'
+    tags:
+      - { name: 'flexible_permission_calculator' }

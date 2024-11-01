@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_auth
+    - hal
+    - danse_webhook
+id: danse_webhook
+plugin_id: danse_webhook
+granularity: resource
+configuration:
+  methods:
+    - POST
+  formats:
+    - hal_json
+  authentication:
+    - basic_auth

@@ -1,0 +1,19 @@
+{
+  "name": "drupal-raven",
+  "description": "Integrates with Sentry application monitoring and error tracking platform (sentry.io).",
+  "devDependencies": {
+    "@hapi/bourne": "^3.0.0",
+    "@sentry/browser": "^8.0.0",
+    "got": "^13.0.0",
+    "js-yaml": "^4.1.0"
+  },
+  "scripts": {
+    "postinstall": "node js/install.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.drupal.org/project/raven.git"
+  },
+  "author": "mark burdett <mfburdett@gmail.com>",
+  "license": "GPL-2.0-or-later"
+}

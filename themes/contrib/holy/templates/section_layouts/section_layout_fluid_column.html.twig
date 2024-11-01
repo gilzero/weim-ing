@@ -1,0 +1,34 @@
+{%
+  set classes = [
+    'layout',
+    'section_layout',
+    'layout--fluid-column',
+  ]
+%}
+{% if content %}
+  <section{{ attributes.addClass(classes) }}>
+    <div class="container">
+      {% if content.title %}
+      <div class="layout-content">
+        <div {{ region_attributes.title.addClass('layout__region', 'layout__region--title') }}>
+          {{ content.title }}
+        </div>
+      </div>
+      {% endif %}
+      {% if content.fluid %}
+      <div class="layout-content">
+        <div {{ region_attributes.fluid.addClass('layout__region', 'layout__region--fluid') }}>
+          {{ content.fluid }}
+        </div>
+      </div>
+      {% endif %}
+      {% if content.footer %}
+      <div class="layout-content">
+        <div {{ region_attributes.footer.addClass('layout__region', 'layout__region--footer') }}>
+          {{ content.footer }}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </section>
+{% endif %}

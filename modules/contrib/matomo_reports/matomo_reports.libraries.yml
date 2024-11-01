@@ -1,0 +1,7 @@
+matomoreports:
+  version: 1.x
+  js:
+    js/matomo_reports.js: {preprocess: false}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings

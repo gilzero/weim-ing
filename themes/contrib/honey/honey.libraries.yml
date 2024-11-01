@@ -1,0 +1,31 @@
+global-styling:
+  css:
+    base:
+      css/base/elements.css: {}
+      css/base/typography.css: {}
+      css/base/colors.css: {}
+      css/base/print.css: {}
+    component:
+      css/components/header.css: {}
+      css/components/forms.css: {}
+      css/components/footer.css: {}
+      css/components/local-tasks.css: {}
+      css/components/messages.css: {}
+      css/components/page.css: {}
+      css/components/sidebar.css: {}
+      css/components/teaser.css: {}
+  dependencies:
+    - honey/lobster
+    - honey/oepn-sans
+
+lobster:
+  version: VERSION
+  css:
+    component:
+      //fonts.googleapis.com/css2?family=Lobster&display=swap: {}
+
+open-sans:
+  version: VERSION
+  css:
+    component:
+      //fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap: {}

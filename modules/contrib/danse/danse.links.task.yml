@@ -1,0 +1,4 @@
+danse.subscriptions:
+  title: Subscriptions
+  route_name: danse.subscriptions
+  base_route: entity.user.canonical

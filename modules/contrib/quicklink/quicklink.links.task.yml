@@ -1,0 +1,4 @@
+quicklink.settings:
+  title: 'Quicklink Configuration'
+  route_name: quicklink.settings
+  base_route: system.performance_settings

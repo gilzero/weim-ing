@@ -1,0 +1,77 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for Xray Audit.
+ */
+
+use Drupal\Core\Database\Database;
+use Drupal\xray_audit\Plugin\xray_audit\tasks\ContentMetric\XrayAuditQueryTaskParagraphsPlugin;
+use Drupal\xray_audit\Plugin\XrayAuditTaskPluginInterface;
+
+/**
+ * Implements hook_install().
+ */
+function xray_audit_install() {
+  _xray_audit_task_launcher('install');
+}
+
+/**
+ * Creates the table needed for the hierarchical paragraph view.
+ */
+function xray_audit_update_9001() {
+  _xray_audit_task_launcher('install');
+}
+
+/**
+ * Execute the installation & uninstallation plugins processes.
+ *
+ * @param string $task
+ *   Task: install or uninstall.
+ */
+function _xray_audit_task_launcher(string $task) {
+  $definitions = \Drupal::service('plugin_manager.xray_audit_task')->getDefinitions();
+
+  foreach ($definitions as $plugin) {
+    if (!isset($plugin[$task])) {
+      continue;
+    }
+    $plugin_task_name = $plugin[$task];
+
+    /** @var \Drupal\xray_audit\Plugin\XrayAuditTaskPluginInterface $task_plugin */
+    $task_plugin = \Drupal::service('plugin_manager.xray_audit_task')->createInstance($plugin['id']);
+    if (!$task_plugin instanceof XrayAuditTaskPluginInterface) {
+      continue;
+    }
+    if (method_exists($task_plugin, $plugin_task_name)) {
+      $task_plugin->$plugin_task_name();
+    }
+  }
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function xray_audit_uninstall() {
+  \Drupal::service('xray_audit.cache_manager')->removeBin();
+  _xray_audit_task_launcher('uninstall');
+}
+
+/**
+ * Add a primary key to the existing temporary table.
+ */
+function xray_audit_update_10001(&$sandbox) {
+  $database_schema = Database::getConnection()->schema();
+  $table = XrayAuditQueryTaskParagraphsPlugin::XRA_PARAGRAPH_TEMPORARY_TABLE_NAME;
+
+  if ($database_schema->tableExists($table)) {
+    $new_column = 'xra_id';
+    $spec = [
+      'type' => 'serial',
+      'not null' => TRUE,
+    ];
+
+    $database_schema->addField($table, $new_column, $spec, ['primary key' => [$new_column]]);
+  }
+}

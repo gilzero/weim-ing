@@ -1,0 +1,14 @@
+{
+  "name": "drupal/quicklink",
+  "type": "drupal-module",
+  "description": "Installs Quicklink JS library to prefetch linked pages.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://www.drupal.org/project/quicklink",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/quicklink",
+    "source": "https://git.drupalcode.org/project/quicklink"
+  },
+  "require": {}
+}

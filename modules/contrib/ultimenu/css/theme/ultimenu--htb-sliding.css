@@ -1,0 +1,46 @@
+/**
+ * @file
+ * Skin based on safe CSS file name: ultimenu--htb-sliding.
+ *
+ * Sliding sample for horizontal-to-bottom orientation, only limited height.
+ */
+
+.is-ultihover.ultimenu--htb-sliding .ultimenu__flyout {
+  top: 100%;
+  visibility: visible;
+  margin: 0;
+  padding: 0;
+  opacity: 1;
+  background: #fff;
+}
+
+.is-ultihover.ultimenu--htb-sliding .ultimenu__flyout,
+.is-ultihover.ultimenu--htb-sliding .ultimenu__region {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.25s ease-out;
+}
+
+.is-ultihover.ultimenu--htb-sliding .ultimenu__region {
+  position: relative;
+  visibility: hidden;
+  padding: 30px 30px 0 30px;
+  transition: visibility 0.5s linear 0s, padding 0.25s ease-out,
+    max-height 0.15s ease-out;
+}
+
+.is-ultihover.ultimenu--htb-sliding > li:hover .ultimenu__flyout,
+.is-ultihover.ultimenu--htb-sliding > li:hover .ultimenu__region {
+  z-index: 99;
+  visibility: visible;
+  overflow: hidden;
+  max-height: 620px;
+}
+
+.is-ultihover.ultimenu--htb-sliding > li:hover .ultimenu__region {
+  padding-bottom: 30px;
+}
+
+.is-ultimenu--hover #header .ultimenu--htb-sliding .ultimenu__flyout {
+  min-width: 100%;
+}

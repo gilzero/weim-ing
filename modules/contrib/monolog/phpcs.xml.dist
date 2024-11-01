@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset>
+  <exclude-pattern>.ddev/*</exclude-pattern>
+    <rule ref="PreviousNextDrupal">
+      <exclude name="SlevomatCodingStandard.Commenting.UselessInheritDocComment" />
+    </rule>
+</ruleset>

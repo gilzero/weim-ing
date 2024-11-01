@@ -1,0 +1,9 @@
+id: rest_log_delete_action
+label: 'Delete selected rest logs'
+status: true
+langcode: en
+type: rest_log
+plugin: entity:delete_action:rest_log
+dependencies:
+  module:
+    - rest_log

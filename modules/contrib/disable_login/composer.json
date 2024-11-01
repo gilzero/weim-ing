@@ -1,0 +1,20 @@
+{
+  "name": "drupal/disable_login",
+  "description": "Disables anonymous access to the public login page without a secret key.",
+  "type": "drupal-module",
+  "keywords": ["security", "login", "spam"],
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Anoop John (anoopjohn)",
+      "homepage": "https://www.drupal.org/u/anoopjohn",
+      "role": "Maintainer"
+    }
+  ],
+  "homepage": "https://drupal.org/project/disable_login",
+  "support": {
+    "issues": "https://drupal.org/project/issues/disable_login",
+    "source": "https://git.drupalcode.org/project/disable_login"
+  }
+}
+

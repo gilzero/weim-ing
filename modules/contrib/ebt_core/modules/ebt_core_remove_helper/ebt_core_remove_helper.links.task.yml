@@ -1,0 +1,5 @@
+ebt_core_remove_helper.ebt_remove_helper:
+  route_name: ebt_core_remove_helper.ebt_remove_helper
+  title: 'Remove All EBT Blocks'
+  base_route: block.admin_display
+  weight: 100

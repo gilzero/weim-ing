@@ -1,0 +1,33 @@
+type: theme
+base theme: starterkit_theme
+name: 'holy'
+core_version_requirement: ^9.3 || ^10 || ^11
+description: 'Contrib theme'
+
+regions:
+  navbar: 'Navbar'
+  header: 'Header'
+  header_menu: 'Header menu'
+  header_search: 'Header search'
+  menu: 'Menu'
+  hero: 'Hero'
+  breadcrumb: 'Breadcrumb'
+  content: 'Content'
+  sidebar_first: 'Primary sidebar'
+  sidebar_second: 'Secondary sidebar'
+  footer: 'Footer'
+  copyright: 'Copyright'
+
+libraries:
+  - holy/global-styling
+
+ckeditor_stylesheets:
+  - css/ckeditor.css
+
+ckeditor5-stylesheets:
+  - css/ckeditor.css 
+
+# Information added by Drupal.org packaging script on 2024-10-06
+version: '3.0.0-alpha1'
+project: 'holy'
+datestamp: 1728236228

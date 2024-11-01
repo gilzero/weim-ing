@@ -1,0 +1,154 @@
+
+///
+/// Editorial by HTML5 UP
+/// html5up.net | @ajlkn
+/// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+///
+
+/* custom */
+
+	.region-sidebar-first {
+    h2 {
+      margin-bottom: 0;
+    }
+
+		.navbar-nav, .block-book-navigation, .menu--articles {
+			@include vendor('user-select', 'none');
+			color: _palette(fg-bold);
+			font-family: _font(family-heading);
+			font-weight: _font(weight-heading-alt);
+			list-style: none;
+			margin-bottom: 0;
+			padding: 0;
+
+      .menu .menu {
+        padding-left: 5px;
+      }
+
+			li {
+				width: 100%;
+			}
+
+			a, span {
+				border-bottom: 0;
+				color: inherit;
+				cursor: pointer;
+				display: block;
+				font-size: 1em;
+				padding: 0.625em 0;
+				border-bottom: 1px solid #dadfe0;
+
+				&:hover {
+					color: _palette(accent);
+					text-decoration: none;
+				}
+
+				&.opener {
+					@include vendor('transition', 'color #{_duration(transition)} ease-in-out');
+					@include icon;
+					-webkit-tap-highlight-color: rgba(255,255,255,0);
+					position: relative;
+
+					&:before {
+						@include vendor('transition', (
+							'color #{_duration(transition)} ease-in-out',
+							'transform #{_duration(transition)} ease-in-out'
+						));
+						color: _palette(fg-light);
+						content: '\f078';
+						position: absolute;
+						right: 0;
+					}
+
+					&:hover {
+						&:before {
+							color: _palette(accent);
+						}
+					}
+
+					&.active {
+						& + ul {
+							display: block;
+						}
+
+						&:before {
+							@include vendor('transform', 'rotate(-180deg)');
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.language-link {
+		display: block;
+		right: 6%;
+		top: 19px;
+		position: absolute;
+		display: flex;
+		align-items: center;
+		@include media(mtp) {
+			right: 8%;
+		}
+		@include media(msl) {
+			right: 10%;
+		}
+		@include media(msp) {
+			right: 12%;
+		}
+		@include media(msn) {
+			right: 15%;
+		}
+
+		&__text {
+			margin-right: 15px;
+		}
+
+		&__image {
+			border-bottom: 0;
+			width: 27px;
+			height: 27px;
+		}
+
+		p {
+			margin: 0;
+		}
+	}
+
+	.language-link-desktop {
+		display: flex;
+		align-items: center;
+
+		&__text {
+			margin-right: 15px;
+		}
+
+		&__image {
+			border-bottom: 0;
+			width: 27px;
+			height: 27px;
+		}
+		p {
+			margin: 0;
+		}
+	}
+
+	.navbar-nav {
+		margin-bottom: 30px;
+	}
+
+	.book-navigation {
+		.menu {
+			list-style: disc;
+			padding-left: 10px;
+		}
+	}
+
+	#block-editorial-html5-up-booknavigation {
+		margin-bottom: 30px;
+	}
+
+	.menu--footer {
+		display: block;
+	}
+

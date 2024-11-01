@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ *
+ * Defines the database tables used by this module.
+ *
+ * @see hook_schema()
+ *
+ * @ingroup ai_seo
+ */
+function ai_seo_schema() {
+  $schema['ai_seo'] = [
+    'description' => 'Stores all SEO reports.',
+    'fields' => [
+      'rid' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => "Primary Key: Unique report ID",
+      ],
+      'entity_type_id' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => "Report entity: Entity type id",
+      ],
+      'entity_id' => [
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => NULL,
+        'description' => "Report entity: Matching {entity}.id",
+      ],
+      'revision_id' => [
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => NULL,
+        'description' => "Report entity: Matching {entity} revision.id",
+      ],
+      'langcode' => [
+        'type' => 'varchar',
+        'length' => 5,
+        'not null' => FALSE,
+        'description' => "Report entity: Langcode",
+      ],
+      'url' => [
+        'type' => 'varchar',
+        'length' => 500,
+        'not null' => FALSE,
+        'description' => "Report URL: The URL the report was generated from",
+      ],
+      'uid' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'description' => "Report author: Matching {user}.id",
+      ],
+      'report' => [
+        'type' => 'text',
+        'size' => 'big',
+        'not null' => FALSE,
+        'description' => "Full text of the SEO report",
+      ],
+      'prompt' => [
+        'type' => 'text',
+        'size' => 'big',
+        'not null' => FALSE,
+        'description' => "Prompt used to generate this report",
+      ],
+      'timestamp' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => "Timestamp of the report creation",
+      ],
+    ],
+    'primary key' => ['rid'],
+    'indexes' => [
+      'entity_id' => ['entity_id'],
+      'uid' => ['uid'],
+    ],
+  ];
+
+  return $schema;
+}

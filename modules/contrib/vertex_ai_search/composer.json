@@ -1,0 +1,32 @@
+{
+  "name": "drupal/vertex_ai_search",
+  "description": "Provides for creation of search pages using Vertex AI Search.",
+  "type": "drupal-module",
+  "homepage": "https://www.drupal.org/project/vertex_ai_search",
+  "license": "GPL-2.0+",
+  "require": {
+    "drupal/token": "^1.14",
+    "google/cloud-discoveryengine": "^1.0.0"
+  },
+  "repositories": {
+    "drupal": {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8",
+      "exclude": [
+        "drupal/ckeditor_templates"
+      ]
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true,
+      "php-http/discovery": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "phpstan/extension-installer": true,
+      "cweagans/composer-patches": true,
+      "drupal/core-composer-scaffold": true
+    }
+  }
+}

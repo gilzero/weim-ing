@@ -1,0 +1,58 @@
+{% import _self as menus %}
+
+{#
+  We call a macro which calls itself to render the full tree.
+  @see http://twig.sensiolabs.org/doc/tags/macro.html
+#}
+
+{% if attributes.bem_base %}
+  {% set bem_base = attributes.bem_base %}
+  {% do attributes.removeAttribute('bem_base') %}
+{% endif %}
+
+{{ menus.menu_links(items, attributes, 0, bem_base) }}
+
+{% macro menu_links(items, attributes, menu_level, bem_base) %}
+  {% import _self as menus %}
+  {% if items %}
+    {% if menu_level == 0 %}
+      <ul{{ attributes.addClass([bem_base ? bem_base ~ 'menu']) }}>
+        {% for item in items %}
+          {%
+            set classes = [
+              bem_base ~ 'menu-item',
+              item.is_expanded ? bem_base ~ 'menu-item--expanded',
+              item.is_collapsed ? bem_base ~ 'menu-item--collapsed',
+              item.in_active_trail ? bem_base ~ 'menu-item--active-trail',
+            ]
+          %}
+          <li{{ item.attributes.addClass(classes) }}>
+            {{ link(item.title, item.url, { 'class': [bem_base ? bem_base ~ 'menu-item-link'] }) }}
+          {% if item.below %}
+            {{ menus.menu_links(item.below, attributes, menu_level + 1, bem_base) }}
+          {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <ul class="{% if bem_base %}{{ bem_base }}submenu{% endif %}">
+        {% for item in items %}
+          {%
+            set classes = [
+              bem_base ~ 'submenu-item',
+              item.is_expanded ? bem_base ~ 'submenu-item--expanded',
+              item.is_collapsed ? bem_base ~ 'submenu-item--collapsed',
+              item.in_active_trail ? bem_base ~ 'submenu-item--active-trail',
+            ]
+          %}
+          <li{{ item.attributes.addClass(classes) }}>
+            {{ link(item.title, item.url, { 'class': [bem_base ? bem_base ~ 'submenu-item-link'] }) }}
+            {% if item.below %}
+              {{ menus.menu_links(item.below, attributes, menu_level + 1, bem_base) }}
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endif %}
+{% endmacro %}

@@ -1,0 +1,132 @@
+<?php
+
+/**
+ * @file
+ * Contains type_tray hooks.
+ */
+
+use Drupal\Core\Config\Entity\ThirdPartySettingsInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\Entity\NodeType;
+use Drupal\type_tray\Controller\TypeTrayController;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function type_tray_form_node_type_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  $type = $form_state->getFormObject()->getEntity();
+  assert($type instanceof NodeType);
+
+  $settings = $type->getThirdPartySettings('type_tray');
+  $form['type_tray'] = [
+    '#type' => 'details',
+    '#title' => t('Type Tray'),
+    '#tree' => TRUE,
+  ];
+  if (isset($form['additional_settings']) && $form['additional_settings']['#type'] === 'vertical_tabs') {
+    $form['type_tray']['#group'] = 'additional_settings';
+  }
+  $form['type_tray']['type_category'] = [
+    '#type' => 'select',
+    '#title' => t('Category'),
+    '#description' => t('Will be used to group content types together during the editorial workflow.'),
+    '#default_value' => $settings['type_category'] ?? TypeTrayController::UNCATEGORIZED_KEY,
+    '#options' => TypeTrayController::getTypeTrayCategories(),
+  ];
+  $form['type_tray']['type_thumbnail'] = [
+    '#type' => 'textfield',
+    '#title' => t('Thumbnail'),
+    // @todo Improve this description.
+    '#description' => t('The webroot-relative path where the thumbnail file is stored, such as "/themes/custom/foo_bar/assets/images/thumbnails/Content-thumb-Book.png".'),
+    '#maxlength' => NULL,
+    '#default_value' => $settings['type_thumbnail'] ?? '',
+  ];
+  $form['type_tray']['type_icon'] = [
+    '#type' => 'textfield',
+    '#title' => t('Icon'),
+    // @todo Improve this description.
+    '#description' => t('The webroot-relative path where the icon file is stored, such as "/themes/custom/foo_bar/assets/images/icons/Content-icon-Book.png".'),
+    '#maxlength' => NULL,
+    '#default_value' => $settings['type_icon'] ?? '',
+  ];
+  $text_format = \Drupal::config('type_tray.settings')->get('text_format') ?? 'plain_text';
+  $form['type_tray']['type_description'] = [
+    '#type' => 'text_format',
+    '#title' => t('Extended description'),
+    '#format' => $text_format,
+    '#description' => t('A longer explanation about when to use this content type and directions about its usage. When visiting the type-tray in list layout, this description will be used. In grid layout, the main description will be used instead.'),
+    '#default_value' => $settings['type_description'] ?? '',
+    // @todo Will this harm if left present? It will likely have no effect
+    // anyway unless the https://www.drupal.org/project/allowed_formats module
+    // is enabled or this patch:
+    // https://www.drupal.org/project/drupal/issues/784672 is applied.
+    '#allowed_formats' => [$text_format],
+  ];
+  $form['type_tray']['existing_nodes_link_text'] = [
+    '#type' => 'textfield',
+    '#title' => t('Existing content link text'),
+    '#description' => t('Indicate the text to use when building a link to allow quick access to all nodes of a given type, such as "View all Article content". Leave this empty to not display a link to existing content.'),
+    '#default_value' => $settings['existing_nodes_link_text'] ?? '',
+  ];
+
+  $form['type_tray']['type_weight'] = [
+    '#type' => 'number',
+    '#title' => t('Weight'),
+    '#description' => t('Weights are used to sort types within the same category. Higher weights sink to the bottom of lists.'),
+    '#default_value' => $settings['type_weight'] ?? 0,
+  ];
+
+  $form['#entity_builders'][] = 'type_tray_entity_builder';
+}
+
+/**
+ * Additional entity builder callback for our node type forms.
+ *
+ * @see type_tray_form_node_type_form_alter()
+ */
+function type_tray_entity_builder($entity_type, ThirdPartySettingsInterface $type, array &$form, FormStateInterface $form_state) {
+  $category_values = $form_state->getValue('type_tray');
+  foreach ($category_values as $key => $value) {
+    // The `text_format` form element gives us value and format when submitted.
+    if ($key === 'type_description') {
+      $type->setThirdPartySetting('type_tray', $key, $value['value']);
+    }
+    else {
+      $type->setThirdPartySetting('type_tray', $key, $value);
+    }
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function type_tray_theme($existing, $type, $theme, $path) {
+  return [
+    'type_tray_teaser' => [
+      'variables' => [
+        'content_type_link' => NULL,
+        'nodes_by_type_link' => NULL,
+        'thumbnail_url' => NULL,
+        'thumbnail_alt' => NULL,
+        'icon_url' => NULL,
+        'icon_alt' => NULL,
+        'short_description' => NULL,
+        'extended_description' => NULL,
+        'layout' => NULL,
+        'content_type_entity' => NULL,
+        'favorite_link_text' => NULL,
+        'favorite_link_url' => NULL,
+        'favorite_link_action' => NULL,
+      ],
+    ],
+    'type_tray_page' => [
+      'variables' => [
+        'items' => NULL,
+        'layout' => NULL,
+        'category_labels' => NULL,
+        'node_add_page_url' => Url::fromRoute('node.add_page')->toString(),
+      ],
+    ],
+  ];
+}

@@ -1,0 +1,13 @@
+// global
+
+/* box model */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* focus */
+*:focus {
+  outline: 0;
+}

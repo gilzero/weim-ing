@@ -1,0 +1,218 @@
+<?php
+
+/**
+ * @file
+ * Raven Drupal module.
+ */
+
+use Drupal\Component\Utility\Crypt;
+use Drupal\Core\Url;
+use Drupal\monitoring\Result\SensorResultInterface;
+use Drupal\raven\Form\RavenConfigForm;
+use Sentry\CheckIn;
+use Sentry\CheckInStatus;
+use Sentry\Event;
+use Sentry\SentrySdk;
+use Sentry\Severity;
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * @phpstan-ignore-next-line Hook implementations should not duplicate @param
+ *   documentation.
+ */
+function raven_page_attachments(array &$page): void {
+  $config = \Drupal::config('raven.settings');
+  if (!$config->get('javascript_error_handler') || !\Drupal::currentUser()->hasPermission('send javascript errors to sentry')) {
+    return;
+  }
+  // Other modules can attach Sentry browser client options to the page.
+  $page['#attached']['drupalSettings']['raven']['options']['dsn'] = empty($_SERVER['SENTRY_DSN']) ? $config->get('public_dsn') : $_SERVER['SENTRY_DSN'];
+  $page['#attached']['drupalSettings']['raven']['options']['environment'] = empty($_SERVER['SENTRY_ENVIRONMENT']) ? ($config->get('environment') ?: \Drupal::getContainer()->getParameter('kernel.environment')) : $_SERVER['SENTRY_ENVIRONMENT'];
+  if (!empty($_SERVER['SENTRY_RELEASE'])) {
+    $page['#attached']['drupalSettings']['raven']['options']['release'] = $_SERVER['SENTRY_RELEASE'];
+  }
+  elseif ($release = $config->get('release')) {
+    $page['#attached']['drupalSettings']['raven']['options']['release'] = $release;
+  }
+  $page['#attached']['drupalSettings']['raven']['options']['integrations'] = [];
+  if (!is_null($traces = $config->get('browser_traces_sample_rate'))) {
+    $page['#attached']['drupalSettings']['raven']['options']['tracesSampleRate'] = $traces;
+  }
+  $page['#attached']['drupalSettings']['raven']['options']['autoSessionTracking'] = $config->get('auto_session_tracking');
+  $page['#attached']['drupalSettings']['raven']['options']['sendClientReports'] = $config->get('send_client_reports');
+
+  if ($config->get('tunnel')) {
+    $url = Url::fromRoute('raven.tunnel');
+    $page['#attached']['drupalSettings']['raven']['options']['tunnel'] = $url->toString();
+  }
+  $page['#attached']['drupalSettings']['raven']['showReportDialog'] = $config->get('show_report_dialog');
+  // Other modules can attach browser tracing options to the page.
+  $page['#attached']['drupalSettings']['raven']['browserTracingOptions']['enableInp'] = $config->get('send_inp_spans');
+  if ($trace_propagation_targets = $config->get('trace_propagation_targets_frontend')) {
+    $page['#attached']['drupalSettings']['raven']['tracePropagationTargets'] = $trace_propagation_targets;
+  }
+  $page['#attached']['library'][] = 'raven/raven';
+  // Add meta tag placeholders for attaching traces to errors.
+  $placeholders = str_split(Crypt::randomBytesBase64(54), 24);
+  $page['#attached']['html_head'][] = [
+    [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'name' => 'baggage',
+        'content' => $placeholders[0],
+      ],
+      '#attached' => [
+        'placeholders' => [
+          $placeholders[0] => [
+            '#lazy_builder' => ['raven.request_subscriber:getBaggage', []],
+          ],
+        ],
+      ],
+    ],
+    'raven_baggage',
+  ];
+  $page['#attached']['html_head'][] = [
+    [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'name' => 'sentry-trace',
+        'content' => $placeholders[1],
+      ],
+      '#attached' => [
+        'placeholders' => [
+          $placeholders[1] => [
+            '#lazy_builder' => ['raven.request_subscriber:getTraceparent', []],
+          ],
+        ],
+      ],
+    ],
+    'raven_sentry_trace',
+  ];
+  $page['#attached']['html_head'][] = [
+    [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'name' => 'traceparent',
+        'content' => $placeholders[2],
+      ],
+      '#attached' => [
+        'placeholders' => [
+          $placeholders[2] => [
+            '#lazy_builder' => ['raven.request_subscriber:getW3cTraceparent', []],
+          ],
+        ],
+      ],
+    ],
+    'raven_traceparent',
+  ];
+}
+
+/**
+ * Implements hook_form_system_logging_settings_alter().
+ *
+ * @phpstan-ignore-next-line Hook implementations should not duplicate @param
+ *   documentation.
+ */
+function raven_form_system_logging_settings_alter(array &$form): void {
+  RavenConfigForm::buildForm($form);
+}
+
+/**
+ * Implements hook_help().
+ *
+ * @phpstan-ignore-next-line Hook implementations should not duplicate @return
+ *   documentation.
+ */
+function raven_help(?string $route_name): array {
+  $output = [];
+  if ($route_name === 'help.page.raven') {
+    $output[] = t('Raven module integrates with <a href="https://sentry.io/" rel="noreferrer">Sentry</a>, an open-source application monitoring and error tracking platform.');
+    if (\Drupal::accessManager()->checkNamedRoute('system.logging_settings')) {
+      $output[] = t('Configuration');
+      $output[] = t('Configure your Sentry settings at the <a href=":url">logging and errors configuration page</a>.', [
+        ':url' => Url::fromRoute('system.logging_settings', [], ['fragment' => 'edit-raven'])->toString(),
+      ]);
+    }
+    $output[] = t('Documentation');
+    $output[] = t('Raven module documentation is available in the <a href="https://git.drupalcode.org/project/raven/-/blob/6.x/README.md" rel="noreferrer">README</a>. See also documentation for the <a href="https://docs.sentry.io/platforms/javascript/" rel="noreferrer">Sentry JavaScript SDK</a> and the <a href="https://docs.sentry.io/platforms/php/" rel="noreferrer">Sentry PHP SDK</a>.');
+    $output[] = t('Support');
+    $output[] = t('Raven module is not affiliated with Sentry; it\'s supported by the community (that means you :). Visit the <a href="https://www.drupal.org/project/issues/raven" rel="noreferrer">issue queue</a> to file bug reports, feature requests and support requests.');
+    array_walk($output, function (&$value, $key) {
+      $value = [
+        '#type' => 'html_tag',
+        '#tag' => $key & 1 ? 'h3' : 'p',
+        '#value' => $value,
+      ];
+    });
+  }
+  return $output;
+}
+
+/**
+ * Implements hook_cron().
+ */
+function raven_cron(): void {
+  if ((!$slug = \Drupal::config('raven.settings')->get('cron_monitor_id')) || !is_string($slug)) {
+    return;
+  }
+  $hub = SentrySdk::getCurrentHub();
+  if (!$client = $hub->getClient()) {
+    return;
+  }
+  $options = $client->getOptions();
+  $checkIn = new CheckIn($slug, CheckInStatus::inProgress(), NULL, $options->getRelease(), $options->getEnvironment(), \Drupal::time()->getCurrentMicroTime() - \Drupal::time()->getRequestMicroTime());
+  $event = Event::createCheckIn();
+  $event->setCheckIn($checkIn);
+  $hub->captureEvent($event);
+  drupal_register_shutdown_function(function () use ($hub, $checkIn) {
+    $checkIn->setStatus(CheckInStatus::ok());
+    $checkIn->setDuration(\Drupal::time()->getCurrentMicroTime() - \Drupal::time()->getRequestMicroTime());
+    $event = Event::createCheckIn();
+    $event->setCheckIn($checkIn);
+    $hub->captureEvent($event);
+  });
+}
+
+/**
+ * Implements hook_monitoring_run_sensors().
+ *
+ * @phpstan-ignore-next-line Hook implementations should not duplicate @param
+ *   documentation.
+ */
+function raven_monitoring_run_sensors(array $results): void {
+  if (!\Drupal::config('raven.settings')->get('send_monitoring_sensor_status_changes')) {
+    return;
+  }
+  $levels = [
+    // @phpstan-ignore class.notFound
+    SensorResultInterface::STATUS_OK => Severity::DEBUG,
+    // @phpstan-ignore class.notFound
+    SensorResultInterface::STATUS_INFO => Severity::INFO,
+    // @phpstan-ignore class.notFound
+    SensorResultInterface::STATUS_WARNING => Severity::WARNING,
+    // @phpstan-ignore class.notFound
+    SensorResultInterface::STATUS_CRITICAL => Severity::FATAL,
+    // @phpstan-ignore class.notFound
+    SensorResultInterface::STATUS_UNKNOWN => Severity::ERROR,
+  ];
+  foreach ($results as $result) {
+    if ($result->isCached()) {
+      continue;
+    }
+    if (($previous = $result->getPreviousResult()) && $previous->getStatus() === $result->getStatus()) {
+      continue;
+    }
+    $event = Event::createEvent();
+    $event->setLevel(new Severity($levels[$result->getStatus()]));
+    $message = '[category] label: message';
+    $message_placeholders = [
+      'category' => $result->getSensorConfig()->getCategory(),
+      'label' => $result->getSensorConfig()->getLabel(),
+      'message' => $result->getMessage(),
+    ];
+    $formatted_message = strtr($message, $message_placeholders);
+    $event->setMessage($message, $message_placeholders, $formatted_message);
+    \Sentry\captureEvent($event);
+  }
+}

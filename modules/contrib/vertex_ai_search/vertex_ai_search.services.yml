@@ -1,0 +1,10 @@
+services:
+  plugin.manager.vertex_autocomplete:
+    class: Drupal\vertex_ai_search\VertexAutocompletePluginManager
+    parent: default_plugin_manager
+  plugin.manager.vertex_search_results:
+    class: Drupal\vertex_ai_search\VertexSearchResultsPluginManager
+    parent: default_plugin_manager
+  plugin.manager.vertex_search_filter:
+    class: Drupal\vertex_ai_search\VertexSearchFilterPluginManager
+    parent: default_plugin_manager

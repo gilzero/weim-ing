@@ -1,0 +1,13 @@
+name: DANSE Webhook
+type: module
+description: Provides a webhook which allows event creation from remote.
+core_version_requirement: ^10 || ^11
+package: DANSE
+dependencies:
+  - drupal:rest
+  - danse:danse
+
+# Information added by Drupal.org packaging script on 2024-08-27
+version: '2.3.6'
+project: 'danse'
+datestamp: 1724743564

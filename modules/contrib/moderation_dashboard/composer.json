@@ -1,0 +1,25 @@
+{
+    "name": "drupal/moderation_dashboard",
+    "description": "Moderation Dashboard provides a per-user dashboard that contains useful blocks related to managing moderated content.",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Samuel Mortenson",
+            "role": "Maintainer"
+        },
+        {
+            "name": "Stephen Mustgrave",
+            "email": "smustgrave@gmail.com",
+            "role": "Co-Maintainer"
+        }
+    ],
+    "homepage": "https://drupal.org/project/moderation_dashboard",
+    "support": {
+        "issues": "https://drupal.org/project/issues/moderation_dashboard",
+        "source": "https://git.drupalcode.org/project/moderation_dashboard"
+    },
+    "require": {
+        "drupal/core": "^10.3 || ^11"
+    }
+}

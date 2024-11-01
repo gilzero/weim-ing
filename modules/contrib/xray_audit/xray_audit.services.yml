@@ -1,0 +1,67 @@
+services:
+  cache.xray_audit:
+    class: Drupal\Core\Cache\CacheBackendInterface
+    tags:
+      - { name: cache.bin }
+    factory: [ '@cache_factory', 'get' ]
+    arguments: [ xray_audit ]
+  xray_audit.cache_manager:
+    class: Drupal\xray_audit\Services\CacheManager
+    arguments: [ '@cache.xray_audit', '@datetime.time' ]
+  plugin_manager.xray_audit_group:
+    class: Drupal\xray_audit\Plugin\XrayAuditGroupPluginManager
+    parent: default_plugin_manager
+  plugin_manager.xray_audit_task:
+    class: Drupal\xray_audit\Plugin\XrayAuditTaskPluginManager
+    parent: default_plugin_manager
+  xray_audit.plugin_repository:
+    class: Drupal\xray_audit\Services\PluginRepository
+    arguments:
+      - '@plugin_manager.xray_audit_group'
+      - '@plugin_manager.xray_audit_task'
+      - '@logger.factory'
+      - '@xray_audit.cache_manager'
+  xray_audit.csv_download_manager:
+    class: Drupal\xray_audit\Services\CsvDownloadManager
+    arguments:
+      - '@request_stack'
+  xray_audit.entity_architecture:
+    class: Drupal\xray_audit\Services\EntityArchitecture
+    arguments:
+      - '@entity_type.manager'
+      - '@entity_field.manager'
+      - '@entity_display.repository'
+      - '@entity_type.bundle.info'
+  xray_audit.entity_display_architecture:
+    class: Drupal\xray_audit\Services\EntityDisplayArchitecture
+    arguments:
+      - '@entity_type.manager'
+      - '@xray_audit.entity_architecture'
+      - '@renderer'
+
+  xray_audit.paragraph_usage_map:
+    class: Drupal\xray_audit\Services\ParagraphUsageMap
+    arguments: [ '@xray_audit.entity_architecture', '@entity_type.manager', '@database' ]
+
+  xray_audit.entity_use_paragraph:
+    class: Drupal\xray_audit\Services\EntityUseParagraph
+    arguments: ['@xray_audit.entity_architecture', '@entity_type.manager', '@entity_type.bundle.info', '@config.factory', '@xray_audit.paragraph_usage_map']
+
+  xray_audit.entity_use_node:
+    class: Drupal\xray_audit\Services\EntityUseNode
+    arguments: [ '@xray_audit.entity_architecture', '@entity_type.manager', '@entity_type.bundle.info', '@config.factory']
+
+  xray_audit.navigation_architecture:
+    class: Drupal\xray_audit\Services\NavigationArchitecture
+    arguments:
+      - '@entity_type.manager'
+      - '@renderer'
+      - '@menu.link_tree'
+      - '@plugin.manager.menu.link'
+  xray_audit.route_subscriber:
+    class: Drupal\xray_audit\Routing\RouteSubscriber
+    arguments:
+      - '@plugin_manager.xray_audit_task'
+    tags:
+      - { name: event_subscriber }
+

@@ -1,0 +1,11 @@
+{
+  "src/js/collapsiblock.js": {
+    "file": "collapsiblock.js",
+    "name": "collapsiblock",
+    "src": "src/js/collapsiblock.js",
+    "isEntry": true,
+    "css": [
+      "collapsiblock.css"
+    ]
+  }
+}

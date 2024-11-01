@@ -1,0 +1,9 @@
+{
+    "name": "levmyshkin/jquery-mb-ytplayer",
+    "description": "jquery.mb.YTPlayer plugin as drupal-library. Fork from https://github.com/pupunzi/jquery.mb.YTPlayer.",
+    "homepage": "https://pupunzi.com/#mb.components/mb.YTPlayer/YTPlayer.html",
+    "type": "drupal-library",
+    "license": "(MIT)",
+    "keywords": ["Drupal","EBT","jquery.mb.YTPlayer"],
+    "require": {}
+}

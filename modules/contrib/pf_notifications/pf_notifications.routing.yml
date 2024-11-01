@@ -1,0 +1,48 @@
+pf_notifications.settings:
+  path: '/admin/config/system/push_framework/pf_notifications'
+  defaults:
+    _title: 'Push notifications settings'
+    _form: 'Drupal\pf_notifications\Form\SettingsForm'
+  requirements:
+    _permission: 'administer push notifications'
+
+pf_notifications.service_worker:
+  path: '/pf-notifications/service-worker'
+  defaults:
+    _title: 'Push notifications Service worker'
+    _controller: '\Drupal\pf_notifications\Controller\Base::serviceWorkerRegistration'
+  requirements:
+    _permission: 'restful post pf_notifications_subscription'
+
+pf_notifications.service_worker_reset:
+  path: '/pf-notifications/service-worker-reset'
+  defaults:
+    _title: 'Unregister Push notifications Service worker'
+    _controller: '\Drupal\pf_notifications\Controller\Base::unregisterServiceWorker'
+  requirements:
+    _permission: 'restful post pf_notifications_subscription'
+
+pf_notifications.re_subscribe:
+  path: '/pf-notifications/{entity_type}/{entity_id}/{key}/{type}'
+  defaults:
+    _title: 'Resubscribe, for push notifications'
+    _controller: '\Drupal\pf_notifications\Controller\Base::reSubscribe'
+    type: 'default'
+  requirements:
+    _permission: 'restful post pf_notifications_subscription'
+
+pf_notifications.reset_keys:
+  path: '/admin/pf_notifications/reset-keys'
+  defaults:
+    _form: '\Drupal\pf_notifications\Form\ResetSubscriptionsForm'
+    _title: 'Reset VAPID keys?'
+  requirements:
+    _permission: 'administer push notifications'
+
+pf_notifications.remove_subscription:
+  path: '/admin/pf_notifications/remove'
+  defaults:
+    _form: '\Drupal\pf_notifications\Form\RemoveSubscriptionForm'
+    _title: 'Remove notification subscription?'
+  requirements:
+    _permission: 'administer push notifications'

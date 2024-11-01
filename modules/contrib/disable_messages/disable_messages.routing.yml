@@ -1,0 +1,7 @@
+disable_messages.settings_form:
+  path: /admin/config/development/disable-messages
+  defaults:
+    _title: 'Disable messages'
+    _form: \Drupal\disable_messages\Form\DisableMessagesSettingsForm
+  requirements:
+    _permission: 'administer disable messages'

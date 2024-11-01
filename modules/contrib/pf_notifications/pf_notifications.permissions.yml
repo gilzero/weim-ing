@@ -1,0 +1,3 @@
+administer push notifications:
+  title: 'Administer Push notifications configuration'
+  description: 'Allow setting auth, security, options for WebPush etc.'

@@ -1,0 +1,4 @@
+services:
+  auto_translation.utility:
+    class: 'Drupal\auto_translation\Utility'
+    arguments: ['@config.factory', '@http_client', '@messenger', '@language_manager', '@module_handler']

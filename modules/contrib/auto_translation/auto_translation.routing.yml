@@ -1,0 +1,7 @@
+auto_translation.settings:
+  path: '/admin/auto-translation'
+  defaults:
+    _form: '\Drupal\auto_translation\Form\AutoTranslatorSettingsForm'
+    _title: 'Auto Translation Settings'
+  requirements:
+    _permission: 'administer auto_translation module'

@@ -1,0 +1,46 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a generated_files.
+ *
+ * Available variables:
+ * - filename_list: List of file checkbox elements
+ * - code: list of file code textarea elements
+ *
+ * @ingroup themeable
+ */
+#}
+<section class="generated-files">
+
+  {# Wrapper DIV to prevent table taking the whole height of the textarea. #}
+  <div>
+    <table>
+
+      <tr>
+        <th>Filename</th>
+        <th>Merge status</th>
+        <th>Version control</th>
+        <th>Show</th>
+      </tr>
+
+      {% for filename, filename_content in filename_list %}
+        <tr{% if attribute(filename_content, '#warn') %} class="color-warning"{% endif %}>
+          <td class="filename">{{ generate[filename] }}</td>
+          <td>{{ filename_content.merge }}</td>
+          <td>{{ filename_content.version_control }}</td>
+          <td>{{ filename_content.show }}</td>
+        </tr>
+      {% endfor %}
+
+    </table>
+  </div>
+
+  <div>
+    {% for file_code in code %}
+      <div class="generated-code">
+        {{ file_code.code }}
+      </div>
+    {% endfor %}
+  </div>
+
+</section>

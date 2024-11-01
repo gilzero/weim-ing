@@ -1,0 +1,30 @@
+// Networks array: title, background color, text and icon color
+$networks:
+  facebook #1877f2 #FFF,
+  twitter #1DA1F2 #FFF,
+  linkedin #0073b1 #FFF !default;
+
+.share-button {
+  &--branded {
+    @each $network in $networks {
+      $network-name: nth($network, 1);
+      $network-bg: nth($network, 2);
+      $network-color: nth($network, 3);
+
+      &.share-button--#{$network-name} {
+        background: $network-bg;
+        border: 0;
+        color: $network-color;
+
+        .icon {
+          fill: $network-color;
+          color: $network-color;
+        }
+
+        &:hover {
+          background: darken($network-bg, 4);
+        }
+      }
+    }
+  }
+}

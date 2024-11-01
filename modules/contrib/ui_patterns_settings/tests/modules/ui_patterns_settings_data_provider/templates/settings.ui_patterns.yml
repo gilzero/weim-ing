@@ -1,0 +1,16 @@
+foo_complex:
+  label: Foo Complex
+  fields:
+    dummy:
+      type: text
+      label: Dummy
+  settings:
+    complex_setting:
+      type: sample_complex_setting_type
+      label: Sample Complex Setting
+    links:
+      type: links
+      label: links
+    breadcrumb_lists:
+      type: links
+      label: breadcrumb_lists

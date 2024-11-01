@@ -1,0 +1,15 @@
+type_tray.settings.form:
+  path: '/admin/config/content/type-tray/settings'
+  defaults:
+    _form: '\Drupal\type_tray\Form\TypeTraySettingsForm'
+    _title: 'Type Tray Settings'
+  requirements:
+    _permission: 'administer type tray'
+
+type_tray.favorites:
+  path: '/type-tray/favorites-action/{type}/{op}'
+  defaults:
+    _controller: '\Drupal\type_tray\Controller\TypeTrayController::processFavorites'
+    _title: 'Type Tray - Process favorites'
+  requirements:
+    _role: 'authenticated'

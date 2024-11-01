@@ -1,0 +1,12 @@
+.bef-exposed-form {
+  margin-bottom: 1.5rem;
+}
+.bef-exposed-form .fieldset-legend {
+  font-size: 1rem;
+  font-weight: bold;
+  -webkit-appearance: none;
+}
+
+.bef-links li {
+  margin-bottom: 0.4rem;
+}

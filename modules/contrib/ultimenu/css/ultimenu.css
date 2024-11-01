@@ -1,0 +1,153 @@
+/**
+ * @file
+ * This file contains all Ultimenu layout and basic styling, the essentials.
+ *
+ * Classes:
+ * html.is-ultimenu--active is if enabled for both mobile and desktop.
+ *   Otherwise only exists on mobile only.
+ * html.is-ultimenu--hover is if enabled for desktop only, the default.
+ * html.is-ultimobile: defined in HTML, and updated by JS. This specific class
+ *   is only applied to touch devices. Hard-coded in HTML to minimize FOUC.
+ * html.is-ultidesktop: is available when `is-ultimobile` is removed for
+ *   desktop.
+ * Either is-ultimobile or is-ultidesktop classes can be hard-coded in
+ *   ultimenu_preprocess_html or Twig HTML template so to minimize FOUC, and JS
+ *   will switch them accordingly in accordance with touch devices, or not.
+ * .ultimenu: the menu UL tag.
+ * .ultimenu > li: the menu LI tag.
+ * .ultimenu__flyout: the ultimenu region container aka flyout.
+ * .ultimenu__link: the menu-link A tag.
+ *
+ * @see about RTL
+ *  - https://drupal.org/node/2032405
+ */
+
+:root {
+  --ultispace: 20px;
+  --ulticanvas: rgba(0, 0, 0, 0.9);
+  --ultibackdrop: rgba(0, 0, 0, 0.6);
+  --ultinormal: #000;
+  --ultiactive: #333;
+  --ultibg: transparent;
+  --ultiregion: #fff;
+  --ultisub-expanded: rgba(0, 0, 0, 0.2);
+  --ultisub2-expanded: rgba(0, 0, 0, 0.2);
+  --ultilink-bg-normal: transparent;
+  --ultilink-bg-hover: transparent;
+  --ultilink-bg-active: transparent;
+}
+
+/**
+ * Menu list style.
+ */
+.ultimenu {
+  --ultiflyout: var(--ultibg);
+  --ultiregion-color: var(--ultiactive);
+  --ultiregion-normal: var(--ultinormal);
+  --ultiregion-active: var(--ultiactive);
+  --ultilink-normal: var(--ultinormal);
+  --ultilink-active: var(--ultiactive);
+  --ultisub-normal: var(--ultinormal);
+  --ultisub-active: var(--ultiactive);
+  --ultisub2-normal: var(--ultinormal);
+  --ultisub2-active: var(--ultiactive);
+  --ulticaret-normal: var(--ultinormal);
+  --ulticaret-active: var(--ultiactive);
+
+  position: relative; /* Make flyout relative to UL for wide flyout */
+  z-index: 97;
+  min-height: 42px;
+  margin: 0;
+  list-style: none;
+  color: var(--ultinormal);
+}
+
+.is-ultimenu--active .is-ultimenu__canvas-off .ultimenu {
+  --ultinormal: #c1c1c1;
+  --ultiactive: #fff;
+  --ultibg: transparent;
+  --ultiregion: var(--ultibg);
+}
+
+/**
+ * Ultimenu flyout: Never display: none, bad for transition/ animation.
+ */
+.ultimenu__flyout {
+  background-color: var(--ultiflyout);
+}
+
+.ultimenu__flyout,
+.is-uitem-collapsible {
+  clear: both;
+}
+
+.ultimenu__flyout,
+.is-uitem-collapsible > ul {
+  position: relative;
+  z-index: 102;
+  top: 100%;
+  bottom: auto;
+  left: 0;
+  /* Intentional !important to avoid accidental overrides. */
+  display: block !important;
+  visibility: hidden;
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  max-height: 0;
+  padding: 0;
+  transition:
+    height 0.4s,
+    padding 0.3s,
+    opacity 0.3s;
+  opacity: 0;
+  line-height: 1.4;
+}
+
+.is-uitem-expanded > .ultimenu__flyout,
+.is-uitem-expanded > ul {
+  visibility: visible;
+  overflow: visible;
+  height: auto;
+  min-height: 64px;
+  max-height: 100%;
+  padding: var(--ultispace) 0;
+  transition-delay: 0.1s;
+  opacity: 1;
+}
+
+/** This region is placed within .ultimenu__flyout. */
+.ultimenu__region {
+  padding: var(--ultispace);
+  color: var(--ultiregion-color);
+  background-color: var(--ultiregion);
+}
+
+.ultimenu .ultimenu__region a {
+  color: var(--ultiregion-normal);
+}
+
+.ultimenu .ultimenu__region a:hover,
+.ultimenu .ultimenu__region a:active {
+  color: var(--ultiregion-active);
+}
+
+/* Submenus and collapsible submenus.  */
+.ultimenusub .menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/**
+ * We are here at desktop up.
+ * We still have .ultimenu__caret to toggle flyout here.
+ */
+.is-ultidesktop .is-ultihover .ultimenu__flyout,
+.is-ultidesktop:not(.is-ultimenu--active) .is-ulticaret .ultimenu__flyout {
+  position: absolute;
+}
+
+.is-ultidesktop .is-ultihover li .is-ulink-active + .ultimenu__flyout {
+  padding: var(--ultispace) 0;
+}

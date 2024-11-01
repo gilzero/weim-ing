@@ -1,0 +1,9 @@
+.block-holy-theme-info {
+  background-color: #fff;
+  padding: 30px;
+  border: 1px solid #eee;
+
+  & > ul {
+    margin-bottom: 0;
+  }
+}

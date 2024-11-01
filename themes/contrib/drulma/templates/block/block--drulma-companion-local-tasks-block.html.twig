@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Drulma theme implementation to display a local tasks block.
+ */
+#}
+{% if configuration.fullwidth %}
+  {% set attributes = attributes.addClass('is-fullwidth') %}
+{% endif %}
+{% if configuration.alignment %}
+  {% set attributes = attributes.addClass('is-' ~ configuration.alignment) %}
+{% endif %}
+<nav{{ attributes.addClass(['tabs', 'is-boxed']) }}>
+  {{ title_prefix }}
+  {% if label %}
+    <h2{{ title_attributes }}>{{ label }}</h2>
+  {% endif %}
+  {{ title_suffix }}
+  {% block content %}
+    {% if configuration.horizontally_centered %}
+      <div class="container">
+    {% endif %}
+
+    {{ content }}
+
+    {% if configuration.horizontally_centered %}
+      </div>
+    {% endif %}
+  {% endblock %}
+</nav>

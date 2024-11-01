@@ -1,0 +1,7 @@
+unstructured.settings:
+  path: '/admin/config/unstructured/settings'
+  defaults:
+    _form: '\Drupal\unstructured\Form\UnstructuredConfigForm'
+    _title: 'Setup Unstructured Settings'
+  requirements:
+    _permission: 'administer site configuration'

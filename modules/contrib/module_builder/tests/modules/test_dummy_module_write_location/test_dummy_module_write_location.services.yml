@@ -1,0 +1,11 @@
+services:
+  test_dummy_module_write_location.drupal_code_builder_test_sample_data:
+    decorates: module_builder.drupal_code_builder
+    class: Drupal\test_dummy_module_write_location\DrupalCodeBuilderTestSampleData
+
+  test_dummy_module_write_location.module_file_writer_dummy_location:
+    decorates: module_builder.module_file_writer
+    class: Drupal\test_dummy_module_write_location\ModuleFileWriterDummyLocation
+    arguments:
+      - '@extension.list.module'
+      - '@file_system'

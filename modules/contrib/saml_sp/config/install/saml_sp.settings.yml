@@ -1,0 +1,27 @@
+contact:
+  technical:
+    name: ''
+    email: ''
+  support:
+    name: ''
+    email: ''
+organization:
+  name: ''
+  display_name: ''
+  url: ''
+security:
+  nameIdEncrypted: false
+  authnRequestsSigned: true
+  logoutRequestSigned: true
+  logoutResponseSigned: true
+  wantMessagesSigned: true
+  wantAssertionsSigned: true
+  wantNameIdEncrypted: false
+  signMetaData: true
+  signatureAlgorithm: 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256'
+  lowercaseUrlencoding: false
+key_location: ''
+cert_location: ''
+strict: true
+entity_id: ''
+valid_until: ''

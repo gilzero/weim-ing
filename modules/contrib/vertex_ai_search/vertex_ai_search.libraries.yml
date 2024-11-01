@@ -1,0 +1,9 @@
+vertexAiSearchResults:
+  css:
+    theme:
+      css/vertex_ai_search.css: { weight: 50 }
+  js:
+    js/vertex_ai_search.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

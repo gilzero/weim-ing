@@ -1,0 +1,4 @@
+administer azure_ai_faq_bot:
+  title: 'Administer Azure AI FAQ Bot configuration'
+  description: 'Administer the Azure AI FAQ Bot configuration.'
+  restrict access: true

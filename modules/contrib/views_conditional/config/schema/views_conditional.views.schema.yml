@@ -1,0 +1,28 @@
+views.field.views_conditional_field:
+  type: views_field
+  label: 'Views conditional field'
+  mapping:
+    if:
+      label: 'If'
+      type: string
+    condition:
+      label: 'Condition'
+      type: string
+    equalto:
+      label: 'Equal to'
+      type: string
+    then:
+      label: 'Then'
+      type: string
+    then_translate:
+      label: 'Then translate'
+      type: boolean
+    or:
+      label: 'Or'
+      type: string
+    or_translate:
+      label: 'Or translate'
+      type: boolean
+    strip_tags:
+      label: 'Strip tags'
+      type: boolean

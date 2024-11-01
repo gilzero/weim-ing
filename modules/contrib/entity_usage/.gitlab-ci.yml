@@ -1,0 +1,36 @@
+include:
+  - project: $_GITLAB_TEMPLATES_REPO
+    ref: $_GITLAB_TEMPLATES_REF
+    file:
+      - '/includes/include.drupalci.main.yml'
+      - '/includes/include.drupalci.variables.yml'
+      - '/includes/include.drupalci.workflows.yml'
+
+variables:
+  _PHPUNIT_CONCURRENT: '1'
+  OPT_IN_TEST_PREVIOUS_MINOR: 1
+  RUN_JOB_UPGRADE_STATUS: '1'
+
+# By default, Gitlab CI runs on the default system mysql database, change
+# this as it won't work for the schema required by entity_usage.
+# Remove when https://www.drupal.org/project/gitlab_templates/issues/3463044 is
+# fixed.
+.test-variables:
+  variables:
+    MYSQL_DATABASE: drupal
+    MYSQL_ROOT_PASSWORD: drupal
+
+# Workaround for development dependencies that are not yet compatible
+# with next major, use lenient and override their core compatibility.
+composer (next major):
+  variables:
+    _LENIENT_ALLOW_LIST: "inline_entity_form,entity_embed,embed,ckeditor,webform,entity_browser_block,paragraphs"
+    PHP_VERSION: $CORE_PHP_MAX
+    DRUPAL_CORE: $CORE_MAJOR_DEVELOPMENT
+    IGNORE_PROJECT_DRUPAL_CORE_VERSION: 1
+
+phpunit (next major):
+  before_script:
+    - 'sed -i "s/core_version_requirement.*/core_version_requirement: \^11/" web/modules/contrib/**/*.info.yml'
+  variables:
+    SYMFONY_DEPRECATIONS_HELPER: "disabled"

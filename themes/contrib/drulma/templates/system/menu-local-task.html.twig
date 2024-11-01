@@ -1,0 +1,10 @@
+{#
+/**
+ * @file
+ * Drulma theme implementation for a local task link.
+ */
+#}
+{% if is_active %}
+  {% set attributes = attributes.addClass('is-active') %}
+{% endif %}
+<li{{ attributes }}>{{ link }}</li>

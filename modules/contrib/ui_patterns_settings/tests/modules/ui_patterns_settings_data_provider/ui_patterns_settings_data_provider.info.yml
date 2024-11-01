@@ -1,0 +1,10 @@
+type: module
+name: 'UI Patterns Settings Data Provider'
+package: 'Testing'
+dependencies:
+  - ui_patterns_settings:ui_patterns_settings
+
+# Information added by Drupal.org packaging script on 2024-09-14
+version: '8.x-2.4'
+project: 'ui_patterns_settings'
+datestamp: 1726298109

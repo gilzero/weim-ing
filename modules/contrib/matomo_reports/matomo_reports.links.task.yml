@@ -1,0 +1,129 @@
+# Visitors
+matomo_reports.visitors:
+  title: 'Visitors'
+  route_name: matomo_reports.reports
+  base_route: matomo_reports.reports
+  weight: -50
+
+matomo_reports.visitors.overview:
+  title: 'Overview'
+  route_name: matomo_reports.reports
+  parent_id: matomo_reports.visitors
+  weight: -50
+
+matomo_reports.visitors.settings:
+  title: 'Settings'
+  parent_id: matomo_reports.visitors
+  route_name: matomo_reports.visitors.settings
+  weight: -45
+
+matomo_reports.visitors.times:
+  title: 'Times'
+  parent_id: matomo_reports.visitors
+  route_name: matomo_reports.visitors.times
+  weight: -40
+
+matomo_reports.visitors.locations:
+  title: 'Locations'
+  parent_id: matomo_reports.visitors
+  route_name: matomo_reports.visitors.locations
+  weight: -35
+
+matomo_reports.visitors.variables:
+  title: 'Custom Variables'
+  parent_id: matomo_reports.visitors
+  route_name: matomo_reports.visitors.variables
+  weight: -30
+
+# Actions
+matomo_reports.actions:
+  title: 'Pages'
+  base_route: matomo_reports.reports
+  route_name: matomo_reports.actions.pages
+  weight: -50
+
+matomo_reports.actions.pages:
+  title: 'Pages'
+  parent_id: matomo_reports.actions
+  route_name: matomo_reports.actions.pages
+  weight: -50
+
+matomo_reports.actions.entrypages:
+  title: 'Entry Pages'
+  parent_id: matomo_reports.actions
+  route_name: matomo_reports.actions.entrypages
+  weight: -45
+
+matomo_reports.actions.exitpages:
+  title: 'Exit Pages'
+  parent_id: matomo_reports.actions
+  route_name: matomo_reports.actions.exitpages
+  weight: -40
+
+matomo_reports.actions.sitesearch:
+  title: 'Site Search'
+  parent_id: matomo_reports.actions
+  route_name: matomo_reports.actions.sitesearch
+  weight: -35
+
+matomo_reports.actions.outlinks:
+  title: 'Outlinks'
+  parent_id: matomo_reports.actions
+  route_name: matomo_reports.actions.outlinks
+  weight: -30
+
+matomo_reports.actions.downloads:
+  title: 'Downloads'
+  parent_id: matomo_reports.actions
+  route_name: matomo_reports.actions.downloads
+  weight: -25
+
+matomo_reports.events:
+  title: 'Events'
+  base_route: matomo_reports.reports
+  route_name: matomo_reports.events
+  weight: -40
+
+# Referrers
+matomo_reports.referrers:
+  title: 'Referrers'
+  base_route: matomo_reports.reports
+  route_name: matomo_reports.referrers.allreferrers
+  weight: -50
+
+matomo_reports.referrers.allreferrers:
+  title: 'All Referrers'
+  parent_id: matomo_reports.referrers
+  route_name: matomo_reports.referrers.allreferrers
+  weight: -45
+
+matomo_reports.referrers.search:
+  title: 'Search'
+  parent_id: matomo_reports.referrers
+  route_name: matomo_reports.referrers.search
+  weight: -40
+
+matomo_reports.referrers.websites:
+  title: 'Websites & Social'
+  parent_id: matomo_reports.referrers
+  route_name: matomo_reports.referrers.websites
+  weight: -35
+
+
+matomo_reports.referrers.campaigns:
+  title: 'Campaigns'
+  parent_id: matomo_reports.referrers
+  route_name: matomo_reports.referrers.campaigns
+  weight: -35
+
+# Goals
+matomo_reports.goals:
+  title: 'Goals'
+  base_route: matomo_reports.reports
+  route_name: matomo_reports.goals
+  weight: -50
+
+matomo_reports.transitions:
+  title: 'Transitions'
+  base_route: matomo_reports.reports
+  route_name: matomo_reports.transitions

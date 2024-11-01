@@ -1,0 +1,7 @@
+{
+  "phpcs.executablePath": "vendor/bin/phpcs",
+  "phpcs.standard": "vendor/drupal/coder/coder_sniffer/Drupal",
+  "phpcs.ignorePatterns": [
+    "./vendor/*"
+  ],
+}

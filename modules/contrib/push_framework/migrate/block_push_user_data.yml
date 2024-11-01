@@ -1,0 +1,24 @@
+id: block_push_user_data
+label: User data for blocking push notifications
+source_type: JSON
+source:
+  plugin: url
+  data_fetcher_plugin: file
+  urls: /path/to/file/crm.json
+  track_changes: true
+process:
+  uid:
+    plugin: migration_lookup
+    migration: users
+    source: user
+    no_stub: true
+  flag:
+    - plugin: get
+      source: block_push_notifications
+    - plugin: default_value
+      default_value: 0
+destination:
+  plugin: push_framework_user_data
+migration_dependencies:
+  required:
+    - users

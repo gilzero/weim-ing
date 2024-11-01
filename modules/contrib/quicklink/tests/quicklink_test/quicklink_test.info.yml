@@ -1,0 +1,12 @@
+name: 'Quicklink tests'
+type: module
+description: 'Support module for testing the Quicklink module.'
+package: Testing
+# version: VERSION
+dependencies:
+  - quicklink
+
+# Information added by Drupal.org packaging script on 2024-07-14
+version: '2.0.4'
+project: 'quicklink'
+datestamp: 1720978308

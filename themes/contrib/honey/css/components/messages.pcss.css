@@ -1,0 +1,49 @@
+/**
+ * Messages.
+ *
+ */
+
+@import "../base/variables.pcss.css";
+
+.messages {
+  position: relative;
+  margin-top: var(--space-m);
+  margin-bottom: var(--space-m);
+  padding: 2rem 2rem 2rem 6rem;
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 1rem;
+  font-size: var(--font-size-h4);
+}
+
+.messages--error {
+  color: var(--color-danger);
+  fill: var(--color-danger);
+  border-color: var(--color-danger);
+}
+
+.messages--status {
+  color: var(--color-status);
+  fill: var(--color-status);
+  border-color: var(--color-status);
+}
+
+.messages--warning {
+  color: var(--color-warning);
+  fill: var(--color-warning);
+  border-color: var(--color-warning);
+}
+
+.messages__icon {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+@media screen and (min-width: 48rem) {
+  .messages__content {
+    margin-left: var(--messages__text-margin);
+  }
+}

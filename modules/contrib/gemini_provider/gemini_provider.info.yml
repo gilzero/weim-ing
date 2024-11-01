@@ -1,0 +1,13 @@
+name: 'Gemini Provider'
+type: module
+description: 'Gemini provider for AI module.'
+package: AI Providers
+core_version_requirement: ^10 || ^11
+dependencies:
+  - ai:ai (>=1.0.0-alpha7)
+  - key:key
+
+# Information added by Drupal.org packaging script on 2024-09-19
+version: '1.0.0-alpha4'
+project: 'gemini_provider'
+datestamp: 1726740128

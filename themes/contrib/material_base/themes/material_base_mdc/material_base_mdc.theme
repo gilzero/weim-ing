@@ -1,0 +1,180 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the Material Base MDC theme.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Render\Element\RenderElement;
+use Drupal\Core\Template\Attribute;
+
+/**
+ * Sets "#off_canvas" property for all elements of given form recursively.
+ *
+ * @param array $form
+ *   The form or form element.
+ */
+function material_base_mdc_set_off_canvas(array &$form) {
+
+  foreach (Element::children($form) as $child) {
+    if (!isset($form[$child]['#off_canvas'])) {
+      $form[$child]['#off_canvas'] = TRUE;
+    }
+    material_base_mdc_set_off_canvas($form[$child]);
+  }
+
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for nodes.
+ */
+function material_base_mdc_preprocess_node(&$variables) {
+
+  // Passing base theme path to style guide template.
+  if ($variables['url'] != '/style-guide') {
+    return;
+  }
+
+  $variables['base_theme_path'] = \Drupal::service('theme_handler')->getTheme('material_base')->getPath();
+
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function material_base_mdc_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  $form['actions']['submit']['#attributes']['class'][] = 'mdc-button--raised';
+
+  // Some forms intended to be rendered off canvas.
+  // MDC won't be able to apply JS correctly on such forms.
+  // Setting "#off_canvas" property for all elements of the form,
+  // for being able to handle it on template level.
+  $off_canvas_forms = [
+    'layout_builder_add_block',
+    'layout_builder_update_block',
+    'layout_builder_block_move',
+    'layout_builder_remove_block',
+    'layout_builder_configure_section',
+    'layout_builder_remove_section',
+  ];
+
+  if (in_array($form_id, $off_canvas_forms)) {
+    material_base_mdc_set_off_canvas($form);
+  }
+
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function material_base_mdc_preprocess_form_element(array &$variables) {
+
+  $element = $variables['element'];
+
+  if (isset($element['#attributes'])) {
+    $input_attributes = $element['#attributes'];
+    if ($element['#type'] == 'password') {
+      // Make password fields the same width as other text fields.
+      $input_attributes['size'] = 60;
+    }
+    $variables['input_attributes'] = new Attribute($input_attributes);
+  }
+
+  // Copied from core's template_preprocess_textarea.
+  if ($element['#type'] == 'textarea') {
+    $attributes = [
+      'id',
+      'name',
+      'rows',
+      'cols',
+      'maxlength',
+      'placeholder',
+    ];
+    Element::setAttributes($element, $attributes);
+    RenderElement::setAttributes($element, [
+      'form-textarea',
+    ]);
+    $variables['textarea_wrapper_attributes'] = new Attribute();
+    $variables['textarea_attributes'] = new Attribute($element['#attributes']);
+    $variables['textarea_value'] = $element['#value'];
+    $variables['textarea_resizable'] = !empty($element['#resizable']) ? $element['#resizable'] : NULL;
+    $variables['textarea_required'] = !empty($element['#required']) ? $element['#required'] : NULL;
+  }
+
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function material_base_mdc_theme_suggestions_region_alter(array &$suggestions, array $variables) {
+
+  // Support using example region templates.
+  if (\Drupal::service('theme.manager')->getActiveTheme()->getName() == 'material_base_mdc') {
+    if (!empty($variables['elements']['#region'])) {
+      $suggestions[] = 'region__' . $variables['elements']['#region'] . '__example';
+    }
+  }
+
+}
+
+/**
+ * Implements hook_theme_suggestions_node_alter().
+ */
+function material_base_mdc_theme_suggestions_node_alter(array &$suggestions, array $variables) {
+
+  if (\Drupal::service('theme.manager')->getActiveTheme()->getName() == 'material_base_mdc') {
+    // Support using example node templates.
+    $current_path = \Drupal::service('path.current')->getPath();
+    $current_alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+    $current_alias = preg_replace('/\W+/', '_', strtolower(ltrim($current_alias, '/')));
+    $suggestions[] = 'node__' . $current_alias . '__example';
+
+    if (isset($variables['elements']['#view_mode'])) {
+      $suggestions[] = 'node__' . $current_alias . '__' . $variables['elements']['#view_mode'] . '__example';
+    }
+  }
+
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function material_base_mdc_theme_suggestions_form_element_alter(array &$suggestions, array $variables) {
+
+  // Prepend suggestions array for supporting modules like Themable forms.
+  array_unshift($suggestions, 'form_element__' . $variables['element']['#type']);
+
+  // Add suggestion for off canvas elements.
+  if (!empty($variables['element']['#off_canvas']) && $variables['element']['#off_canvas']) {
+    $suggestions[] = 'form_element__off_canvas';
+    $suggestions[] = 'form_element__' . $variables['element']['#type'] . '__off_canvas';
+  }
+
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function material_base_mdc_theme_suggestions_input_alter(array &$suggestions, array $variables) {
+
+  if ($variables['element']['#type'] != 'submit') {
+    return;
+  }
+
+  // Add suggestions for the hidden inputs of uploadable fields.
+  $parents = ['field_file', 'field_image'];
+  foreach ($parents as $parent_field) {
+    if (!empty($variables['element']['#parents']) && in_array($parent_field, $variables['element']['#parents'])) {
+      $suggestions[] = 'input__submit__' . $parent_field;
+    }
+  }
+
+  // Add suggestion for off canvas inputs.
+  if (!empty($variables['element']['#off_canvas']) && $variables['element']['#off_canvas']) {
+    $suggestions[] = 'input__submit__off_canvas';
+  }
+
+}

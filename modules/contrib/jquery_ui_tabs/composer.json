@@ -1,0 +1,9 @@
+{
+  "name": "drupal/jquery_ui_tabs",
+  "description": "Provides the jQuery UI Tabs library for any themes and modules",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "drupal/jquery_ui": "^1.7"
+  }
+}

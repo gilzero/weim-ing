@@ -1,0 +1,14 @@
+# This is the DrupalCI testbot build file for Web Push.
+# Learn to make one for your own drupal.org project:
+# https://www.drupal.org/drupalorg/docs/drupal-ci/customizing-drupalci-testing
+build:
+  assessment:
+    validate_codebase:
+      phplint:
+      eslint:
+      phpstan:
+        halt-on-fail: false
+      phpcs:
+        # phpcs will use core's specified version of Coder.
+        sniff-all-files: true
+        halt-on-fail: false

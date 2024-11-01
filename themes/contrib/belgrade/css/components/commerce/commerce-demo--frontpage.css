@@ -1,0 +1,22 @@
+.region-header {
+  position: absolute;
+  margin-top: 0 !important;
+  width: 100%;
+  color: #fff;
+  z-index: 5;
+}
+.region-header .nav-link:hover {
+  color: inherit;
+}
+
+#carouselDemo img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 320px;
+  opacity: 0.54;
+}
+@media (min-width: 768px) {
+  #carouselDemo img {
+    height: 640px;
+  }
+}

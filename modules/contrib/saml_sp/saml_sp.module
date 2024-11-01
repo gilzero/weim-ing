@@ -1,0 +1,477 @@
+<?php
+
+/**
+ * @file
+ * SAML Service Provider.
+ *
+ * Allow users to log in to Drupal via a third-party SAML Identity Provider.
+ * Users authenticate to the third-party SAML IdP (e.g. http://idp.example.com)
+ * and a series of redirects allows that authentication to be recognised in
+ * Drupal.
+ *
+ * Uses the OneLogin SAML PHP Toolkit: https://github.com/onelogin/php-saml
+ */
+
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\saml_sp\Entity\Idp;
+use Drupal\saml_sp\SAML\SamlSPSettings;
+use Drupal\saml_sp\SAML\SamlSPAuth;
+use Drupal\Core\Url;
+use OneLogin\Saml2\Constants;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
+/**
+ * Generate a URL for the IdP metadata.
+ */
+function saml_sp__metadata_url($idp) {
+  return Url::fromRoute('saml_sp.metadata', [], ['absolute' => TRUE]);
+}
+
+/**
+ * Load a single IdP.
+ */
+function saml_sp_idp_load($idp_machine_name) {
+  if (is_string($idp_machine_name)) {
+    return Idp::load($idp_machine_name);
+  }
+  if (is_array($idp_machine_name)) {
+    return $idp_machine_name;
+  }
+}
+
+/**
+ * Load all the registered IdPs.
+ *
+ * @return array
+ *   An array of IdP objects, keyed by the machine name.
+ */
+function saml_sp__load_all_idps() {
+  $result = Idp::loadMultiple();
+  return $result;
+}
+
+/**
+ * Get the SAML settings for an IdP.
+ *
+ * @param \Drupal\saml_sp\Entity\Idp|null $idp
+ *   An IdP object, such as that provided by saml_sp_idp_load($machine_name).
+ *
+ * @return \OneLogin\Saml2\Settings
+ *   IdP Settings data.
+ */
+function saml_sp__get_settings($idp = NULL) {
+  if (empty($idp)) {
+    $idp = new Idp([]);
+  }
+  $settings = [];
+
+  // The consumer endpoint will always be /saml/consume.
+  $endpoint_url = Url::fromRoute('saml_sp.consume', [], [
+    'language' => FALSE,
+    'alias' => TRUE,
+    'absolute' => TRUE,
+  ]);
+
+  $settings['idp']['entityId'] = $idp->id() ?: 'none_given';
+
+  // URL to login of the IdP server.
+  $settings['idp']['singleSignOnService']['url'] = $idp->getLoginUrl() ?: 'https://www.example.com/login';
+
+  // URL to logout of the IdP server.
+  $settings['idp']['singleLogoutService'] = [
+    'url' => $idp->getLogoutUrl(),
+    'binding' => Constants::BINDING_HTTP_REDIRECT,
+  ];
+
+  // The IdP's public X.509 certificate.
+  if (is_array($idp->getX509Cert())) {
+    // We only need one key, so use the first one.
+    $settings['idp']['x509cert'] = $idp->getX509Cert()[0] ?: 'blank';
+  }
+  else {
+    $settings['idp']['x509cert'] = $idp->getX509Cert() ?: 'blank';
+  }
+
+  // The authentication method we want to use with the IdP:
+  $settings['idp']['AuthnContextClassRef'] = $idp->getAuthnContextClassRef() ?: 'blank';
+
+  // Name to identify IdP:
+  $settings['idp']['entityId'] = $idp->getEntityId() ?: 'blank';
+
+  $config = \Drupal::config('saml_sp.settings');
+  $settings['strict'] = (bool) $config->get('strict');
+
+  // Name to identify this application, if none is given use the absolute URL
+  // instead:
+  $settings['sp']['entityId'] = Html::escape($config->get('entity_id')) ?: Url::fromRoute('user.page', [], ['absolute' => TRUE])->toString();
+
+  $settings['sp']['assertionConsumerService'] = [
+    'url' => $endpoint_url->toString(),
+    'binding' => Constants::BINDING_HTTP_POST,
+  ];
+
+  // Drupal URL to logout the user from the IdP.
+  $settings['sp']['singleLogoutService'] = array(
+    'url' => $endpoint_url->toString(),
+    'binding' => Constants::BINDING_HTTP_POST,
+  );
+
+  // Tells the IdP to return the email address of the current user:
+  $settings['sp']['NameIDFormat'] = Constants::NAMEID_EMAIL_ADDRESS;
+
+  // Add the contact information for the SP:
+  $settings['contactPerson'] = [];
+  if (!empty($config->get('contact.technical.name')) && !empty($config->get('contact.technical.email'))) {
+    $settings['contactPerson']['technical'] = [
+      'givenName' => Html::escape($config->get('contact.technical.name')),
+      'emailAddress' => $config->get('contact.technical.email'),
+    ];
+  }
+  if (!empty($config->get('contact.support.name')) && !empty($config->get('contact.support.email'))) {
+    $settings['contactPerson']['support'] = [
+      'givenName' => Html::escape($config->get('contact.support.name')),
+      'emailAddress' => $config->get('contact.support.email'),
+    ];
+  }
+
+  // Add the organization information.
+  $org_name = Html::escape($config->get('organization.name'));
+  $org_disp = Html::escape($config->get('organization.display_name'));
+  $org_url = $config->get('organization.url');
+  if (!empty($org_name) && !empty($org_disp) && !empty($org_url)) {
+    $settings['organization'] = [
+      'en-US' => [
+        'name' => $org_name,
+        'displayname' => $org_disp,
+        'url' => $org_url,
+      ],
+    ];
+  }
+
+  $refs = saml_sp_authn_context_class_refs(TRUE);
+  $authnContexts = [];
+  if (is_array($idp->getAuthnContextClassRef()) && !empty($idp->getAuthnContextClassRef())) {
+    foreach ($idp->getAuthnContextClassRef() as $value) {
+      if (!empty($value)) {
+        $authnContexts[] = $refs[$value];
+      }
+    }
+  }
+
+  // Add the security settings.
+  $settings['security'] = [
+    // Signatures and encryptions offered:
+    'nameIdEncrypted'       => (bool) $config->get('security.nameIdEncrypted'),
+    'authnRequestsSigned'   => (bool) $config->get('security.authnRequestsSigned'),
+    'logoutRequestSigned'   => (bool) $config->get('security.logoutRequestSigned'),
+    'logoutResponseSigned'  => (bool) $config->get('security.logoutResponseSigned'),
+    // Sign the Metadata:
+    'signMetadata'          => (bool) $config->get('security.signMetaData'),
+    // Signatures and encryptions required:
+    'wantMessagesSigned'    => (bool) $config->get('security.wantMessagesSigned'),
+    'wantAssertionsSigned'  => (bool) $config->get('security.wantAssertionsSigned'),
+    'wantNameIdEncrypted'   => (bool) $config->get('security.wantNameIdEncrypted'),
+    'signatureAlgorithm'    => $config->get('security.signatureAlgorithm'),
+    'lowercaseUrlencoding'  => (bool) $config->get('security.lowercaseUrlencoding'),
+    'requestedAuthnContext' => empty($authnContexts) ? FALSE : $authnContexts,
+  ];
+
+  $cert_location = $config->get('cert_location');
+  if ($cert_location && file_exists($cert_location)) {
+    $settings['sp']['x509cert'] = file_get_contents($cert_location);
+  }
+
+  $new_cert_location = $config->get('new_cert_location');
+  if ($new_cert_location && file_exists($new_cert_location)) {
+    $settings['sp']['x509certNew'] = file_get_contents($new_cert_location);
+  }
+
+  $settings['sp']['validUntil'] = $config->get('valid_until');
+
+  // Invoke hook_saml_sp_settings_alter().
+  \Drupal::moduleHandler()->alter('saml_sp_settings', $settings);
+
+  // We are adding in the private key after the alter function because we don't
+  // want to risk the private key getting into the hands of a rogue module.
+  $key_location = $config->get('key_location');
+  if ($key_location && file_exists($key_location)) {
+    $settings['sp']['privateKey'] = file_get_contents($key_location);
+  }
+  return $settings;
+}
+
+/**
+ * Load the settings and get the metadata.
+ */
+function saml_sp__get_metadata() {
+  $settings = saml_sp__get_settings();
+  try {
+    $settings = new SamlSPSettings($settings);
+    $metadata = $settings->getSPMetadata();
+    $errors = $settings->validateMetadata($metadata);
+  }
+  catch (Exception $e) {
+    $metadata = get_class($e) . ' - ' . $e->getMessage();
+  }
+  return [$metadata, isset($errors) ? $errors : []];
+}
+
+/*
+ ******************************************************************************
+ * Start and finish SAML authentication process.
+ ******************************************************************************
+ */
+
+/**
+ * Start a SAML authentication request.
+ *
+ * @param object $idp
+ *   The identity provider.
+ * @param string $callback
+ *   A function to call with the results of the SAML authentication process.
+ * @param boolean $forceAuthn
+ *   Whether to require authentication at the IdP regardless of SSO.
+ *
+ * @return array|string|null
+ *   The result of the authentication request.
+ *
+ * @throws \OneLogin\Saml2\Error
+ *   Passed back up the chain from the SAML library.
+ */
+function saml_sp_start($idp, $callback, $forceAuthn = FALSE) {
+  // By default, the user is returned to the front page after login.
+  $return_to = Url::fromRoute('<front>')->toString();
+
+  // If a returnTo parameter is present, then send the user there instead.
+  $query = \Drupal::request()->query;
+  if ($query->get('returnTo', NULL) !== NULL) {
+    $return_to = $query->get('returnTo');
+    if (substr($return_to, 0, 1) !== '/') {
+      $return_to = '/' . $return_to;
+    }
+  }
+
+  try {
+    $settings = saml_sp__get_settings($idp);
+    $auth = new SamlSPAuth($settings);
+    $auth->setAuthCallback($callback);
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('saml_sp')->error('SamlSPAuth cannot be instantiated: %e', ['%e' => $e->getMessage()]);
+    \Drupal::messenger()->addMessage(t('Configuration error: login is unavailable.'), MessengerInterface::TYPE_ERROR);
+    $redirect_url = Url::fromRoute('<front>')->toString();
+    return new RedirectResponse($redirect_url);      
+  }
+  return $auth->login($return_to, [], $forceAuthn);
+}
+
+/**
+ * Track an outbound request.
+ *
+ * @param string $id
+ *   The unique ID of an outbound request.
+ * @param object $idp
+ *   IdP data.
+ * @param string $callback
+ *   The function to invoke on completion of a SAML authentication request.
+ */
+function saml_sp__track_request($id, $idp, $callback) {
+  $data = [
+    'id' => $id,
+    'idp' => $idp->id(),
+    'callback' => $callback,
+  ];
+  $store = saml_sp_get_tempstore('track_request');
+  $store->set($id, $data);
+}
+
+/**
+ * Get the appropriate tempstore for the version of Drupal we are using.
+ */
+function saml_sp_get_tempstore($name) {
+  // Determine is the Drupal version is one that has 'tempstore.shared' and
+  // use it, otherwise use 'user.shared_tempstore'.
+  switch (version_compare(Drupal::VERSION, '8.5.0')) {
+    case -1:
+      // When Drupal::Version is less than 8.5.0:
+      $service = 'user.shared_tempstore';
+      break;
+
+    default:
+      // When Drupal::VERSION is greater than or equal to 8.5.0:
+      $service = 'tempstore.shared';
+  }
+  $factory = \Drupal::service($service);
+  $store = $factory->get('saml_sp.' . $name);
+  return $store;
+}
+
+/**
+ * Get the IdP and callback from a tracked request.
+ *
+ * @param string $id
+ *   The unique ID of an outbound request.
+ *
+ * @return array|false
+ *   An array of tracked data, giving the keys:
+ *   - id       The original outbound ID.
+ *   - idp      The machine name of the IdP.
+ *   - callback The function to invoke on authentication.
+ */
+function saml_sp__get_tracked_request($id) {
+  $store = saml_sp_get_tempstore('track_request');
+  if ($data = $store->get($id)) {
+    return $data;
+  }
+  return FALSE;
+}
+
+/*
+ ******************************************************************************
+ * Internal helper functions.
+ ******************************************************************************
+ */
+
+/**
+ * Extract the unique ID of an outbound request.
+ *
+ * @param string $encoded_url
+ *   The response of AuthRequest::getRedirectUrl(), which is multiple-encoded.
+ *
+ * @return string|false
+ *   The unique ID of the outbound request, if it can be decoded.
+ *   This will be AuthRequest::ID_PREFIX, followed by a SHA1 hash.
+ */
+function _saml_sp__extract_outbound_id($encoded_url) {
+  $string = $encoded_url;
+  $string = @urldecode($string);
+  $string = @substr($string, 0, strpos($string, '&'));
+  $string = @base64_decode($string);
+  $string = @gzinflate($string);
+
+  // This regex is based on the constructor code provided in
+  // \OneLogin\Saml2\AuthnRequest.
+  $regex = '/^<samlp:AuthnRequest
+    xmlns:samlp="' . Constants::NS_SAMLP . '"
+    xmlns:saml="' . Constants::NS_SAML . '"
+    ID="(ONELOGIN_[0-9a-f]{40})"/m';
+
+  $result = FALSE;
+  if (preg_match($regex, $string, $matches)) {
+    $result = $matches[1];
+  }
+
+  return $result;
+}
+
+/**
+ * Extract the unique ID in an inbound request.
+ *
+ * @param string $assertion
+ *   UUEncoded SAML assertion from the IdP (i.e. the POST request).
+ *
+ * @return string|false
+ *   The unique ID of the inbound request, if it can be decoded.
+ *   This will be AuthRequest::ID_PREFIX, followed by a SHA1 hash.
+ */
+function _saml_sp__extract_inbound_id($assertion) {
+  // Decode the request.
+  $xml = base64_decode($assertion);
+
+  // Load the XML.
+  $document = new DOMDocument();
+  if ($document->loadXML($xml)) {
+    try {
+      $id = @$document->firstChild->attributes->getNamedItem('InResponseTo')->nodeValue;
+      \Drupal::logger('saml_sp')->notice('SAML login attempt with inbound ID: %id', ['%id' => $id]);
+      return $id;
+    }
+    catch (Exception $e) {
+      \Drupal::logger('saml_sp')->error('Could not extract inbound ID. %exception', ['%exception' => $e]);
+      return FALSE;
+    }
+  }
+  \Drupal::logger('saml_sp')->error('Cannot parse XM response:<br/> <pre>@response</pre>', ['@response' => $xml]);
+  return FALSE;
+}
+
+/**
+ * Alternate keys for the authn_context_class_ref.
+ */
+function saml_sp_authn_context_class_refs($reverse = FALSE) {
+  $array = [
+    Constants::AC_PASSWORD           => 'user_name_and_password',
+    Constants::AC_PASSWORD_PROTECTED => 'password_protected_transport',
+    Constants::AC_TLS                => 'tls_client',
+    Constants::AC_X509               => 'x509_certificate',
+    Constants::AC_WINDOWS            => 'integrated_windows_authentication',
+    Constants::AC_KERBEROS           => 'kerberos',
+  ];
+  if ($reverse) {
+    $array = array_flip($array);
+  }
+  return $array;
+}
+
+/**
+ * Provides debugging output.
+ *
+ * @param string $label
+ *   The label for the associated value.
+ * @param string $value
+ *   The variable or object to be printed.
+ */
+function _saml_sp__debug($label, $value) {
+  if (\Drupal::moduleHandler()->moduleExists('devel')) {
+    // @codingStandardsIgnoreLine @phpstan-ignore-next-line
+    dpm($label, $value);
+  }
+  else {
+    \Drupal::messenger()->addMessage(t("%label<br>\n<pre>\n@value\n</pre>\n", [
+      '%label' => $label,
+      '@value' => print_r($value, TRUE),
+    ]));
+  }
+}
+
+/**
+ * Check that a request is a valid SAML authentication response.
+ *
+ * @deprecated in saml_sp:4.2.0 and is removed from saml_sp:5.0.0.
+ *   This check is now handled by SamlSPController when consuming a response.
+ *
+ * @see https://www.drupal.org/project/saml_sp/issues/3330630
+ */
+function saml_sp__is_valid_authentication_response() {
+  @trigger_error('Function saml_sp__is_valid_authentication_response() is deprecated in saml_sp:4.2.0 and is removed from saml_sp:5.0.0. This check is now handled by SamlSPController when consuming a response. See https://www.drupal.org/project/saml_sp/issues/3330630', E_USER_DEPRECATED);
+  return ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['SAMLResponse']));
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+/*
+// @codingStandardsIgnoreStart
+// Comment out the changes to the user form which is causing problems... this
+// will be uncommented when a better solution is conceived of.
+function saml_sp_form_alter(&$form, &$form_state, $form_id) {
+   switch ($form_id) {
+    case 'user_profile_form' :
+      // Disable email field because it should not be changed when using SSO.
+      // Users who have access to configure the module can do it.
+      if (!user_access('configure saml sp')) {
+        $form['account']['mail']['#disabled'] = TRUE;
+      }
+      $form['account']['mail']['#description'] = t('Email address cannot be changed here, because the information comes from the SSO server. You need to change it there instead. After it has been changed, you need to logout and login to this service to see the updated address.');
+      // Disable all password fields because they need to be changed on the IdP
+      // server
+      // are we sure that we want to remoev all password fields? some
+      // configurations they will still want to allow for separate Drupal logins
+      //$validate_unset = array_search('user_validate_current_pass', $form['#validate']);
+      //unset($form['#validate'][$validate_unset], $form['account']['pass'], $form['account']['current_pass']);
+    break;
+   }
+}
+// @codingStandardsIgnoreEnd
+/**/

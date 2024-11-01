@@ -1,0 +1,241 @@
+<?php
+
+/**
+ * @file
+ * Contains quicklink.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_library_info_build().
+ */
+function quicklink_library_info_build() {
+  $libraries = [];
+
+  if (file_exists(DRUPAL_ROOT . '/libraries/quicklink/dist/quicklink.umd.js')) {
+    $libraries['quicklink'] = [
+      'js' => [
+        '/libraries/quicklink/dist/quicklink.umd.js' => [
+          'minified' => TRUE,
+          'weight' => -20,
+        ],
+      ],
+    ];
+  }
+  else {
+    $libraries['quicklink'] = [
+      'js' => [
+        'https://unpkg.com/quicklink@2.2.0/dist/quicklink.umd.js' => [
+          'minified' => TRUE,
+          'type' => 'external',
+          'weight' => -20,
+        ],
+      ],
+    ];
+  }
+  return $libraries;
+}
+
+/**
+ * Implements hook_help().
+ */
+function quicklink_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.quicklink':
+      $text = file_get_contents(dirname(__FILE__) . '/README.md');
+      if (!\Drupal::moduleHandler()->moduleExists('markdown')) {
+        return '<pre>' . $text . '</pre>';
+      }
+      else {
+        // Use the Markdown filter to render the README.
+        $filter_manager = \Drupal::service('plugin.manager.filter');
+        $settings = \Drupal::configFactory()->get('markdown.settings')->getRawData();
+        $config = ['settings' => $settings];
+        $filter = $filter_manager->createInstance('markdown', $config);
+        return $filter->process($text, 'en');
+      }
+  }
+  return NULL;
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function quicklink_preprocess_html(&$variables, $hook) {
+
+  // Load current configuration.
+  $config = \Drupal::config('quicklink.settings');
+
+  // Ensure that configuration changes are reflected immediately, without
+  // manual clearing of caches.
+  $variables['#cache']['tags'] = $config->getCacheTags();
+
+  $selector = $config->get('selector');
+
+  // Get debug variable.
+  $debug = $config->get('enable_debug_mode');
+  $debug_log = [];
+
+  // Load the library unless we disable later.
+  $load_library = TRUE;
+
+  // Always ignore the logout link.
+  $url_patterns_to_ignore = ['user/logout'];
+  $debug_log[] = 'Quicklink will ignore "user/logout" URL pattern.';
+
+  $allowed_domains = [];
+
+  // Populate and remove line returns from URL patterns to ignore.
+  foreach (explode(PHP_EOL, (string) $config->get('url_patterns_to_ignore')) as $value) {
+    $pattern = str_replace("\r", '', $value);
+
+    if (!empty($pattern)) {
+      $url_patterns_to_ignore[] = $pattern;
+      $debug_log[] = "Quicklink will ignore link hrefs that contain '" . $pattern . "'.";
+    }
+  }
+
+  // Populate and remove line returns from "Ignore Selectors".
+  $ignore_selectors = [];
+  foreach (explode(PHP_EOL, (string) $config->get('ignore_selectors')) as $value) {
+    $pattern = str_replace("\r", '', $value);
+
+    if (!empty($pattern)) {
+      $ignore_selectors[] = $pattern;
+      $debug_log[] = "Quicklink will ignore links that match the '" . $pattern . "' selector.";
+    }
+  }
+
+  // Populate and remove line returns from allowed domains.
+  foreach (explode(PHP_EOL, (string) $config->get('allowed_domains')) as $value) {
+    $domain = str_replace("\r", '', $value);
+
+    if (!empty($domain)) {
+      $allowed_domains[] = $domain;
+    }
+  }
+
+  // Populate and remove line returns from "Prefetch these paths only".
+  foreach (explode(PHP_EOL, (string) $config->get('prefetch_only_paths')) as $value) {
+    $path = str_replace("\r", '', $value);
+
+    if (!empty($path)) {
+      $prefetch_only_paths[] = $path;
+    }
+  }
+
+  // Check for "Ignore Hashes" option.
+  if ($config->get('ignore_hashes') == 1) {
+    $url_patterns_to_ignore[] = '#';
+    $debug_log[] = 'Quicklink will ignore URLs with hashes(#).';
+  }
+
+  // If "Ignore admin paths" is selected, ignore the admin paths.
+  if ($config->get('ignore_admin_paths') == 1) {
+    $url_patterns_to_ignore[] = '/admin';
+    $url_patterns_to_ignore[] = '/edit';
+
+    // If elements match these selector pattern, they will not be prefetched.
+    $admin_link_container_patterns = ['#block-local-tasks-block a', '.block-local-tasks-block a', '#drupal-off-canvas a', '#toolbar-administration a'];
+
+    $variables['#attached']['drupalSettings']['quicklink']['admin_link_container_patterns'] = $admin_link_container_patterns;
+    $debug_log[] = 'Quicklink will ignore admin URL patterns.';
+  }
+
+  // Check for "Content Types" option.
+  $nodes = array_filter(
+    \Drupal::routeMatch()->getParameters()->all(),
+    function ($param) {
+      return $param instanceof NodeInterface;
+    }
+  );
+  // We can only deal with one node. We'll assume it's the first one.
+  $node = reset($nodes);
+
+  if (!empty($node)) {
+    $node_type = $node->bundle();
+    $no_load_content_types = $config->get('no_load_content_types');
+
+    if (array_key_exists($node_type, $no_load_content_types) && $no_load_content_types[$node_type] !== 0) {
+      $load_library = FALSE;
+      $debug_log[] = 'Library not loaded because content type "' . $node_type . '" is specified to not load library.';
+    }
+  }
+
+  // If user is logged in AND "Prefetch for anonymous users only" is selected,
+  // do not load library.
+  if ($variables['logged_in'] && $config->get('no_load_when_authenticated') == 1) {
+    $load_library = FALSE;
+    $debug_log[] = 'Library not loaded because user is authenticated.';
+  }
+
+  // Disable the library when a session is started.
+  if ($config->get('no_load_when_session')) {
+    $variables['#cache']['contexts'][] = 'session.exists';
+    $session_configuration = \Drupal::getContainer()->get('session_configuration');
+    if ($session_configuration->hasSession(\Drupal::request())) {
+      $load_library = FALSE;
+      $debug_log[] = 'Library not loaded because PHP session is started.';
+    }
+  }
+
+  // Add parameters to debug log.
+  $debug_log[] = 'Total request limit: ' . $config->get('total_request_limit', 0) . '.';
+  $debug_log[] = 'Concurrency Limit: ' . $config->get('concurrency_throttle_limit', 0) . '.';
+  $debug_log[] = 'Idle wait timeout: ' . $config->get('idle_wait_timeout', 2000) . ' ms.';
+  $debug_log[] = 'Viewport Delay: ' . $config->get('viewport_delay', 0) . ' ms.';
+
+  if ($load_library || $debug) {
+    $variables['#attached']['library'][] = 'quicklink/quicklink_init';
+    $variables['#attached']['drupalSettings']['quicklink']['ignore_admin_paths'] = $config->get('ignore_admin_paths');
+    $variables['#attached']['drupalSettings']['quicklink']['ignore_ajax_links'] = $config->get('ignore_ajax_links');
+    $variables['#attached']['drupalSettings']['quicklink']['ignore_file_ext'] = $config->get('ignore_file_ext');
+    $variables['#attached']['drupalSettings']['quicklink']['total_request_limit'] = $config->get('total_request_limit', 0);
+    $variables['#attached']['drupalSettings']['quicklink']['concurrency_throttle_limit'] = $config->get('concurrency_throttle_limit', 0);
+    $variables['#attached']['drupalSettings']['quicklink']['idle_wait_timeout'] = $config->get('idle_wait_timeout', 2000);
+    $variables['#attached']['drupalSettings']['quicklink']['viewport_delay'] = $config->get('viewport_delay', 0);
+    $variables['#attached']['drupalSettings']['quicklink']['debug'] = $debug;
+
+    if (!empty($url_patterns_to_ignore[0])) {
+      $variables['#attached']['drupalSettings']['quicklink']['url_patterns_to_ignore'] = $url_patterns_to_ignore;
+      $debug_log['url_patterns_to_ignore'][] = $url_patterns_to_ignore;
+    }
+
+    if (!empty($ignore_selectors[0])) {
+      $variables['#attached']['drupalSettings']['quicklink']['ignore_selectors'] = $ignore_selectors;
+      $debug_log['ignore_selectors'][] = $ignore_selectors;
+    }
+
+    if (!empty($selector)) {
+      $variables['#attached']['drupalSettings']['quicklink']['selector'] = $selector;
+      $debug_log[] = 'Selector for Quicklink to parse: ' . $selector;
+    }
+
+    if (!empty($allowed_domains[0])) {
+      $variables['#attached']['drupalSettings']['quicklink']['allowed_domains'] = $allowed_domains;
+      $debug_log['allowed_domains'][] = $allowed_domains;
+    }
+
+    if (!empty($prefetch_only_paths[0])) {
+      $variables['#attached']['drupalSettings']['quicklink']['prefetch_only_paths'] = $prefetch_only_paths;
+      $debug_log['prefetch_only_paths'][] = $prefetch_only_paths;
+    }
+
+    if ($load_library) {
+      if ($config->get('load_polyfill') == 1) {
+        $variables['#attached']['library'][] = 'quicklink/quicklink_polyfill';
+        $debug_log[] = 'Intersection Observer polyfill library loaded';
+      }
+
+      $variables['#attached']['library'][] = 'quicklink/quicklink';
+    }
+
+    if ($debug) {
+      $variables['#attached']['drupalSettings']['quicklink']['debug'] = 1;
+      $variables['#attached']['library'][] = 'quicklink/quicklink_debug';
+      $variables['#attached']['drupalSettings']['quicklink']['debug_log'] = $debug_log;
+    }
+  }
+}

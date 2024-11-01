@@ -1,0 +1,15 @@
+site_audit_report_entity.settings_form:
+  path: '/admin/config/system/site-audit-report-entity'
+  defaults:
+    _title: 'Site Audit Report Entity settings'
+    _form: 'Drupal\site_audit_report_entity\Form\SettingsForm'
+  requirements:
+    _permission: 'administer site_audit_report_entity configuration'
+
+entity.site_audit_report.settings:
+  path: 'admin/structure/site-audit-report'
+  defaults:
+    _form: '\Drupal\site_audit_report_entity\Form\SiteAuditReportSettingsForm'
+    _title: 'Site Audit Report'
+  requirements:
+    _permission: 'administer site audit report'

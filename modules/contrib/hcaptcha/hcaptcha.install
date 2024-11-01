@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Update hooks for hcaptcha module.
+ */
+
+/**
+ * Deploy default value for max_score.
+ */
+function hcaptcha_update_9001() {
+  $config = \Drupal::configFactory()->getEditable('hcaptcha.settings');
+  $config->set('widget.max_score', 0.8);
+  $config->save();
+}

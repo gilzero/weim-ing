@@ -1,0 +1,12 @@
+name: Iconify Icons
+type: module
+description: 'Allows users to add high-quality, optimized SVG icons into their projects, through the integration with <a href="https://iconify.design/">Iconify</a> API.'
+package: Iconify
+core_version_requirement: ^9.3 || ^10 || ^11
+dependencies:
+  - drupal:ckeditor5
+
+# Information added by Drupal.org packaging script on 2024-10-14
+version: '1.0.10'
+project: 'iconify_icons'
+datestamp: 1728927067

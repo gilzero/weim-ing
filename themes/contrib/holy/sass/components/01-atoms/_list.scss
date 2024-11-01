@@ -1,0 +1,24 @@
+ul,
+ol {
+  margin: 0 0 50px 0;
+  padding: 2px 0 2px 15px;
+
+  @media (max-width: $screen-sm-max) {
+    margin: 0 0 18px 0;
+  }
+}
+
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+  margin: 0;
+  padding: 0 0 0 20px;
+}
+
+ul li,
+ol li {
+  margin: 6px 0 6px 0;
+  list-style-position: outside;
+  line-height: 1.5;
+}

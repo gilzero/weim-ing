@@ -1,0 +1,7 @@
+services:
+  views_show_more.event_subscriber:
+    class: Drupal\views_show_more\EventSubscriber\ShowMoreEventSubscriber
+    tags:
+      - { name: event_subscriber }
+    arguments:
+      [ '@renderer' ]

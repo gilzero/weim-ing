@@ -1,0 +1,4 @@
+services:
+  danse_content.service:
+    class: Drupal\danse_content\Service
+    arguments: ['@danse.service', '@user.data']

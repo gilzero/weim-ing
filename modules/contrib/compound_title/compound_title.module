@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * @file
+ * Defines the compound title field type.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function compound_title_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.compound_title':
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The Compound title module allows you to create fields that contain two separate line of texts') . '</p>';
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function compound_title_theme() {
+  return [
+    'compound_title' => [
+      'variables' => [
+        'wrapper_tag' => 'div',
+        'first_line' => '',
+        'second_line' => '',
+      ],
+    ],
+  ];
+}
+
+/**
+ * Preprocess the block title.
+ *
+ * @param array $variables
+ *   Template variables array.
+ */
+function compound_title_preprocess_block__page_title_block(array &$variables) {
+  // !!! Important
+  // This works only for nodes, to rewrite the block title,
+  // based on the compound title values.
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node && isset($node->field_compound_title)) {
+    $variables['content'] = [
+      '#type' => 'page_title',
+      '#title' => $node->field_compound_title->view(['label' => 'hidden']),
+    ];
+  }
+}

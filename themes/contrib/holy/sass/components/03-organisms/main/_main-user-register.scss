@@ -1,0 +1,29 @@
+#main {
+  .user-register-form {
+    padding: 20px 0;
+
+    @media (min-width: $screen-md-min) {
+      padding: 0 25px;
+    }
+    
+    label {
+      display: block;
+      margin: 0 0 8px 0;
+    }
+
+    .form-text {
+      margin-bottom: 8px;
+    }
+
+    .form-item {
+      margin-top: 0;
+      margin-bottom: 30px;
+    }
+
+    .form-actions {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+  }
+}

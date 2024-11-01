@@ -1,0 +1,38 @@
+#footer {
+  .block-menu {
+    padding-bottom: 40px;
+
+    ul.menu {
+      li {
+        a {
+          display: block;
+          padding: 9px 0 9px 0;
+          text-decoration: none;
+          color: var(--white);
+
+          &:hover {
+            color: var(--primary-vivid-25);
+          }
+        }
+      }
+    }
+
+    @media (max-width: $screen-sm-max) {
+      ul.menu {
+        li {
+          a {
+            padding: 8px 0;
+            text-decoration: underline;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+
+    @media (min-width: $screen-md-min) {
+      & {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

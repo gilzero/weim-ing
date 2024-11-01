@@ -1,0 +1,23 @@
+{
+	"name": "drupal/ip2location",
+	"description": "IP2Location helps you to identify visitor’s geographical location, e.g, country, region, city, latitude, longitude and so on, based on the IP address.",
+	"type": "drupal-module",
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://packages.drupal.org/8"
+		}
+	],
+	"require": {
+		"ip2location/ip2location-php": "~8.0"
+	},
+	"authors": [
+		{
+			"name": "IP2Location",
+			"homepage": "https://www.ip2location.com",
+			"role": "Maintainer"
+		}
+	],
+	"license": "MIT",
+	"homepage": "https://drupal.org/project/ip2location"
+}

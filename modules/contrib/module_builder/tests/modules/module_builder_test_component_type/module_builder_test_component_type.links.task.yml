@@ -1,0 +1,9 @@
+# Tabs on a single component.
+entity.test_component.edit_form:
+  title: 'Name'
+  weight: 0
+  route_name: entity.test_component.edit_form
+  base_route: entity.test_component.edit_form
+
+# The derived tabs for component sections appear to be getting made by the
+# deriver in the main module!

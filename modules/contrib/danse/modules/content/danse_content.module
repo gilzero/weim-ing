@@ -1,0 +1,163 @@
+<?php
+
+/**
+ * @file
+ * The DANSE Content module file.
+ */
+
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\danse\Entity\EventInterface;
+use Drupal\danse\Entity\NotificationActionInterface;
+use Drupal\danse\Entity\NotificationInterface;
+use Drupal\danse_content\Payload;
+use Drupal\danse_content\Service;
+
+/**
+ * Implements hook_theme().
+ */
+function danse_content_theme(): array {
+  return [
+    'danse_content_subscription_wrapper' => [
+      'variables' => [
+        'id' => NULL,
+        'children' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Gets the DANSE Content service.
+ *
+ * @return \Drupal\danse_content\Service
+ *   The DANSE Content service.
+ */
+function _danse_content_service(): Service {
+  return Drupal::service('danse_content.service');
+}
+
+/**
+ * Implements hook_entity_extra_field_info().
+ */
+function danse_content_entity_extra_field_info(): array {
+  $extra = [];
+  if ($plugin = _danse_content_service()->getPlugin()) {
+    foreach ($plugin->enabledSubscriptionBundles() as $entity_type => $bundles) {
+      foreach ($bundles as $bundle) {
+        $extra[$entity_type][$bundle]['display']['danse_subscribe'] = [
+          'label' => t('DANSE Subscription'),
+          'weight' => 0,
+          'visible' => FALSE,
+        ];
+      }
+    }
+  }
+  return $extra;
+}
+
+/**
+ * Implements hook_entity_view().
+ */
+function danse_content_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, string $view_mode): void {
+  if (!_danse_content_should_process($entity)) {
+    return;
+  }
+  /**
+   * @var \Drupal\Core\Entity\ContentEntityInterface $entity
+   */
+  if ($display->getComponent('danse_subscribe')) {
+    $build['danse_subscribe'] = _danse_content_service()->widget($entity);
+  }
+  if ($view_mode === 'full') {
+    _danse_service()->markSeen(new Payload($entity));
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function danse_content_preprocess_forums(mixed &$variables): void {
+  if ($widget = _danse_content_service()->widget($variables['term'])) {
+    $variables['forums_defined'] = TRUE;
+    $variables['topics'] = [
+      'danse_subscribe' => $widget,
+      'topics' => $variables['topics'],
+    ];
+  }
+}
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function danse_content_views_data_alter(array &$data): void {
+  foreach (Drupal::entityTypeManager()->getDefinitions() as $entity_type) {
+    $data[$entity_type->getBaseTable()]['danse_subscription'] = [
+      'title' => t('DANSE Subscriptions'),
+      'field' => [
+        'id' => 'danse_subscription',
+        'help' => t('DANSE Subscription widget for the entity.'),
+      ],
+      'filter' => [
+        'id' => 'danse_subscription',
+        'help' => t('Entities with DANSE subscriptions %type only.', ['%type' => $entity_type->getLabel()]),
+      ],
+    ];
+  }
+}
+
+/**
+ * Determines if the given entity qualifies for processing.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity.
+ *
+ * @return bool
+ *   TRUE, if it is a content entity but none of the DANSE entities, as this
+ *   would cause loops.
+ */
+function _danse_content_should_process(EntityInterface $entity): bool {
+  return (
+    $entity instanceof ContentEntityInterface &&
+    !($entity instanceof EventInterface) &&
+    !($entity instanceof NotificationInterface) &&
+    !($entity instanceof NotificationActionInterface)
+  );
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function danse_content_entity_insert(EntityInterface $entity): void {
+  if (_danse_content_should_process($entity) && $plugin = _danse_content_service()->getPlugin()) {
+    /**
+     * @var \Drupal\Core\Entity\ContentEntityInterface $entity
+     */
+    $plugin->processEntity($entity, $plugin->topicsForEntity($entity, TRUE), FALSE, NULL, TRUE);
+  }
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function danse_content_entity_update(EntityInterface $entity): void {
+  if (_danse_content_should_process($entity) && $plugin = _danse_content_service()->getPlugin()) {
+    /**
+     * @var \Drupal\Core\Entity\ContentEntityInterface $entity
+     */
+    $plugin->processEntity($entity, $plugin->topicsForEntity($entity->original ?? $entity), $plugin->isPublished($entity->original ?? $entity));
+  }
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function danse_content_entity_delete(EntityInterface $entity): void {
+  if (_danse_content_should_process($entity) && $plugin = _danse_content_service()->getPlugin()) {
+    /**
+     * @var \Drupal\Core\Entity\ContentEntityInterface $entity
+     */
+    $plugin->processEntity($entity, $plugin->topicsForEntityDeletion(), $plugin->isPublished($entity->original ?? $entity));
+  }
+}

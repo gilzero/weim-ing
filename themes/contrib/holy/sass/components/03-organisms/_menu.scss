@@ -1,0 +1,13 @@
+#menu {
+  @media (max-width: $screen-sm-max) {
+    color: var(--white);
+
+    .region-menu {
+      margin-bottom: 50px;
+    }
+  }
+
+  @media (min-width: $screen-md-min) {
+    background: linear-gradient(90deg, var(--primary-dark), var(--primary-vivid));
+  }
+}

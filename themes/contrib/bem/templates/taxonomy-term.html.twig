@@ -1,0 +1,26 @@
+{%
+  set bem_block = bem_block ?: ('taxonomy-term-' ~ term.bundle ~ (view_mode != 'default' ? '-' ~ view_mode))|clean_class
+%}
+{% set wrapper_tag = wrapper_tag ?: 'div' %}
+{% set label_tag = label_tag ?: 'h2' %}
+{%
+  set classes = [
+    bem_block,
+    not term.isPublished() ? bem_block ~ '--unpublished',
+  ]
+%}
+<{{ wrapper_tag }}{{ attributes.addClass(classes) }}>
+  {% block content %}
+    {{ title_prefix }}
+    {% if not page %}
+      <{{ label_tag }}{{ title_attributes.addClass(bem_block ~ '__title') }}>
+        <a class="{{ bem_block }}__title-link" href="{{ url }}" rel="bookmark">{{ name }}</a>
+      </{{ label_tag }}>
+    {% endif %}
+    {{ title_suffix }}
+
+    <div{{ content_attributes.addClass(bem_block ~ '__content') }}>
+      {{ content }}
+    </div>
+  {% endblock %}
+</{{ wrapper_tag }}>

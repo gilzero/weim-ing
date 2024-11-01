@@ -1,0 +1,114 @@
+<?php
+
+/**
+ * @file
+ * Xray Audit module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function xray_audit_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the xray_audit module.
+    case 'help.page.xray_audit':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Xray Audit generates reports on various aspects of a Drupal site. The reports are intended to be a tool for developers, analysts, and administrators that allows for a deep understanding of how the site is constructed.') . '</p>';
+      $output .= '<h3>' . t('Provided reports') . '</h3>';
+      $output .= '<b>' . t('Entity reports') . '</b>';
+      $output .= '<p>' . t('Provides reports on the different types of entities available in the site, their usage, and additional details. It covers nodes, content entities, users, taxonomies, and other related elements. One of the reports maps the relationship between different types of paragraphs and their usage.') . '</p>';
+      $output .= '<b>' . t('Architecture') . '</b>';
+      $output .= '<p>' . t('A report on the architecture of all content entities, including their types or bundles, fields, data types, configuration...') . '</p>';
+      $output .= '<p>' . t('A report on how these entities are displayed: configurations of different displays and sample visualizations of them.') . '</p>';
+      $output .= '<b>' . t('Site package reports') . '</b>';
+      $output .= '<p>' . t('Details about the installed Drupal modules, both enabled and disabled.') . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function xray_audit_theme($existing, $type, $theme, $path) {
+  return [
+    'page__xray_audit' => [
+      'template' => 'page--xray-audit',
+      'base hook' => 'page',
+    ],
+    'xray_audit_popup' => [
+      'variables' => [
+        'iframe_url' => '',
+        'attributes' => '',
+        'content' => '',
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function xray_audit_preprocess_html__xray_audit(&$variables) {
+  if (isset($variables['page_top'])) {
+    $variables['page_top']['#access'] = FALSE;
+  }
+  if (isset($variables['page_bottom'])) {
+    $variables['page_bottom']['#access'] = FALSE;
+  }
+
+  foreach ($variables['attributes']['class'] as &$item) {
+    if (str_contains($item, 'toolbar-')) {
+      $item = '';
+    }
+  }
+
+  $variables['#attached']['library'][] = 'xray_audit/xray_audit_examples_preview';
+}
+
+/**
+ * Implements hook_local_tasks_alter().
+ */
+function xray_audit_local_tasks_alter(&$local_tasks) {
+
+  $plugin_manager_tasks = \Drupal::getContainer()->get('plugin_manager.xray_audit_task');
+  $task_definitions = $plugin_manager_tasks->getDefinitions();
+
+  foreach ($task_definitions as $task_definition) {
+
+    // We create a local task for those cases that have operations
+    // and have set the local_task property to 1.
+    if (empty($task_definition['local_task']) || empty($task_definition['operations'])) {
+      continue;
+    }
+
+    $route_name_base = '';
+    $first_item = TRUE;
+    foreach ($task_definition['operations'] as $operation_definition) {
+
+      if (!empty($operation_definition['not_show'])) {
+        continue;
+      }
+
+      if ($first_item) {
+        $route_name_base = $operation_definition['route_name'] ?? '';
+        $first_item = FALSE;
+      }
+
+      $local_task = [
+        'class' => 'Drupal\Core\Menu\LocalTaskDefault',
+        'options' => [],
+        'route_parameters' => [],
+        'route_name' => $operation_definition['route_name'],
+        'base_route' => $route_name_base,
+        'id' => $operation_definition['route_name'],
+        'title' => $operation_definition['label'],
+      ];
+
+      $local_tasks[$operation_definition['route_name']] = $local_task;
+    }
+  }
+
+}

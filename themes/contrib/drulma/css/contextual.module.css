@@ -1,0 +1,5 @@
+/* When contextual links are inside Bulma tabs, they are forcibly displayed.
+ * Hide them again. */
+.tabs .contextual-links {
+  display: none;
+}

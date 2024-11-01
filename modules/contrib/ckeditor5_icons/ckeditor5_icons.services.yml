@@ -1,0 +1,4 @@
+services:
+  ckeditor5_icons.CKEditor5Icons:
+    class: Drupal\ckeditor5_icons\CKEditor5Icons
+    arguments: ['@cache.data', '@extension.path.resolver']

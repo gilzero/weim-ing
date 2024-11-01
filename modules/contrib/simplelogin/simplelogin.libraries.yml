@@ -1,0 +1,4 @@
+simplelogin-library:
+  css:
+    theme:
+      css/simplelogin.css: {}

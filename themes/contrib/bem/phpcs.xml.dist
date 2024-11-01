@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="project">
+  <description>PHP CodeSniffer configuration for this Drupal theme.</description>
+
+  <file>.</file>
+
+  <arg name="extensions" value="css,inc,install,js,md,php,theme,yml"/>
+
+  <rule ref="vendor/drupal/coder/coder_sniffer/Drupal">
+    <exclude name="Drupal.Commenting.FileComment"/>
+    <exclude name="Drupal.Commenting.ClassComment"/>
+    <exclude name="Drupal.Commenting.FunctionComment"/>
+    <exclude name="Drupal.Commenting.DocComment.MissingShort"/>
+    <exclude name="Drupal.Commenting.VariableComment.Missing"/>
+  </rule>
+
+  <rule ref="vendor/drupal/coder/coder_sniffer/DrupalPractice"></rule>
+</ruleset>

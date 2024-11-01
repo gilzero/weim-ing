@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - holy
+id: holy_messages
+theme: holy
+region: content
+weight: -6
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: ''
+  label_display: '0'
+  provider: system
+visibility: {  }

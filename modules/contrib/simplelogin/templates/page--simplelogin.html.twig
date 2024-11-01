@@ -1,0 +1,44 @@
+{#
+/**
+ * @file
+ * Theme "page__simplelogin" template.
+ *
+ * @see simplelogin_preprocess_simplelogin()
+ * @see simplelogin_theme_registry_alter()
+ */
+#}
+{% apply spaceless %}
+  <div class="simplelogin-wrapper {{ background_class }} {{ background_opacity }}">
+    <div class="simplelogin-form" style="width: {{ wrapper_width }}px">
+      <div class="simplelogin-link">
+        {% if path == '/user/password' %}
+          <a href="{{ base_path }}user/login" class="signreg">{{ 'Login'|t }}</a>
+        {% elseif path == '/user/register' %}
+          <a href="{{ base_path }}user/login" class="signreg">{{ 'Login'|t }}</a>
+        {% else %}
+          {% if site_register != 'admin_only' %}
+            <a href="{{ base_path }}user/register" class="signreg">{{ 'Sign up'|t }}</a>
+          {% endif %}
+        {% endif %}
+      </div>
+
+      <div class="simplelogin-bg">
+        <div class="simplelogin-logo">
+          {% if logo %}
+            <a href="{{ base_path }}"><img src="{{ logo }}" alt="Home"/></a>
+            {% endif %}
+          <h1>{{ site_name }}</h1>
+        </div>
+
+        {{ page.highlighted }}
+        {{ page.content }}
+
+        {% if path == '/user/login' %}
+          <div class="forgot-password">
+            {{ 'Forgot password?'|t }} <a href="{{ base_path }}user/password">{{ 'Click here'|t }}</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endapply %}

@@ -1,0 +1,18 @@
+services:
+
+  plugin.manager.danse.plugin:
+    class: Drupal\danse\PluginManager
+    parent: default_plugin_manager
+  plugin.manager.danse.recipient.selection:
+    class: Drupal\danse\RecipientSelectionManager
+    parent: default_plugin_manager
+
+  danse.service:
+    class: Drupal\danse\Service
+    arguments: ['@config.factory', '@plugin.manager.danse.plugin', '@user.data', '@danse.query', '@entity_type.manager', '@state', '@current_user']
+  danse.query:
+    class: Drupal\danse\Query
+    arguments: ['@entity_type.manager', '@current_user', '@database']
+  danse.cron:
+    class: Drupal\danse\Cron
+    arguments: ['@entity_type.manager', '@danse.service', '@config.factory']

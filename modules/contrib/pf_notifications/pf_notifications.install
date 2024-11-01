@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * @file
+ * Install/update/uninstall hooks for the Push framework notifications module.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_schema().
+ */
+function pf_notifications_schema(): array {
+
+  $schema['pf_notifications'] = [
+    'description' => 'Stores VAPID keys.',
+    'fields' => [
+      'id' => [
+        'description' => 'Primary Key: unique ID for the safe key.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'key' => [
+        'description' => 'Safe key name',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'value' => [
+        'description' => 'Safe key value',
+        'type' => 'varchar_ascii',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+    ],
+    'unique keys' => [
+      'key' => ['key'],
+    ],
+    'primary key' => ['id'],
+  ];
+  return $schema;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function pf_notifications_uninstall(bool $is_syncing): void {
+  // No need for manual schema deletion.
+  // According to web/core/lib/Drupal/Core/Database/database.api.php.
+  // Do delete subscriptions data from DANSE array in users_data table though.
+  // @todo Make this runs in a batch.
+  \Drupal::service('pf_notifications.base')->deleteAll();
+}

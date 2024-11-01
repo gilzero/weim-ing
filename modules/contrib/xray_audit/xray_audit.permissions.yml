@@ -1,0 +1,4 @@
+xray_audit access:
+  title: 'XrayAudit access'
+  description: 'XrayAudit access.'
+  restrict access: true

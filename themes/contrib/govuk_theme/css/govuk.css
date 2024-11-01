@@ -1,0 +1,25 @@
+.govuk-header .search-header .gem-c-search__item-wrapper .gem-c-search__submit {
+  background-image: url("../assets/images/search_icon.png");
+  background-size: 28px;
+  background-position-x: 3px;
+}
+#toolbar-item-administration-tray .toolbar-menu {
+  font-size: small;
+}
+#toolbar-item-administration-tray .toolbar-menu li a {
+  color: inherit;
+  font-family: "Source Sans Pro", "Lucida Grande", Verdana, sans-serif;
+}
+#search-form #edit-submit {
+  position: relative;
+  top: -12px;
+}
+#toolbar-administration #toolbar-bar .toolbar-tab a:focus {
+  background-color: transparent;
+}
+#toolbar-administration #toolbar-bar .toolbar-tab a.is-active {
+  background-color: white;
+}
+.govuk-cookie-banner {
+  display: none;
+}

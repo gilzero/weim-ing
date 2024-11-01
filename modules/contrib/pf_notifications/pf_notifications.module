@@ -1,0 +1,104 @@
+<?php
+
+/**
+ * @file
+ * Hooks by Push notifications module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Url;
+use Drupal\pf_notifications\Service\BaseInterface;
+use Drupal\pf_notifications\Service\SubscriptionInterface;
+
+/**
+ * Implements hook_info_alterK().
+ */
+function pf_notifications_danse_info_alter(array &$info) {
+  if (isset($info['content'])) {
+    $info['content']['class'] = '\Drupal\pf_notifications\Plugin\Danse\Content';
+  }
+}
+
+/**
+ * Implements hook_entity_view().
+ */
+function pf_notifications_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  if ($display->getComponent('danse_subscribe')) {
+    \Drupal::service('pf_notifications.base')->markSeen($entity);
+  }
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function pf_notifications_page_attachments(array &$attachments): void {
+  $permission = BaseInterface::REST_PERMISSION;
+  $has_permission = \Drupal::service('permission_checker')->hasPermission($permission, \Drupal::service('current_user'));
+  if ($has_permission) {
+    $attachments['#attached']['drupalSettings']['pf_notifications']['serviceWorkerUrl'] = Url::fromRoute('pf_notifications.service_worker')->toString();
+    $attachments['#attached']['drupalSettings']['pf_notifications']['resetUrl'] = Url::fromRoute('pf_notifications.service_worker_reset')->toString();
+    $attachments['#attached']['library'][] = 'pf_notifications/init';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function pf_notifications_preprocess_danse_content_subscription_wrapper(array &$variables): void {
+  $tags = $variables['#cache']['tags'] ?? NULL;
+  $variables['#cache']['tags'] = is_array($tags) ? Cache::mergeTags($tags, Cache::buildTags('pf_notifications', ['subscription'])) : ['pf_notifications:subscription'];
+}
+
+/**
+ * Implements hook_danse_content_topic_operation_label_alter().
+ */
+function pf_notifications_danse_content_topic_operation_label_alter(string &$label, array $args, array $context): void {
+
+  $service = \Drupal::service('pf_notifications.base');
+  $current_user = $service->getCurrentUser();
+  $key = implode('-', [
+    'module' => BaseInterface::DANSE_MODULE,
+    'entity_type' => $context['entity']->getEntityTypeId(),
+    'entity_id' => $context['entity']->id(),
+    'subscription_mode' => $context['subscriptionMode'],
+    'topic_id' => $context['topic']->id(),
+  ]);
+
+  $danse_data = $service->getUserData()->get('danse', $current_user->id(), $key);
+  $subscriptions[$key] = $service->getSubscriptions((int) $current_user->id(), $key);
+
+  switch ($danse_data) {
+    case 1:
+      $verb = t('@re_subscribe', [
+        '@re_subscribe' => SubscriptionInterface::TOKENS['re_subscribe'],
+      ])->render();
+      break;
+
+    default:
+      $subscription = \Drupal::service('pf_notifications.subscription');
+      if (is_array($subscriptions[$key]) && !empty($subscriptions[$key])) {
+        $tokens = $subscription->tokens($current_user, $context['entity'], $key, NULL, $context['topic'], $subscriptions[$key]);
+        if (isset($tokens['clients'])) {
+          $verb = $tokens['subscribed'] . ' (' . implode(', ', $tokens['clients']) . ')';
+        }
+        else {
+          $verb = $tokens['subscribed'];
+        }
+      }
+      // This should never be the case indeed.
+      else {
+        $tokens = $subscription->tokens($current_user, $context['entity'], $key, NULL, $context['topic']);
+        $verb = $tokens['subscribe'];
+      }
+      break;
+  }
+
+  if ($verb) {
+    $text = str_replace(['Subscribe to', 'Unsubscribe from'], [$verb, $verb], $label);
+    $label = t('@text', ['@text' => $text])->render();
+  }
+}

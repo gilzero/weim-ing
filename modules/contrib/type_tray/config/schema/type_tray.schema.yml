@@ -1,0 +1,36 @@
+type_tray.settings:
+  type: config_object
+  mapping:
+    categories:
+      label: 'Key-value pairs of categories machine names and labels.'
+      type: sequence
+      sequence:
+        type: string
+    fallback_label:
+      label: 'Fallback category label for uncategorized types'
+      type: string
+    text_format:
+      label: 'Text format to be used on extended descriptions'
+      type: string
+node.type.*.third_party.type_tray:
+  type: mapping
+  label: 'Per node-type Type Tray third party settings'
+  mapping:
+    type_category:
+      type: string
+      label: 'Which category this type should be grouped by'
+    type_thumbnail:
+      type: string
+      label: 'Path to the image to be used as thumbnail'
+    type_icon:
+      type: string
+      label: 'Path to the image to be used as icon'
+    type_description:
+      type: string
+      label: 'Extended description'
+    existing_nodes_link_text:
+      type: string
+      label: 'Text to be used when building links to existing content'
+    type_weight:
+      type: integer
+      label: 'Weight to be used when sorting types in a given category'

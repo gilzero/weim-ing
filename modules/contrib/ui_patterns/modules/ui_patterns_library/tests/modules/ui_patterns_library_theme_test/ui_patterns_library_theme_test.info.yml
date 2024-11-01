@@ -1,0 +1,10 @@
+name: 'UI Patterns library theme test'
+type: theme
+description: 'Test theme for UI Patterns.'
+package: 'Testing'
+base theme: stark
+
+# Information added by Drupal.org packaging script on 2024-10-17
+version: '8.x-1.10'
+project: 'ui_patterns'
+datestamp: 1729182062

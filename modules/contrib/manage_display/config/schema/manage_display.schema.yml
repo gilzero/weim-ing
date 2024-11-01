@@ -1,0 +1,14 @@
+field.formatter.settings.title:
+  type: field.formatter.settings.string
+  mapping:
+    tag:
+      type: string
+      label: 'Tag'
+
+field.formatter.settings.submitted:
+  type: mapping
+  label: 'Submitted display format settings'
+  mapping:
+    user_picture:
+      type: string
+      label: 'View mode for user picture'

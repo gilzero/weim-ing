@@ -1,0 +1,67 @@
+<?php
+
+/**
+ * @file
+ * Drupal's integration with Iconify.
+ */
+
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function iconify_icons_help($route_name, RouteMatchInterface $route_match) {
+  $iconify_service = Drupal::service('iconify_icons.iconify_service');
+  switch ($route_name) {
+    case 'help.page.iconify_icons':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Iconify Icons support for fields and CKEditor.') . '</p>';
+      $output .= '<p><strong>API version: </strong>' . $iconify_service->getApiVersion() . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function iconify_icons_theme($existing, $type, $theme, $path) {
+  return [
+    'iconify_icons' => [
+      'variables' => [
+        'icons' => NULL,
+      ],
+    ],
+    'iconify_icon' => [
+      'render element' => 'element',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_entity_view().
+ */
+function iconify_icons_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  // Check if the node content includes Iconify icons.
+  /** @var Drupal\Core\Entity\FieldableEntityInterface $entity */
+  if ($entity->hasField('body') && $entity->get('body')
+    ->value !== NULL && str_contains($entity->get('body')->value, 'iconify-icons-ckeditor')) {
+    $build['#attached']['library'][] = 'iconify_icons/default';
+    if (_iconify_icons_is_gin_theme_active()) {
+      $build['#attached']['library'][] = 'iconify_icons/gin';
+    }
+  }
+}
+
+/**
+ * Determines whether the active theme is Gin, or a sub-theme of Gin.
+ */
+function _iconify_icons_is_gin_theme_active(): bool {
+  $theme = Drupal::getContainer()->get('theme.manager')->getActiveTheme();
+  return $theme->getName() === 'gin' ||
+    isset($theme->getBaseThemeExtensions()['gin']);
+}

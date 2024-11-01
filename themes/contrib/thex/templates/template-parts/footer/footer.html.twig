@@ -1,0 +1,13 @@
+{% if page.footer_top %}
+  {% include '@thex/template-parts/footer/footer-top.html.twig' %}
+{% endif %}
+{% if page.footer_one or page.footer_two or page.footer_three or page.footer_four %}
+  {% include '@thex/template-parts/footer/footer-blocks.html.twig' %}
+{% endif %}
+{% if page.footer_bottom_left or page.footer_bottom_right %}
+  {% include '@thex/template-parts/footer/footer-bottom-blocks.html.twig' %}
+{% endif %}
+{% include '@thex/template-parts/footer/footer-bottom.html.twig' %}
+{% if scrolltotop_on %}
+  <div class="scrolltop"><i class="icon-arrow-up"></i></div>
+{% endif %}

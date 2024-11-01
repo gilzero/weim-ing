@@ -1,0 +1,4 @@
+administer type tray:
+  title: 'Administer Type Tray'
+  description: 'Users with this permission will be able to administer the Type Tray module settings.'
+  restrict access: TRUE

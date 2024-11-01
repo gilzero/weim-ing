@@ -1,0 +1,12 @@
+name: Rabbit Hole nodes
+type: module
+description: Adds Rabbit Hole functionality for nodes.
+core_version_requirement: ^9.5 || ^10 || ^11
+dependencies:
+  - rabbit_hole:rabbit_hole
+  - drupal:node
+
+# Information added by Drupal.org packaging script on 2024-07-19
+version: '8.x-1.0'
+project: 'rabbit_hole'
+datestamp: 1721413115

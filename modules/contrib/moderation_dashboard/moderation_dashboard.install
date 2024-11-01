@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * @file
+ * Contains installation and update hooks for Moderation dashboard.
+ */
+
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_requirements().
+ */
+function moderation_dashboard_requirements($phase): array {
+  if ($phase !== 'runtime') {
+    return [];
+  }
+
+  $requirements = [];
+  $checked = \Drupal::config('moderation_dashboard.settings')->get('chart_js_cdn');
+
+  if (!$checked) {
+    $libraries_directory_file_finder = \Drupal::service('library.libraries_directory_file_finder');
+    $lib_chartjs = $libraries_directory_file_finder->find('chartjs');
+    $lib_chartjs_npm = $libraries_directory_file_finder->find('chart.js');
+    $library_exists = $lib_chartjs || $lib_chartjs_npm;
+
+    if (!$library_exists) {
+      $requirements['moderation_dashboard'] = [
+        'description' => t('Chartjs library needs to be downloaded (recommended) or "Use CDN" setting needs to be checked. Go to <a href=":url">moderation dashboard settings</a>.', [
+          ':url' => Url::fromRoute('moderation_dashboard.settings')->toString(),
+        ]),
+        'severity' => REQUIREMENT_WARNING,
+        'value' => t('Local chartjs library is not present and use CDN setting is FALSE.'),
+      ];
+    }
+    else {
+      $requirements['moderation_dashboard'] = [
+        'severity' => REQUIREMENT_OK,
+        'value' => t('Local chartjs library is present.'),
+      ];
+    }
+  }
+  else {
+    $requirements['moderation_dashboard'] = [
+      'severity' => REQUIREMENT_OK,
+      'value' => t('Chart.js CDN being used.'),
+    ];
+  }
+  $requirements['moderation_dashboard']['title'] = t('Moderation Dashboard Settings');
+
+  return $requirements;
+}
+
+/**
+ * Returns the last moderation_dashboard function removed.
+ */
+function moderation_dashboard_update_last_removed(): int {
+  return 8102;
+}

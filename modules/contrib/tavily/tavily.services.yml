@@ -1,0 +1,4 @@
+services:
+  tavily.api:
+    class: Drupal\tavily\TavilyApi
+    arguments: ['@http_client', '@config.factory', '@key.repository']

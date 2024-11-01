@@ -1,0 +1,31 @@
+{
+  "name": "drupal-ckeditor5-iconify-icons",
+  "version": "1.0.0",
+  "description": "Add iconify icons to ckeditor.",
+  "author": "",
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "watch": "webpack --mode development --watch",
+    "build": "webpack",
+    "lint:js": "node ./node_modules/eslint/bin/eslint.js .",
+    "prettier": "prettier --write \"./**/*.js\""
+  },
+  "devDependencies": {
+    "@ckeditor/ckeditor5-dev-utils": "^30.0.0",
+    "ckeditor5": "~35.1.0",
+    "raw-loader": "^4.0.2",
+    "terser-webpack-plugin": "^5.3.3",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.4.0",
+    "eslint": "^8.53.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-formatter-gitlab": "^5.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jquery": "^1.5.1",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-yml": "^1.8.0",
+    "prettier": "^3.0.3"
+  }
+
+}

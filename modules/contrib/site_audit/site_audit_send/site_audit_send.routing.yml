@@ -1,0 +1,7 @@
+site_audit_send.send_report:
+  path: 'admin/reports/site-audit/send'
+  defaults:
+    _title: 'Send Report'
+    _entity_form: 'site_audit_report.add'
+  requirements:
+    _permission: 'access send report form'

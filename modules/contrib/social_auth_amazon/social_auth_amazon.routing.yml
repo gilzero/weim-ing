@@ -1,0 +1,27 @@
+#social_auth_amazon.redirect_to_amazon:
+#  path: 'user/login/amazon'
+#  defaults:
+#    _controller: '\Drupal\social_auth_amazon\Controller\AmazonAuthController::redirectToProvider'
+#  requirements:
+#    # Anonymous users can log in, but authenticated users can also associate a new provider
+#    _access: 'TRUE'
+#  options:
+#    no_cache: TRUE
+#
+#social_auth_amazon.callback:
+#  path: 'user/login/amazon/callback'
+#  defaults:
+#    _controller: '\Drupal\social_auth_amazon\Controller\AmazonAuthController::callback'
+#  requirements:
+#    # Anonymous users can log in, but authenticated users can also associate a new provider
+#    _access: 'TRUE'
+#  options:
+#    no_cache: TRUE
+
+social_auth_amazon.settings_form:
+  path: 'admin/config/social-api/social-auth/amazon'
+  defaults:
+    _title: 'Social Auth Amazon settings'
+    _form: '\Drupal\social_auth_amazon\Form\AmazonAuthSettingsForm'
+  requirements:
+    _permission: 'administer social api authentication'

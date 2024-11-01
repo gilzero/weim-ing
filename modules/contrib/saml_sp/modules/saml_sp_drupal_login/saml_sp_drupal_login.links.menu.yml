@@ -1,0 +1,5 @@
+saml_sp_drupal_login.config:
+  title: 'Login'
+  route_name: saml_sp_drupal_login.config
+  description: 'Configure IdPs for login'
+  parent: saml_sp.admin

@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Site Audit Report Entity module.
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\site_audit_report_entity\Entity\SiteAuditReport;
+use Drupal\user\UserInterface;
+use \Drupal\site_audit\Plugin\SiteAuditCheckBase;
+
+/**
+ * Implements hook_user_cancel().
+ */
+function site_audit_report_entity_user_cancel($edit, UserInterface $account, $method) {
+  switch ($method) {
+    case 'user_cancel_reassign':
+      // Anonymize site audit reports.
+      $storage = \Drupal::entityTypeManager()->getStorage('site_audit_report');
+      $site_audit_report_ids = $storage->getQuery()
+        ->accessCheck(FALSE)
+        ->condition('uid', $account->id())
+        ->execute();
+      foreach ($storage->loadMultiple($site_audit_report_ids) as $site_audit_report) {
+        $site_audit_report->setOwnerId(0);
+        $site_audit_report->save();
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for user entities.
+ */
+function site_audit_report_entity_user_predelete(UserInterface $account) {
+  // Delete site audit reports.
+  $storage = \Drupal::entityTypeManager()->getStorage('site_audit_report');
+  $site_audit_report_ids = $storage->getQuery()
+    ->accessCheck(FALSE)
+    ->condition('uid', $account->id())
+    ->execute();
+  $site_audit_reports = $storage->loadMultiple($site_audit_report_ids);
+  $storage->delete($site_audit_reports);
+  // Delete old revisions.
+  $site_audit_report_ids = $storage->getQuery()
+    ->accessCheck(FALSE)
+    ->allRevisions()
+    ->condition('uid', $account->id())
+    ->execute();
+  foreach (array_keys($site_audit_report_ids) as $revision_id) {
+    $storage->deleteRevision($revision_id);
+  }
+}

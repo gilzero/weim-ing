@@ -1,0 +1,76 @@
+/**
+ * Contains only color properties.
+ */
+
+@import "./variables.pcss.css";
+
+body {
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+a,
+.link {
+  color: var(--color-link);
+}
+
+.honey-page__header,
+.region-primary-menu {
+  background-color: var(--color-top);
+}
+
+.site-logo svg {
+  fill: var(--color-titleslogan);
+}
+
+.site-slogan {
+  color: var(--color-titleslogan);
+}
+
+.honey-page__header-top a {
+  color: var(--color-titleslogan);
+}
+
+.honey-page__toggle-button svg {
+  fill: var(--color-titleslogan);
+}
+
+.honey-page__header-bottom {
+  background-color: var(--color-bottom);
+}
+
+.honey-breadcrumbs__icon {
+  fill: var(--color-link);
+}
+
+.honey-page__sidebar {
+  color: var(--color-bg);
+  background-color: var(--color-sidebar);
+}
+
+.honey-page__sidebar a {
+  color: var(--color-sidebarborders);
+}
+
+.honey-page__sidebar .block > h2 {
+  color: var(--color-sidebar);
+  background-color: var(--color-sidebarborders);
+}
+
+.honey-page__sidebar svg,
+.honey-tools__icon {
+  fill: var(--color-sidebarborders);
+}
+
+.honey-page__sidebar .block-search-form-block .form-submit {
+  color: var(--color-sidebar);
+  background-color: var(--color-sidebarborders);
+}
+
+.honey-page__footer {
+  background-color: var(--color-footer);
+}
+
+.site-name > a {
+  color: var(--color-titleslogan);
+}

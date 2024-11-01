@@ -1,0 +1,5 @@
+type_tray.configuration_form:
+  title: 'Type Tray Settings'
+  parent: system.admin_config_content
+  description: 'Configure Type Tray settings'
+  route_name: type_tray.settings.form

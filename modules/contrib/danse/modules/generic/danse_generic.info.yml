@@ -1,0 +1,12 @@
+name: DANSE Generic
+type: module
+description: Provides generic DANSE events to be created for arbitrary scenarios.
+core_version_requirement: ^10 || ^11
+package: DANSE
+dependencies:
+  - danse:danse
+
+# Information added by Drupal.org packaging script on 2024-08-27
+version: '2.3.6'
+project: 'danse'
+datestamp: 1724743564

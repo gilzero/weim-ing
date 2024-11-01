@@ -1,0 +1,14 @@
+name: Google Places for AI
+description: Fetches data from Google Places.
+package: AI Tools
+type: module
+core_version_requirement: ^10.3 || ^11
+configure: google_places.settings
+
+dependencies:
+  - key:key
+
+# Information added by Drupal.org packaging script on 2024-10-13
+version: '1.0.0-beta2'
+project: 'google_places'
+datestamp: 1728807568

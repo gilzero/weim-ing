@@ -1,0 +1,192 @@
+<?php
+
+/**
+ * @file
+ * Build Ultimenu blocks based on menu, and their regions on enabled menu items.
+ */
+
+use Drupal\Core\Extension\Extension;
+
+/**
+ * Provides a convenient shortcut for procedural hooks.
+ *
+ * @return \Drupal\ultimenu\UltimenuManager
+ *   |\Drupal\ultimenu\UltimenuSkin
+ *   The Ultimenu class instances.
+ */
+// @codingStandardsIgnoreStart
+function ultimenu($key = 'manager') {
+  static $manager;
+  static $skin;
+
+  if (!isset($manager)) {
+    $manager = \Drupal::service('ultimenu.manager');
+  }
+
+  switch ($key) {
+    case 'skin':
+      if (!isset($skin)) {
+        $skin = \Drupal::service('ultimenu.skin');
+      }
+      return $skin;
+
+    default:
+      return $manager;
+  }
+}
+// @codingStandardsIgnoreEnd
+
+/**
+ * Implements hook_theme().
+ */
+function ultimenu_theme($existing, $type, $theme, $path) {
+  return [
+    'ultimenu' => [
+      'render element' => 'element',
+      'file' => 'ultimenu.theme.inc',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_library_info_build().
+ */
+function ultimenu_library_info_build() {
+  /* @phpstan-ignore-next-line */
+  return ultimenu('skin')->libraryInfoBuild();
+}
+
+/**
+ * Implements hook_system_info_alter().
+ */
+function ultimenu_system_info_alter(&$info, Extension $file, $type) {
+  ultimenu()->systemInfoAlter($info, $file, $type);
+}
+
+/**
+ * Implements hook_themes_uninstalled().
+ */
+function ultimenu_themes_uninstalled(array $themes) {
+  /* @phpstan-ignore-next-line */
+  ultimenu('skin')->clearCachedDefinitions(TRUE);
+
+  // Clean out uninstalled themes' references.
+  $config = ultimenu()->configFactory()->getEditable('ultimenu.settings');
+  if ($offcanvases = $config->get('offcanvases')) {
+    $update = FALSE;
+    foreach ($themes as $theme) {
+      foreach ($offcanvases as $key => $value) {
+        if ($value && isset($value[$theme])) {
+          $config->clear('offcanvases.' . $key . '.' . $theme);
+          $update = TRUE;
+        }
+      }
+    }
+    if ($update) {
+      $config->save(TRUE);
+    }
+  }
+}
+
+/**
+ * Checks if we are using the default theme.
+ */
+function _ultimenu_is_applicable() {
+  static $applicable;
+  if (!isset($applicable)) {
+    $theme = \Drupal::theme()->getActiveTheme()->getName();
+    $applicable = ultimenu()->getThemeDefault() == $theme;
+  }
+  return $applicable;
+}
+
+/**
+ * Checks if an ultimenu block with offcanvas exists.
+ */
+function _ultimenu_exists(array $variables) {
+  $data = [];
+  if ($page = $variables['page'] ?? []) {
+    foreach (array_keys($page) as $key) {
+      if (strpos($key, '#') !== FALSE) {
+        continue;
+      }
+
+      if (is_array($page[$key])) {
+        foreach (array_keys($page[$key]) as $k) {
+          if (strpos($k, 'ultimenu') !== FALSE) {
+            if ($block = ultimenu()->getBlock($k)) {
+              if ($config = $block['#build']['config'] ?? []) {
+                $data = $config;
+                if (!empty($config['offcanvas'])) {
+                  break;
+                }
+                break;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return $data;
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function ultimenu_preprocess_html(&$variables) {
+  if (_ultimenu_is_applicable()) {
+    // If off-canvas is enabled for both mobile and desktop, add `active`
+    // class, else it means menu item link is hoverable for desktop.
+    // @todo remove deprecated BC anytime later.
+    $bc = ultimenu()->getSetting('goodies.off-canvas-all');
+    // If any Ultimenu blocks, sidebar, footer, etc.
+    if ($config = _ultimenu_exists($variables)) {
+      $attrs = &$variables['html_attributes'];
+      $classes = [
+        'is-ultimenu',
+        'is-ultimobile',
+      ];
+
+      // Only if an Ultimenu offcanvas block exists.
+      if ($bc || !empty($config['offcanvas'])) {
+        $is_active = !empty($config['hamburger']) || $bc;
+        $active = $is_active ? 'active' : 'hover';
+
+        $classes[] = 'is-ultimenu--' . $active;
+
+        if (!$is_active && !empty($config['sticky'])) {
+          $classes[] = 'is-ultisticky';
+        }
+      }
+
+      $attrs->addClass($classes);
+    }
+  }
+}
+
+/**
+ * Implements hook_help().
+ */
+function ultimenu_help($route_name) {
+  if ($route_name == 'help.page.ultimenu') {
+    $items = [
+      'README',
+      'CONFIGURATION',
+      'STYLING',
+      'TROUBLESHOOTING',
+      'UPDATING',
+      'FAQ',
+      'MAINTAINERS',
+    ];
+
+    $output = '';
+    foreach ($items as $key) {
+      $output .= file_get_contents(dirname(__FILE__) . "/docs/{$key}.md");
+    }
+
+    return blazy()->markdown($output);
+  }
+  return '';
+}

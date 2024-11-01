@@ -1,0 +1,6 @@
+services:
+  eca_push_framework.subscriber:
+    class: Drupal\eca_push_framework\EventSubscriber\EcaPushFramework
+    parent: eca.execution.subscriber_parent
+    tags:
+      - { name: event_subscriber }

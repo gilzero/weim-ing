@@ -1,0 +1,8 @@
+length_indicator:
+  css:
+    theme:
+      css/length-indicator.css: {}
+  js:
+    js/length-indicator.js: { preprocess: false }
+  dependencies:
+    - core/once

@@ -1,0 +1,11 @@
+core:
+  css:
+    theme:
+      theme/dist/collapsiblock.css: { minified: true }
+  js:
+    theme/dist/collapsiblock.js: { attributes: { type: module }, minified: true }
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - js_cookie/js-cookie
+    - core/once

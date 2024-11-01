@@ -1,0 +1,7 @@
+simplelogin.admin_settings_form:
+  path: '/admin/config/simplelogin'
+  defaults:
+    _form: '\Drupal\simplelogin\Form\Simplelogin'
+    _title: 'SimpleLogin Settings'
+  requirements:
+    _permission: 'administer site configuration'

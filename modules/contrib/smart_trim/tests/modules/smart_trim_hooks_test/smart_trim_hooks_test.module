@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Smart Trim hooks module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_smart_trim_link_modify().
+ */
+function smart_trim_hooks_test_smart_trim_link_modify(EntityInterface $entity, string &$more, Link &$link): void {
+  $more = 'So much more!';
+  $url = Url::fromUri('https://www.drupal.org');
+  $link->setUrl($url);
+}

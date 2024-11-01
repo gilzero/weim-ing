@@ -1,0 +1,38 @@
+/* Add margin between some elements. */
+.message,
+.content,
+.user-login-form,
+.form-item,
+.control,
+.form-wrapper {
+  margin-top: 1rem;
+}
+
+/* When using details element as panels you can toggle the body with a click */
+details summary.panel-heading {
+  cursor: pointer;
+}
+
+/* Support icons for submit inputs https://github.com/jgthms/bulma/issues/2407 */
+.control.has-icons-left .button {
+  padding-left: 2.25em;
+}
+
+/* Show the icon for the tabledrag completely */
+.table a.tabledrag-handle .handle {
+  width: 2em;
+  height: 2em;
+}
+.table .draggable a.tabledrag-handle {
+  height: 2.7em;
+  padding-top: 1.5em;
+}
+
+/* Add ability to display labels inline */
+.field--label-inline {
+  float: left;
+  padding-right: .5em;
+}
+.field--label-inline::after {
+  content: ":";
+}

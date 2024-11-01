@@ -1,0 +1,5 @@
+disable_messages.settings_form:
+  route_name: disable_messages.settings_form
+  title: 'Disable messages'
+  description: 'Configure display of messages to end users.'
+  parent: system.admin_config_development

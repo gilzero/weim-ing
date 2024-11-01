@@ -1,0 +1,8 @@
+name: Site Audit Send
+type: module
+description: Send site audit reports to remote locations.
+package: Site Audit
+core_version_requirement: ^10 || ^11
+dependencies:
+  - site_audit
+  - site_audit_report_entity

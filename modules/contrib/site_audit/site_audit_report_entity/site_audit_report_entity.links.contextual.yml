@@ -1,0 +1,10 @@
+entity.site_audit_report.edit_form:
+  route_name: entity.site_audit_report.edit_form
+  group: site_audit_report
+  title: Edit
+
+entity.site_audit_report.delete_form:
+  route_name: entity.site_audit_report.delete_form
+  group: site_audit_report
+  title: Delete
+  weight: 10

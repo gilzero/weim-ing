@@ -1,0 +1,7 @@
+views.field.site_audit_report_entity_data:
+  type: views.field.field
+  label: 'Site Audit Report Data'
+  mapping:
+    example:
+      type: string
+      label: 'Example'

@@ -1,0 +1,12 @@
+site_audit_send.send_report_action:
+  title: 'Send Report'
+  route_name: site_audit_send.send_report
+  appears_on:
+    - site_audit.report
+    - entity.site_audit_report.collection
+
+site_audit_send.report.save:
+  title: 'Save Report'
+  route_name: entity.site_audit_report.add_form
+  appears_on:
+    - entity.site_audit_report.collection

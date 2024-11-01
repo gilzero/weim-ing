@@ -1,0 +1,12 @@
+name: Minify Source HTML
+type: module
+description: Provides test cases for testing purposes.
+core_version_requirement: ^9 || ^10
+dependencies:
+  - minifyhtml:minifyhtml
+hidden: TRUE
+
+# Information added by Drupal.org packaging script on 2024-05-01
+version: '2.0.5'
+project: 'minifyhtml'
+datestamp: 1714586302

@@ -1,0 +1,71 @@
+/**
+ * @file
+ * Skin based on safe CSS file name: ultimenu--blue.
+ */
+
+:root {
+  --ultiblue: #0779bf;
+  --ultiblue-light: #b9e4ff;
+  --ultiblue-dark: #042b42;
+}
+
+.ultimenu--blue {
+  --ultinormal: var(--ultiblue);
+  --ultiactive: var(--ultiblue-dark);
+  --ultiflyout: var(--ultiblue);
+  --ultiregion: #fff;
+  --ultiregion-color: #000;
+  --ultilink-normal: var(--ultiblue);
+  --ultilink-active: var(--ultiblue-dark);
+  --ultisub-expanded: var(--ultiblue);
+  --ultisub2-normal: var(--ultiblue-light);
+  --ultisub2-active: #fff;
+  --ulticaret-normal: var(--ultiblue);
+  --ulticaret-active: var(--ultiblue-dark);
+}
+
+.ultimenu--blue .ultimenusub .menu .menu {
+  --ulticaret-normal: var(--ultiblue-light);
+  --ulticaret-active: #fff;
+}
+
+.is-ultimenu--active .is-ultimenu__canvas-off .ultimenu--blue {
+  --ultinormal: var(--ultiblue);
+  --ultiactive: #fff;
+  --ultiflyout: var(--ultiblue);
+  --ultiregion: transparent;
+  --ultilink-normal: var(--ultiblue-light);
+  --ultilink-active: var(--ultiactive);
+  --ultisub-expanded: rgba(0, 0, 0, 0.2);
+  --ultisub-normal: var(--ultiblue-light);
+  --ultisub-active: var(--ultiactive);
+  --ulticaret-normal: var(--ultiblue);
+  --ulticaret-active: var(--ultiactive);
+}
+
+.is-ultimenu--active .is-ultimenu__canvas-off .ultimenu--blue .ultimenusub .menu {
+  --ulticaret-normal: var(--ultiblue-light);
+  --ulticaret-active: #fff;
+}
+
+/**
+ * When hamburger is visible, desktop or mobile.
+ */
+html.is-ultimenu--active
+  .ultimenu--blue
+  .is-uitem-expanded
+  > .ultimenu__flyout {
+  padding: 0;
+}
+
+/**
+ * When hamburger is gone, or hover.
+ */
+html.is-ultidesktop .is-ultihover.ultimenu--blue .block:first-child {
+  float: left;
+  width: 45%;
+}
+
+html.is-ultidesktop .is-ultihover.ultimenu--blue .block:nth-child(2) {
+  margin-left: 48%;
+}

@@ -1,0 +1,10 @@
+field.formatter.settings.plain_string_formatter:
+  type: field.formatter.settings.string
+  label: 'Plain string formatter'
+  mapping:
+    wrap_tag:
+      type: string
+      label: 'Wrapper tag'
+    wrap_class:
+      type: string
+      label: 'Classes for wrapper tag'

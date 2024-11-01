@@ -1,0 +1,14 @@
+services:
+  plugin.manager.ui_patterns_settings:
+    class: Drupal\ui_patterns_settings\UiPatternsSettingsManager
+    arguments: ['@container.namespaces', '@module_handler', '@cache.discovery']
+  plugin.manager.ui_patterns_settings_data_provider:
+    class: Drupal\ui_patterns_settings\UiPatternsSettingsDataProviderManager
+    parent: default_plugin_manager
+  ui_patterns_settings.twig:
+    class: Drupal\ui_patterns_settings\TwigExtension\UIPatternsSettingsExtension
+    tags:
+      - { name: twig.extension }
+  ui_patterns_settings.config_manager:
+    class: Drupal\ui_patterns_settings\ConfigManager
+    arguments: ['@config.factory']

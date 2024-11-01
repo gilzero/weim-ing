@@ -1,0 +1,64 @@
+/**
+ * @file
+ * Trying to make sense with Olivero.
+ *
+ * Only tested with Header region.
+ */
+
+/* While admin user has no issues, anonymous needs this. */
+.is-ultimenu--hover .is-ultimenu__canvas-off .block-ultimenu {
+  display: flex;
+  align-items: center;
+}
+
+.is-ultimenu--active .is-ultimenu__canvas-off .site-header__inner {
+  display: block;
+  width: 100%;
+}
+
+.is-ultimenu--active .is-ultimenu__canvas-off .site-header__inner__container {
+  display: block;
+  padding: 0;
+}
+
+.is-ultimenu--active .is-ultimenu__canvas-off .site-header__initial {
+  display: none;
+}
+
+.is-ultimenu--active .is-ultimenu__canvas-off .site-header__fixable {
+  width: 100%;
+  max-width: 100%;
+}
+
+[dir="ltr"].is-ultimenu--active .is-ultimenu__canvas-off .site-branding,
+[dir="rtl"].is-ultimenu--active .is-ultimenu__canvas-off .site-branding {
+  min-height: 80px;
+  margin: 0;
+}
+
+.is-ultimenu--active
+  body:not(.is-always-mobile-nav)
+  .site-header__fixable.is-fixed:not(.is-expanded)
+  .site-header__inner {
+  transform: none;
+  opacity: 1;
+}
+
+.is-ultimenu--expanded
+  body:not(.is-always-mobile-nav)
+  .site-header__fixable.is-fixed {
+  position: relative;
+  z-index: 9999;
+  inset-block-start: 0;
+  max-width: 100%;
+}
+
+.is-ultidesktop .toolbar-fixed header > .is-fixed .is-ultihover {
+  margin-top: 32px;
+}
+
+.is-ultidesktop header .is-ultihover .is-uitem-expanded .ultimenu__region {
+  overflow-y: scroll;
+  height: 60vh;
+  max-height: 60vh;
+}

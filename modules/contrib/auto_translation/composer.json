@@ -1,0 +1,15 @@
+{
+    "name": "drupal/auto_translation",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "description": "Auto translation module for Drupal 10^",
+    "require": {
+        "google/cloud-translate": "^1.17"
+    },
+    "authors": [
+        {
+            "name": "Alberto Cocchiara",
+            "email": "bigbabert@gmail.com"
+        }
+    ]
+}

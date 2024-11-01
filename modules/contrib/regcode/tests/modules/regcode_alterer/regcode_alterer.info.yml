@@ -1,0 +1,11 @@
+name: Regcode alterer
+type: module
+description: 'Module for testing the hooks provided by Regcode.'
+package: Testing
+dependencies:
+  - regcode:regcode
+
+# Information added by Drupal.org packaging script on 2024-10-28
+version: '2.0.1'
+project: 'regcode'
+datestamp: 1730074650

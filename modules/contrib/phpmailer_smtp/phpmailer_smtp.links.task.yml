@@ -1,0 +1,9 @@
+phpmailer_smtp.settings:
+  route_name: phpmailer_smtp.settings
+  title: 'SMTP settings'
+  base_route: phpmailer_smtp.settings
+
+phpmailer_smtp.format:
+  route_name: phpmailer_smtp.format
+  title: Format
+  base_route: phpmailer_smtp.settings

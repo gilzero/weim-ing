@@ -1,0 +1,97 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\module_builder\Form\ModuleMiscForm;
+use Drupal\module_builder\Form\ComponentSectionForm;
+/**
+ * @file
+ * Builds scaffolding for custom modules.
+ */
+
+use Drupal\Core\Render\Element;
+
+/**
+ * Implements hook_help().
+ */
+function module_builder_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.module_builder':
+      return t("Module builder allows you to generate code files for new custom modules.");
+    case 'entity.module_builder_module.collection':
+      return t('This page allows you to generate the files for a custom module with scaffolding code for hook implementations, plugins, and so on.');
+    case 'entity.module_builder_module.adopt_form':
+      return t('Use this form to adopt components from the existing module files into the generated module. This allows existing components to be enhanced.');
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function module_builder_theme($existing, $type, $theme, $path) {
+  return [
+    'generated_files' => [
+      'render element' => 'element',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for generated files form element template.
+ *
+ * Default template: generated-files.html.twig.
+ */
+function template_preprocess_generated_files(&$variables) {
+  foreach (Element::children($variables['element']) as $key) {
+    $variables[$key] = $variables['element'][$key];
+  }
+
+  // TODO: Remove when https://www.drupal.org/node/2776307 is fixed.
+  $variables['filename_list'] = [];
+  foreach (Element::children($variables['element']['filename_list']) as $filename) {
+    $variables['filename_list'][$filename] = $variables['element']['filename_list'][$filename];
+  }
+  $variables['code'] = [];
+  foreach (Element::children($variables['element']['code']) as $filename) {
+    $variables['code'][$filename] = $variables['element']['code'][$filename];
+  }
+}
+
+/**
+ * Implements hook_entity_type_build().
+ */
+function module_builder_entity_type_build(array &$entity_types) {
+  $entity_type_manager = \Drupal::service('entity_type.manager');
+
+  // Process the 'code_builder' entity type annotation.
+  foreach ($entity_types as $entity_type_id => $entity_type) {
+    if (!$entity_type->hasHandlerClass('component_sections')) {
+      continue;
+    }
+
+    // Can't use $entity_type_manager->getHandler() here, as that will call
+    // getDefinition() and create circularity.
+    $handler_class = $entity_type->getHandlerClass('component_sections');
+    $component_sections_handler = $entity_type_manager->createHandlerInstance($handler_class, $entity_type);
+
+    // Expand form properties in the entity type annotation to set form classes,
+    // entity links templates, etc.
+    $form_operations = $component_sections_handler->getFormOperations();
+
+    // Set a generic form class for the 'misc' section if not specified.
+    if (empty($entity_type->getFormClass('misc'))) {
+      $entity_type->setFormClass('misc', ModuleMiscForm::class);
+    }
+
+    $canonical_template = $entity_type->getLinkTemplate('canonical');
+    foreach ($form_operations as $form_op) {
+      // Allow the entity type to specify a form class.
+      if (empty($entity_type->getFormClass($form_op))) {
+        $entity_type->setFormClass($form_op, ComponentSectionForm::class);
+      }
+
+      // TODO: this is clobbering link templates in the entity if they are set
+      // in the annotation -- bad DX! Either don't clobber, or complain.
+      $entity_type->setLinkTemplate("{$form_op}-form", $canonical_template . '/' . $form_op);
+    }
+  }
+}

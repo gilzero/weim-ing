@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Update functions for the SAML SP module.
+ */
+
+/**
+ * Add config option to change expiration of metadata.
+ */
+function saml_sp_update_8401() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('saml_sp.settings');
+  $config->set('valid_until', '');
+  $config->save(TRUE);
+}

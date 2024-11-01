@@ -1,0 +1,4 @@
+social_auth_amazon.settings.tab:
+  title: 'Amazon'
+  route_name: social_auth_amazon.settings_form
+  base_route: social_auth.integrations

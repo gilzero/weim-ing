@@ -1,0 +1,46 @@
+{%
+  set classes = [
+    'layout',
+    'section_layout',
+    'layout--three-column-extra',
+  ]
+%}
+{% if content %}
+  <section{{ attributes.addClass(classes) }}>
+    <div class="container">
+      {% if content.title %}
+      <div class="layout-content">
+        <div {{ region_attributes.title.addClass('layout__region', 'layout__region--title') }}>
+          {{ content.title }}
+        </div>
+      </div>
+      {% endif %}
+      {% if content.first or content.second or content.third %}
+      <div class="layout-content">
+        {% if content.first %}
+          <div {{ region_attributes.first.addClass('layout__region', 'layout__region--first') }}>
+            {{ content.first }}
+          </div>
+        {% endif %}
+        {% if content.second %}
+          <div {{ region_attributes.second.addClass('layout__region', 'layout__region--second') }}>
+            {{ content.second }}
+          </div>
+        {% endif %}
+        {% if content.third %}
+          <div {{ region_attributes.third.addClass('layout__region', 'layout__region--third') }}>
+            {{ content.third }}
+          </div>
+        {% endif %}
+      </div>
+      {% endif %}
+      {% if content.footer %}
+      <div class="layout-content">
+        <div {{ region_attributes.footer.addClass('layout__region', 'layout__region--footer') }}>
+          {{ content.footer }}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </section>
+{% endif %}

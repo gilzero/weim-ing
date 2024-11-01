@@ -1,0 +1,29 @@
+# Plugin \Drupal\ckeditor5_icons\Plugin\CKEditor5Plugin\Icon
+ckeditor5.plugin.ckeditor5_icons_icon:
+  type: mapping
+  label: Icons
+  mapping:
+    fa_version:
+      type: string
+      label: 'Font Awesome library version'
+    fa_styles:
+      type: sequence
+      label: 'Enabled styles'
+      sequence:
+        type: string
+        label: 'Style names'
+    custom_metadata:
+      type: boolean
+      label: 'Use custom Font Awesome metadata'
+    async_metadata:
+      type: boolean
+      label: 'Load the Font Awesome metadata asynchronously'
+    recommended_enabled:
+      type: boolean
+      label: 'Show recommended'
+    recommended_icons:
+      type: sequence
+      label: 'Recommended icons'
+      sequence:
+        type: string
+        label: 'Icon names'

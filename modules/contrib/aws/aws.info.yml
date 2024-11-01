@@ -1,0 +1,10 @@
+name: 'Amazon Web Services'
+description: 'Provides a unified AWS profile management system.'
+type: module
+package: Web services
+core_version_requirement: ^9.2 || ^10 || ^11
+
+# Information added by Drupal.org packaging script on 2024-09-04
+version: '2.0.4'
+project: 'aws'
+datestamp: 1725464635

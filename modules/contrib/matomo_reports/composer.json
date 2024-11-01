@@ -1,0 +1,21 @@
+{
+  "name": "drupal/matomo_reports",
+  "type": "drupal-module",
+  "description": "Display analytics reports from Matomo server.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://www.drupal.org/project/matomo_reports",
+  "authors": [
+    {
+      "name": "Shelane French (shelane)",
+      "homepage": "https://www.drupal.org/u/shelane",
+      "role": "Maintainer"
+    }
+  ],
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/matomo_reports",
+    "source": "http://cgit.drupalcode.org/matomo_reports"
+  },
+  "require": { }
+}

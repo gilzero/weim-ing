@@ -1,0 +1,7 @@
+services:
+  ebt_core.generate_css:
+    class: Drupal\ebt_core\Services\GenerateCSS
+    arguments: ['@config.factory', '@theme.manager', '@file_url_generator', '@entity_type.manager']
+  ebt_core.generate_js:
+    class: Drupal\ebt_core\Services\GenerateJS
+    arguments: ['@config.factory', '@media.oembed.url_resolver', '@file_url_generator', '@entity_type.manager']

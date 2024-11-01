@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * Drulma theme implementation for status messages.
+ */
+#}
+
+{{ attach_library('drulma/drulmajs') }}
+<div{{ attributes.addClass('section') }}>
+{% for type, messages in message_list %}
+  {% set message_attributes = create_attribute({'class': ['message'], 'role': 'contentinfo', 'aria-label': status_headings[type]}) %}
+  {% set message_header_attributes = create_attribute({'class': ['message-header']}) %}
+  {% if type == 'status' %}
+    {% set message_attributes = message_attributes.addClass('is-success') %}
+  {% endif %}
+  {% if type == 'warning' %}
+    {% set message_attributes = message_attributes.addClass('is-warning') %}
+  {% endif %}
+  {% if type == 'error' %}
+    {% set message_attributes = message_attributes.addClass('is-danger') %}
+    {% set message_header_attributes = message_header_attributes.setAttribute('role', 'alert') %}
+  {% endif %}
+  <article{{ message_attributes }}>
+    <div{{ message_header_attributes }}>
+      <h2>{{ status_headings[type] }}</h2>
+      <button class="delete" aria-label="delete"></button>
+    </div>
+    <div class="message-body">
+      {% if messages|length > 1 %}
+        <ul>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        {{ messages|first }}
+      {% endif %}
+    </div>
+  </article>
+{% endfor %}
+</div>
+
+

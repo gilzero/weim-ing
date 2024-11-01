@@ -1,0 +1,12 @@
+name: DANSE Log
+type: module
+description: Creates DANSE events for log entries.
+core_version_requirement: ^10 || ^11
+package: DANSE
+dependencies:
+  - danse:danse
+
+# Information added by Drupal.org packaging script on 2024-08-27
+version: '2.3.6'
+project: 'danse'
+datestamp: 1724743564

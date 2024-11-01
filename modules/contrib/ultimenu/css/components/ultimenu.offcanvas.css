@@ -1,0 +1,163 @@
+/**
+ * @file
+ * This is the base CSS rules for anything off-canvas.
+ *
+ * .is-ultimobile is defined in HTML and updated via JS, see ultimenu.css.
+ * .is-ultimenu__canvas-off: #header or .region-primary-menu, etc.
+ * .is-ultimenu__canvas-on: any sibling of #header.
+ *
+ * The is-ultimenu--active is if enabled for both mobile and desktop.
+ * Otherwise only exists on mobile only.
+ */
+
+/* stylelint-disable declaration-no-important */
+/** Global off-canvas rules. */
+.is-ultimenu__backdrop {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  -ms-transition: opacity 0.6s ease;
+  transition: opacity 0.6s ease;
+  opacity: 0;
+  background-color: transparent;
+}
+
+.is-ultimenu--expanded .is-ultimenu__backdrop,
+.is-ultimenu--hiding .is-ultimenu__backdrop {
+  z-index: 9997;
+  width: 100vw;
+  height: 100vh;
+  height: calc(var(--vh) * 100);
+  -ms-transition-delay: 0.2s;
+  transition-delay: 0.2s;
+  opacity: 1;
+  background-color: var(--ultibackdrop);
+}
+
+/** If off-canvas is enabled for both mobile and desktop. */
+.is-ultimenu--active {
+  /** Necessary for `overflow: hidden` when expanded below. */
+  position: relative;
+}
+
+/** Hide body overflow when off-canvas is being expanded. */
+.is-ultimenu--expanded,
+.is-ultimenu--hiding {
+  /* Do not use transform3d until required, else breaking fixed positioning. */
+  transform: translate3d(0, 0, 0);
+}
+
+/* Fixed height is required to avoid scrolling up when at bottom page. */
+html.is-ultimenu--expanded,
+html.is-ultimenu--expanded > body {
+  overflow: hidden;
+  height: 100vh;
+  height: calc(var(--vh) * 100);
+}
+
+/** The #header element, safe whether enabled for desktop, or mobile only. */
+.is-ultimenu__canvas-off,
+.is-ultimenu .is-ultimenu__canvas-off {
+  display: block;
+  float: none;
+  width: 100%;
+  margin: 0;
+  backface-visibility: hidden;
+}
+
+.is-ultimenu__canvas-off .ultimenu--offcanvas {
+  margin: 0;
+  padding: 0;
+}
+
+/** The #header alike element, if activated for both desktop and mobile. */
+.is-ultimenu--active .is-ultimenu__canvas-off {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: -100%;
+  overflow: hidden;
+  /** Desktop needs the exact pixel to avoid too wide off-canvas. */
+  max-width: 320px;
+  height: 100%;
+  height: 100vh;
+  height: calc(var(--vh) * 100);
+  padding: 0;
+  transition: all 500ms ease;
+  /** Adjust and remove !important accordingly. This is to override Bartik. */
+  background: var(--ulticanvas) !important;
+}
+
+.is-ultimenu--expanded .is-ultimenu__canvas-off {
+  left: 0;
+  overflow-y: auto;
+}
+
+.is-ultimenu .is-ultimenu__canvas-off,
+.is-ultimenu--expanded .is-ultimenu__canvas-off,
+.is-ultimenu--hiding .is-ultimenu__canvas-off {
+  z-index: 9998;
+}
+
+/** Any element below #header alike. */
+.is-ultimenu--active .is-ultimenu__canvas-on {
+  backface-visibility: hidden;
+  position: relative;
+}
+
+/**
+ * 944px = 58.999em with 16px base font.
+ * We are here at mobile devices.
+ * .is-ultimobile is for touch devices, see ultimenu.css.
+ * .is-ultimenu--active is only available if off-canvas is enabled for
+ * both desktop and mobile.
+ */
+/** The #header alike element. This ensures it always kicks in. */
+html.is-ultimobile .is-ultimenu__canvas-off {
+  max-width: 80%;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
+
+.is-ultisticky body {
+  padding-top: var(--ultiheader);
+}
+
+.is-ultisticky .is-ultimenu__canvas-off {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100vw;
+  min-height: 64px;
+  transition: all 0.6s ease 0.2s;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* With toolbar. */
+.is-ultimenu--expanded .toolbar-fixed .is-ultimenu__backdrop,
+.is-ultimenu--hiding .toolbar-fixed .is-ultimenu__backdrop {
+  z-index: 500;
+}
+
+/* Below toolbar. */
+.is-ultimenu .toolbar-fixed .is-ultimenu__canvas-off,
+.is-ultisticky .toolbar-fixed .is-ultimenu__canvas-off {
+  z-index: 501;
+}
+
+.is-ultisticky .toolbar-fixed .is-ultimenu__canvas-off {
+  top: var(--drupal-displace-offset-top);
+}
+
+/* Due to toolbar inline style. */
+.is-ultisticky body.toolbar-fixed {
+  padding-top: calc(var(--drupal-displace-offset-top) + var(--ultiheader)) !important;
+}
+
+.is-ultisticky .ultimenu--offcanvas .is-uitem-expanded .ultimenu__region {
+  overflow-y: scroll;
+  height: 60vh;
+  max-height: 60vh;
+}

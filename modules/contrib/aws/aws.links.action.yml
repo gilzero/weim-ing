@@ -1,0 +1,11 @@
+entity.aws_profile.add_form:
+  title: 'Add profile'
+  route_name: entity.aws_profile.add_form
+  appears_on:
+    - aws.overview
+
+aws.service.add:
+  title: 'Add override'
+  route_name: aws.service.add
+  appears_on:
+    - aws.overview

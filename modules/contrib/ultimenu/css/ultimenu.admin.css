@@ -1,0 +1,32 @@
+/**
+ * @file
+ * ultimenu.admin.css
+ */
+
+/* stylelint-disable selector-max-id */
+#ultimenu-admin-settings .form-checkboxes .form-item {
+  display: inline-block;
+  width: 47%;
+  margin-right: -4px; /* LTR */
+}
+
+[dir="rtl"] #ultimenu-admin-settings .form-checkboxes .form-item {
+  margin-right: 0;
+  margin-left: -4px;
+}
+
+#edit-markups textarea {
+  width: 100%;
+  min-height: 120px;
+}
+
+#edit-regions .form-type-checkbox .field-suffix {
+  display: block;
+  float: right; /* LTR */
+  color: red;
+  font-size: small;
+}
+
+[dir="rtl"] #edit-regions .form-type-checkbox .field-suffix {
+  float: left;
+}

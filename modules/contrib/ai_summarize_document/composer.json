@@ -1,0 +1,23 @@
+{
+  "name": "drupal/ai_summarize_document",
+  "description": "Provides functionality to parse documents and have it summarized with an LLM provider.",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Adam Nagy (joevagyok)",
+      "homepage": "https://www.drupal.org/u/joevagyok",
+      "role": "Maintainer"
+    }
+  ],
+  "homepage": "https://www.drupal.org/project/ai_summarize_document",
+  "require": {
+    "drupal/core": "^10 || ^11",
+    "drupal/ai": "^1.0",
+    "smalot/pdfparser": "^2.11"
+  },
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/ai_summarize_document",
+    "source": "https://git.drupalcode.org/project/ai_summarize_document"
+  }
+}

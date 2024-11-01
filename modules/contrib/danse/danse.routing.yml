@@ -1,0 +1,29 @@
+danse.settings:
+  path: '/admin/config/system/danse'
+  defaults:
+    _title: 'DANSE Settings'
+    _form: 'Drupal\danse\Form\Settings'
+  requirements:
+    _permission: 'administer site configuration'
+danse.prune:
+  path: '/admin/config/system/danse/prune'
+  defaults:
+    _title: 'DANSE Prune'
+    _form: 'Drupal\danse\Form\Prune'
+  requirements:
+    _permission: 'administer site configuration'
+danse.subscriptions:
+  path: '/user/{user}/subscriptions'
+  defaults:
+    _title: 'Subscriptions'
+    _form: 'Drupal\danse\Form\Subscriptions'
+  requirements:
+    _custom_access: 'danse.service::checkAccess'
+  options:
+    user: \d+
+danse.reports:
+  path: '/admin/reports/danse'
+  defaults:
+    _title: 'DANSE Events'
+  requirements:
+    _permission: 'administer site configuration'

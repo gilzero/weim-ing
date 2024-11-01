@@ -1,0 +1,5 @@
+google_places.settings:
+  title: "Google Places Config"
+  description: "Setup Google Places"
+  route_name: google_places.settings
+  parent: system.admin_config_services

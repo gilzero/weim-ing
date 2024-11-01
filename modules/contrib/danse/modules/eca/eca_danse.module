@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * ECA DANSE module file.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\danse\RecipientSelectionManager;
+
+/**
+ * Provides the recipient selection plugin manager.
+ *
+ * @return \Drupal\danse\RecipientSelectionManager
+ *   The recipient selection plugin manager.
+ */
+function _eca_danse_recipient_selection_manager(): RecipientSelectionManager {
+  return \Drupal::service('plugin.manager.danse.recipient.selection');
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert() for action entities.
+ */
+function eca_danse_eca_insert(EntityInterface $entity): void {
+  _eca_danse_recipient_selection_manager()->clearCachedDefinitions();
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update() for action entities.
+ */
+function eca_danse_eca_update(EntityInterface $entity): void {
+  _eca_danse_recipient_selection_manager()->clearCachedDefinitions();
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete() for action entities.
+ */
+function eca_danse_eca_delete(EntityInterface $entity): void {
+  _eca_danse_recipient_selection_manager()->clearCachedDefinitions();
+}

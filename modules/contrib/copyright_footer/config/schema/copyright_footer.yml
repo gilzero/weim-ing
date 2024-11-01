@@ -1,0 +1,22 @@
+block.settings.copyright_footer:
+  type: block_settings
+  label: 'Copyright Footer block'
+  mapping:
+    organization_name:
+      type: label
+      label: 'Organization name'
+    organization_url:
+      type: uri
+      label: 'Organization URL'
+    year_origin:
+      type: integer
+      label: 'Year origin from'
+    year_to_date:
+      type: integer
+      label: 'Year to date'
+    version:
+      type: string
+      label: 'Version'
+    version_url:
+      type: uri
+      label: 'Version URL'

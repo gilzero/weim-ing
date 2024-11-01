@@ -1,0 +1,23 @@
+{% set bem_block = 'block-' ~ id|split('__', 2)|first|clean_class %}
+{% set bem_modifiers = id|split('__')|slice(1) %}
+{% set wrapper_tag = wrapper_tag ?: 'div' %}
+{% set label_tag = label_tag ?: 'h2' %}
+{%
+  set classes = [
+    region ? 'region-' ~ region|clean_class ~ '__' ~ id|split('__', 2)|first|clean_class,
+    bem_block
+  ]
+%}
+{% for modifier in bem_modifiers %}
+  {% set classes = classes|merge([bem_block ~ '--' ~ modifier|clean_class]) %}
+{% endfor %}
+<{{ wrapper_tag }}{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {% if label %}
+    <{{ label_tag }}{{ title_attributes.addClass(bem_block ~ '__title') }}>{{ label }}</{{ label_tag }}>
+  {% endif %}
+  {{ title_suffix }}
+  {% block content %}
+    {{ content }}
+  {% endblock %}
+</{{ wrapper_tag }}>

@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  theme:
+    - honey
+id: honey_powered
+theme: honey
+region: sidebar_first
+weight: -5
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by'
+  provider: system
+  label_display: visible
+visibility: {  }

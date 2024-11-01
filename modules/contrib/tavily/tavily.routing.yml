@@ -1,0 +1,7 @@
+tavily.settings:
+  path: '/admin/config/tavily/settings'
+  defaults:
+    _form: '\Drupal\tavily\Form\TavilyConfigForm'
+    _title: 'Setup Tavily Settings'
+  requirements:
+    _permission: 'administer site configuration'

@@ -1,0 +1,92 @@
+/**
+ * @file
+ * Skin based on safe CSS file name: ultimenu--htb-tabs.
+ */
+
+:root {
+  --ultiblue: #0779bf;
+  --ultiblue-light: #48a9e4;
+  --ultiblue-dark: #064655;
+}
+
+.ultimenu--htb-tabs {
+  --ultilink-bg-normal: transparent;
+  --ultilink-bg-hover: var(--ultiblue);
+  --ultilink-bg-active: var(--ultiblue);
+  --ultinormal: var(--ultiblue);
+  --ultiactive: var(--ultiblue-dark);
+  --ultiflyout: var(--ultiblue);
+  --ultiregion: #fff;
+  --ultiregion-color: #000;
+  --ultilink-normal: var(--ultiblue);
+  --ultilink-active: #fff;
+  --ultisub-expanded: var(--ultiblue);
+  --ultisub-normal: var(--ultiblue);
+  --ultisub-active: var(--ultiblue-dark);
+  --ultisub2-normal: var(--ultiblue-light);
+  --ultisub2-active: #fff;
+  --ulticaret-normal: var(--ultiblue);
+  --ulticaret-active: var(--ultiblue-light);
+}
+
+.ultimenu--htb-tabs .ultimenusub .menu .menu {
+  --ulticaret-normal: var(--ultiblue-light);
+  --ulticaret-active: #fff;
+}
+
+.is-ultimenu--active .is-ultimenu__canvas-off .ultimenu--htb-tabs {
+  --ultinormal: var(--ultiblue);
+  --ultiactive: #fff;
+  --ultiflyout: var(--ultiblue);
+  --ultiregion: transparent;
+  --ultilink-normal: var(--ultiblue-light);
+  --ultilink-active: var(--ultiactive);
+  --ultisub-expanded: rgba(0, 0, 0, 0.2);
+  --ultisub-normal: var(--ultiblue-light);
+  --ultisub-active: var(--ultiactive);
+  --ulticaret-normal: var(--ultiblue);
+  --ulticaret-active: var(--ultiactive);
+}
+
+.ultimenu > .is-active-trail > .ultimenu__link {
+  --ulticaret-normal: #fff;
+  --ulticaret-active: #fff;
+}
+
+.is-ultimenu--active
+  .is-ultimenu__canvas-off
+  .ultimenu--htb-tabs
+  .ultimenusub
+  .menu {
+  --ulticaret-normal: var(--ultiblue-light);
+  --ulticaret-active: #fff;
+}
+
+.ultimenu--htb-tabs .ultimenu__flyout,
+.ultimenu--htb-tabs .ultimenusub .is-uitem-expanded {
+  border-top: 1px solid var(--ultiblue-light);
+}
+
+.ultimenu--htb-tabs .ultimenu__link {
+  border-top: 1px solid transparent;
+}
+
+.ultimenu--htb-tabs > li:hover > a,
+.ultimenu--htb-tabs .is-ulink-active {
+  border-top: 1px solid var(--ultiblue-light);
+}
+
+.is-ultihover.ultimenu--htb-tabs .block:first-child {
+  float: left;
+  width: 45%;
+}
+
+.is-ultihover.ultimenu--htb-tabs .block:nth-child(2) {
+  margin-left: 48%;
+}
+
+.is-ultihover.ultimenu--htb-tabs > li > a,
+/** Unfortunaly is-active is unreliable, it goes on scroll/ ajax. */
+.is-ultihover.ultimenu--htb-tabs-orange .is-active-trail > a {
+  border-radius: 5px 5px 0 0;
+}

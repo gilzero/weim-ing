@@ -1,0 +1,49 @@
+{#
+/**
+ * @file
+ * Default theme implementation for 'submitted' of 'comment' entity type.
+ *
+ * This template is formed from the part of comment.html.twig conditional on
+ * 'submitted'. Instead of the 'submitted' variable we insert its contents from
+ * template_preprocess_comment(), modified to allow the date to be optional.
+ *
+ * Available variables:
+ * - user_picture: The rendered author user entity
+ * - date: (optional) Themed creation date field.
+ * - author_name: Themed author name field.
+ * - author_attributes: HTML attributes for the containing element.
+ * - entity_type: Containing entity type.
+ * - parent: Themed parent comment submission information including the parent
+ *   'author' and 'created'. This information is presented to help screen
+ *   readers follow lengthy discussion threads. You can hide this from sighted
+ *   users using the class visually-hidden.
+ * - permalink_url: Comment permalink URL.
+ * - permalink: Comment permalink.
+ *
+ * @see template_preprocess_submitted()
+ * @see template_preprocess_comment()
+ *
+ * @ingroup themeable
+ */
+#}
+<footer>
+  {{ user_picture }}
+  <p>
+    {% if date -%}
+      {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
+    {%- else -%}
+      {% trans %}Submitted by {{ author_name }}{% endtrans %}
+    {%- endif -%}
+  </p>
+
+  {#
+    Indicate the semantic relationship between parent and child comments for
+    accessibility. The list is difficult to navigate in a screen reader
+    without this information.
+  #}
+  {% if parent %}
+    <p class="visually-hidden">{{ parent }}</p>
+  {% endif %}
+
+  {{ permalink }}
+</footer>

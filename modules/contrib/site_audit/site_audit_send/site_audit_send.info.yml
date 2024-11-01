@@ -1,0 +1,13 @@
+name: Site Audit Send
+type: module
+description: Send site audit reports to various locations.
+package: Site Audit
+core_version_requirement: ^10 || ^11
+dependencies:
+  - site_audit
+  - site_audit_report_entity
+
+# Information added by Drupal.org packaging script on 2024-05-29
+version: '4.1.1'
+project: 'site_audit'
+datestamp: 1717015547

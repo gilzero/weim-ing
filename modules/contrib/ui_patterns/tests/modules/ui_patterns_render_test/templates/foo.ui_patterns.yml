@@ -1,0 +1,14 @@
+foo:
+  label: Foo
+  variants:
+    default:
+      label: Default
+  links:
+    - 'https://test.com'
+    - url: 'https://example.com'
+      title: 'Example'
+      options:
+        query:
+          test_param: 'test_value'
+        attributes:
+          target: '_blank'

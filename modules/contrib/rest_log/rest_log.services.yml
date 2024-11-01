@@ -1,0 +1,15 @@
+services:
+  rest_log_subscriber:
+    class: Drupal\rest_log\EventSubscriber\RestLogSubscriber
+    arguments: ['@config.factory', '@datetime.time', '@logger.factory', '@entity_type.manager', '@rest_log.route_check_manager']
+    tags:
+      - { name: event_subscriber }
+  rest_log.rest_page:
+    class: Drupal\rest_log\RestLogRouteCheck\RestPageRouteCheck
+    arguments: ['@current_route_match']
+    tags:
+      - { name: rest_log.route_check }
+  rest_log.route_check_manager:
+    class: Drupal\rest_log\RouteCheckManager
+    tags:
+      - { name: service_collector, tag: rest_log.route_check, call: addChecker }

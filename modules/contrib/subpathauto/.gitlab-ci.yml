@@ -1,0 +1,15 @@
+include:
+  - project: $_GITLAB_TEMPLATES_REPO
+    ref: $_GITLAB_TEMPLATES_REF
+    file:
+      - '/includes/include.drupalci.main.yml'
+      - '/includes/include.drupalci.variables.yml'
+      - '/includes/include.drupalci.workflows.yml'
+
+variables:
+  _PHPUNIT_CONCURRENT: 1
+  OPT_IN_TEST_NEXT_MAJOR: 1
+  _CSPELL_WORDS: 'unaliased, subpage'
+
+phpunit (next major):
+  allow_failure: true

@@ -1,0 +1,23 @@
+regcode.admin_create:
+  path: /admin/config/people/regcode/create
+  defaults:
+    _title: Create
+    _form: \Drupal\regcode\Form\RegcodeAdminCreateForm
+  requirements:
+    _permission: 'administer registration codes'
+
+regcode.admin_manage:
+  path: /admin/config/people/regcode/manage
+  defaults:
+    _title: Manage
+    _form: \Drupal\regcode\Form\RegcodeAdminManageForm
+  requirements:
+    _permission: 'administer registration codes'
+
+regcode.admin_settings:
+  path: /admin/config/people/regcode/settings
+  defaults:
+    _title: Settings
+    _form: \Drupal\regcode\Form\RegcodeAdminSettingsForm
+  requirements:
+    _permission: 'administer registration codes'

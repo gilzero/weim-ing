@@ -1,0 +1,10 @@
+type: module
+name: 'Extra Block Types (EBT): Core Remove Helper'
+description: 'Helps to remove EBT Blocks and EBT Settings field storage.'
+core_version_requirement: ^9.3 || ^10 || ^11
+package: 'Extra Block Types'
+
+# Information added by Drupal.org packaging script on 2024-10-13
+version: '1.4.30'
+project: 'ebt_core'
+datestamp: 1728848855

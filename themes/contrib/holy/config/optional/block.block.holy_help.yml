@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - holy
+id: holy_help
+theme: holy
+region: content
+weight: -7
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: ''
+  label_display: '0'
+  provider: help
+visibility: {  }

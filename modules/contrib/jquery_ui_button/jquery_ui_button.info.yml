@@ -1,0 +1,14 @@
+name: jQuery UI Button
+type: module
+description: 'Provides jQuery UI Button library.'
+package: jQuery UI
+core_version_requirement: ^9.2 || ^10 || ^11
+dependencies:
+  - jquery_ui:jquery_ui (>=8.x-1.7)
+  - jquery_ui_controlgroup:jquery_ui_controlgroup (>=2.1)
+  - jquery_ui_checkboxradio:jquery_ui_checkboxradio (>=2.1)
+
+# Information added by Drupal.org packaging script on 2024-05-30
+version: '2.1.0'
+project: 'jquery_ui_button'
+datestamp: 1717031394

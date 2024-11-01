@@ -1,0 +1,42 @@
+disable_messages.settings:
+  type: config_object
+  label: Settings
+  mapping:
+    disable_messages_enable:
+      type: string
+      label: 'Enable filtering'
+    disable_messages_exclude_users:
+      type: string
+      label: 'Users excluded from filtering'
+    disable_messages_filter_by_page:
+      type: integer
+      label: 'Option to apply filters by including or excluding page patterns'
+    disable_messages_page_filter_paths:
+      type: string
+      label: 'Patterns for pages to include or exclude from filtering'
+    disable_messages_enable_debug:
+      type: string
+      label: 'Enable debug mode'
+    disable_messages_debug_visible_div:
+      type: string
+      label: 'Show debug div as visible'
+    disable_messages_ignore_patterns:
+      type: string
+      label: 'Messages to be disabled'
+    disable_messages_enable_permissions:
+      type: string
+      label: 'Enable permission checking'
+    disable_messages_ignore_exclude:
+      type: string
+      label: 'Ignore the exclude role permission'
+    disable_messages_ignore_case:
+      type: string
+      label: 'Ignore case'
+    disable_messages_strip_html_tags:
+      type: string
+      label: 'Strip HTML tags'
+    disable_messages_ignore_regex:
+      type: sequence
+      label: 'Parsed array of filter regular expressions'
+      sequence:
+        type: string

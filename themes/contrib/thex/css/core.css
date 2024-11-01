@@ -1,0 +1,32 @@
+/**
+ * Drupal core
+ */
+  /* Core -> contextual-links */
+  .header-top .contextual-links {
+    display: none;
+  }
+ /* Core -> Fields */
+ [dir] .field:not(:last-child){
+   margin-bottom:36px;
+ }
+
+.field__label {
+  font-weight: bold;
+}
+.field--label-inline .field__label,
+.field--label-inline .field__items {
+  float: left; /* LTR */
+}
+.field--label-inline .field__label,
+.field--label-inline > .field__item,
+.field--label-inline .field__items {
+  padding-right: 0.5rem;
+}
+[dir="rtl"] .field--label-inline .field__label,
+[dir="rtl"] .field--label-inline .field__items {
+  padding-right: 0;
+  padding-left: 0.5rem;
+}
+.field--label-inline .field__label::after {
+  content: ":";
+}

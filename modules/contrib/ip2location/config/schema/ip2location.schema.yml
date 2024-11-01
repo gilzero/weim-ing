@@ -1,0 +1,8 @@
+ip2location.settings:
+  type: mapping
+  label: Settings
+  mapping:
+    database_path:
+      type: string
+    cache_mode:
+      type: string

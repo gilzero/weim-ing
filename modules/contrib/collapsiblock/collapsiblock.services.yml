@@ -1,0 +1,8 @@
+services:
+
+  # An event handler to alter how Layout Builder blocks are rendered.
+  collapsiblock.layout_builder_block_component_render:
+    class: 'Drupal\collapsiblock\EventSubscriber\LayoutBuilderBlockComponentRender'
+    arguments: ['@config.factory']
+    tags:
+      - { name: event_subscriber }

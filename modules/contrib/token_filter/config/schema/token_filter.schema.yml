@@ -1,0 +1,29 @@
+ckeditor.plugin.tokenbrowser:
+  type: mapping
+  label: 'Token browser'
+  mapping:
+    token_types:
+      type: sequence
+      label: 'Token types'
+      sequence:
+        type: string
+        label: 'Token'
+
+ckeditor5.plugin.token_filter_token_browser:
+  type: mapping
+  label: 'Token browser'
+  mapping:
+    token_types:
+      type: sequence
+      label: 'Token types'
+      sequence:
+        type: string
+        label: 'Token'
+
+filter_settings.token_filter:
+  type: mapping
+  label: 'Allows token values to be used as filters'
+  mapping:
+    replace_empty:
+      type: boolean
+      label: 'Replace empty values'

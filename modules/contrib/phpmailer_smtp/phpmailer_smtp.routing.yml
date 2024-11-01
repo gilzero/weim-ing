@@ -1,0 +1,15 @@
+phpmailer_smtp.settings:
+  path: '/admin/config/system/phpmailer-smtp'
+  defaults:
+    _form: '\Drupal\phpmailer_smtp\Form\SettingsForm'
+    _title: 'PHPMailer SMTP transport settings'
+  requirements:
+    _permission: 'administer phpmailer smtp settings'
+phpmailer_smtp.format:
+  path: '/admin/config/system/phpmailer-smtp/format'
+  defaults:
+    _form: '\Drupal\phpmailer_smtp\Form\FormatForm'
+    _title: 'PHPMailer SMTP message format'
+  requirements:
+    _permission: 'administer phpmailer smtp settings'
+

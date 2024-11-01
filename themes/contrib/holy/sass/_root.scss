@@ -1,0 +1,39 @@
+@import 'variables';
+
+:root {
+  --white: #{$white};
+  --black: #{$black};
+  --black-80: #{$black-80};
+  --black-60: #{$black-60};
+  --black-05: #{$black-05};
+
+  --primary: #{$primary};
+  --primary-10: #{$primary-10};
+  --primary-vivid: #{$primary-vivid};
+  --primary-vivid-25: #{$primary-vivid-25};
+  --primary-vivid-40: #{$primary-vivid-40};
+  --primary-vivid-60: #{$primary-vivid-60};
+  --primary-vivid-80: #{$primary-vivid-80};
+  --primary-darker: #{$primary-darker};
+  --primary-damped: #{$primary-damped};
+  --primary-dark: #{$primary-dark};
+
+  --gray-10: #{$gray-10};
+  --gray-20: #{$gray-20};
+  --gray-30: #{$gray-30};
+  --gray-40: #{$gray-40};
+  --gray-50: #{$gray-50};
+  --gray-60: #{$gray-60};
+  --gray-70: #{$gray-70};
+  --gray-80: #{$gray-80};
+  --gray-90: #{$gray-90};
+  
+  --screen-xs-min: #{$screen-xs-min};
+  --screen-sm-min: #{$screen-sm-min};
+  --screen-md-min: #{$screen-md-min};
+  --screen-lg-min: #{$screen-lg-min};
+
+  --screen-xs-max: #{$screen-xs-max};
+  --screen-sm-max: #{$screen-sm-max};
+  --screen-md-max: #{$screen-md-max};
+}

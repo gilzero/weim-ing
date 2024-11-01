@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.ebt_starterkit
+    - field.storage.block_content.field_ebt_settings
+  module:
+    - ebt_core
+id: block_content.ebt_starterkit.field_ebt_settings
+field_name: field_ebt_settings
+entity_type: block_content
+bundle: ebt_starterkit
+label: 'Block settings'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: ebt_settings

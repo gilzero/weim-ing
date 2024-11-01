@@ -1,0 +1,64 @@
+simple_popup_blocks.*:
+  type: config_object
+  label: 'Simple popup block configuration'
+  mapping:
+    uid:
+      label: 'Unique identifier'
+      type: string
+    type:
+      label: 'Identifier type'
+      type: integer
+    css_selector:
+      label: 'Css selector type'
+      type: integer
+    identifier:
+      label: 'Identifier'
+      type: string
+    layout:
+      label: 'Layout position'
+      type: integer
+    visit_counts:
+      label: 'Visit counts settings'
+      type: text
+    overlay:
+      label: 'Overlay'
+      type: boolean
+    trigger_method:
+      label: 'Trigger method'
+      type: integer
+    trigger_selector:
+      label: 'Trigger selector'
+      type: string
+    delay:
+      label: 'Delay'
+      type: integer
+    enable_escape:
+      label: 'Enable escape'
+      type: boolean
+    trigger_width:
+      label: 'Trigger width'
+      type: integer
+    minimize:
+      label: 'Minimize button'
+      type: boolean
+    close:
+      label: 'Close button'
+      type: boolean
+    use_time_frequency:
+      label: 'Use time frequency instead of visit count'
+      type: boolean
+    time_frequency:
+      label: 'Time frequency'
+      type: integer
+    show_minimized_button:
+      label: 'Show minimized button'
+      type: boolean
+    width:
+      label: 'Width'
+      type: integer
+    cookie_expiry:
+      label: 'Cookie expiry'
+      type: integer
+    status:
+      label: 'Status'
+      type: boolean

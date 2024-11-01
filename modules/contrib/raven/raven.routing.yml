@@ -1,0 +1,17 @@
+raven.tunnel:
+  path: '/raven/tunnel'
+  defaults:
+    _controller: '\Drupal\raven\Controller\TunnelController::doTunnel'
+    _title: 'Raven tunnel'
+  methods: [POST]
+  requirements:
+    _permission: 'send javascript errors to sentry'
+raven.test:
+  path: '/raven/test'
+  defaults:
+    _controller: '\Drupal\raven\Controller\TestController::doTest'
+    _title: 'Raven test'
+  methods: [POST]
+  requirements:
+    _permission: 'administer site configuration'
+    _content_type_format: 'json'

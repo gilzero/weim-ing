@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: ebt_starterkit
+label: 'EBT Starterkit'
+revision: 0
+description: 'Extra Block Type (EBT): Starterkit'

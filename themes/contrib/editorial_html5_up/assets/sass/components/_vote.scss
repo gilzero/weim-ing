@@ -1,0 +1,14 @@
+.vote-widget-wrapper {
+  margin-bottom: 20px;
+  .vote-widget {
+    display: inline-block;
+    background: #eee;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 20px;
+  }
+
+  .vote-like {
+    margin-right: 10px;
+  }
+}

@@ -1,0 +1,24 @@
+@font-face {
+    font-family: 'Roboto Slab';
+    src: local('Roboto Slab Thin'), local('RobotoSlab-Thin'), url('robotoslabthin.woff2') format('woff2'), url('robotoslabthin.woff') format('woff'), url('robotoslabthin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto Slab';
+    src: local('Roboto Slab Light'), local('RobotoSlab-Light'), url('robotoslablight.woff2') format('woff2'), url('robotoslablight.woff') format('woff'), url('robotoslablight.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto Slab';
+    src: local('Roboto Slab Regular'), local('RobotoSlab-Regular'), url('robotoslabregular.woff2') format('woff2'), url('robotoslabregular.woff') format('woff'), url('robotoslabregular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto Slab';
+    src: local('Roboto Slab Bold'), local('RobotoSlab-Bold'), url('robotoslabbold.woff2') format('woff2'), url('robotoslabbold.woff') format('woff'), url('robotoslabbold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}

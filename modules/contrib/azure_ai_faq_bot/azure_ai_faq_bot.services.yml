@@ -1,0 +1,4 @@
+services:
+  azure_ai_faq_bot.web_chat_controller:
+    class: Drupal\azure_ai_faq_bot\Controller\WebChatController
+    arguments: ['@config.factory', '@logger.channel.default', '@http_client']

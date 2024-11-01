@@ -1,0 +1,13 @@
+a {
+  text-decoration: underline;
+  color: var(--primary);
+
+  &:hover {
+    text-decoration: underline;
+    color: var(--primary-vivid);
+  }
+
+  &:visited {
+    color: var(--primary-darker);
+  }
+}

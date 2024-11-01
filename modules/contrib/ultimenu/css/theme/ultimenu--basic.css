@@ -1,0 +1,26 @@
+/**
+ * @file
+ * Skin based on safe CSS file name: ultimenu--basic.
+ */
+
+.ultimenu--basic {
+  --ultibg: #fff;
+  --ultiflyout: #eaeaea;
+  --ultiregion: #fff;
+  --ultiregion-color: #000;
+}
+
+.is-ultimenu--active .is-ultimenu__canvas-off .ultimenu--basic {
+  --ultibg: transparent;
+  --ultiflyout: var(--ultibg);
+  --ultiregion: var(--ultibg);
+  --ultiregion-color: #fff;
+}
+
+/**
+ * When hamburger is gone, or hover.
+ */
+html.is-ultidesktop .is-ultihover.ultimenu--basic .block {
+  display: inline-block;
+  vertical-align: top;
+}

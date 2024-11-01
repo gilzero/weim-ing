@@ -1,0 +1,32 @@
+/**
+ * @file
+ *
+ * .is-ultimobile is defined via JS, see ultimenu.css.
+ * .is-ultimenu__canvas-off: #header or .region-primary-menu, etc.
+ * .is-ultimenu__canvas-on: any sibling of #header.
+ *
+ * Note the left transitions, works down to old browsers lacking of transform.
+ */
+
+/** The #header alike element, out of canvas by default, can exist once. */
+html.is-ultimenu .is-ultimenu__canvas-off {
+  left: -100%;
+  -ms-transition: left 300ms;
+  transition: left 300ms;
+}
+
+html.is-ultimenu.is-ultimenu--expanded .is-ultimenu__canvas-off {
+  left: 0;
+}
+
+/** Any element below, pushed out of canvas once the #header is in. */
+html.is-ultimenu .is-ultimenu__canvas-on {
+  position: relative;
+  left: 0;
+  -ms-transition: left 300ms;
+  transition: left 300ms;
+}
+
+html.is-ultimenu.is-ultimenu--expanded .is-ultimenu__canvas-on {
+  left: 82%;
+}

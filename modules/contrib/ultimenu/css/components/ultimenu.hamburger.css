@@ -1,0 +1,112 @@
+/**
+ * @file
+ * This file contains the Ultimenu hamburger skin for the main menu.
+ */
+
+/** This double is another sample to work around theme compatibility issue. */
+.button.button--ultimenu {
+  position: absolute;
+  z-index: 9999;
+  top: 15px;
+  right: 15px;
+  display: block;
+  width: 42px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  text-align: center;
+  text-indent: -999px;
+  border: 0;
+  border-radius: 2px;
+  outline: 1px solid transparent;
+  background: #555;
+  font-size: 0;
+}
+
+.button.button--ultiburger {
+  position: fixed;
+}
+
+.button.button--ultimenu:hover,
+.button.button--ultimenu:active,
+.button.button--ultimenu:focus {
+  border: 0;
+  background: #111;
+}
+
+.button.button--ultimenu:focus {
+  outline: 1px solid #999;
+  outline-offset: 1px;
+}
+
+/** Inspired by callmenick. */
+.button--ultimenu .bars,
+.button--ultimenu .bars::before,
+.button--ultimenu .bars::after {
+  position: absolute;
+  right: 0;
+  left: 0;
+  display: block;
+  width: 32px;
+  height: 4px;
+  content: "";
+  pointer-events: none;
+  background-color: #fff;
+}
+
+.button--ultimenu .bars {
+  top: 18px;
+  right: 5px;
+  left: 5px;
+  height: 4px;
+  transition: background-color 0s 0.3s;
+}
+
+.button--ultimenu .bars::before,
+.button--ultimenu .bars::after {
+  transition-delay: 0.3s, 0s;
+  transition-duration: 0.3s, 0.3s;
+}
+
+.button--ultimenu .bars::before {
+  top: -10px;
+  transition-property: top, transform;
+}
+
+.button--ultimenu .bars::after {
+  bottom: -10px;
+  transition-property: bottom, transform;
+}
+
+/* @todo use button active class to support multiple buttons. */
+.button--ultimenu.is-ubtn-active .bars {
+  background-color: transparent;
+}
+
+.button--ultimenu.is-ubtn-active .bars::before,
+.button--ultimenu.is-ubtn-active .bars::after {
+  transition-delay: 0s, 0.3s;
+}
+
+.button--ultimenu.is-ubtn-active .bars::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.button--ultimenu.is-ubtn-active .bars::after {
+  bottom: 0;
+  transform: rotate(-45deg);
+}
+
+/**
+ * We are here at desktop up.
+ * The `is-ultidesktop` class is set via JS, see ultimenu.css.
+ * .is-ultimenu--hover is only available if off-canvas is not enabled for
+ * both mobile and desktop.
+ */
+/** Hide mobile menu, if off-canvas is DISABLED for desktop. */
+html.is-ultidesktop.is-ultimenu--hover .button.button--ultiburger {
+  display: none;
+}

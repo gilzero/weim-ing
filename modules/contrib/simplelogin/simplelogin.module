@@ -1,0 +1,303 @@
+<?php
+
+/**
+ * @file
+ * The module file for simplelogin pages module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+use Drupal\file\Entity\File;
+use Drupal\Core\Controller\ControllerBase;
+use Drupal\simplelogin\Controller;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Asset\AttachedAssetsInterface;
+
+/**
+ * Implements hook_help().
+ *
+ * {@inheritdoc}
+ */
+function simplelogin_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.simplelogin':
+      $output = '';
+      $output .= '<h3>' . t('Settings') . '</h3>';
+      $output .= '<p>' . t('Simplelogin settings: /admin/config/simplelogin') . '</p>';
+      return $output;
+      break;
+  }
+}
+
+/**
+ * Implements hook_preprocess_html() for page--simplelogin.tpl.php.
+ *
+ * {@inheritdoc}
+ */
+function simplelogin_preprocess_html(&$variables) {
+  $current_user = \Drupal::currentUser();  // Whether the current user is anonymous or authenticated
+  if (!$current_user->id()) {
+    if (_simplelogin_is_path_supported()) {
+      $variables['attributes']['class'][] = 'simplelogin';
+      $background_opacity = simple_login_settings('opacity');
+      if ($background_opacity) {
+        $variables['attributes']['class'][] = 'opacity';
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_alter
+ *
+ * {@inheritdoc}
+ */
+function simplelogin_theme_suggestions_alter(array &$suggestions, array $variables, $hook) {
+  if ($hook == 'page') {
+    $current_user = \Drupal::currentUser();  // Whether the current user is anonymous or authenticated
+    if (!$current_user->id()) {
+      if (_simplelogin_is_path_supported()) {
+        $suggestions[] = 'page__simplelogin';
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_page_attachments
+ *
+ * {@inheritdoc}
+ */
+function simplelogin_page_attachments(array &$attachments) {
+  $current_user = \Drupal::currentUser();  // Whether the current user is anonymous or authenticated
+  if (!$current_user->id()) {
+    if (_simplelogin_is_path_supported()) {
+      $background_active = simple_login_settings('active');
+      $background_image = simple_login_settings('image');
+      $background_color = simple_login_settings('color');
+      $background_opacity = simple_login_settings('opacity');
+      $button_background = simple_login_settings('button_background');
+
+      if($background_active) {
+        $css = "body.simplelogin { background-image: url('$background_image'); }";
+      } else {
+        $css = "body.simplelogin { background-color: $background_color; }";
+      }
+
+      if ($button_background) {
+        $features = ".simplelogin-form input.form-submit, .simplelogin-form button.form-submit, .simplelogin-form input.form-submit:hover, .simplelogin-form input.form-submit:active, .simplelogin-form input.form-submit:focus, .simplelogin .link:hover, .simplelogin .link:focus { background-color: $background_color; } .simplelogin a, .simplelogin-form .forgot-password a, .simplelogin a:hover, .simplelogin a:focus { color: $background_color; }";
+      }
+      else {
+        $features = '';
+      }
+
+      $attachments['#attached']['html_head'][] = array(
+        array(
+          '#type' => 'html_tag',
+          '#tag' => 'style',
+          '#value' => $css . $features,
+          '#attributes' => array('type' => "text/css"),
+        ),
+        'simplelogin_background',
+      );
+    }
+  }
+}
+
+function simplelogin_preprocess_simplelogin(&$variables) {
+  $path = \Drupal::service('path.current')->getPath();
+
+  $variables['#attached']['library'][] = 'simplelogin/simplelogin-library';
+
+  // Able to use custom variables
+  $variables['path'] = $path;
+  $variables['base_path'] = base_path();
+  $logo_url = theme_get_setting('logo.url');
+  if ($logo_url !== null) {
+      $variables['logo'] = \Drupal::service('file_url_generator')->generateString($logo_url);
+  }
+  $variables['background_class'] = simple_login_settings('active');
+  $variables['background_opacity'] = simple_login_settings('opacity');
+  $variables['button_background'] = simple_login_settings('button_background');
+  $variables['wrapper_width'] = simple_login_settings('width');
+  $variables['site_name'] = \Drupal::config('system.site')->get('name');
+  $variables['site_register'] = \Drupal::config('user.settings')->get('register');
+  $variables['site_slogan'] = \Drupal::config('system.site')->get('slogan');
+}
+
+/**
+ * Implements settings for simple login pages.
+ */
+function simple_login_settings($arguments) {
+  $simplelogin_settings = \Drupal::config('simplelogin.settings');
+  $background_active = $simplelogin_settings->get('background_active', '');
+  $background_image = $simplelogin_settings->get('background_image', '');
+  $background_opacity = $simplelogin_settings->get('background_opacity', '');
+  $background_color = $simplelogin_settings->get('background_color', '');
+  $button_background = $simplelogin_settings->get('button_background', '') ?? TRUE;
+  $wrapper_width = $simplelogin_settings->get('wrapper_width', '');
+  $unset_active_css = $simplelogin_settings->get('unset_active_css', '');
+  $unset_css = $simplelogin_settings->get('unset_css', '');
+
+  switch ($arguments) {
+    case "color":
+      $simplelogin = $background_color ? $background_color : '#00bfff';
+    break;
+    case "image":
+      $fileRelativePath = '';
+      if (isset($background_image[0])){
+        $file = File::load($background_image[0]); // File Load
+        if ($file) {
+          $fileUrl = $file->getFileUri();
+          $fileRelativePath = \Drupal::service('file_url_generator')->generateString($fileUrl);
+        }
+      }
+      $simplelogin = $fileRelativePath;
+    break;
+    case "opacity":
+      $simplelogin = ($background_opacity && $background_active) ? 1 : '';
+    break;
+    case "active":
+      $simplelogin = $background_active ? 'active' : '';
+    break;
+    case "button_background":
+        $simplelogin = $button_background ? 1 : '';
+    break;
+    case "width":
+      $simplelogin = $wrapper_width ? $wrapper_width : '360';
+    break;
+    case 'unset_active_css':
+      $simplelogin = $unset_active_css ? $unset_active_css : '';
+    break;
+    case "unset_css":
+      $simplelogin = $unset_css ? $unset_css : '';
+    break;
+    default:
+    $simplelogin = '';
+  }
+  return $simplelogin;
+}
+
+/**
+ * Implements hook_theme_registry_alter
+ *
+ * {@inheritdoc}
+ */
+function simplelogin_theme_registry_alter(&$theme_registry) {
+  $path = \Drupal::service('extension.list.module')->getPath('simplelogin');
+  // Check if file exists in the theme directory.
+  $theme = \Drupal::theme()->getActiveTheme();
+  if (file_exists($theme->getPath().'/templates/page--simplelogin.html.twig')) {
+    $path = \Drupal::service('extension.list.theme')->getPath($theme->getName());
+  }
+
+  $theme_registry['page__simplelogin'] = array(
+    'preprocess functions' => array(
+      0 => 'simplelogin_preprocess_simplelogin',
+    ),
+    'template' => 'page--simplelogin',
+    'path' => $path. '/templates',
+    'render element' => 'page',
+    'type' => 'base_theme_engine',
+  );
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * {@inheritdoc}
+ */
+function simplelogin_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $types = array('textfield', 'email', 'textarea', 'password', 'container');
+  foreach ($form as $key => $value) {
+    switch ($form_id) {
+      case 'user_register_form':
+        foreach ($form['account'] as $key => $val) {
+          if (isset($form['account'][$key]['#type'])) {
+            if (in_array($form['account'][$key]['#type'], $types)) {
+              $form['account'][$key]['#attributes']["placeholder"] = $form['account'][$key]["#title"];
+              $form['account'][$key]['#title_display'] = 'invisible';
+              $form['account'][$key]['#description'] = '';
+            }
+          }
+        }
+       break;
+      case 'user_login_form':
+        $form['actions']['submit']['#value'] = t('Login to Account');
+      case 'user_pass':
+        if (isset($value['#type']) && in_array($value['#type'], $types)) {
+          $form[$key]['#attributes']["placeholder"] = $value["#title"];
+          $form[$key]['#title_display'] = 'invisible';
+          $form[$key]['#description'] = '';
+        }
+        break;
+    }
+  }
+  //if (\Drupal::moduleHandler()->moduleExists('captcha')) {
+    //$form['captcha']['#after_build'][] = 'simplelogin_set_captcha';
+  //}
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function simplelogin_element_info_alter(array &$types) {
+  if (isset($types['password_confirm'])) {
+    $types['password_confirm']['#process'][] = 'simplelogin_password_confirm';
+  }
+}
+
+/**
+ * Process the password_confirm element.
+ */
+function simplelogin_password_confirm($element) {
+  // hiding password title
+  $element['pass1']['#title_display'] = 'invisible';
+  $element['pass2']['#title_display'] = 'invisible';
+  // Adding placeholder
+  $element['pass1']["#placeholder"] = $element['pass1']['#title'];
+  $element['pass2']["#placeholder"] = $element['pass2']['#title'];
+
+  return $element;
+}
+
+/**
+ * Implements hook_css_alter().
+ *
+ * {@inheritdoc}
+ */
+function simplelogin_css_alter(&$css, AttachedAssetsInterface $assets) {
+  $current_user = \Drupal::currentUser();  // Whether the current user is anonymous or authenticated
+  if (!$current_user->id()) {
+    if (_simplelogin_is_path_supported()) {
+      $unset_css = simple_login_settings('unset_css');
+      $unset_css_array = explode("\n", $unset_css);
+      foreach ($unset_css_array as $key => $value) {
+        unset($css[trim($value)]);
+      }
+
+      // The active theme CSS files are removed from the simple login pages
+      $unset_active_css = simple_login_settings('unset_active_css');
+      if($unset_active_css) {
+        foreach ($css as $stylesheet => $value) {
+          $theme = \Drupal::theme()->getActiveTheme();
+          if (strstr($stylesheet, $theme->getPath())) {
+            unset($css[trim($value['data'])]);
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Returns whether the current path is supported by simplelogin.
+ */
+function _simplelogin_is_path_supported() {
+  $path = \Drupal::service('path.current')->getPath();
+  $user_path = ['/user', '/user/login', '/user/password', '/user/register'];
+  // Allow modules to alter the simplelogin path.
+  \Drupal::moduleHandler()->alter('simplelogin_paths', $user_path);
+
+  return in_array($path, $user_path, TRUE);
+}

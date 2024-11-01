@@ -1,0 +1,15 @@
+ultimenu.settings:
+  path: '/admin/structure/ultimenu'
+  defaults:
+    _form: '\Drupal\ultimenu\Form\UltimenuSettingsForm'
+    _title: Ultimenu
+  requirements:
+    _permission: 'administer ultimenu'
+
+ultimenu.ajax:
+  path: '/ultimenu/ajax'
+  defaults:
+    _controller: '\Drupal\ultimenu\Controller\UltimenuController::load'
+  requirements:
+    # The access will be checked against each block, also per menu item.
+    _access: 'TRUE'

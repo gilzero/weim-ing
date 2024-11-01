@@ -1,0 +1,5 @@
+services:
+  init_subscriber:
+    class: Drupal\ip2location\EventSubscriber\InitSubscriber
+    tags:
+      - { name: event_subscriber }

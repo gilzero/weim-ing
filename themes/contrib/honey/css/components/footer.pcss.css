@@ -1,0 +1,48 @@
+/**
+ * Page footer styles.
+ */
+
+@import "../base/variables.pcss.css";
+
+.honey-page__footer > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--site-content-max-width);
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-l);
+}
+
+.menu--footer .menu {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu--footer a {
+  text-decoration: none;
+  font-size: var(--font-size-h5);
+  font-weight: bold;
+}
+
+.menu--footer .menu-item {
+  margin-right: var(--space-l);
+}
+
+.menu--footer .menu-item:last-child {
+  margin-right: 0;
+}
+
+.menu--footer .menu a:hover {
+  text-decoration: underline;
+}
+
+.feed-icon {
+  background: url(feed.svg) no-repeat;
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+  display: inline-block;
+  text-indent: -9999px;
+}

@@ -1,0 +1,5 @@
+ultimenu.settings:
+  title: Ultimenu
+  parent: system.admin_structure
+  route_name: ultimenu.settings
+  description: 'Manage Ultimenu blocks and regions.'

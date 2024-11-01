@@ -1,0 +1,51 @@
+{#
+/**
+ * @file
+ * Drulma theme implementation to display a menu as a navbar.
+ */
+#}
+{% import _self as menus %}
+
+{#
+  We call a macro which calls itself to render the full tree.
+  @see http://twig.sensiolabs.org/doc/tags/macro.html
+#}
+<div {{ attributes }}>
+  {{ menus.menu_links(items, attributes, 0) }}
+</div>
+
+{% macro menu_links(items, attributes, menu_level) %}
+  {% import _self as menus %}
+  {% if items %}
+    {% for item in items %}
+      {% if item.below %}
+        <div class="navbar-item has-dropdown is-hoverable">
+          {%
+            set link_classes = [
+              'navbar-link',
+            ]
+          %}
+          {% if item.in_active_trail %}
+            {%
+              set link_classes = link_classes|merge(['is-active'])
+            %}
+          {% endif %}
+          {{ link(item.title, item.url, item.attributes.addClass(link_classes)) }}
+          <div class="navbar-dropdown">
+            {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+          </div>
+        </div>
+      {% else%}
+        {#
+        Support for menu_item_fields module.
+        @todo: Support items below.
+        #}
+        {% if item.content %}
+          {{ item.content }}
+        {% else%}
+          {{ link(item.title, item.url, item.attributes.addClass('navbar-item')) }}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endmacro %}

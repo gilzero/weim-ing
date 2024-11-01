@@ -1,0 +1,153 @@
+.style-guide {
+  code,
+  pre {
+    font-size: 14px;
+    line-height: 20px;
+    font-family: 'Roboto Mono', monospace;
+    background: darken($color-bg-body, 6);
+  }
+
+  &__example-block {
+    background: darken($color-bg-body, 8);
+    margin-bottom: $spacing * 2;
+    padding: $spacing * 1.5 $spacing * 2;
+  }
+
+  &__example-color {
+    width: 240px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding: $spacing;
+  }
+
+  &__section {
+    @extend .spacing-mb-small;
+  }
+
+  &__section + &__section {
+    @extend .spacing-pt-small;
+    border-top: 1px solid darken($color-bg-body, 20);
+  }
+
+  &__section-title {
+    @extend .block-title-standard;
+    margin-bottom: $spacing * 3;
+  }
+
+  &__section-subtitle {
+    @extend .block-title-small;
+    margin-top: $spacing * 3;
+    margin-bottom: $spacing * 3;
+  }
+
+  &__items {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: $spacing * 2;
+    margin-bottom: $spacing * 2;
+    margin-left: $spacing * -2;
+    margin-right: $spacing * -2;
+
+    &--stacked {
+      flex-direction: column;
+    }
+
+    &--v-centered {
+      align-items: center;
+    }
+
+    &.style-guide__item {
+      margin-left: 0;
+      margin-right: 0;
+      margin-top: $spacing;
+      margin-bottom: $spacing;
+    }
+  }
+
+  &__item {
+    margin: $spacing $spacing * 2;
+
+    .icon {
+      display: block;
+    }
+
+    &--bg-dark {
+      background: $color-bg-dark;
+    }
+
+    &--bg-primary {
+      background: $theme-primary;
+    }
+  }
+
+  &__code-snippet {
+    margin-top: $spacing * 2;
+    margin-bottom: $spacing * 2;
+
+    &.mb-dropdown {
+      border: 1px solid darken($color-bg-body, 10);
+    }
+
+    .mb-dropdown__toggle {
+      padding: ($spacing * 1.5) - 1 ($spacing * 2) - 1;
+    }
+
+    .mb-dropdown__panel {
+      position: static;
+      padding: ($spacing * 2) - 1;
+      background: darken($color-bg-body, 6);
+      border-top: 1px solid darken($color-bg-body, 10);
+    }
+
+    pre {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &__card-container {
+    max-width: $ms;
+  }
+
+  &__navbar {
+    position: static !important;
+  }
+
+  &__overlay {
+    position: relative;
+    max-width: 360px;
+    min-height: 480px;
+    border: 1px solid $color-border;
+  }
+
+  &__accordion {
+    .mb-accordion__section {
+      border: 1px solid darken($color-bg-body, 10);
+    }
+
+    .mb-accordion__section + .mb-accordion__section {
+      border-top: 0;
+    }
+
+    .mb-accordion__section-toggle {
+      padding: ($spacing * 2) - 1;
+    }
+
+    .mb-accordion__section-panel {
+      padding: ($spacing * 2) - 1;
+      background: darken($color-bg-body, 6);
+      border-top: 1px solid darken($color-bg-body, 10);
+    }
+  }
+
+  &__dropdown {
+    .mb-dropdown__panel {
+      padding: $spacing * 2;
+      border-radius: 4px;
+      box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12); // MDC z2
+    }
+  }
+}

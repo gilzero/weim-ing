@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Default implementation of the visitors overview report template.
+ *
+ * Available variables:
+ * - $data_url: complete url with params to get selected report.
+ */
+#}
+
+{% for data in data_url %}
+  {% if data.empty_text is not null %}
+      {{ data.empty_text}}
+
+  {% else %}
+
+<h2>{{ data.title }}</h2>
+<div class="widgetIframe"><iframe style="border: 0 none; width: 100%; height: {{ data.iframe_height}}px;" src="{{ data.url }}" scrolling="auto" frameborder="0"></iframe></div>
+  {% endif %}
+{% endfor %}

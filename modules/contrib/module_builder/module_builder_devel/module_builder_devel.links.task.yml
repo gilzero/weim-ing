@@ -1,0 +1,11 @@
+module_builder_devel.analyse_select:
+  route_name: module_builder_devel.analyse-select
+  title: 'Analyse selective'
+  base_route: entity.module_builder_module.collection
+  weight: 10
+
+module_builder_devel.analyse_test_samples:
+  route_name: module_builder_devel.analyse-test-samples
+  title: 'Update test sample data'
+  base_route: entity.module_builder_module.collection
+  weight: 15

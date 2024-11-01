@@ -1,0 +1,9 @@
+services:
+  smart_trim.truncate_html:
+    class: Drupal\smart_trim\TruncateHTML
+
+  smart_trim.twig_extension:
+    class: Drupal\smart_trim\SmartTrimTwigExtension
+    arguments: ['@smart_trim.truncate_html']
+    tags:
+      - { name: twig.extension }

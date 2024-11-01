@@ -1,0 +1,22 @@
+{
+    "name": "drupal/block_classes",
+    "description": "Allows assigning the classes to title, content of the Blocks.",
+    "type": "drupal-module",
+    "keywords": ["Drupal"],
+    "homepage": "https://www.drupal.org/project/block_classes",
+    "authors": [
+        {
+            "name": "Neslee Canil Pinto",
+            "homepage": "https://www.drupal.org/u/neslee-canil-pinto",
+            "role": "Maintainer"
+        }
+    ],
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/block_classes",
+        "source": "https://git.drupalcode.org/project/block_classes"
+    },
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "drupal/core": "^8 || ^9 || ^10 || ^11"
+    }
+}

@@ -1,0 +1,34 @@
+<?php
+
+use \Drupal\file\Entity\File;
+use \Drupal\image\Entity\ImageStyle;
+
+/**
+ * Implement template_preprocess_node().
+ */
+function editorial_html5_up_preprocess_node(&$variables) {
+  if (isset($variables['node']) &&
+    in_array($variables['node']->bundle(), ['article', 'book'])) {
+    $variables['content']['field_disqus']['#weight'] = 101;
+    $variables['content']['book_navigation']['#weight'] = 100;
+  }
+}
+
+/**
+ * Implement template_preprocess_page().
+ */
+function editorial_html5_up_preprocess_page(&$variables) {
+  if (isset($variables['node']) &&
+    in_array($variables['node']->bundle(), ['article', 'book', 'page', 'faq'])) {
+    if (isset($variables['node']->field_hero_image) && !empty($variables['node']->field_hero_image->target_id)) {
+      $file = File::load($variables['node']->field_hero_image->target_id);
+      $hero_image = $file->getFileUri();
+      $hero_image_mobile = ImageStyle::load('max_1300x1300')->buildUrl($hero_image);
+      $hero_image_desktop = ImageStyle::load('full_image')->buildUrl($hero_image);
+      $variables['hero_image_mobile'] = $hero_image_mobile;
+      $variables['hero_image_desktop'] = $hero_image_desktop;
+    }
+  }
+
+  $variables['logo'] = \Drupal::service('file_url_generator')->generateString(theme_get_setting('logo.url'));
+}

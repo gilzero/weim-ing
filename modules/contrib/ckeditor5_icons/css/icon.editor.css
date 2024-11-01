@@ -1,0 +1,302 @@
+/*
+ * == Icon widget styles ==
+ */
+
+.ck .ckeditor5-icons__widget {
+  line-height: 0.1em;
+}
+
+.ck .ckeditor5-icons__widget.fa-pull-left {
+  float: left;
+  margin-right: var(--fa-pull-margin, 0.3em);
+}
+
+.ck .ckeditor5-icons__widget.fa-pull-right {
+  float: right;
+  margin-left: var(--fa-pull-margin, 0.3em);
+}
+
+/*
+ * === Icon picker styles ===
+ */
+
+.ck .ck.ckeditor5-icons__picker {
+  width: var(--ck-dropdown-max-width);
+  max-width: 400px;
+}
+
+.ck .ck.ckeditor5-icons__picker-loading {
+  text-align: center;
+  font-size: var(--ck-icon-size);
+}
+
+/* header styles */
+
+.ck .ck.ckeditor5-icons__picker-header {
+  display: flex;
+  flex-flow: row wrap;
+  grid-gap: var(--ck-spacing-standard);
+  align-items: center;
+  justify-content: right;
+  height: auto;
+  min-height: 48px;
+  padding: var(--ck-spacing-small) var(--ck-spacing-large);
+}
+
+.ck .ck.ckeditor5-icons__picker-header > :nth-child(1) {
+  flex-grow: 1;
+}
+
+.ck .ck.ckeditor5-icons__picker-header > :nth-child(1) * {
+  line-height: 1.1em;
+}
+
+.ck
+  .ck.ckeditor5-icons__picker-header
+  > :nth-child(1)
+  > .ck.ckeditor5-icons__library-attr
+  > span {
+  display: inline-block;
+  margin-right: 0.3em;
+  vertical-align: baseline;
+  text-transform: uppercase;
+  opacity: 0.6;
+  font-size: var(--ck-font-size-tiny);
+}
+
+.ck
+  .ck.ckeditor5-icons__picker-header
+  > :nth-child(1)
+  > .ck.ckeditor5-icons__library-attr
+  > span
+  > svg {
+  display: inline-block;
+  height: 1em;
+  vertical-align: top;
+  font-size: 1em;
+}
+
+.ck .ck.ckeditor5-icons__picker-header > :nth-child(2) .ck.ck-dropdown__button {
+  width: auto;
+}
+
+.ck .ck.ckeditor5-icons__picker-header > :nth-child(2) .ck.ck-dropdown__panel {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+/* grid styles */
+
+.ck
+  .ck.ckeditor5-icons__grid
+  .ck.ckeditor5-icons__grid-options
+  .ck.ck-dropdown__panel {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 256px;
+}
+
+.ck .ck.ckeditor5-icons__grid .ck.ckeditor5-icons__grid-scrollable {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: calc(
+    (
+        var(--ck-icon-size) + var(--ck-spacing-tiny) * 2 +
+          var(--ck-spacing-standard)
+      ) * 5 + var(--ck-spacing-standard) * 2
+  );
+}
+
+.ck .ck.ckeditor5-icons__grid .ck.ckeditor5-icons__grid-items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: var(--ck-spacing-standard);
+  margin: var(--ck-spacing-standard) var(--ck-spacing-large);
+}
+
+.ck
+  .ck.ckeditor5-icons__grid
+  .ck.ckeditor5-icons__grid-items
+  .ck.ckeditor5-icons__grid-item
+  .ck.ck-button__label {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  text-overflow: ellipsis;
+}
+
+.ck
+  .ck.ckeditor5-icons__grid
+  .ck.ckeditor5-icons__grid-items
+  .ck.ckeditor5-icons__grid-item
+  .ck.ck-icon,
+.ck
+  .ck.ckeditor5-icons__grid
+  .ck.ckeditor5-icons__grid-items
+  .ck.ckeditor5-icons__grid-item
+  .ck.ckeditor5-icons__icon {
+  display: block;
+  width: var(--ck-icon-size);
+  height: var(--ck-icon-size);
+  margin-left: 0;
+  text-align: center;
+}
+
+.ck
+  .ck.ckeditor5-icons__grid
+  .ck.ckeditor5-icons__grid-items
+  .ck.ckeditor5-icons__grid-item
+  .ck.ckeditor5-icons__icon::before {
+  font-size: var(--ck-icon-size);
+  line-height: 1em;
+}
+
+.ck .ck.ckeditor5-icons__grid .ck.ckeditor5-icons__grid-options-top {
+  padding: var(--ck-spacing-small) var(--ck-spacing-large);
+  text-align: left;
+  border-bottom: 1px solid var(--ck-color-base-border);
+}
+
+.ck .ck.ckeditor5-icons__grid .ck.ckeditor5-icons__grid-options-bottom {
+  padding: var(--ck-spacing-small) var(--ck-spacing-large);
+  padding-top: 0;
+  text-align: center;
+}
+
+.ck .ck.ckeditor5-icons__grid .ck.ckeditor5-icons__grid-fallback {
+  padding: var(--ck-spacing-small) var(--ck-spacing-large);
+  white-space: normal;
+}
+
+.ck
+  .ck.ckeditor5-icons__grid
+  .ck.ckeditor5-icons__grid-options
+  .ck.ckeditor5-icons__grid-expand
+  .ck.ck-button__icon {
+  width: 1em;
+  height: var(--ck-dropdown-arrow-size);
+  margin-right: var(--ck-spacing-standard);
+  margin-left: 0;
+}
+
+/* footer styles */
+
+.ck .ck.ckeditor5-icons__picker-footer > div {
+  display: flex;
+  flex-flow: row wrap;
+  grid-gap: var(--ck-spacing-standard);
+  align-items: center;
+  justify-content: right;
+  height: auto;
+  padding: var(--ck-spacing-small) var(--ck-spacing-large);
+  border-top: 1px solid var(--ck-color-base-border);
+}
+
+.ck .ck.ckeditor5-icons__picker-footer > div > :nth-child(1) {
+  flex-grow: 1;
+}
+
+.ck .ck.ckeditor5-icons__picker-footer .ck.ckeditor5-icons__picker-search {
+  display: flex;
+  flex-direction: row;
+  grid-gap: var(--ck-spacing-tiny);
+  align-items: center;
+}
+
+.ck
+  .ck.ckeditor5-icons__picker-footer
+  .ck.ckeditor5-icons__picker-search
+  > :nth-child(1) {
+  flex-grow: 1;
+}
+
+.ck
+  .ck.ckeditor5-icons__picker-footer
+  .ck.ckeditor5-icons__picker-search
+  .ck.ck-input {
+  min-width: 100%;
+}
+
+.ck
+  .ck.ckeditor5-icons__picker-footer
+  > div
+  > .ck.ck-dropdown
+  .ck.ck-dropdown__button {
+  width: auto;
+}
+
+.ck
+  .ck.ckeditor5-icons__picker-footer
+  .ck.ckeditor5-icons__picker-search
+  > .ck.ck-button {
+  height: 1em;
+  margin-left: var(--ck-spacing-tiny);
+}
+
+.ck .ck.ckeditor5-icons__picker-footer .ck.ckeditor5-icons__picker-preview {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  grid-gap: var(--ck-spacing-small);
+  align-items: center;
+}
+
+.ck
+  .ck.ckeditor5-icons__picker-footer
+  .ck.ckeditor5-icons__picker-preview
+  .ck.ckeditor5-icons__icon-info {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.ck
+  .ck.ckeditor5-icons__picker-footer
+  .ck.ckeditor5-icons__picker-preview
+  .ck.ckeditor5-icons__icon-info
+  > span {
+  line-height: 1.1em;
+}
+
+.ck
+  .ck.ckeditor5-icons__picker-footer
+  .ck.ckeditor5-icons__picker-preview
+  .ck.ckeditor5-icons__icon-info
+  > .ck.ckeditor5-icons__icon-label {
+  white-space: normal;
+}
+
+.ck
+  .ck.ckeditor5-icons__picker-footer
+  .ck.ckeditor5-icons__picker-preview
+  .ck.ckeditor5-icons__icon-info
+  > .ck.ckeditor5-icons__icon-name {
+  opacity: 0.6;
+  font-size: var(--ck-font-size-small);
+}
+
+.ck
+  .ck.ckeditor5-icons__picker-footer
+  .ck.ckeditor5-icons__picker-preview
+  .ck.ckeditor5-icons__icon {
+  display: inline-block;
+  width: var(--ck-font-size-large);
+  height: var(--ck-font-size-large);
+  text-align: center;
+  vertical-align: middle;
+}
+
+.ck
+  .ck.ckeditor5-icons__picker-footer
+  .ck.ckeditor5-icons__picker-preview
+  .ck.ckeditor5-icons__icon::before {
+  font-size: var(--ck-font-size-large);
+  line-height: 1em;
+}
+
+.ck .ck.ckeditor5-icons__picker-footer .ck.ckeditor5-icons__picker-form {
+  display: flex;
+  flex-direction: row;
+  grid-gap: var(--ck-spacing-tiny);
+  justify-content: right;
+}

@@ -1,0 +1,14 @@
+{
+  "name": "drupal/eca_cm",
+  "type": "drupal-module",
+  "description": "A Drupal module that provides a modeller for ECA solely built on top of Drupal core and ECA core.",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://drupal.org/project/issues/eca_cm",
+    "source": "https://drupal.org/project/eca_cm"
+  },
+  "require": {
+    "drupal/eca": "^1 || ^2"
+  }
+}

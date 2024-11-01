@@ -1,0 +1,18 @@
+{%
+  set classes = [
+    'layout',
+    'section_layout',
+    'layout--hero',
+  ]
+%}
+{% if content %}
+  <section{{ attributes.addClass(classes) }}>
+    <div class="container">
+      {% if content.hero %}
+        <div {{ region_attributes.hero.addClass('layout__region', 'layout__region--hero') }}>
+          {{ content.hero }}
+        </div>
+      {% endif %}
+    </div>
+  </section>
+{% endif %}

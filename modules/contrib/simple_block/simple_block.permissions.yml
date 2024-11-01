@@ -1,0 +1,9 @@
+update simple blocks:
+  title: 'Edit simple blocks'
+  description: 'Allows a user to edit simple blocks.'
+clone simple blocks:
+  title: 'Clone simple blocks'
+  description: 'Allows a user to clone simple blocks.'
+delete simple blocks:
+  title: 'Delete simple blocks'
+  description: 'Allows a user to delete simple blocks.'

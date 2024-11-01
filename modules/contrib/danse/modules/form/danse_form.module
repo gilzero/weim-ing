@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * @file
+ * The DANSE Form module file.
+ */
+
+use Drupal\Component\Plugin\Exception\PluginException;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\danse_form\Plugin\Danse\Form;
+
+/**
+ * Get the DANSE Form plugin.
+ *
+ * @return \Drupal\danse_form\Plugin\Danse\Form|null
+ *   The DANSE Form plugin.
+ */
+function _danse_form_plugin(): ?Form {
+  try {
+    return Drupal::service('plugin.manager.danse.plugin')->createInstance('form');
+  }
+  catch (PluginException $e) {
+    // This can not happen and can be ignored.
+  }
+  return NULL;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function danse_form_form_alter(array &$form): void {
+  $form['#submit'][] = 'danse_form_submit_event';
+}
+
+/**
+ * Submit handler for DANSE forms.
+ *
+ * @param array $form
+ *   The form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ */
+function danse_form_submit_event(array $form, FormStateInterface $form_state): void {
+  if ($plugin = _danse_form_plugin()) {
+    $plugin->createFormEvent(Form::TOPIC_SUBMIT, $form, $form_state);
+  }
+}

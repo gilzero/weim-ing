@@ -1,0 +1,17 @@
+disable_login.settings_form:
+  path: '/admin/config/security/disable-login'
+  defaults:
+    _form: '\Drupal\disable_login\Form\SettingsForm'
+    _title: 'Disable Login Page Settings'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
+
+system.admin_config_security:
+  path: '/admin/config/security'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Security'
+  requirements:
+    _permission: 'administer site configuration'

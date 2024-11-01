@@ -1,0 +1,315 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the Material Base theme.
+ */
+
+use Drupal\block\Entity\Block;
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function material_base_preprocess_html(array &$variables) {
+
+  // Add body class for front and not front pages.
+  if (\Drupal::service('path.matcher')->isFrontPage()) {
+    $variables['attributes']['class'][] = 'front';
+  }
+  else {
+    $variables['attributes']['class'][] = 'not-front';
+  }
+
+  // Add page alias as body class.
+  $current_path = \Drupal::service('path.current')->getPath();
+  $current_alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+  $variables['attributes']['class'][] = 'page-' . Html::cleanCssIdentifier(ltrim($current_alias, '/'));
+
+  if (theme_get_setting('drawer_style') != 'permanent' and theme_get_setting('drawer_height') == 'below_navbar') {
+    $variables['attributes']['class'][] = 'drawer-below-navbar';
+  }
+
+  // Check for SVG sprite file.
+  $icons = '';
+  $icons_file = \Drupal::theme()->getActiveTheme()->getPath() . '/dist/images/icons.svg';
+
+  if (file_exists($icons_file)) {
+    // Get the contents of the SVG sprite.
+    $icons = file_get_contents($icons_file);
+  }
+  else {
+    // Use base theme SVG sprite file.
+    $icons_file = \Drupal::service('extension.list.theme')->getPath('material_base') . '/dist/images/icons.svg';
+    if (file_exists($icons_file)) {
+      // Get the contents of the SVG sprite.
+      $icons = file_get_contents($icons_file);
+    }
+  }
+
+  if ($icons) {
+    // Add SVG sprite to page_bottom.
+    $variables['page_bottom']['icons'] = [
+      '#type' => 'inline_template',
+      '#template' => '<span class="hidden">' . $icons . '</span>',
+    ];
+  }
+
+  $preconnect_google_fonts = [
+    '#tag' => 'link',
+    '#attributes' => [
+      'rel' => 'preconnect',
+      'href' => 'https://fonts.gstatic.com',
+      'crossorigin' => 1,
+    ],
+  ];
+
+  $preload_font_roboto = [
+    '#tag' => 'link',
+    '#attributes' => [
+      'rel' => 'preload',
+      'href' => 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap',
+      'as' => 'style',
+    ],
+  ];
+
+  $preload_font_material_icons = [
+    '#tag' => 'link',
+    '#attributes' => [
+      'rel' => 'preload',
+      'href' => 'https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp&display=block',
+      'as' => 'style',
+    ],
+  ];
+
+  $variables['page']['#attached']['html_head'][] = [
+    $preconnect_google_fonts,
+    'preconnect_google_fonts',
+  ];
+  $variables['page']['#attached']['html_head'][] = [
+    $preload_font_roboto,
+    'preload_font_roboto',
+  ];
+  $variables['page']['#attached']['html_head'][] = [
+    $preload_font_material_icons,
+    'preload_font_material_icons',
+  ];
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function material_base_preprocess_page(array &$variables) {
+
+  // Pass layout setting to template.
+  $variables['navbar_fixed'] = theme_get_setting('navbar_fixed');
+  $variables['navbar_style'] = theme_get_setting('navbar_style');
+  $variables['drawer_style'] = theme_get_setting('drawer_style');
+  $variables['drawer_height'] = theme_get_setting('drawer_height');
+  $variables['messages_fixed'] = theme_get_setting('messages_fixed');
+
+}
+
+/**
+ * Implements hook_preprocess_region().
+ */
+function material_base_preprocess_region(array &$variables) {
+
+  switch ($variables['region']) {
+    case 'navbar':
+      // Pass Navbar style settings to template.
+      $variables['navbar_fixed'] = theme_get_setting('navbar_fixed');
+      $variables['navbar_style'] = theme_get_setting('navbar_style');
+      // Pass logo path to template.
+      $variables['site_logo'] = \Drupal::service('file_url_generator')->generateString(theme_get_setting('logo.url'));
+      break;
+
+    case 'drawer':
+      // Pass style settings to template.
+      $variables['drawer_style'] = theme_get_setting('drawer_style');
+      $variables['drawer_height'] = theme_get_setting('drawer_height');
+      $variables['navbar_fixed'] = theme_get_setting('navbar_fixed');
+      $variables['navbar_style'] = theme_get_setting('navbar_style');
+      // Pass logo path to template.
+      $variables['site_logo'] = \Drupal::service('file_url_generator')->generateString(theme_get_setting('logo.url'));
+      break;
+
+    case 'footer':
+      // Pass Footer style setting to template.
+      $variables['footer_style'] = theme_get_setting('footer_style');
+      break;
+  }
+
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function material_base_preprocess_block(array &$variables) {
+
+  if (isset($variables['elements']['content']['#block_content'])) {
+    // Pass block type to template.
+    $variables['block_bundle'] = $variables['elements']['content']['#block_content']->bundle();
+
+    // Pass block object shortcut to template.
+    $variables['block_content'] = $variables['elements']['content']['#block_content'];
+  }
+
+  // Pass block config data to content so this can be used in menu element.
+  if (isset($variables['elements']['#id']) && $block = Block::load($variables['elements']['#id'])) {
+    $region = $block->getRegion();
+    $variables['content']['#attributes']['region'] = $region;
+    $settings = $block->get('settings');
+    if (isset($settings['depth'])) {
+      $variables['content']['#attributes']['menu_depth'] = $settings['depth'];
+    }
+  }
+
+}
+
+/**
+ * Implements hook_preprocess_menu().
+ */
+function material_base_preprocess_menu(array &$variables) {
+
+  // Pass menu depth to template.
+  if (isset($variables['attributes']['menu_depth'])) {
+    $variables['menu_depth'] = $variables['attributes']['menu_depth'];
+  }
+
+}
+
+/**
+ * Implements hook_preprocess_status_messages().
+ */
+function material_base_preprocess_status_messages(array &$variables) {
+
+  // Pass messages setting to template.
+  $variables['messages_fixed'] = theme_get_setting('messages_fixed');
+
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function material_base_theme_suggestions_page_alter(array &$suggestions, array &$variables) {
+
+  // Suggestion by page alias.
+  $current_path = \Drupal::service('path.current')->getPath();
+  $current_alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+  $suggestions[] = 'page__' . preg_replace('/\W+/', '_', strtolower(ltrim($current_alias, '/')));
+
+  // Suggestion for page manager.
+  // Source https://drupal.stackexchange.com/questions/211145/page-manager-panels-and-theme-suggestions
+  $request = \Drupal::routeMatch()->getRouteObject();
+  if ($request->getDefault('_entity_view') === 'page_manager_page_variant') {
+    $page_name = $request->getDefault('page_manager_page');
+    $page_variant = $request->getDefault('page_manager_page_variant');
+    $suggestions[] = 'page__page_manager';
+    $suggestions[] = 'page__page_manager__' . $page_name;
+    $suggestions[] = 'page__page_manager__' . $page_name . '__' . $page_variant;
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_node_alter().
+ */
+function material_base_theme_suggestions_node_alter(array &$suggestions, array $variables) {
+
+  // Suggestion by page alias.
+  $current_path = \Drupal::service('path.current')->getPath();
+  $current_alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+  $current_alias = preg_replace('/\W+/', '_', strtolower(ltrim($current_alias, '/')));
+  $suggestions[] = 'node__' . $current_alias;
+
+  if (isset($variables['elements']['#view_mode'])) {
+    $suggestions[] = 'node__' . $current_alias . '__' . $variables['elements']['#view_mode'];
+  }
+
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function material_base_theme_suggestions_block_alter(array &$suggestions, array $variables) {
+
+  // Region suggestions.
+  if (isset($variables['elements']['#id']) && $block = Block::load($variables['elements']['#id'])) {
+    $region = $block->getRegion();
+    $suggestions[] = 'block__' . $region;
+    $suggestions[] = 'block__' . $region . '__' . $variables['elements']['#base_plugin_id'];
+    $suggestions[] = 'block__' . $region . '__' . $variables['elements']['#id'];
+    $suggestions[] = 'block__' . $region . '__' . $variables['elements']['#base_plugin_id'] . '__' . $variables['elements']['#id'];
+  }
+
+  // Custom Blocks suggestions.
+  if ($variables['elements']['#base_plugin_id'] === 'block_content'
+    && isset($variables['elements']['content']['#block_content'])) {
+    $block_content = $variables['elements']['content']['#block_content'];
+    $bundle = $block_content->bundle();
+    $suggestions[] = 'block__' . $bundle;
+    // Blocks used in layout builder don't have configuration entity
+    // so don't have region defined.
+    if (!empty($region)) {
+      $suggestions[] = 'block__' . $region . '__' . $bundle;
+    }
+
+    // View mode suggestion.
+    if ($view_mode = $variables['elements']['content']['#view_mode']) {
+      $suggestions[] = 'block__' . $bundle . '__' . $view_mode;
+      if (!empty($region)) {
+        $suggestions[] = 'block__' . $region . '__' . $bundle . '__' . $view_mode;
+      }
+    }
+
+    // Block title suggetion, default one isn't working for page manager blocks.
+    $block_description = preg_replace('/\W+/', '_', strtolower($block_content->label()));
+    $suggestions[] = 'block__' . $block_description;
+  }
+
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function material_base_theme_suggestions_status_messages_alter(array &$suggestions, array &$variables) {
+
+  if (theme_get_setting('messages_fixed') == TRUE) {
+    $suggestions[] = 'status_messages__fixed';
+  }
+
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function material_base_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  $is_layout_buider_form = FALSE;
+  if ($form_id == 'entity_view_display_layout_builder_form') {
+    $is_layout_buider_form = TRUE;
+  }
+  elseif (substr($form_id, -20) == '_layout_builder_form') {
+    $is_layout_buider_form = TRUE;
+  }
+
+  if ($is_layout_buider_form) {
+    $form['actions']['#attributes']['class'][] = 'full-width';
+    $form['actions']['preview_toggle']['#attributes']['class'][] = 'full-width';
+  }
+
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function material_base_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
+
+  // Provide region based menu suggestions.
+  if (isset($variables['attributes']['region'])) {
+    $suggestions[] = 'menu__' . $variables['attributes']['region'];
+    $suggestions[] = 'menu__' . str_replace('-', '_', $variables['menu_name']) . '__' . $variables['attributes']['region'];
+  }
+
+}

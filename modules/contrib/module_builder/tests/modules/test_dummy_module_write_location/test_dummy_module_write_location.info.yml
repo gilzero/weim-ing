@@ -1,0 +1,11 @@
+name: 'Test Dummy Module Write Location'
+type: module
+description: Uses DCB's test sample data, and writes module files to a dummy location.
+package: Testing
+core: 8.x
+core_version_requirement: ^8 || ^9 || ^10 || ^11
+
+# Information added by Drupal.org packaging script on 2024-10-19
+version: '4.0.6'
+project: 'module_builder'
+datestamp: 1729364445

@@ -1,0 +1,79 @@
+<?php
+
+/**
+ * @file
+ * Install hooks for the Quicklink module.
+ */
+
+ /**
+  * Implements hook_uninstall().
+  */
+function quicklink_uninstall() {
+  // Delete config.
+  \Drupal::service('config.factory')
+    ->getEditable('quicklink.settings')
+    ->delete();
+}
+
+/**
+ * Migrate Quicklink config settings to new namespace.
+ */
+function quicklink_update_8501() {
+  $config_factory = \Drupal::configFactory();
+  $old_config = $config_factory->getEditable('quicklink.quicklinkconfig');
+  $new_config = $config_factory->getEditable('quicklink.settings');
+  $new_config
+    ->set('no_load_when_authenticated', $old_config->get('prefetch_for_anonymous_users_onl'))
+    ->set('selector', $old_config->get('selector'))
+    ->set('url_patterns_to_ignore', $old_config->get('url_patterns_to_ignore'))
+    ->set('ignore_admin_paths', $old_config->get('ignore_admin_paths'))
+    ->set('ignore_ajax_links', $old_config->get('ignore_ajax_links'))
+    ->set('ignore_hashes', $old_config->get('ignore_hashes'))
+    ->set('ignore_file_ext', $old_config->get('ignore_file_ext'))
+    ->set('allowed_domains', $old_config->get('allowed_domains'))
+    ->set('load_polyfill', $old_config->get('load_polyfill'))
+    ->set('no_load_when_session', $old_config->get('ignore_prefetch_session'))
+    ->save();
+
+  $old_config->delete();
+}
+
+/**
+ * Set default setting for existing sites.
+ */
+function quicklink_update_8502() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('quicklink.settings');
+  $no_load_content_types = $config->get('no_load_content_types');
+  // Only re-save the config if there is no pre-existing value.
+  if (!isset($no_load_content_types)) {
+    $config->set('no_load_content_types', [])->save();
+  }
+}
+
+/**
+ * Save default settings for new version 2 throttling and selector options.
+ */
+function quicklink_update_8903() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('quicklink.settings');
+  if (is_null($config->get('total_request_limit'))) {
+    $config->set('total_request_limit', 0)->save();
+  }
+
+  if (is_null($config->get('concurrency_throttle_limit'))) {
+    $config->set('concurrency_throttle_limit', 0)->save();
+  }
+
+  if (is_null($config->get('idle_wait_timeout'))) {
+    $config->set('idle_wait_timeout', 2000)->save();
+  }
+
+  if (is_null($config->get('viewport_delay'))) {
+    $config->set('viewport_delay', 0)->save();
+  }
+
+  if (is_null($config->get('ignore_selectors'))) {
+    $config->set('ignore_selectors', '')->save();
+  }
+}

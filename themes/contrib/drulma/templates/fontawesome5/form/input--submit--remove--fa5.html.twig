@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Drulma theme implementation for an submit 'input' #type form element.
+ *
+ * Fontawesome variation.
+ */
+#}
+{{ attach_library('lp_fontawesome/fontawesome') }}
+<div class="control has-icons-left">
+  <input{{ attributes.addClass(['is-danger']).removeClass('form-submit') }} />{{ children }}
+  <span class="icon is-left">
+    <i class="fas fa-trash-alt"></i>
+  </span>
+</div>

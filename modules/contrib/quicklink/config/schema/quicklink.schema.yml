@@ -1,0 +1,67 @@
+# Schema for the configuration files of the Quicklink module.
+quicklink.settings:
+  type: config_entity
+  label: 'Quicklink Configuration'
+  mapping:
+    # Prefetch Ignore Settings tab
+    ignore_admin_paths:
+      type: boolean
+      label: 'Do not prefetch admin paths'
+    ignore_ajax_links:
+      type: boolean
+      label: 'Do not prefetch AJAX links'
+    ignore_hashes:
+      type: boolean
+      label: 'Ignore paths with hashes (#) in them'
+    ignore_file_ext:
+      type: boolean
+      label: 'Ignore paths with file extensions'
+    url_patterns_to_ignore:
+      type: string
+      label: 'URL patterns to ignore'
+    ignore_selectors:
+      type: string
+      label: 'Ignore these selectors'
+    # Optional Overrides tab
+    selector:
+      type: string
+      label: 'Override parent selector'
+    allowed_domains:
+      type: string
+      label: 'Override allowed domains'
+    prefetch_only_paths:
+      type: string
+      label: 'Prefetch these paths only'
+    # When to Load Library tab
+    no_load_when_authenticated:
+      type: boolean
+      label: 'Prefetch for anonymous users only'
+    no_load_when_session:
+      type: boolean
+      label: 'Do not prefetch during sessions'
+    no_load_content_types:
+      type: sequence
+      label: 'Do not load library on these content types'
+      sequence:
+        type: string
+    # Throttle Options tab
+    total_request_limit:
+      type: integer
+      label: 'Total request limit'
+    concurrency_throttle_limit:
+      type: integer
+      label: 'Concurrency throttle limit'
+    viewport_delay:
+      type: integer
+      label: 'Viewport delay'
+    idle_wait_timeout:
+      type: integer
+      label: 'Idle wait timeout'
+    # Extended Browser Support tab
+    load_polyfill:
+      type: boolean
+      label: 'Load Intersection Observer polyfill'
+    # Debug tab
+    enable_debug_mode:
+      type: boolean
+      label: 'Enable debug mode'

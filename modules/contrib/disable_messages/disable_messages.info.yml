@@ -1,0 +1,11 @@
+name: Disable Messages
+description: 'Add options to filter messages shown to the end users'
+core: 8.x
+core_version_requirement: ">=8"
+type: module
+configure: disable_messages.settings_form
+
+# Information added by Drupal.org packaging script on 2022-04-29
+version: '2.1.1'
+project: 'disable_messages'
+datestamp: 1651204792

@@ -1,0 +1,13 @@
+webp.settings:
+  type: config_object
+  mapping:
+    quality:
+      type: integer
+      label: 'Image quality'
+
+imageapi_optimize.processor.webp_webp:
+  type: mapping
+  mapping:
+    quality:
+      label: 'Image quality'
+      type: integer

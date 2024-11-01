@@ -1,0 +1,31 @@
+# Schema for the configuration files of the hcaptcha module.
+
+hcaptcha.settings:
+  type: config_object
+  label: 'hCaptcha settings'
+  mapping:
+    site_key:
+      type: string
+      label: 'Site key'
+    secret_key:
+      type: string
+      label: 'Secret key'
+    hcaptcha_src:
+      type: string
+      label: 'hCaptcha javascript resource URL'
+    widget:
+      type: mapping
+      label: 'Widget settings'
+      mapping:
+        theme:
+          type: string
+          label: 'Theme'
+        size:
+          type: string
+          label: 'Size'
+        tabindex:
+          type: integer
+          label: 'Tabindex'
+        max_score:
+          type: float
+          label: 'Maximum score'

@@ -1,0 +1,12 @@
+name: Schemata in JSON Schema
+type: module
+description: Provides a data models for entity types and bundles in JSON schema format.
+core_version_requirement: ^9.5 || ^10 || ^11
+package: Web services
+dependencies:
+  - schemata:schemata
+
+# Information added by Drupal.org packaging script on 2024-09-12
+version: '8.x-1.0'
+project: 'schemata'
+datestamp: 1726164274

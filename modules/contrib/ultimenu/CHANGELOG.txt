@@ -1,0 +1,56 @@
+
+Ultimenu 3.x-dev, 2024-10-17
+----------------------------
+- Issue #3481036 by connbi: Circular reference detected for service
+  "logger.channel.default".
+- Issue #3467691 by adixon, wrd-oaitsd: External links in menu trigger "no
+  corresponding route" error.
+
+Ultimenu 3.x-dev, 2024-09-23
+----------------------------
+- Remove unused themes key from ultimenu.settings.
+- Removed uninstalled themes' references.
+- Fixed for schema.
+
+Ultimenu 3.x-dev, 2024-05-23
+----------------------------
+- Fixed for toolbar z-index.
+- Added sticky header option.
+- Added few caret skins.
+- Renamed offcanvas skin CSS files into sub-folder.
+- Changed some CSS values into variables for sanity and easy overrides.
+
+Ultimenu 3.x-dev, 2024-05-22
+----------------------------
+- Added supports for core <nolink>.
+- Added supports for non-linkable menu items.
+- Changed ultimenu__caret::before into ultimenu__caret::after to support unlink.
+- Fixed for nested collapsible sub-menus.
+
+Ultimenu 3.x-dev, 2024-05-21
+----------------------------
+- Renamed .ultimenu--hover to .is-ultihover to indicate states.
+- Reduced CSS complexity by removing hover classes on mobile.
+- Moved global off-canvas option into block admin. Be sure to re-save all forms.
+- Added supports for carets to replace hover.
+
+Ultimenu 3.x-dev, 2024-05-20
+----------------------------
+- Added supports for collapsible sub-menus.
+- Changed cumbersome CSS :root --ultimobile into touch device auto-detection.
+- Renamed is-ultimenu-item-expanded to is-uitem-expanded.
+- Renamed is-ultimenu-active to is-ulink-active for consistency.
+
+Ultimenu 3.x-dev, 2024-05-19
+----------------------------
+- Added supports for multiple off-canvases other than Main menu.
+- Added button--ultiburger CSS class to decouple Main menu.
+- Changed is-ultimenu-button-active into is-ubtn-active to be short.
+
+Ultimenu 3.x-dev, 2024-05-16
+----------------------------
+- Breaking changes for 3.0.2, see https://www.drupal.org/node/3447576.
+
+Ultimenu 3.x-dev, 2023-09-18
+----------------------------
+- Initial 3.x.

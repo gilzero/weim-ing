@@ -1,0 +1,12 @@
+type: module
+name: "ECA Classic Modeller"
+description: "A modeller for ECA solely built on top of Drupal core and ECA core."
+core_version_requirement: ^9 || ^10 || ^11
+package: ECA
+dependencies:
+  - eca:eca_ui
+
+# Information added by Drupal.org packaging script on 2024-08-03
+version: '1.0.10'
+project: 'eca_cm'
+datestamp: 1722681773

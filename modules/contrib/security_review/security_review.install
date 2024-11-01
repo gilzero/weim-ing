@@ -1,0 +1,144 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the security_review module.
+ */
+
+use Drupal\Core\Url;
+use Drupal\security_review\CheckResult;
+
+/**
+ * Implements hook_install().
+ */
+function security_review_install(): void {
+  // Don't do anything during config sync.
+  if (\Drupal::isConfigSyncing()) {
+    return;
+  }
+
+  // Remind the user to set the permissions.
+  \Drupal::messenger()->addMessage(
+    t('Security Review module enabled. You should first set the module access permissions at <a href=":url">admin/people/permissions</a>. Be sure to grant permissions to trusted users only as this module can show sensitive site information.',
+      [':url' => Url::fromRoute('user.admin_permissions')->toString()]
+    )
+  );
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function security_review_uninstall($is_syncing): void {
+  $state = \Drupal::state();
+
+  $keysToDelete = [
+    // See https://www.drupal.org/project/security_review/issues/3421614
+    'security_review.last_run',
+    'security_review.server.groups',
+    'security_review.server.uid',
+  ];
+
+  $perCheckStates = [
+    'result',
+    'findings',
+    'hushed_findings',
+    'time',
+    'visible',
+  ];
+
+  $checkList = \Drupal::service('plugin.manager.security_review.security_check');
+  foreach ($checkList->getChecks() as $check) {
+    $prefix = 'security_review.check.' . $check->getPluginId() . '.last_result.';
+    $keysToDelete = array_merge($keysToDelete, array_map(function ($state) use ($prefix) {
+      return $prefix . $state;
+    }, $perCheckStates));
+  }
+
+  $state->deleteMultiple($keysToDelete);
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function security_review_requirements($phase): array {
+  $requirements = [];
+
+  // Provides a Status Report entry.
+  if ($phase == 'runtime') {
+    $pluginManager = \Drupal::service('plugin.manager.security_review.security_check');
+
+    $failed_checks = FALSE;
+    $no_results = FALSE;
+
+    $checks = $pluginManager->getDefinitions();
+
+    if (empty($checks)) {
+      $no_results = TRUE;
+    }
+    else {
+      foreach ($checks as $check) {
+        $instance_check = $pluginManager->createInstance($check['id']);
+
+        $result = $instance_check->lastResult();
+        if (!empty($result) && $result['result'] === CheckResult::FAIL) {
+          $failed_checks = TRUE;
+          break;
+        }
+      }
+    }
+
+    $module_url = Url::fromRoute('security_review')->toString();
+    if ($no_results) {
+      $severity = REQUIREMENT_WARNING;
+      $value = t(
+        'The Security Review checklist has not been run. <a href=":url">Run the checklist</a>',
+        [':url' => $module_url]
+      );
+    }
+    elseif ($failed_checks) {
+      $severity = REQUIREMENT_WARNING;
+      $value = t(
+        'There are failed Security Review checks. <a href=":url">Review the checklist</a>',
+        [':url' => $module_url]
+      );
+    }
+    else {
+      $severity = REQUIREMENT_OK;
+      $value = t(
+        'Passing all non-ignored Security Review checks. <a href=":url">Review the checklist</a>',
+        [':url' => $module_url]
+      );
+    }
+    $requirements['security_review'] = [
+      'title' => t('Security Review'),
+      'severity' => $severity,
+      'value' => $value,
+    ];
+  }
+
+  return $requirements;
+}
+
+/**
+ * Implements hook_update_last_removed().
+ */
+function security_review_update_last_removed(): int {
+  return 10101;
+}
+
+/**
+ * Move the last run value to its new name.
+ */
+function security_review_update_10102(): void {
+  $state = \Drupal::state();
+  $lastRun = $state->get('last_run');
+
+  if (!is_null($lastRun)) {
+    $state->set('security_review.last_run', $lastRun);
+    // Let's clean up after ourselves. Although there is a very small chance
+    // this name is in use by something else (which we are now breaking), that
+    // would basically also be a mistake. The alternative is to leave thousands
+    // of sites with a stray variable in their state storage.
+    $state->delete('last_run');
+  }
+}

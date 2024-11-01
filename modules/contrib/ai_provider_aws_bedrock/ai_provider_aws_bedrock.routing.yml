@@ -1,0 +1,7 @@
+ai_provider_aws_bedrock.settings_form:
+  path: '/admin/config/ai/providers/aws_bedrock'
+  defaults:
+    _form: '\Drupal\ai_provider_aws_bedrock\Form\BedrockConfigForm'
+    _title: 'Setup AWS Bedrock Authentication'
+  requirements:
+    _permission: 'administer ai providers'

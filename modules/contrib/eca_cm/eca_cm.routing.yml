@@ -1,0 +1,79 @@
+eca_cm.add:
+  path: '/admin/config/workflow/eca/add/core'
+  defaults:
+    _controller: '\Drupal\eca_cm\Controller\CoreModeller::add'
+    _title: 'Add new Classic model'
+  requirements:
+    _permission: 'administer eca'
+
+eca_cm.event.add:
+  path: '/admin/config/workflow/eca/{eca}/event/add/{eca_event_plugin}'
+  defaults:
+    _controller: '\Drupal\eca_cm\Controller\CoreModeller::addEvent'
+    _title: 'Add event'
+  requirements:
+    _permission: 'administer eca'
+
+eca_cm.event.edit:
+  path: '/admin/config/workflow/eca/{eca}/event/{eca_event_id}/edit'
+  defaults:
+    _controller: '\Drupal\eca_cm\Controller\CoreModeller::editEvent'
+    _title: 'Edit event'
+  requirements:
+    _permission: 'administer eca'
+
+eca_cm.event.delete:
+  path: '/admin/config/workflow/eca/{eca}/event/{eca_event_id}/delete'
+  defaults:
+    _controller: '\Drupal\eca_cm\Controller\CoreModeller::deleteEvent'
+    _title: 'Delete event'
+  requirements:
+    _permission: 'administer eca'
+
+eca_cm.condition.add:
+  path: '/admin/config/workflow/eca/{eca}/condition/add/{eca_condition_plugin}'
+  defaults:
+    _controller: '\Drupal\eca_cm\Controller\CoreModeller::addCondition'
+    _title: 'Add condition'
+  requirements:
+    _permission: 'administer eca'
+
+eca_cm.condition.edit:
+  path: '/admin/config/workflow/eca/{eca}/condition/{eca_condition_id}/edit'
+  defaults:
+    _controller: '\Drupal\eca_cm\Controller\CoreModeller::editCondition'
+    _title: 'Edit condition'
+  requirements:
+    _permission: 'administer eca'
+
+eca_cm.condition.delete:
+  path: '/admin/config/workflow/eca/{eca}/condition/{eca_condition_id}/delete'
+  defaults:
+    _controller: '\Drupal\eca_cm\Controller\CoreModeller::deleteCondition'
+    _title: 'Delete condition'
+  requirements:
+    _permission: 'administer eca'
+
+eca_cm.action.add:
+  path: '/admin/config/workflow/eca/{eca}/action/add/{eca_action_plugin}'
+  defaults:
+    _controller: '\Drupal\eca_cm\Controller\CoreModeller::addAction'
+    _title: 'Add action'
+  requirements:
+    _permission: 'administer eca'
+
+eca_cm.action.edit:
+  path: '/admin/config/workflow/eca/{eca}/action/{eca_action_id}/edit'
+  defaults:
+    _controller: '\Drupal\eca_cm\Controller\CoreModeller::editAction'
+    _title: 'Edit action'
+  requirements:
+    _permission: 'administer eca'
+
+eca_cm.action.delete:
+  path: '/admin/config/workflow/eca/{eca}/action/{eca_action_id}/delete'
+  defaults:
+    _controller: '\Drupal\eca_cm\Controller\CoreModeller::deleteAction'
+    _title: 'Delete action'
+  requirements:
+    _permission: 'administer eca'

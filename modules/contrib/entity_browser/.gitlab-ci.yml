@@ -1,0 +1,29 @@
+# Use the DrupalCI templates.
+include:
+  ################
+  # DrupalCI includes:
+  # As long as you include this, any future includes added by the Drupal Association will be accessible to your pipelines automatically.
+  # View these include files at https://git.drupalcode.org/project/gitlab_templates/
+  ################
+  - project: $_GITLAB_TEMPLATES_REPO
+    ref: $_GITLAB_TEMPLATES_REF
+    file:
+      - '/includes/include.drupalci.main.yml'
+      - '/includes/include.drupalci.variables.yml'
+      - '/includes/include.drupalci.workflows.yml'
+
+#
+# Start custom overrides.
+#
+variables:
+  # Broaden test coverage.
+  OPT_IN_TEST_PREVIOUS_MINOR: 1
+  _PHPUNIT_CONCURRENT: 1
+
+composer (next major):
+  variables:
+    _LENIENT_ALLOW_LIST: "ckeditor,embed,entity_embed,inline_entity_form"
+
+phpunit (next major):
+  before_script:
+    - 'sed -i "s/core_version_requirement.*/core_version_requirement: \^11/" web/modules/contrib/**/*.info.yml'

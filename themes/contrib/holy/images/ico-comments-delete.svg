@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Vrstva_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-linecap: round;
+      }
+
+      .cls-1, .cls-2 {
+        stroke-width: 1.3px;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        fill: none;
+        stroke: #006894;
+        stroke-linejoin: round;
+      }
+
+      .cls-3 {
+        stroke-width: 3px;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M19.4233,9.9787v-3.9124c0-.744-.6031-1.3471-1.3471-1.3471H2.6223c-.744,0-1.3471.6031-1.3471,1.3471v9.109c0,.744.6031,1.3471,1.3471,1.3471h1.4915v3.5004c0,.4463.5194.6912.8637.4072l4.7024-3.9076h3.8094"/>
+  <line class="cls-2" x1="4.6369" y1="8.5589" x2="14.2477" y2="8.5589"/>
+  <line class="cls-2" x1="4.6369" y1="11.3382" x2="10.3493" y2="11.3382"/>
+  <g>
+    <line class="cls-3" x1="15.6216" y1="21.0597" x2="23.9237" y2="12.7576"/>
+    <line class="cls-3" x1="15.6212" y1="12.7574" x2="23.9214" y2="21.0591"/>
+  </g>
+</svg>

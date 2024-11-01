@@ -1,0 +1,12 @@
+# Schema for the configuration files of the Site Audit Report Entity module.
+site_audit_report_entity.settings:
+  type: config_object
+  label: 'Site Audit Report Entity settings'
+  mapping:
+    example:
+      type: string
+      label: 'Example'
+
+field.formatter.settings.site_audit_report_html:
+  type: mapping
+  label: 'HTML rendering of a report.'

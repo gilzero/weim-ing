@@ -1,0 +1,5 @@
+tavily.settings_menu:
+  title: "Tavily Config"
+  description: "Setup Tavily"
+  route_name: tavily.settings
+  parent: system.admin_config_services

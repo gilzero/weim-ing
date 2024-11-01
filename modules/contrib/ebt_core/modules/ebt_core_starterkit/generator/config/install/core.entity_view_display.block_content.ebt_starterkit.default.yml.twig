@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.{{ machine_name }}
+    - field.field.block_content.{{ machine_name }}.body
+    - field.field.block_content.{{ machine_name }}.field_ebt_settings
+  module:
+    - ebt_core
+    - text
+id: block_content.{{ machine_name }}.default
+targetEntityType: block_content
+bundle: {{ machine_name }}
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_ebt_settings:
+    type: ebt_settings_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

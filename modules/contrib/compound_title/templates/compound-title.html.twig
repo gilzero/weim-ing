@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * Default theme implementation for displaying a compound title.
+ *
+ * Available variables:
+ * - first_line: First line of text.
+ * - second_line: Second line of text.
+ *
+ * @see template_preprocess_compound_title()
+ *
+ * @ingroup themeable
+ */
+#}
+
+<{{ wrapper_tag }} class="compound-title-wrapper">
+	<span class="title-first-line">{{ first_line }}</span>
+	<span class="title-second-line">{{ second_line }}</span>
+</{{ wrapper_tag }}>

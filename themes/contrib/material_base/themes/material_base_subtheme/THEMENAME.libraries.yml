@@ -1,0 +1,25 @@
+theme:
+  css:
+    theme:
+      dist/css/theme.css: { minified: true }
+  js:
+    dist/js/theme.js: { minified: true }
+  dependencies:
+    - core/drupal
+    - core/once
+
+mdc:
+  css:
+    theme:
+      dist/css/mdc.css: { minified: true }
+  js:
+    https://unpkg.com/material-components-web@14.0.0/dist/material-components-web.min.js: { type: external, minified: true, weight: -1 }
+    dist/js/mdc.js: { minified: true }
+  dependencies:
+    - core/drupal
+    - core/once
+
+fonts:
+  css:
+    component:
+      dist/css/fonts.css: { minified: true }

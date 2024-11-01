@@ -1,0 +1,7 @@
+social_auth_spotify.settings_form:
+  path: 'admin/config/social-api/social-auth/spotify'
+  defaults:
+    _title: 'Social Auth Spotify settings'
+    _form: '\Drupal\social_auth_spotify\Form\SpotifyAuthSettingsForm'
+  requirements:
+    _permission: 'administer social api authentication'

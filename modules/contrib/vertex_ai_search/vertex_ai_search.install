@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Vertex AI Search installation file.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function vertex_ai_search_requirements($phase) {
+  if ($phase == 'install') {
+    // Check if the Google Cloud Discovery Engine Search Service Client Exists.
+    // This will attempt to autoload class, so we can bail out ASAP.
+    if (!class_exists('Google\Cloud\DiscoveryEngine\V1\Client\SearchServiceClient')) {
+      return [
+        'upgrade_status' => [
+          'title' => t('Vertex AI Search dependencies'),
+          'description' => t('Google DiscoveryEngine Client Libraries are not available.'),
+          'severity' => REQUIREMENT_ERROR,
+          'value' => t('Not available'),
+        ],
+      ];
+    }
+  }
+}

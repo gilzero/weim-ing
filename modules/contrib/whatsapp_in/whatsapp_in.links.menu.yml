@@ -1,0 +1,5 @@
+whatsapp_in.admin_settings_form:
+  title: 'Add WhatsApp number.'
+  route_name: whatsapp_in.phone_number
+  description: 'Form to add a WhatsApp number that opens a chat window for the specified number.'
+  parent: user.admin_index

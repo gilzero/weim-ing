@@ -1,0 +1,10 @@
+name: Simple Popup Blocks
+type: module
+description: Enable Simple popup blocks to show any block contents, forms or custom div in popup. Now Drupal 8/9 compatible. Originally created by Ameer Khan. This is a stable release of the 2.0 version.
+core_version_requirement: ^9.4 || ^10 || ^11
+package: Media
+configure: simple_popup_blocks.add
+# Information added by Drupal.org packaging script on 2024-10-01
+version: '8.x-3.4'
+project: 'simple_popup_blocks'
+datestamp: 1727806457

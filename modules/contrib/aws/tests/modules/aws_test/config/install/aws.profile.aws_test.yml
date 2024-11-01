@@ -1,0 +1,9 @@
+id: aws_test
+name: AWS Test
+default: 1
+aws_role_arn: arn:aws:iam::acount:role/TestRole
+aws_role_session_name: TestSessionName
+aws_access_key_id: TestAccessKey
+aws_secret_access_key: TestSecretKey
+region: us-east-1
+encryption_profile: _none

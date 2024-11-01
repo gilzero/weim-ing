@@ -1,0 +1,64 @@
+global-styling:
+  version: VERSION
+  css:
+    base:
+      css/base.css: {}
+    layout:
+      css/layout.css: {}
+    component:
+      css/core.css: {}
+      css/block.css: {}
+      css/font-icon.css: {}
+      css/header.css: {}
+      css/highlighted.css: {}
+      css/node.css: {}
+      css/search.css: {}
+      css/comments.css: {}
+      css/sidebar.css: {}
+      css/footer.css: {}
+      css/components.css: {}
+      css/elements.css: {}
+      css/shortcodes.css: {}
+      css/homepage.css: {}
+      css/clear.css: {}
+      css/extra.css: {}
+      css/responsive.css: {}
+  js:
+    js/thex.js: {}
+  dependencies:
+    - core/jquery
+
+# Book
+book:
+  version: VERSION
+  css:
+    component:
+      css/book.css: {}
+
+# FontAwesome 4
+fontawesome4:
+  version: 4.7.0
+  css:
+    component:
+      css/font-awesome.css: {}
+
+# FontAwesome 5
+fontawesome5:
+  version: 5.15.4
+  css:
+    component:
+      css/fontawesome5.css: {weight: -10}
+
+# Bootstrap Icons
+bootstrap-icons:
+  version: 1.10.5
+  css:
+    component:
+      css/bootstrap-icons.css: {}
+
+# maintenance page
+maintenance:
+  version: VERSION
+  css:
+    theme:
+      css/maintenance.css: {}

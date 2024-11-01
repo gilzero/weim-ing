@@ -1,0 +1,12 @@
+danse.settings:
+  title: DANSE
+  description: Configure audit, notifications, subscriptions and events.
+  parent: system.admin_config_system
+  route_name: danse.settings
+  weight: 10
+danse.reports:
+  title: DANSE Events
+  description: Browse all events.
+  parent: system.admin_reports
+  route_name: danse.reports
+  weight: 10

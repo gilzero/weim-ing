@@ -1,0 +1,13 @@
+name: 'Language Icons'
+description: 'Adds icons to language links.'
+dependencies:
+  - drupal:locale
+package: Multilingual
+core_version_requirement: ^9.5 || ^10 || ^11
+type: module
+configure: languageicons.settings
+
+# Information added by Drupal.org packaging script on 2024-06-27
+version: '2.0.0-beta5'
+project: 'languageicons'
+datestamp: 1719491754

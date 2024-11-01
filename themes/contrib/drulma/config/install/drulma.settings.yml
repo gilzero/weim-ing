@@ -1,0 +1,14 @@
+general:
+  wrap_content_in_container: true
+hero:
+  color: primary
+forms:
+  input_size: ''
+  label_size: ''
+  input_rounded: false
+table:
+  bordered: false
+  striped: false
+  narrow: false
+  hoverable: false
+  fullwidth: false

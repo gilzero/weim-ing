@@ -1,0 +1,105 @@
+<?php
+
+/**
+ * @file
+ * Contains unique_entity_title.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeTypeInterface;
+
+/**
+ * Implements hook_help().
+ */
+function unique_entity_title_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the unique_entity_title module.
+    case 'help.page.unique_entity_title':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Check the uniqueness of entity titles within a bundle.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function unique_entity_title_form_node_type_form_alter(&$form, FormStateInterface $form_state) {
+  $type = $form_state->getFormObject()->getEntity();
+  $form['unique_entity_title_settings'] = [
+    '#type' => 'details',
+    '#title' => t('Unique entity title settings'),
+    '#group' => 'additional_settings',
+    '#open' => TRUE,
+  ];
+  $form['unique_entity_title_settings']['enable'] = [
+    '#title' => t('Enable unique title for this bundle'),
+    '#description' => t('Enabling the unique title will ensure that the title of the node will be different for each content.'),
+    '#type' => 'checkbox',
+    '#default_value' => $type->getThirdPartySetting('unique_entity_title', 'enabled'),
+  ];
+  $form['#entity_builders'][] = 'unique_entity_title_form_node_type_form_builder';
+}
+
+/**
+ * Implements form builder for node type form.
+ */
+function unique_entity_title_form_node_type_form_builder($entity_type, NodeTypeInterface $type, &$form, FormStateInterface $form_state) {
+  $type->setThirdPartySetting('unique_entity_title', 'enabled', $form_state->getValue('enable'));
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function unique_entity_title_form_taxonomy_vocabulary_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $unique_entity_title = FALSE;
+  $unique_entity_title = \Drupal::config('unique_entity_title.settings')->get($form_state->getFormObject()->getEntity()->id() . '_taxonomy_unique');
+  $form['unique_entity_title_taxonomy_unique'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Terms should be unique.'),
+    '#default_value' => $unique_entity_title,
+  ];
+  $form['actions']['submit']['#submit'][] = 'unique_entity_title_taxonomy_form_vocabulary_submit';
+}
+
+/**
+ * Submit handler to save the vocabulary unique entity title settings.
+ */
+function unique_entity_title_taxonomy_form_vocabulary_submit($form, FormStateInterface $form_state) {
+  \Drupal::configFactory()->getEditable('unique_entity_title.settings')
+    ->set($form_state->getFormObject()->getEntity()->id() . '_taxonomy_unique', $form_state->getValue('unique_entity_title_taxonomy_unique'))
+    ->save();
+}
+
+/**
+ * Implements hook_entity_base_field_info_alter().
+ */
+function unique_entity_title_entity_base_field_info_alter(&$fields, EntityTypeInterface $entity_type) {
+  if ($entity_type->id() == 'node') {
+    // Adding a Unique entity title constraint.
+    $fields['title']->addConstraint("UniqueEntityTitle");
+  }
+  if ($entity_type->id() == 'taxonomy_term') {
+    // Adding a Unique entity title constraint.
+    $fields['name']->addConstraint("UniqueEntityTitle");
+  }
+}
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function unique_entity_title_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  if ($entity_type->id() == 'node') {
+    // If the Title is changed, then the field is now Configurable which should
+    // be altered through hook_entity_bundle_field_info_alter.
+    // Ref: https://www.drupal.org/docs/8/api/entity-api/defining-and-using-content-entity-field-definitions
+    if (isset($fields['title'])) {
+      $fields['title']->addConstraint("UniqueEntityTitle");
+    }
+  }
+}

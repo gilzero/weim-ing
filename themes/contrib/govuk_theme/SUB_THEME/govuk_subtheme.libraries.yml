@@ -1,0 +1,13 @@
+global-styling:
+  version: VERSION
+  js:
+    js/govuk.js: {}
+    js/global.js: {}
+  dependencies:
+    - core/jquery
+    - core/once
+    - core/drupal
+  css:
+    component:
+      css/style.css: {}
+      css/govuk.css: {}

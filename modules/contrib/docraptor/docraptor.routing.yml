@@ -1,0 +1,7 @@
+docraptor.settings:
+  path: '/admin/config/system/docraptor'
+  defaults:
+    _title: 'Docraptor settings'
+    _form: 'Drupal\docraptor\Form\DocraptorSettingsForm'
+  requirements:
+    _permission: 'administer docraptor settings'

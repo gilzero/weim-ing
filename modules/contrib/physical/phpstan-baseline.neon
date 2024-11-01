@@ -1,0 +1,28 @@
+parameters:
+	ignoreErrors:
+		-
+			message: """
+				#^Class Drupal\\\\physical\\\\Element\\\\Dimensions extends deprecated class Drupal\\\\Core\\\\Render\\\\Element\\\\FormElement\\:
+				in drupal\\:10\\.3\\.0 and is removed from drupal\\:12\\.0\\.0\\. use
+				  \\\\Drupal\\\\Core\\\\Render\\\\Element\\\\FormElementBase instead\\.$#
+			"""
+			count: 1
+			path: src/Element/Dimensions.php
+
+		-
+			message: """
+				#^Class Drupal\\\\physical\\\\Element\\\\Measurement extends deprecated class Drupal\\\\Core\\\\Render\\\\Element\\\\FormElement\\:
+				in drupal\\:10\\.3\\.0 and is removed from drupal\\:12\\.0\\.0\\. use
+				  \\\\Drupal\\\\Core\\\\Render\\\\Element\\\\FormElementBase instead\\.$#
+			"""
+			count: 1
+			path: src/Element/Measurement.php
+
+		-
+			message: """
+				#^Class Drupal\\\\physical\\\\Element\\\\Number extends deprecated class Drupal\\\\Core\\\\Render\\\\Element\\\\FormElement\\:
+				in drupal\\:10\\.3\\.0 and is removed from drupal\\:12\\.0\\.0\\. use
+				  \\\\Drupal\\\\Core\\\\Render\\\\Element\\\\FormElementBase instead\\.$#
+			"""
+			count: 1
+			path: src/Element/Number.php

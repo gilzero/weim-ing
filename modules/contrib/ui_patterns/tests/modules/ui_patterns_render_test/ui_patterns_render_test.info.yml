@@ -1,0 +1,9 @@
+name: 'UI Patterns Render Test'
+type: module
+description: 'Provides test patterns.'
+package: 'Testing'
+
+# Information added by Drupal.org packaging script on 2024-10-17
+version: '8.x-1.10'
+project: 'ui_patterns'
+datestamp: 1729182062

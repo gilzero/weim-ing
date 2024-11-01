@@ -1,0 +1,13 @@
+name: Site Audit Report Entity
+type: module
+description: Provides a Site Audit Report entity.
+package: Site Audit
+core_version_requirement: ^10 || ^11
+dependencies:
+  - site_audit
+  - serialization
+
+# Information added by Drupal.org packaging script on 2024-05-29
+version: '4.1.1'
+project: 'site_audit'
+datestamp: 1717015547

@@ -1,0 +1,108 @@
+@import 'libs/vars';
+@import 'libs/functions';
+@import 'libs/mixins';
+@import 'libs/vendor';
+@import 'libs/breakpoints';
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap&subset=cyrillic');
+
+
+
+
+@font-face {
+    font-family: 'Roboto Slab';
+    src: local('Roboto Slab Regular'), local('RobotoSlab-Regular'), url('../fonts/robotoslab/robotoslabregular.woff2') format('woff2'), url('../fonts/robotoslab/robotoslabregular.woff') format('woff'), url('../fonts/robotoslab/robotoslabregular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto Slab';
+    src: local('Roboto Slab Bold'), local('RobotoSlab-Bold'), url('../fonts/robotoslab/robotoslabbold.woff2') format('woff2'), url('../fonts/robotoslab/robotoslabbold.woff') format('woff'), url('../fonts/robotoslab/robotoslabbold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Open Sans';
+    src: local('Open Sans'), local('OpenSans'), url('../fonts/opensans/opensans.woff2') format('woff2'), url('../fonts/opensans/opensans.woff') format('woff'), url('../fonts/opensans/opensans.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Open Sans';
+    src: local('Open Sans Italic'), local('OpenSans-Italic'), url('../fonts/opensans/opensansitalic.woff2') format('woff2'), url('../fonts/opensans/opensansitalic.woff') format('woff'), url('../fonts/opensans/opensansitalic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Open Sans';
+    src: local('Open Sans Bold'), local('OpenSans-Bold'), url('../fonts/opensans/opensansbold.woff2') format('woff2'), url('../fonts/opensans/opensansbold.woff') format('woff'), url('../fonts/opensans/opensansbold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Open Sans';
+    src: local('Open Sans Bold Italic'), local('OpenSans-BoldItalic'), url('../fonts/opensans/opensansbolditalic.woff2') format('woff2'), url('../fonts/opensans/opensansbolditalic.woff') format('woff'), url('../fonts/opensans/opensansbolditalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+}
+
+/*
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+*/
+
+// Breakpoints.
+
+	@include breakpoints((
+		xlarge:   ( 1281px,  1680px ),
+		large:    ( 981px,   1280px ),
+		medium:   ( 737px,   980px  ),
+		small:    ( 481px,   736px  ),
+		xsmall:   ( 361px,   480px  ),
+		xxsmall:  ( null,    360px  ),
+		xlarge-to-max:    '(min-width: 1681px)',
+		small-to-xlarge:  '(min-width: 481px) and (max-width: 1680px)'
+	));
+
+// Base.
+
+	@import 'base/reset';
+	@import 'base/page';
+	@import 'base/typography';
+
+// Component.
+
+	@import 'components/blog';
+	@import 'components/button';
+	@import 'components/comments';
+  @import 'components/cookie';
+	@import 'components/box';
+	@import 'components/section';
+	@import 'components/form';
+  @import 'components/hero_image';
+	@import 'components/tags';
+	@import 'components/image';
+	@import 'components/fields';
+	@import 'components/social-media';
+  @import 'components/tabs';
+	@import 'components/search';
+	@import 'components/list';
+	@import 'components/pagination';
+	@import 'components/navigation';
+	@import 'components/view';
+	@import 'components/vote';
+
+// Layout.
+
+	@import 'layout/wrapper';
+	@import 'layout/main';
+	@import 'layout/sidebar';
+	@import 'layout/banner';
+	@import 'layout/footer';
+	@import 'layout/menu';
+
+// Blocks.
+  @import 'blocks/articles_menu';

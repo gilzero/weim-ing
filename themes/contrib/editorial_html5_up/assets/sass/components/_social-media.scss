@@ -1,0 +1,49 @@
+//* custom *//
+
+    .social-media{
+        margin: 10px 0;
+        overflow: hidden;
+        float: right;
+
+        a {
+            width: 40px;
+            height: 40px;
+            color: #fff;
+            float: left;
+            margin: 0 10px 0 0;
+            text-align: center;
+            background: #3262b9;
+            line-height: 40px;
+            font-size: 22px;
+            border-radius: 50%;
+            
+            &:hover {
+                color: #fff !important;
+            }
+            &.google-plus{
+            background: #de2020;
+            }
+            &.twitter{
+            background: #29C5F6;
+            }
+            &.linkedin{
+            background: #069;
+            }
+
+            &.pinterest{
+            background: #C61118;
+            }
+
+            &.rss{
+            background: #FF6D00;
+            }
+
+            &:hover{
+            opacity: .6;
+            }
+        }
+    }
+
+    .credit-link {
+        text-align: right;
+    }

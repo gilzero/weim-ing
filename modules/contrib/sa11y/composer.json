@@ -1,0 +1,17 @@
+{
+    "name": "drupal/sa11y",
+    "description": "Adds Sa11y accessibility checker to Drupal sites",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Mark Conroy",
+            "email": "mark@mark.ie"
+        },
+        {
+            "name": "Code Enigma",
+            "email": "info@codeenigma.com"
+        }
+    ],
+    "homepage": "https://drupal.org/project/sa11y"
+}

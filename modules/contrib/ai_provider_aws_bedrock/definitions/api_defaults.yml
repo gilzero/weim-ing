@@ -1,0 +1,54 @@
+chat:
+  input:
+    description: 'Input provided to the model.'
+    type: 'array'
+    default:
+      - { role: "system", content: "You are a helpful assistant." }
+      - { role: "user", content: "Introduce yourself!" }
+    required: true
+  authentication:
+    description: 'Bedrock Profile.'
+    type: 'string'
+    default: ''
+    required: true
+  configuration:
+    max_tokens:
+      label: 'Max Tokens'
+      description: 'The maximum number of tokens that can be generated in the chat completion.'
+      type: 'integer'
+      default: 256
+      required: false
+    temperature:
+      label: 'Temperature'
+      description: 'Sampling temperature 0-1. Higher values mean more random output.'
+      type: 'float'
+      default: 0.7
+      required: false
+      constraints:
+        min: 0
+        max: 1
+        step: 0.01
+text_to_image:
+  input:
+    description: 'Image generation prompt.'
+    type: 'string'
+    default: 'A beautiful sunset over the city.'
+    required: true
+  authentication:
+    description: 'Bedrock Profile.'
+    type: 'string'
+    default: ''
+    required: true
+  configuration:
+embeddings:
+  input:
+    description: 'Textual representation of the speech.'
+    type: 'string'
+    default: 'Once upon a time in London.'
+    required: true
+  authentication:
+    description: 'Bedrock Profile.'
+    type: 'string'
+    default: ''
+    required: true
+  configuration:

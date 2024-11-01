@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Theme implementation to display a list of links.
+ *
+ * From the module: section_navigation.
+ *
+ * Available variables:
+ * - links: A collection of links.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="tabs is-toggle">
+  <ul>
+  {% for link in links %}
+    <li>
+      {{ link }}
+    </li>
+  {% endfor %}
+  </ul>
+</div>

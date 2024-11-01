@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @file
+ * A test module which implements the hooks defined by Regcode.
+ *
+ * See regcode.api.php for a description of these hooks and how they
+ * are expected to work.
+ */
+
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_regcode_used().
+ *
+ * Called when a registration code is used.
+ */
+function regcode_alterer_regcode_used(object $code, UserInterface $account): void {
+  if (is_object($code)) {
+    \Drupal::messenger()->addStatus("Thanks {$account->getAccountName()}, the code '$code->rid' was used.");
+  }
+}
+
+/**
+ * Implements hook_regcode_presave().
+ *
+ * Called when a new registration code is created.
+ */
+function regcode_alterer_regcode_presave(object $code): void {
+  if ($code) {
+    // $code->rid is not valid until AFTER the save is complete, so we can't
+    // use it in this presave hook.
+    \Drupal::messenger()->addStatus("The code '$code->code' was created.");
+  }
+}
+
+/**
+ * Implements hook_regcode_load().
+ *
+ * Changes the regcode data that is being loaded.
+ */
+function regcode_alterer_regcode_load(array $code): void {
+  foreach ($code as $rid => $regcode) {
+    \Drupal::messenger()->addStatus("The code '$rid' was loaded.");
+  }
+}

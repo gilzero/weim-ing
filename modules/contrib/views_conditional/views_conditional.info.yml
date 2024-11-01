@@ -1,0 +1,12 @@
+name: Views Conditional
+type: module
+description: 'Allows conditional views output.'
+dependencies:
+  - drupal:views
+package: Views
+core_version_requirement: ^9 || ^10 || ^11
+
+# Information added by Drupal.org packaging script on 2024-06-01
+version: '8.x-1.10'
+project: 'views_conditional'
+datestamp: 1717201346

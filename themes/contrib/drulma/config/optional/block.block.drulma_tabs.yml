@@ -1,0 +1,22 @@
+status: true
+dependencies:
+  module:
+    - drulma_companion
+  theme:
+    - drulma
+id: drulma_tabs
+theme: drulma
+region: secondary_menu
+weight: 0
+provider: null
+plugin: drulma_companion_local_tasks_block
+settings:
+  id: drulma_companion_local_tasks_block
+  label: 'Bulma Tabs'
+  provider: drulma_companion
+  label_display: '0'
+  primary: 1
+  secondary: 1
+  horizontally_centered: 1
+  fullwidth: 0
+visibility: {  }

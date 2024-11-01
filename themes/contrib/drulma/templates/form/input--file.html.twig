@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Drulma theme implementation for a file 'input' #type form element.
+ */
+#}
+{{ attach_library('drulma/drulmajs') }}
+<div class="control">
+  <div class="file has-name">
+    <label class="file-label">
+      <input{{ attributes.addClass('file-input') }} />{{ children }}
+      <span class="file-cta">
+        {% block icon %}
+        {% endblock %}
+        <span class="file-label">
+          {{ 'Choose a file…'|t }}
+        </span>
+      </span>
+      <span class="file-name">
+        {{ 'No file selected'|t }}
+      </span>
+    </label>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+push_framework.settings:
+  title: Push Framework
+  parent: system.admin_config_system
+  route_name: push_framework.settings
+  weight: 10

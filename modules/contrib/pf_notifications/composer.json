@@ -1,0 +1,46 @@
+{
+  "name": "drupal/pf_notifications",
+  "description": "Provides web push notifications. Implements WebPush, DANSE and Push framework.",
+  "type": "drupal-module",
+  "homepage": "https://www.drupal.org/project/pf_notifications",
+  "license": "GPL-2.0-or-later",
+  "keywords": [
+    "Drupal",
+    "web push",
+    "notifications",
+    "push notifications",
+    "browser push notifications",
+    "Push framework notifications"
+  ],
+  "require": {
+    "php": ">=8.1",
+    "ext-mbstring": "*",
+    "ext-curl": "*",
+    "ext-openssl": "*",
+    "minishlink/web-push": "^9.0",
+    "drupal/push_framework": "^2.3",
+    "drupal/danse": "^2.3"
+  },
+  "minimum-stability": "dev",
+  "extra": {
+    "branch-alias": {
+      "dev-1.0.x": "1.0.x-dev"
+    }
+  },
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/pf_notifications",
+    "source": "https://git.drupalcode.org/project/pf_notifications"
+  },
+  "authors": [
+    {
+        "name": "nk_",
+        "homepage": "https://www.drupal.org/u/nk_",
+        "role": "Developer and maintainer"
+    },
+    {
+      "name": "Sebastian Hagens",
+      "homepage": "https://www.drupal.org/u/sebastian-hagens",
+      "role": "Contributor"
+    }
+  ]
+}

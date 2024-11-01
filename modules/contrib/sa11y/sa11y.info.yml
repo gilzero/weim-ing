@@ -1,0 +1,9 @@
+name: Sa11y
+type: module
+description: Applies the Sa11y accessibility checker.
+core_version_requirement: ^10 || ^11
+
+# Information added by Drupal.org packaging script on 2024-10-18
+version: '3.0.1'
+project: 'sa11y'
+datestamp: 1729265149

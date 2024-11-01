@@ -1,0 +1,38 @@
+{
+  "name": "belgrade",
+  "version": "1.0.9",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "nodemon -e twig,scss -x \"npm run build\"",
+    "css-compile": "sass --load-path=node_modules --style expanded --source-map --embed-sources --no-error-css scss/:css/",
+    "css-prefix": "postcss -u postcss-inline-svg autoprefixer -r 'css/**/*.css' --no-map",
+    "build": "npm-run-all css-compile css-prefix",
+    "icons-sprite": "svg-sprite --svg-namespace-classnames false --symbol --symbol-dest . --symbol-sprite images/belgrade-icons.svg icons/*.svg"
+  },
+  "keywords": [
+    "drupal8",
+    "theme",
+    "bootstrap",
+    "bootstrap icons"
+  ],
+  "repository": "git@git.drupal.org:project/belgrade.git",
+  "author": "majmunbog <ivan@centarro.io>",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/ibuisic/belgrade/issues"
+  },
+  "homepage": "https://github.com/ibuisic/source#readme",
+  "devDependencies": {
+    "@popperjs/core": "^2.9.2",
+    "autoprefixer": "10.4.16",
+    "bootstrap": "5.2.1",
+    "bootstrap-icons": "^1.11.1",
+    "nodemon": "^3.0.1",
+    "npm-run-all": "^4.1.5",
+    "postcss-inline-svg": "^6.0.0",
+    "postcss-cli": "^10.1.0",
+    "sass": "1.32.13",
+    "svg-sprite": "^2.0.2"
+  }
+}

@@ -1,0 +1,13 @@
+{
+    "name": "drupal/module_builder",
+    "type": "drupal-module",
+    "description": "Generates code for Drupal modules.",
+    "homepage": "http://drupal.org/project/module_builder",
+    "license": "GPL-2.0+",
+    "require": {
+        "drupal-code-builder/drupal-code-builder": "^4.4"
+    },
+    "conflict": {
+      "drupal/core": "<8.4"
+    }
+}

@@ -1,0 +1,13 @@
+.layout {
+  margin: 0 0 30px 0;
+
+  @media (max-width: $screen-sm-max) {
+    display: block;
+  }
+
+  @media (min-width: $screen-md-min) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+}

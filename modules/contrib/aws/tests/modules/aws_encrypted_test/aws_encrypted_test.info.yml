@@ -1,0 +1,12 @@
+name: 'Amazon Web Services Encrypted Test'
+description: 'Amazon Web Services encrypted test module.'
+type: module
+core_version_requirement: ^9.2 || ^10 || ^11
+
+dependencies:
+  - aws:aws
+
+# Information added by Drupal.org packaging script on 2024-09-04
+version: '2.0.4'
+project: 'aws'
+datestamp: 1725464635

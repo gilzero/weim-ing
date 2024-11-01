@@ -1,0 +1,145 @@
+ebt_core.settings:
+  type: config_object
+  label: Extra Block Types (EBT) settings
+  mapping:
+    ebt_core_primary_color:
+      type: string
+      label: 'Primary Color'
+    ebt_core_primary_button_text_color:
+      type: string
+      label: 'Primary Button Text color'
+    ebt_core_secondary_color:
+      type: string
+      label: 'Secondary Color'
+    ebt_core_secondary_button_text_color:
+      type: string
+      label: 'Secondary Button Text color'
+    ebt_core_mobile_breakpoint:
+      type: string
+      label: 'Mobile breakpoint'
+    ebt_core_tablet_breakpoint:
+      type: string
+      label: 'Tablet breakpoint'
+    ebt_core_desktop_breakpoint:
+      type: string
+      label: 'Desktop breakpoint'
+    ebt_core_xxsmall_width:
+      type: string
+      label: 'xxSmall width'
+    ebt_core_xsmall_width:
+      type: string
+      label: 'xSmall width'
+    ebt_core_small_width:
+      type: string
+      label: 'Small width'
+    ebt_core_default_width:
+      type: string
+      label: 'Default width'
+    ebt_core_large_width:
+      type: string
+      label: 'Large width'
+    ebt_core_xlarge_width:
+      type: string
+      label: 'xLarge width'
+    ebt_core_xxlarge_width:
+      type: string
+      label: 'xxLarge width'
+    ebt_core_background_color:
+      type: string
+      label: 'Background color'
+
+field.storage_settings.ebt_settings:
+  type: mapping
+  label: 'EBT Settings field settings'
+
+field.value.ebt_settings:
+  type: mapping
+  label: 'EBT Settings default value'
+  mapping:
+    ebt_settings:
+      type: mapping
+      label: 'EBT Settings'
+      mapping:
+        pass_options_to_javascript:
+          type: boolean
+          label: 'Pass options to Javascript'
+        design_options:
+          type: mapping
+          label: 'Design options'
+          mapping:
+            box1:
+              type: mapping
+              label: 'Box 1'
+              mapping:
+                margin_top:
+                  type: string
+                  label: 'Margin Top'
+                margin_right:
+                  type: string
+                  label: 'Margin Right'
+                margin_bottom:
+                  type: string
+                  label: 'Margin Bottom'
+                margin_left:
+                  type: string
+                  label: 'Margin Left'
+                box2:
+                  type: mapping
+                  label: 'Box 2'
+                  mapping:
+                    border_top:
+                      type: string
+                      label: 'Border Top'
+                    border_right:
+                      type: string
+                      label: 'Border Right'
+                    border_bottom:
+                      type: string
+                      label: 'Border Bottom'
+                    border_left:
+                      type: string
+                      label: 'Border Left'
+                    box3:
+                      type: mapping
+                      label: 'Box 3'
+                      mapping:
+                        padding_top:
+                          type: string
+                          label: 'Padding Top'
+                        padding_right:
+                          type: string
+                          label: 'Padding Right'
+                        padding_bottom:
+                          type: string
+                          label: 'Padding Bottom'
+                        padding_left:
+                          type: string
+                          label: 'Padding Left'
+            other_settings:
+              type: mapping
+              label: 'Other Settings'
+              mapping:
+                border_color:
+                  type: string
+                  label: 'Border Color'
+                border_style:
+                  type: string
+                  label: 'Border Style'
+                border_radius:
+                  type: string
+                  label: 'Border Radius'
+                background_color:
+                  type: string
+                  label: 'Background Color'
+                background_media:
+                  type: string
+                  label: 'Background Media'
+                background_image_style:
+                  type: string
+                  label: 'Background Image Style'
+                edge_to_edge:
+                  type: integer
+                  label: 'Edge to Edge'
+                container_width:
+                  type: string
+                  label: 'Container Width'

@@ -1,0 +1,31 @@
+.block-local-tasks-block {
+  padding: 0;
+  top: 220px;
+  position: fixed;
+  width: auto;
+  left: 0;
+  z-index: 1055;
+}
+.block-local-tasks-block .nav-tabs {
+  display: flex;
+  border: 1px solid var(--beo-light);
+  flex-direction: column;
+  background-color: transparent;
+}
+.block-local-tasks-block .nav-item + .nav-item {
+  border-top: 1px solid var(--beo-white);
+}
+.block-local-tasks-block .nav-link {
+  opacity: 0.9;
+  margin-bottom: 0;
+  background-color: var(--beo-white);
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.875rem;
+  border-radius: 0;
+}
+.block-local-tasks-block .nav-link.active {
+  opacity: 1;
+  background-color: var(--beo-white);
+  border: 0;
+}

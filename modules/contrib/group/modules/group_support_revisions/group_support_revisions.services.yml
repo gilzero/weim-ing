@@ -1,0 +1,7 @@
+services:
+  # Decorating group relation handlers.
+  group.relation_handler_decorator.permission_provider.support_revisions:
+    class: 'Drupal\group_support_revisions\Plugin\Group\RelationHandler\SupportRevisionsPermissionProvider'
+    decorates: 'group.relation_handler.permission_provider'
+    decoration_priority: 50
+    arguments: ['@group.relation_handler_decorator.permission_provider.support_revisions.inner']

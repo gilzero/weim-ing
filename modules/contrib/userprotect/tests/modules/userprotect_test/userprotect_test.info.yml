@@ -1,0 +1,11 @@
+name: User protect test
+type: module
+description: 'Support module for the User protect tests.'
+package: Testing
+dependencies:
+  - userprotect:userprotect
+
+# Information added by Drupal.org packaging script on 2024-07-04
+version: '8.x-1.3'
+project: 'userprotect'
+datestamp: 1720107442

@@ -1,0 +1,337 @@
+<?php
+
+/**
+ * @file
+ * Contains ui_patterns_settings.module.
+ */
+
+use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\Url;
+use Drupal\field\FieldStorageConfigInterface;
+use Drupal\ui_patterns_settings\Plugin\PatternSettingTypeBase;
+use Drupal\ui_patterns_settings\Plugin\Layout\PatternSettingsLayout;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\ui_patterns_settings\UiPatternsSettings;
+use Drupal\ui_patterns\UiPatterns;
+use Drupal\ui_patterns\Definition\PatternDefinition;
+use Drupal\ui_patterns_settings\Form\SettingsFormBuilder;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
+use Drupal\media_library\MediaLibraryUiBuilder;
+
+/**
+ * Implements hook_ui_patterns_layouts_display_settings_form_alter().
+ */
+function ui_patterns_settings_ui_patterns_layouts_display_settings_form_alter(&$form, PatternDefinition $definition, $configuration) {
+  SettingsFormBuilder::layoutForm($form, $definition, $configuration);
+}
+
+function ui_patterns_settings_build_media_edit_button($media_id) {
+  $media_entity_type = \Drupal::entityTypeManager()->getStorage('media')->getEntityType();
+  $edit_template = $media_entity_type->getLinkTemplate('edit-form');
+  $edit_url_query_params = [
+    'media_library_edit' => 'ajax',
+    'media_library_edit_entity_id' => $media_id,
+  ];
+  $edit_url = Url::fromUserInput(str_replace('{media}', $media_id, $edit_template) . '?' . UrlHelper::buildQuery($edit_url_query_params));
+  $dialog_options = MediaLibraryUiBuilder::dialogOptions();
+  return [
+    '#type' => 'link',
+    '#title' => '',
+    '#url' => $edit_url,
+    '#attributes' => [
+      'class' => [
+        'js-media-library-edit-link',
+        'media-library-edit__link',
+        'use-ajax',
+      ],
+      'target' => '_blank',
+      'data-dialog-options' => json_encode([
+                                             'height' => $dialog_options['height'],
+                                             'width' => $dialog_options['width'],
+                                             'classes' => ['ui-dialog-content' => 'media-library-edit__modal'],
+                                           ]),
+      'data-dialog-type' => 'dialog',
+    ],
+    '#attached' => [
+      'library' => [
+        'media_library_edit/admin',
+        'core/drupal.dialog.ajax',
+      ],
+    ],
+  ];
+
+}
+/**
+ * Implements hook_preprocess_media_library_element().
+ */
+function ui_patterns_settings_preprocess_media_library_element(&$variables) {
+  $element = $variables['element'];
+  if (isset($element['#ui_patterns_media_edit_button']) && !empty($element['#value']) && isset($variables['content']['selection'])) {
+    foreach (Element::children($variables['content']['selection']) as $child) {
+      $selection = &$variables['content']['selection'][$child];
+      $media_id = $selection['preview']['target_id']['#value'] ?? NULL;
+      if ($media_id !== NULL) {
+        // Remove js-media-library-item
+        if (($key = array_search('js-media-library-item', $selection['#attributes']['class'])) !== false) {
+          unset($selection['#attributes']['class'][$key]);
+        }
+        $selection['media_edit'] = ui_patterns_settings_build_media_edit_button($media_id);
+      }
+    }
+
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for 'field_config_edit_form'.
+ */
+function ui_patterns_settings_form_field_config_edit_form_alter(&$form, FormStateInterface $form_state): void {
+  /** @var \Drupal\field\Entity\FieldStorageConfig $entity */
+  $entity = $form_state->getFormObject()->getEntity()->getFieldStorageDefinition();
+  array_unshift($form['actions']['submit']['#submit'], 'ui_patterns_settings_form_field_config_edit_form_submit');
+
+  $definitions = UiPatterns::getPatternDefinitions();
+  $settings_options = [];
+  foreach ($definitions as $definition) {
+    $infos = UiPatternsSettings::getExposedPatternDefinition($definition, $entity->getType());
+    foreach ($infos as $key => $info) {
+      $settings_options[$key] = $info['label'];
+    }
+  }
+
+  if (count($settings_options) > 0) {
+    $parent = &$form['field_storage']['subform'];
+    $mapping = UiPatternsSettings::getConfigManager()->getMapping($entity->id());
+    $parent['settings']['use_pattern'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Expose pattern setting'),
+      '#default_value' => $mapping !== NULL,
+      '#description' => '',
+    ];
+
+    $parent['settings']['pattern_setting'] = [
+      '#type' => 'select',
+      '#options' => $settings_options,
+      '#title' => 'Pattern Setting',
+      '#states' => [
+        'invisible' => [
+          ':input[name$="[use_pattern]"]' => ['checked' => FALSE],
+        ],
+      ],
+      '#default_value' => $mapping,
+    ];
+  }
+}
+
+/**
+ * Form submit callback.
+ */
+function ui_patterns_settings_form_field_config_edit_form_submit(array $form, FormStateInterface $form_state) {
+  $settings = $form_state->getValue(['field_storage', 'subform', 'settings']);
+  $entity = $form_state->getFormObject()->getEntity()->getFieldStorageDefinition();
+  \assert($entity instanceof FieldStorageConfigInterface);
+
+  if (isset($settings['use_pattern']) && $settings['use_pattern'] === 1) {
+    UiPatternsSettings::getConfigManager()->addMapping($entity->id(), $settings['pattern_setting']);
+  }
+  else {
+    UiPatternsSettings::getConfigManager()->addMapping($entity->id(), NULL);
+  }
+
+}
+
+/**
+ * Implements hook_entity_field_storage_info_alter().
+ */
+function ui_patterns_settings_entity_field_storage_info_alter(&$fields, EntityTypeInterface $entity_type) {
+  /** @var \Drupal\field\Entity\FieldStorageConfig $field */
+  foreach ($fields as $field) {
+    if ($field instanceof FieldStorageConfig) {
+      if (($mapping = UiPatternsSettings::getConfigManager()
+          ->getMapping($field->id())) !== NULL) {
+        [$pattern_id, $setting_id] = explode('::', $mapping);
+        try {
+          $pattern_definition = UiPatterns::getPatternDefinition($pattern_id);
+          $settings_definition = UiPatternsSettings::getPatternDefinitionSetting($pattern_definition, $setting_id);
+          if ($pattern_definition !== NULL
+            && $settings_definition !== NULL
+          ) {
+            $type = UiPatternsSettings::createSettingType($pattern_definition, $settings_definition);
+            $type->alterFieldStorage($field);
+          }
+          elseif ($pattern_definition !== NULL && $setting_id === 'variant') {
+            $field->setSetting('allowed_values_function', 'ui_patterns_settings_allowed_values_function');
+          }
+          else {
+            \Drupal::messenger()->addError('No pattern setting %setting found');
+          }
+        } catch (\Exception $e) {
+          \Drupal::messenger()->addError($e->getMessage());
+        }
+      }
+    }
+  }
+}
+
+/**
+ * The storage config.
+ *
+ * @param \Drupal\field\Entity\FieldStorageConfig $storage_config
+ *   The field storage config.
+ *
+ * @return string[]
+ *   The allowed list of the enumeration.
+ */
+function ui_patterns_settings_allowed_values_function(FieldStorageConfig $storage_config) {
+  [$pattern, $setting_key] = explode('::', UiPatternsSettings::getConfigManager()->getMapping($storage_config->id()));
+  $pattern_definition = UiPatterns::getPatternDefinition($pattern);
+  $settings_definition = UiPatternsSettings::getPatternDefinitionSetting($pattern_definition, $setting_key);
+  if ($pattern_definition !== NULL && $settings_definition !== NULL) {
+    return $settings_definition->getOptions();
+  }
+  elseif ($pattern_definition !== NULL && $setting_key === 'variant') {
+    return $pattern_definition->getVariantsAsOptions();
+  }
+  return [];
+}
+
+/**
+ * Implements hook_ui_patterns_display_form_alter().
+ */
+function ui_patterns_settings_ui_patterns_display_settings_form_alter(array &$form, $configuration) {
+  SettingsFormBuilder::displayForm($form, $configuration);
+}
+
+/**
+ * Preprocess hook.
+ *
+ * @param array $variables
+ *   Theme variables.
+ */
+function ui_patterns_settings_preprocess_field__pattern_ds_field_template(array &$variables) {
+  $pattern_id = $variables['ds-config']['settings']['pattern'];
+  $settings = $variables['ds-config']['settings']['pattern_settings'][$pattern_id] ?? NULL;
+  foreach ($variables['items'] as $delta => $item) {
+    $variables['pattern']['pattern_' . $delta]['#settings'] = $settings;
+  }
+}
+
+/**
+ * Preprocess variables for the pattern_views_row theme hook.
+ *
+ * @param array $variables
+ *   Theme variables.
+ */
+function ui_patterns_settings_preprocess_pattern_views_row(array &$variables) {
+  $pattern_id = $variables['options']['pattern'];
+  $settings = $variables['options']['pattern_settings'][$pattern_id] ?? NULL;
+  $variables['pattern']['#settings'] = $settings;
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function ui_patterns_settings_element_info_alter(array &$info) {
+
+  foreach ($info as &$elm) {
+    if (isset($elm['#process'])) {
+      array_unshift($elm['#process'], [
+        PatternSettingTypeBase::class,
+        "formGroupProcess",
+      ]);
+    }
+  }
+
+  if (isset($info['pattern'])) {
+    $info['pattern']['#pre_render'][] = [
+      "Drupal\ui_patterns_settings\Element\PatternSettings",
+      "processSettings",
+    ];
+  }
+
+  if (isset($info['pattern_preview'])) {
+    $info['pattern_preview']['#pre_render'][] = [
+      "Drupal\ui_patterns_settings\Element\PatternSettings",
+      "processPreviewSettings",
+    ];
+  }
+
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ *
+ * Add settings variables to the pattern theme.
+ */
+function ui_patterns_settings_theme_registry_alter(&$theme_registry) {
+  foreach (UiPatterns::getManager()->getPatterns() as $pattern) {
+    $definition = $pattern->getPluginDefinition();
+    if (isset($theme_registry['pattern_' . $definition->id()])) {
+      $settings = UiPatternsSettings::getPatternDefinitionSettings($definition);
+      foreach ($settings as $key => $setting) {
+        $theme_registry['pattern_' . $definition->id()]['variables'][$key] = NULL;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_group_build_pre_render_alter().
+ */
+function ui_patterns_settings_field_group_pre_render_alter(&$element, $group, $rendering_object) {
+  if (!isset($group->format_settings['pattern'])) {
+    return;
+  }
+
+  $pattern_id = $group->format_settings['pattern'] ?? NULL;
+  $element['#settings'] = $group->format_settings['pattern_settings'][$pattern_id] ?? NULL;
+  $element['#variant'] = $group->format_settings['pattern_variant'] ?? NULL;
+  if (!empty($group->format_settings['variants_token'])) {
+    $element['#variant_token'] = $group->format_settings['variants_token'][$pattern_id] ?? NULL;
+  }
+}
+
+/**
+ * Returns true if current route is a layout builder route.
+ *
+ * @return bool
+ *   True if is layout builder route
+ */
+function ui_patterns_settings_is_layout_builder_route() {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  if (preg_match('/^(layout_builder\.([^.]+\.)?)/', $route_name)) {
+    return TRUE;
+  }
+  else {
+    return FALSE;
+  }
+}
+
+/**
+ * Implements hook_layout_alter().
+ */
+function ui_patterns_settings_layout_alter(&$definitions) {
+  /** @var \Drupal\Core\Layout\LayoutDefinition $definition */
+  foreach ($definitions as $definition) {
+    if ($definition->getClass() == '\Drupal\ui_patterns_layouts\Plugin\Layout\PatternLayout') {
+      $definition->setClass(PatternSettingsLayout::class);
+    }
+  }
+}
+
+/**
+ * Implements hook_ui_patterns_info_alter().
+ */
+function ui_patterns_settings_ui_patterns_info_alter(&$definitions) {
+  /** @var PatternDefinition $definition */
+  foreach ($definitions as $definition) {
+    $settings = UiPatternsSettings::getPatternDefinitionSettings($definition);
+    foreach ($settings as $setting) {
+      if ($setting->getExposeAsField()) {
+        $definition->setField($setting->getName(), $setting->getLabel());
+      }
+    }
+  }
+}

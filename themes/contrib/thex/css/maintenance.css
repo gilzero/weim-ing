@@ -1,0 +1,41 @@
+#maintenance-page {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  background: #ffffff;
+  color: #2d3436;
+}
+.maintenance-header {
+  position: relative;
+  width: 100%;
+  padding: 1rem 0;
+}
+.site-name h4 {
+  color: #f0932b;
+  line-height: 1;
+  font-weight: 700;
+}
+#maintenance {
+  position: relative;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+.maintenance {
+  text-align: center;
+}
+.maintenance-title {
+  color: #fff;
+}
+.maintenance-icon {
+  padding: 2rem 0;
+}
+.maintenance-icon img {
+  max-height: 50vh;
+}

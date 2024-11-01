@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Contains hook implementations for the module_builder_devel module.
+ */
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function module_builder_devel_entity_type_alter(array &$entity_types) {
+  /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
+  // Replace the list builder with an override which adds links to issues.
+  $entity_types['module_builder_module']->setHandlerClass('list_builder', 'Drupal\module_builder_devel\EntityHandler\ModuleBuilderDevelComponentListBuilder');
+}

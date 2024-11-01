@@ -1,0 +1,82 @@
+.colorpicker {
+  z-index: 600;
+}
+
+.js-off-canvas-dialog-open .dialog-off-canvas-main-canvas {
+  padding-right: 420px !important;
+}
+.js-off-canvas-dialog-open .ui-widget.ui-dialog.ui-dialog-off-canvas {
+  width: 420px !important;
+}
+.js-off-canvas-dialog-open .field-multiple-drag .tabledrag-handle {
+  margin-right: 0;
+  margin-left: 5px;
+}
+
+@media only screen and (min-width: 1100px) {
+  .js-off-canvas-dialog-open .dialog-off-canvas-main-canvas {
+    padding-right: 520px !important;
+  }
+
+  .js-off-canvas-dialog-open .ui-widget.ui-dialog.ui-dialog-off-canvas {
+    width: 520px !important;
+  }
+}
+@media only screen and (min-width: 1600px) {
+  .js-off-canvas-dialog-open .dialog-off-canvas-main-canvas {
+    padding-right: 620px !important;
+  }
+
+  .js-off-canvas-dialog-open .ui-widget.ui-dialog.ui-dialog-off-canvas {
+    width: 620px !important;
+  }
+}
+body #drupal-off-canvas tr td:first-child,
+#drupal-off-canvas tr th:first-child {
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 30px;
+}
+
+body.js-off-canvas-dialog-open #drupal-off-canvas th:first-child,
+#drupal-off-canvas td:first-child {
+  width: 40px;
+}
+
+.paragraph-type-title {
+  font-size: 16px;
+}
+
+body.js-off-canvas-dialog-open #drupal-off-canvas .field--name-thumbnail {
+  margin-bottom: 5px;
+  text-align: center;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .media-library-item__name {
+  margin-bottom: 10px;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas legend {
+  margin-bottom: 5px;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas legend .fieldset-legend {
+  font-size: 14px;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .form-textarea-wrapper {
+  margin-top: 3px;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .form-textarea-wrapper .form-type-textarea > label {
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .field--type-text-long {
+  margin-bottom: 15px;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .paragraphs-dropbutton-wrapper {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas .tabledrag-toggle-weight-wrapper {
+  padding-top: 0;
+}
+body.js-off-canvas-dialog-open #drupal-off-canvas h4 {
+  margin-top: 0;
+}

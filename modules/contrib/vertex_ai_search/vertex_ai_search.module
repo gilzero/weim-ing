@@ -1,0 +1,297 @@
+<?php
+
+/**
+ * @file
+ * Integrates Vertex AI Search with core Search functionality.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+use Drupal\search\Entity\SearchPage;
+use Drupal\vertex_ai_search\Plugin\Search\VertexAISearch;
+
+/**
+ * Implements hook_help().
+ */
+function vertex_ai_search_help($route_name, RouteMatchInterface $route_match) {
+
+  switch ($route_name) {
+    case 'help.page.vertex_ai_search':
+
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>';
+      $output .= t('The Vertex AI Search module integrates with the Drupal core
+        search page functionality, providing a plugin to <a href=":sPages">
+        create custom search pages</a> that use <a href=":vertexLink">Google
+        Vertex AI Search</a>.',
+          [
+            ':sPages' => Url::fromRoute(
+              'entity.search_page.collection'
+            )->toString(),
+            ':vertexLink' => 'https://cloud.google.com/generative-ai-app-builder/docs/enterprise-search-introduction',
+          ]);
+      $output .= '</p>';
+      $output .= '<p>';
+      $output .= t('There are many features provided by the Google Vertex AI
+        Search solution, of which the Drupal Vertex AI Search module only
+        supports a subset.');
+      $output .= '</p>';
+      $output .= '<p>';
+      $output .= t('Refer to the <a href=":moduleScope">Module Scope</a>
+        documentation to understand the current capabilities of the Drupal
+        Vertex AI Search module.',
+        [
+          ':moduleScope' => 'https://www.drupal.org/docs/extending-drupal/contributed-modules/contributed-module-documentation/vertex-ai-search/module-scope',
+        ]);
+      $output .= '</p>';
+      $output .= '<h3>' . t('Set-up and Configuration') . '</h3>';
+      $output .= '<p>';
+      $output .= t('A Vertex AI Search App hosted on Google Cloud Platform is
+        required before creating a custom search page.');
+      $output .= '</p>';
+      $output .= '<p>';
+      $output .= t('Refer to the <a href=":createDocumentation">Create a Vertex
+        AI Search Page</a> documentation for more information on setting up a
+        Vertex AI Search App and a Drupal custom search page.',
+          [
+            ':createDocumentation' => 'https://www.drupal.org/docs/extending-drupal/contributed-modules/contributed-module-documentation/vertex-ai-search/create-a-vertex-ai-search-page',
+          ]);
+      $output .= '</p>';
+      $output .= '<p>';
+      $output .= t('Refer to the <a href=":configDocumentation">Search Page
+        Configuration Options</a> documentation for more information on the
+        configuration options available for a Vertex AI custom search page.',
+        [
+          ':configDocumentation' => 'https://www.drupal.org/docs/extending-drupal/contributed-modules/contributed-module-documentation/vertex-ai-search/search-page-configuration-options',
+        ]);
+      $output .= '</p>';
+      $output .= '<h3>' . t('Developer References') . '</h3>';
+      $output .= '<p>';
+      $output .= t('Refer to the <a href=":devDocumentation">Developer
+        Documentation</a> for information on:',
+        [
+          ':devDocumentation' => 'https://www.drupal.org/docs/extending-drupal/contributed-modules/contributed-module-documentation/vertex-ai-search/developer-documentation',
+        ]);
+      $output .= '</p>';
+      $output .= '<ul>';
+      $output .= '<li>' . t('How to set up a local DDEV development environment if you wish to contribute/help with this module.') . '</li>';
+      $output .= '<li>' . t('Creating a custom autocomplete plugin for use on Vertex AI Search pages.') . '</li>';
+      $output .= '</ul>';
+
+      return $output;
+  }
+
+}
+
+/**
+ * Implements hook_form_search_block_form_alter().
+ */
+function vertex_ai_search_form_search_block_form_alter(&$form, &$form_state) {
+
+  // Get the active search pages.
+  $pages = \Drupal::service('search.search_page_repository')->getActiveSearchPages();
+  $action = str_replace("/search/", "", $form['#action']);
+
+  foreach ($pages as $key => $page) {
+
+    // Only applies to vertex_ai_search plugin.
+    if ($page->get('plugin') !== 'vertex_ai_search') {
+      continue;
+    }
+
+    // Compare search page path to form action.
+    if ($page->getPath() == $action) {
+      $configuration = $page->get('configuration');
+
+      // Determine if Autocomplete should be enabled or not.
+      if (!empty($configuration['autocomplete_enable']) &&
+        !empty($configuration['autocomplete_enable_block']) &&
+        !empty($configuration['autocomplete_source'])) {
+        $form['keys']['#autocomplete_route_name'] = 'vertex_ai_search.autocomplete';
+        $form['keys']['#autocomplete_route_parameters'] = ['search_page_id' => $key];
+      }
+
+    }
+
+  }
+
+}
+
+/**
+ * Implements hook_theme().
+ */
+function vertex_ai_search_theme($existing, $type, $theme, $path) {
+
+  return [
+    'vertex_ai_search_result' => [
+      'variables' => [
+        'result' => NULL,
+        'term' => NULL,
+      ],
+      'file' => 'vertex_ai_search.theme.inc',
+      'template' => 'vertex_ai_search_result',
+    ],
+    'vertex_ai_search_results_message' => [
+      'variables' => [
+        'message' => NULL,
+        'term' => NULL,
+      ],
+      'file' => 'vertex_ai_search.theme.inc',
+      'template' => 'vertex_ai_search_results_message',
+    ],
+    'vertex_ai_search_no_results_message' => [
+      'variables' => [
+        'message' => NULL,
+        'term' => NULL,
+      ],
+      'file' => 'vertex_ai_search.theme.inc',
+      'template' => 'vertex_ai_search_no_results_message',
+    ],
+    'vertex_ai_search_no_keywords_message' => [
+      'variables' => [
+        'message' => NULL,
+        'term' => NULL,
+      ],
+      'file' => 'vertex_ai_search.theme.inc',
+      'template' => 'vertex_ai_search_no_keywords_message',
+    ],
+    'vertex_ai_search_spelling_correction' => [
+      'variables' => [
+        'spelling' => NULL,
+        'corrected' => FALSE,
+        'url' => NULL,
+      ],
+      'file' => 'vertex_ai_search.theme.inc',
+      'template' => 'vertex_ai_search_spelling_correction',
+    ],
+    'vertex_ai_search_search_page_form' => [
+      'render element' => 'form',
+      'file' => 'vertex_ai_search.theme.inc',
+      'template' => 'vertex_ai_search_search_page_form',
+    ],
+  ];
+
+}
+
+/**
+ * Implements hook_entity_insert().
+ *
+ * Clear appropriate caches when creating new vertex_ai_search search page.
+ */
+function vertex_ai_search_entity_insert(EntityInterface $entity) {
+  // Build the route so that the new page is available immediately.
+  if ($entity instanceof SearchPage) {
+    $plugin = $entity->getPlugin()->getPluginId();
+    if ($plugin == 'vertex_ai_search') {
+      \Drupal::service('router.builder')->rebuild();
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_item_list__search_results__vertex_ai_search().
+ *
+ * Overwrite the message for when there are no search results.
+ */
+function vertex_ai_search_preprocess_item_list__search_results(&$variables) {
+
+  $configuration = _vertex_ai_search_get_configuration($variables);
+  $tokens = _vertex_ai_search_get_empty_search_tokens($configuration);
+
+  $message = (!empty($configuration['no_results_message'])) ?
+    \Drupal::service('token')->replace($configuration['no_results_message'], $tokens) :
+      t("Your search yielded no results.");
+
+  $variables['empty'] = [
+    '#theme' => 'vertex_ai_search_no_results_message',
+    '#message' => $message,
+    '#plugin_id' => 'vertex_ai_search',
+    '#attached' => [
+      'library' => [
+        'vertex_ai_search/vertexAiSearchResults',
+      ],
+    ],
+  ];
+
+  // If there are no keywords specified, use the 'no keys' message.
+  if (empty(trim($tokens['vertex_ai_search']['vertex_ai_search_keywords']))) {
+
+    $message = (!empty($configuration['no_keywords_message'])) ?
+      \Drupal::service('token')->replace($configuration['no_keywords_message'], $tokens) :
+        t("Please enter some keywords to perform a search.");
+
+    $variables['empty']['#theme'] = 'vertex_ai_search_no_keywords_message';
+    $variables['empty']['#message'] = $message;
+
+  }
+
+}
+
+/**
+ * Returns the vertex_ai_search plugin configuration.
+ *
+ * @param array $variables
+ *   Variables available to preprocess functions.
+ *
+ * @return array
+ *   Returns vertex_ai_search page configuration or empty.
+ */
+function _vertex_ai_search_get_configuration(array &$variables) {
+
+  $entity = \Drupal::service('current_route_match')->getParameter('entity');
+  $configuration = [];
+
+  if ($entity instanceof SearchPage) {
+
+    $plugin = $entity->getPlugin();
+
+    if ($plugin instanceof VertexAISearch) {
+      $configuration = $plugin->getConfiguration();
+    }
+
+  }
+
+  return $configuration;
+}
+
+/**
+ * Returns the Vertex AI search token values.
+ *
+ * @param array $configuration
+ *   Array of configuration values for the search page.
+ *
+ * @return array
+ *   Returns vertex_ai_search specific tokens for a search
+ *   with no results.
+ */
+function _vertex_ai_search_get_empty_search_tokens(array $configuration) {
+  $page = 0;
+  $keys = '';
+  $items_per_page = $configuration['resultsPerPage'];
+
+  // Retrieve page number value from query string if present.
+  if (\Drupal::service('request_stack')->getCurrentRequest()->query->has('page')) {
+    $page = \Drupal::service('request_stack')->getCurrentRequest()->query->get('page');
+  }
+
+  // Retrieve page number value from query string if present.
+  if (\Drupal::service('request_stack')->getCurrentRequest()->query->has('keys')) {
+    $keys = \Drupal::service('request_stack')->getCurrentRequest()->query->get('keys');
+  }
+
+  // Calculate the start and end indexes for the API request.
+  $start = ($page * $items_per_page) + 1;
+  $end = $start + $items_per_page - 1;
+
+  // Populate the data array used to populate Vertex AI custom tokens.
+  $tokens['vertex_ai_search'] = [
+    'vertex_ai_search_keywords' => $keys,
+    'vertex_ai_search_result_start' => $start,
+    'vertex_ai_search_result_end' => $end,
+    'vertex_ai_search_page' => $configuration['label'],
+  ];
+
+  return $tokens;
+}

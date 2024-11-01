@@ -1,0 +1,9 @@
+run_and_review:
+  version: VERSION
+  css:
+    theme:
+      css/security_review.run_and_review.css: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once

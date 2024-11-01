@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+
+  # For security reasons, deny access to other PHP files, but allow access to Statistics module's custom front
+  # controller, overriding the general prevention on serving PHP files.
+  RewriteCond %{REQUEST_URI} /statistics\.php$
+  RewriteRule \.php$ - [L]
+
+  # Block other files like core does.
+  RewriteRule "^(.+/.*|autoload)\.php($|/)" - [F]
+
+</IfModule>

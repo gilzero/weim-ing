@@ -1,0 +1,412 @@
+<?php
+
+/**
+ * @file
+ * EBT Core module file.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\block_content\BlockContentInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\paragraphs\ParagraphInterface;
+
+/**
+ * Implements hook_help().
+ */
+function ebt_core_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the ebt_core module.
+    case 'help.page.ebt_core':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('EBT modules provide ability to add blocks in layout builder in few clicks. You can install separate block types from this bunch of EBT modules:') . '</p>';
+      $output .= '<ul>';
+      $output .= '<li>' . t('<a href="@ebt_accordion@">EBT Accordion / FAQ</a>', ['@ebt_accordion@' => 'https://www.drupal.org/project/ebt_accordion']) . '</li>';
+      $output .= '<li>' . t('<a href="@ebt_basic_button@">EBT Bootstrap Button</a>', ['@ebt_basic_button@' => 'https://www.drupal.org/project/ebt_basic_button']) . '</li>';
+      $output .= '<li>' . t('<a href="@ebt_bootstrap_button@">EBT Bootstrap Button</a>', ['@ebt_bootstrap_button@' => 'https://www.drupal.org/project/ebt_bootstrap_button']) . '</li>';
+      $output .= '<li>' . t('<a href="@ebt_cta@">EBT Call to Action</a>', ['@ebt_cta@' => 'https://www.drupal.org/project/ebt_cta']) . '</li>';
+      $output .= '<li>' . t('<a href="@ebt_carousel@">EBT Carousel</a>', ['@ebt_carousel@' => 'https://www.drupal.org/project/ebt_carousel']) . '</li>';
+      $output .= '<li>' . t('<a href="@ebt_counter@">EBT Counter</a>', ['@ebt_counter@' => 'https://www.drupal.org/project/ebt_counter']) . '</li>';
+      $output .= '<li>' . t('<a href="@ebt_image_gallery@">EBT Image Gallery</a>', ['@ebt_image_gallery@' => 'https://www.drupal.org/project/ebt_image_gallery']) . '</li>';
+      $output .= '<li>' . t('<a href="@ebt_micromodal@">EBT Micromodal</a>', ['@ebt_micromodal@' => 'https://www.drupal.org/project/ebt_micromodal']) . '</li>';
+      $output .= '<li>' . t('<a href="@ebt_quote@">EBT Quote</a>', ['@ebt_quote@' => 'https://www.drupal.org/project/ebt_quote']) . '</li>';
+      $output .= '<li>' . t('<a href="@ebt_slick_slider@">EBT Slick Slider</a>', ['@ebt_slick_slider@' => 'https://www.drupal.org/project/ebt_slick_slider']) . '</li>';
+      $output .= '<li>' . t('<a href="@ebt_slideshow@">EBT Slideshow</a>', ['@ebt_slideshow@' => 'https://www.drupal.org/project/ebt_slideshow']) . '</li>';
+      $output .= '<li>' . t('<a href="@ebt_stats@">EBT Stats</a>', ['@ebt_stats@' => 'https://www.drupal.org/project/ebt_stats']) . '</li>';
+      $output .= '<li>' . t('<a href="@ebt_tabs@">EBT Tabs</a>', ['@ebt_tabs@' => 'https://www.drupal.org/project/ebt_tabs']) . '</li>';
+      $output .= '<li>' . t('<a href="@ebt_text@">EBT Text</a>', ['@ebt_text@' => 'https://www.drupal.org/project/ebt_text']) . '</li>';
+      $output .= '<li>' . t('<a href="@ebt_timeline@">EBT Timeline</a>', ['@ebt_timeline@' => 'https://www.drupal.org/project/ebt_timeline']) . '</li>';
+      $output .= '<li>' . t('<a href="@ebt_webform@">EBT Webform<</a>', ['@ebt_webform@' => 'https://www.drupal.org/project/ebt_webform']) . '</li>';
+      $output .= '<li>' . t('<a href="@ebt_webform_popup@">EBT Webform Popup</a>', ['@ebt_webform_popup@' => 'https://www.drupal.org/project/ebt_webform_popup']) . '</li>';
+      $output .= '</ul>';
+      $output .= '<h3>' . t('How to use (configuration)') . '</h3>';
+      $output .= '<ul>';
+      $output .= '<li>' . t('EBT Core has configuration form with Primary/Secondary colors and Mobile/Tablet/Desktop breakpoints') . '</li>';
+      $output .= '<li>' . t('The settings is available at: Administration » Configuration » Content authoring » Extra Block Types (EBT) settings') . '</li>';
+      $output .= '<li>' . t('These configs will be applied to other EBT blocks by default.') . '</li>';
+      $output .= '</ul>';
+      $output .= '<h3>' . t('External Documentation') . '</h3>';
+      $output .= '<p>' . t('You can also view the EBT documentation at Drupal Book: <a href="@drupalbook_external_documentation@">@drupalbook_external_documentation@</a>', [
+        '@drupalbook_external_documentation@' => 'https://drupalbook.org/ebt',
+      ]) . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function ebt_core_entity_presave(EntityInterface $entity) {
+  // Fix langcode is empty when you use block type entity form.
+  // More information: https://www.drupal.org/project/paragraphs/issues/2901390.
+  if ($entity->getEntityType()->id() == 'paragraph') {
+    $langcode_key = $entity->getEntityType()->getKey('langcode');
+    if (!empty($langcode_key)) {
+      /** @var \Drupal\paragraphs\Entity\Paragraph|null $entity */
+      $lang_value = $entity->get($langcode_key)->getLangcode();
+      if (!empty($lang_value)) {
+        $entity->set($langcode_key, $lang_value);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function ebt_core_theme_registry_alter(&$theme_registry) {
+  $module_list = \Drupal::service('extension.list.module')->getList();
+  $ebt_modules = [];
+  foreach ($module_list as $module_name => $extention) {
+    if ($module_name == 'ebt_core') {
+      continue;
+    }
+
+    if (strpos($module_name, 'ebt_') === 0 && !empty($extention->status)) {
+      $ebt_modules[] = $module_name;
+    }
+  }
+
+  $module_path = '';
+  $base_theme = '';
+  foreach ($ebt_modules as $ebt_module) {
+    $ebt_module_with_dashes = str_replace('_', '-', $ebt_module);
+
+    $module_handler = \Drupal::service('module_handler');
+    if ($module_handler->moduleExists('paragraphs')) {
+      $base_theme = 'paragraph';
+      $module_path = \Drupal::service('extension.list.module')->getPath($ebt_module);
+      $theme_registry['paragraph__' . $ebt_module . '__default'] = [
+        'path' => $module_path . '/templates',
+        'template' => 'paragraph--' . $ebt_module_with_dashes . '--default',
+        'render element' => $theme_registry[$base_theme]['render element'],
+        'base hook' => $base_theme,
+        'type' => 'module',
+        'theme path' => $module_path,
+        'preprocess functions' => $theme_registry[$base_theme]['preprocess functions'],
+      ];
+    }
+
+    // Support legacy EBT Tabs block type name.
+    if ($ebt_module == 'ebt_tabs') {
+      $theme_registry['paragraph__ebt_tab__default'] = [
+        'path' => $module_path . '/templates',
+        'template' => 'paragraph--ebt-tab--default',
+        'render element' => $theme_registry[$base_theme]['render element'],
+        'base hook' => $base_theme,
+        'type' => 'module',
+        'theme path' => $module_path,
+        'preprocess functions' => $theme_registry[$base_theme]['preprocess functions'],
+      ];
+    }
+
+    if ($ebt_module == 'ebt_counter') {
+      $theme_registry['paragraph__ebt_counter_item__default'] = [
+        'path' => $module_path . '/templates',
+        'template' => 'paragraph--ebt-counter-item--default',
+        'render element' => $theme_registry[$base_theme]['render element'],
+        'base hook' => $base_theme,
+        'type' => 'module',
+        'theme path' => $module_path,
+        'preprocess functions' => $theme_registry[$base_theme]['preprocess functions'],
+      ];
+    }
+
+    $base_theme = 'block';
+    $module_path = \Drupal::service('extension.list.module')->getPath($ebt_module);
+    $theme_registry['block__inline_block__' . $ebt_module] = [
+      'path' => $module_path . '/templates',
+      'template' => 'block--inline-block--' . $ebt_module_with_dashes,
+      'render element' => $theme_registry[$base_theme]['render element'],
+      'base hook' => $base_theme,
+      'type' => 'module',
+      'theme path' => $module_path,
+      'preprocess functions' => $theme_registry[$base_theme]['preprocess functions'],
+    ];
+
+    $base_theme = 'block';
+    $module_path = \Drupal::service('extension.list.module')->getPath($ebt_module);
+    $theme_registry['block__block_content__' . $ebt_module] = [
+      'path' => $module_path . '/templates',
+      'template' => 'block--block-content--' . $ebt_module_with_dashes,
+      'render element' => $theme_registry[$base_theme]['render element'],
+      'base hook' => $base_theme,
+      'type' => 'module',
+      'theme path' => $module_path,
+      'preprocess functions' => $theme_registry[$base_theme]['preprocess functions'],
+    ];
+
+    $base_theme = 'field';
+    $module_path = \Drupal::service('extension.list.module')->getPath($ebt_module);
+    $theme_registry['field__block_content__field_' . $ebt_module . '__' . $ebt_module] = [
+      'path' => $module_path . '/templates',
+      'template' => 'field--block-content--field-' . $ebt_module_with_dashes . '--' . $ebt_module_with_dashes,
+      'render element' => $theme_registry[$base_theme]['render element'],
+      'base hook' => $base_theme,
+      'type' => 'module',
+      'theme path' => $module_path,
+      'preprocess functions' => $theme_registry[$base_theme]['preprocess functions'],
+    ];
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function ebt_core_theme_suggestions_block_alter(array &$suggestions, array $variables) {
+  // Adds template suggestions for Block types.
+  $content = $variables['elements']['content'];
+  if (isset($content['#block_content'])
+    and $content['#block_content'] instanceof BlockContentInterface) {
+
+    if (in_array('block__inline_block', $suggestions)) {
+      // Add 'block--inline_block--BLOCK-TYPE--custom.html.twig'.
+      $block_type_suggestions[] = 'block__inline_block__' . $content['#block_content']->bundle() . '__custom';
+      // Add 'block--inline_block--BLOCK-TYPE--VIEW-MODE--custom.html.twig'.
+      $block_type_suggestions[] = 'block__inline_block__' . $content['#block_content']->bundle() . '__' . $content['#view_mode'] . '__custom';
+    }
+    else {
+      // Add 'block--block-content--BLOCK-TYPE.html.twig'.
+      $block_type_suggestions[] = 'block__block_content__' . $content['#block_content']->bundle();
+      // Add 'block--block-content--BLOCK-TYPE--custom.html.twig'.
+      $block_type_suggestions[] = 'block__block_content__' . $content['#block_content']->bundle() . '__custom';
+
+      // Add 'block--block-content--BLOCK-TYPE--VIEW-MODE.html.twig'.
+      $block_type_suggestions[] = 'block__block_content__' . $content['#block_content']->bundle() . '__' . $content['#view_mode'];
+      // Add 'block--block-content--BLOCK-TYPE--VIEW-MODE--custom.html.twig'.
+      $block_type_suggestions[] = 'block__block_content__' . $content['#block_content']->bundle() . '__' . $content['#view_mode'] . '__custom';
+    }
+
+    // Because block__block_content exists twice in $suggestions,
+    // the suggestion arrays are reversed for further processing.
+    $suggestions_rev = array_reverse($suggestions);
+    $block_type_suggestions = array_reverse($block_type_suggestions);
+
+    // Insert the block type and view mode suggestions between
+    // block__block_content and the block instance-specific suggestions.
+    $index = array_search('block__block_content', $suggestions_rev);
+    if (is_numeric($index)) {
+      array_splice($suggestions_rev, $index, 0, $block_type_suggestions);
+      $suggestions = array_reverse($suggestions_rev);
+      return;
+    }
+    // If block__block_content isn't present as a suggestion.
+    if (in_array('block__inline_block', $suggestions)) {
+      $suggestions_rev = array_merge($block_type_suggestions, $suggestions_rev);
+    }
+    else {
+      $suggestions_rev = array_merge($suggestions_rev, $block_type_suggestions);
+    }
+
+    $suggestions = array_reverse($suggestions_rev);
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function ebt_core_theme_suggestions_paragraph_alter(array &$suggestions, array $variables) {
+  if (empty($variables['elements']) ||
+    !$variables['elements']['#paragraph'] instanceof ParagraphInterface ||
+    !str_starts_with($variables['elements']['#paragraph']->bundle(), 'ebt_')) {
+    return;
+  }
+
+  $suggestions[] = 'paragraph__' . $variables['elements']['#paragraph']->bundle() .
+    '__' . $variables['elements']['#view_mode'] . '__custom';
+}
+
+/**
+ * Implements hook_theme().
+ */
+function ebt_core_theme() {
+  return [
+    'ebt_settings_default' => [
+      'variables' => ['ebt_settings' => NULL],
+      'template' => 'ebt-settings-default',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function ebt_core_preprocess_block(&$variables) {
+  if (empty($variables['elements']['content']['#block_content']) ||
+    strpos($variables['elements']['content']['#block_content']->bundle(), 'ebt_') !== 0) {
+    return;
+  }
+  if (empty($variables['content']['#block_content']->field_ebt_settings)) {
+    return;
+  }
+
+  $service = \Drupal::service('ebt_core.generate_css');
+  $ebt_settings = $variables['content']['#block_content']->field_ebt_settings->getValue();
+  if (empty($ebt_settings[0]['ebt_settings']['design_options'])) {
+    return;
+  }
+
+  $variables['#attached']['drupalSettings']['ebtCore']['mobileBreakpoint'] = \Drupal::config('ebt_core.settings')->get('ebt_core_mobile_breakpoint');
+  $variables['#attached']['drupalSettings']['ebtCore']['tabletBreakpoint'] = \Drupal::config('ebt_core.settings')->get('ebt_core_tablet_breakpoint');
+  $variables['#attached']['drupalSettings']['ebtCore']['desktopBreakpoint'] = \Drupal::config('ebt_core.settings')->get('ebt_core_desktop_breakpoint');
+
+  if (!empty($ebt_settings[0]['ebt_settings']['design_options']['other_settings']['spacing'])) {
+    $variables['attributes']['class'][] = $ebt_settings[0]['ebt_settings']['design_options']['other_settings']['spacing'];
+    $variables['#attached']['library'][] = 'ebt_core/ebt_styles';
+  }
+
+  if (!empty($variables['base_plugin_id']) && $variables['base_plugin_id'] == 'inline_block') {
+    $block_class = 'block-revision-id-' . $variables['configuration']['block_revision_id'];
+  }
+  else {
+    $block_class = str_replace(':', '', $variables['plugin_id']);
+    $block_class = str_replace('_', '-', $block_class);
+    $block_class = 'ebt-block-' . $block_class;
+  }
+
+  $variables['styles'] = $service->generateFromSettings($ebt_settings[0]['ebt_settings']['design_options'], $block_class);
+
+  $service = \Drupal::service('ebt_core.generate_js');
+  $javascript_data = $service->generateFromSettings($ebt_settings[0]['ebt_settings']['design_options']);
+  if (!empty($javascript_data)) {
+    if (!empty($javascript_data['ebtCoreParallax'])) {
+      $variables['#attached']['library'][] = 'ebt_core/parallax';
+    }
+    if (!empty($javascript_data['ebtCoreBackgroundRemoteVideo'])) {
+      if ($javascript_data['ebtCoreBackgroundRemoteVideo']['mediaProvider'] == 'YouTube') {
+        $variables['#attached']['library'][] = 'ebt_core/jquery_mb_ytplayer';
+      }
+      $javascript_data['ebtCoreBackgroundRemoteVideo']['background_video_settings'] = _ebt_core_get_background_video_settings($ebt_settings);
+    }
+    if (!empty($javascript_data['ebtCoreBackgroundVideo'])) {
+      $variables['#attached']['library'][] = 'ebt_core/vidbg';
+      $javascript_data['ebtCoreBackgroundVideo']['background_video_settings'] = _ebt_core_get_background_video_settings($ebt_settings);
+    }
+    $variables['#attached']['drupalSettings']['ebtCore'][$block_class] = $javascript_data;
+  }
+
+  if (!empty($ebt_settings['0']['ebt_settings']['design_options']['other_settings']['edge_to_edge'])) {
+    $variables['attributes']['class'][] = 'ebt-edge-to-edge';
+  }
+
+  if (!empty($ebt_settings['0']['ebt_settings']['design_options']['other_settings']['container_width'])) {
+    $variables['attributes']['class'][] = 'ebt-width-' . $ebt_settings['0']['ebt_settings']['design_options']['other_settings']['container_width'];
+  }
+}
+
+/**
+ * Pass Background video settings from PHP to javascript.
+ */
+function _ebt_core_get_background_video_settings($ebt_settings) {
+  $background_settings = [];
+  $background_settings['opacity'] = $ebt_settings[0]['ebt_settings']['design_options']['other_settings']['background_video_settings']['opacity'] ?? 1;
+  $background_settings['autoPlay'] = $ebt_settings[0]['ebt_settings']['design_options']['other_settings']['background_video_settings']['autoPlay'] ?? 1;
+  $background_settings['showControls'] = $ebt_settings[0]['ebt_settings']['design_options']['other_settings']['background_video_settings']['showControls'] ?? 0;
+  $background_settings['mute'] = $ebt_settings[0]['ebt_settings']['design_options']['other_settings']['background_video_settings']['mute'] ?? 1;
+  $background_settings['startAt'] = $ebt_settings[0]['ebt_settings']['design_options']['other_settings']['background_video_settings']['startAt'] ?? 0;
+  $background_settings['addOverlay'] = $ebt_settings[0]['ebt_settings']['design_options']['other_settings']['background_video_settings']['addOverlay'] ?? 1;
+  $background_settings['overlayColor'] = $ebt_settings[0]['ebt_settings']['design_options']['other_settings']['background_video_settings']['overlayColor'] ?? '#000000';
+  $background_settings['overlayAlpha'] = $ebt_settings[0]['ebt_settings']['design_options']['other_settings']['background_video_settings']['overlayAlpha'] ?? 0.3;
+  $background_settings['loop'] = $ebt_settings[0]['ebt_settings']['design_options']['other_settings']['background_video_settings']['loop'] ?? 1;
+  $background_settings['stopMovieOnBlur'] = $ebt_settings[0]['ebt_settings']['design_options']['other_settings']['background_video_settings']['stopMovieOnBlur'] ?? 1;
+  $background_settings['playOnlyIfVisible'] = $ebt_settings[0]['ebt_settings']['design_options']['other_settings']['background_video_settings']['playOnlyIfVisible'] ?? 0;
+  $background_settings['useOnMobile'] = $ebt_settings[0]['ebt_settings']['design_options']['other_settings']['background_video_settings']['useOnMobile'] ?? 1;
+  $background_settings['coverImage'] = _ebt_core_load_image_from_settings($ebt_settings[0]['ebt_settings']['design_options']['other_settings']['background_video_settings']['coverImage']);
+  $background_settings['mobileFallbackImage'] = _ebt_core_load_image_from_settings($ebt_settings[0]['ebt_settings']['design_options']['other_settings']['background_video_settings']['mobileFallbackImage']);
+
+  return $background_settings;
+}
+
+/**
+ * Load media image from settings.
+ */
+function _ebt_core_load_image_from_settings($mid) {
+  if (!is_numeric($mid)) {
+    return '';
+  }
+
+  $media_storage = \Drupal::entityTypeManager()->getStorage('media');
+  $media = $media_storage->load($mid);
+  if (empty($media) || $media->bundle() != 'image') {
+    return '';
+  }
+
+  /** @var \Drupal\file\Entity\File $file */
+  $file = $media->field_media_image->entity;
+  if (empty($file)) {
+    return '';
+  }
+
+  $uri = $file->getFileUri();
+  $file_url_generator = \Drupal::service('file_url_generator');
+  return $file_url_generator->generateAbsoluteString($uri);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view().
+ */
+function ebt_core_block_content_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  if (strpos($entity->bundle(), 'ebt_') !== 0) {
+    return;
+  }
+  $bundle = _ebt_core_underscore_to_camel_case($entity->bundle());
+
+  // Use Block revision ID for Layout builder blocks.
+  /** @var \Drupal\block_content\Entity\BlockContent $entity */
+  $revision_id = $entity->get('revision_id')->getValue();
+  if (!empty($entity->field_ebt_settings)) {
+    $options = $entity->get('field_ebt_settings')->getValue();
+    $options = !empty($options[0]['ebt_settings']) ? $options[0]['ebt_settings'] : [];
+  }
+  else {
+    $options = [];
+  }
+
+  if (empty($options) || (isset($options['pass_options_to_javascript']) &&
+      $options['pass_options_to_javascript'] === FALSE)) {
+    return;
+  }
+
+  $block_options = [
+    'blockClass' => 'block-revision-id-' . $revision_id[0]['value'],
+    'options' => $options,
+  ];
+  // Use plugin_id for Block content.
+  $build['#attached']['drupalSettings'][$bundle]['block-revision-id-' . $revision_id[0]['value']] = $block_options;
+  $uuid = $entity->get('uuid')->getValue();
+  $block_options = [
+    'blockClass' => 'plugin-id-block-content' . $uuid[0]['value'],
+    'options' => $options,
+  ];
+  $build['#attached']['drupalSettings'][$bundle]['plugin-id-block-content' . $uuid[0]['value']] = $block_options;
+}
+
+/**
+ * Helper function to convert ebt_name block bundle to ebtName camelcase.
+ */
+function _ebt_core_underscore_to_camel_case($string) {
+  $str = str_replace(' ', '', ucwords(str_replace('_', ' ', $string)));
+  $str[0] = strtolower($str[0]);
+  return $str;
+}

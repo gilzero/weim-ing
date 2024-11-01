@@ -1,0 +1,23 @@
+{
+  "name": "drupal/disable_messages",
+  "description": "Allows filtering messages shown to the end user using regular expression patterns.",
+  "type": "drupal-module",
+  "keywords": ["content", "display", "messages"],
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Zyxware Technologies (zyxware)",
+      "homepage": "https://www.drupal.org/u/zyxware",
+      "role": "Maintainer"
+    }
+  ],
+  "homepage": "https://drupal.org/project/disable_messages",
+  "support": {
+    "issues": "https://drupal.org/project/issues/disable_messages",
+    "source": "https://git.drupalcode.org/project/disable_messages"
+  },
+  "require": {
+    "drupal/core": ">=8"
+  }
+}
+

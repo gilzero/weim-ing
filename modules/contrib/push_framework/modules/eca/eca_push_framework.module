@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * ECA Push Framework module file.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_ENTITY_TYPE_insert() for action entities.
+ */
+function eca_push_framework_eca_insert(EntityInterface $entity): void {
+  if (function_exists('_eca_danse_recipient_selection_manager')) {
+    _eca_danse_recipient_selection_manager()->clearCachedDefinitions();
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update() for action entities.
+ */
+function eca_push_framework_eca_update(EntityInterface $entity): void {
+  if (function_exists('_eca_danse_recipient_selection_manager')) {
+    _eca_danse_recipient_selection_manager()->clearCachedDefinitions();
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete() for action entities.
+ */
+function eca_push_framework_eca_delete(EntityInterface $entity): void {
+  if (function_exists('_eca_danse_recipient_selection_manager')) {
+    _eca_danse_recipient_selection_manager()->clearCachedDefinitions();
+  }
+}

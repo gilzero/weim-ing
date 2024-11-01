@@ -1,0 +1,12 @@
+name: 'Azure AI FAQ Bot'
+type: module
+description: 'This chatbot leverages Azure Cognitive Services to understand and answer questions, making it ideal for customer support, FAQs, and interactive user engagement.'
+core_version_requirement: ^10 || ^11
+configure: azure_ai_faq_bot.settings
+dependencies:
+  - drupal:block
+
+# Information added by Drupal.org packaging script on 2024-09-23
+version: '1.0.0'
+project: 'azure_ai_faq_bot'
+datestamp: 1727107920

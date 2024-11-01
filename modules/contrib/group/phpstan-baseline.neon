@@ -1,0 +1,38 @@
+parameters:
+	ignoreErrors:
+		# These errors are a bug in phpstan, see https://github.com/phpstan/phpstan/issues/6830.
+		-
+			message: "#^Variable \\$any_unpublished_permission might not be defined\\.$#"
+			count: 1
+			path: src/QueryAccess/EntityQueryAlter.php
+
+		-
+			message: "#^Variable \\$data_table might not be defined\\.$#"
+			count: 3
+			path: src/QueryAccess/EntityQueryAlter.php
+
+		-
+			message: "#^Variable \\$own_unpublished_permission might not be defined\\.$#"
+			count: 1
+			path: src/QueryAccess/EntityQueryAlter.php
+
+		-
+			message: "#^Variable \\$owner_conditions might not be defined\\.$#"
+			count: 3
+			path: tests/src/Kernel/QueryAlter/QueryAlterTestBase.php
+
+		-
+			message: "#^Variable \\$unpublished_permissions might not be defined\\.$#"
+			count: 8
+			path: tests/src/Kernel/QueryAlter/QueryAlterTestBase.php
+
+		-
+			message: "#^Variable \\$old_table might not be defined\\.$#"
+			count: 1
+			path: group.install
+
+		# This is a bug in mglaman/phpstan-drupal where the parent constructor is ignored.
+		-
+			message: "#^Plugin definitions cannot be altered\\.$#"
+			count: 1
+			path: tests/src/Unit/GroupRelationTypeManagerTest.php

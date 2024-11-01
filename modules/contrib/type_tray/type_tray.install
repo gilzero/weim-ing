@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall hooks for the type_tray module.
+ */
+
+use Drupal\node\Entity\NodeType;
+
+/**
+ * Implements hook_install().
+ */
+function type_tray_install() {
+  // Define a default link text to view existing nodes on each content type.
+  foreach (NodeType::loadMultiple() as $type) {
+    $link_text = t('View existing %type_label content', [
+      '%type_label' => $type->label(),
+    ]);
+    $type->setThirdPartySetting('type_tray', 'existing_nodes_link_text', $link_text);
+    $type->save();
+  }
+}

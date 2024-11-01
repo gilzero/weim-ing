@@ -1,0 +1,11 @@
+name: Physical Fields Test
+type: module
+description: Contains various non-specific things needed in tests.
+package: Testing
+dependencies:
+  - physical:physical
+
+# Information added by Drupal.org packaging script on 2024-10-29
+version: '8.x-1.5'
+project: 'physical'
+datestamp: 1730201475

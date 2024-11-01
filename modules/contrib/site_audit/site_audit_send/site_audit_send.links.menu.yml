@@ -1,0 +1,5 @@
+site_audit_send.config_link:
+  title: Site Audit Sending Settings
+  description: Configure Site Audit Sending
+  route_name: site_audit_send.settings
+  weight: 10

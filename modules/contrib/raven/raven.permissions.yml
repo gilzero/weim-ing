@@ -1,0 +1,6 @@
+send javascript errors to sentry:
+  title: 'Send JavaScript errors to Sentry'
+  description: 'For users with this permission, JavaScript errors will be captured and sent to Sentry.'
+send performance traces to sentry:
+  title: 'Send performance traces to Sentry'
+  description: 'For users with this permission, request/response performance traces will be captured and sent to Sentry.'

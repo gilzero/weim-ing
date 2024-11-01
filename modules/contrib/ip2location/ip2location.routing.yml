@@ -1,0 +1,7 @@
+ip2location.admin_settings:
+  path: '/admin/config/system/ip2location'
+  defaults:
+    _title: 'IP2Location Settings'
+    _form: '\Drupal\ip2location\Form\IP2LocationAdminSettings'
+  requirements:
+    _permission: 'administer site configuration'

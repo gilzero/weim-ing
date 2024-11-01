@@ -1,0 +1,51 @@
+#copyright {
+  .block-menu {
+    ul.menu {
+      li {
+        margin: 0;
+        line-height: 1.5;
+
+        a {
+          text-decoration: none;
+          color: #ddd;
+          font-size: 14px;
+
+          &:hover {
+            color: var(--primary);
+          }
+        }
+      }
+    }
+
+    @media (max-width: $screen-sm-max) {
+      ul.menu {
+        li {
+          a {
+            display: block;
+            padding: 5px 0;
+            text-align: center;
+          }
+        }
+      }
+    }
+
+    @media (min-width: $screen-md-min) {
+      ul.menu {
+        display: flex;
+        flex-wrap: wrap;
+
+        li {
+          margin-right: 25px;
+
+          &:last-child {
+            margin-right: 0;
+          }
+
+          a {
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+}

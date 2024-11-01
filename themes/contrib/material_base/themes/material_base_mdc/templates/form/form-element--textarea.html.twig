@@ -1,0 +1,19 @@
+{#
+  MDC doesn't provide "static label" option for textarea, only floating label.
+  But it isn't working well in some cases, for example when CKEditor is applied.
+
+  Here is the alternative implementation which is now enabled by default due to accessability reasons.
+#}
+
+{% extends "form-element--textarea--static-label.html.twig" %}
+
+{#
+  Original implementation with pure MDC experience:
+
+  {% extends "form-element--textarea--floating-label.html.twig" %}
+#}
+
+
+
+
+

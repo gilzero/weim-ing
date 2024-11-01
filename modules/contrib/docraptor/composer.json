@@ -1,0 +1,15 @@
+{
+    "name": "drupal/docratop",
+    "license": "GPL-2.0-or-later",
+    "type": "drupal-module",
+    "description": "DocRaptor is the HTML to PDF API that uses the Prince PDF generator",
+    "support": {
+      "issues": "https://drupal.org/project/issues/docraptor",
+      "source": "https://drupal.org/project/docraptor"
+    },
+    "require": {
+      "docraptor/docraptor": "^3.0 || ^4.0",
+      "drupal/key": "^1.19"
+    }
+  }
+  

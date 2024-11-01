@@ -1,0 +1,160 @@
+///
+/// Editorial by HTML5 UP
+/// html5up.net | @ajlkn
+/// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+///
+
+/* Main */
+
+	#main {
+		@include vendor('flex-grow', '1');
+		@include vendor('flex-shrink', '1');
+		width: 100%;
+
+		> .inner {
+			@include padding(0, 6em);
+			margin: 0 auto;
+			max-width: 110em;
+
+			> section {
+				@include padding(6em, 0);
+				border-top: solid 2px _palette(border);
+
+				&:first-of-type {
+				 	border-top: 0 !important;
+				}
+			}
+		}
+
+		@include breakpoint('<=xlarge') {
+			> .inner {
+				@include padding(0, 5em);
+
+				> section {
+					@include padding(5em, 0);
+				}
+			}
+		}
+
+		@include breakpoint('<=large') {
+			> .inner {
+				@include padding(0, 4em);
+
+				> section {
+					@include padding(4em, 0);
+				}
+			}
+		}
+
+		@include breakpoint('<=small') {
+			> .inner {
+				@include padding(0, 2em);
+
+				> section {
+					@include padding(3em, 0);
+				}
+			}
+		}
+	}
+
+/* Custom */
+
+	.main-container {
+		max-width: 100%;
+
+		.row {
+			flex-wrap: nowrap;
+
+			&__content {
+				width: 100%;
+			}
+		}
+	}
+
+	.page-content {
+		margin-top: 30px;
+		margin-bottom: 80px;
+		transition: 0.4s;
+		padding-left: 70px;
+		@include media(mtl) {
+			padding-left: 15px;
+		}
+		@include media(msl) {
+			margin-top: 60px;
+			margin-bottom: 60px;
+		}
+
+		.field--type-image {
+			margin-bottom: 15px;
+		}
+
+		.field--name-body {
+			margin-bottom: 15px;
+		}
+
+	}
+
+	.page-content_active {
+		padding-left: 15px;
+	}
+
+	.top_content {
+		margin-bottom: 30px;
+		display: flex;
+		align-items: center;
+		@include media(mtl) {
+			display: none;
+		}
+
+		&__logo {
+			width: 50px;
+			margin-right: 10px;
+			border-bottom: 0;
+		}
+
+		.navbar-nav {
+			flex-direction: row;
+			margin-bottom: 0;
+			a {
+				text-transform: uppercase;
+				border-bottom:  none;
+				padding: 10px;
+				color: #000;
+			}
+		}
+	}
+
+	.region-top-content {
+		display: flex;
+		align-items: center;
+		width: 100%;
+		justify-content: space-between;
+
+		p {
+			margin: 0;
+		}
+
+		.field--name-body {
+			margin-bottom: 0;
+		}
+	}
+
+	.content {
+		ul {
+			ul {
+				padding-left: 15px;
+			}
+		}
+
+		li {
+			@include media(msl) {
+				font-size: 14px;
+			}
+		}
+	}
+
+	.faq-content {
+		.field--name-title {
+			margin: 0 0 2em 0;
+		}
+	}

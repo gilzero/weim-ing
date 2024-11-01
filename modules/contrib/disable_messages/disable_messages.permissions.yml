@@ -1,0 +1,10 @@
+'view status messages':
+  title: 'View status messages'
+'view warning messages':
+  title: 'View warning messages'
+'view error messages':
+  title: 'View error messages'
+'exclude from message filtering':
+  title: 'Exclude from message filtering'
+'administer disable messages':
+  title: 'Administer disable messages'

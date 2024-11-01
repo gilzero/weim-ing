@@ -1,0 +1,17 @@
+{% extends "@material_base/layout/page.html.twig" %}
+
+{% if navbar_style == 'dense' %}
+  {% set navbar_style_adjust = 'mdc-top-app-bar--dense-fixed-adjust' %}
+{% elseif navbar_style == 'prominent' %}
+  {% set navbar_style_adjust = 'mdc-top-app-bar--prominent-fixed-adjust' %}
+{% else %}
+  {% set navbar_style_adjust = 'mdc-top-app-bar--fixed-adjust' %}
+{% endif %}
+
+{% block page_container %}
+  <div class="page-container layout-container{{ page_layout ? ' layout-container--node' : ' layout-container--page' }}{{ drawer_full ? ' mdc-drawer-app-content'}}">
+{% endblock %}
+
+{% block navbar_adjust %}
+  <div class="page-navbar-adjust {{ navbar_style_adjust }}{{ drawer_below ? ' mdc-drawer-app-content'}}">
+{% endblock %}

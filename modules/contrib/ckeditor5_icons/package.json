@@ -1,0 +1,32 @@
+{
+  "name": "ckeditor5-icons",
+  "version": "1.1.3",
+  "description": "A CKEditor 5 plugin intended for Drupal 9.5+ which enables inserting Font Awesome icons without leaving the editor.",
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "watch": "webpack --mode development --watch",
+    "build": "webpack",
+    "w": "run(){ webpack --mode development --watch --env plugin=\"$1\"; }; run",
+    "b": "run(){ webpack --env plugin=\"$1\"; }; run"
+  },
+  "devDependencies": {
+    "@ckeditor/ckeditor5-core": "~41.4.2",
+    "@ckeditor/ckeditor5-dev-utils": "^40.0.0",
+    "@ckeditor/ckeditor5-engine": "~41.4.2",
+    "@ckeditor/ckeditor5-html-support": "~41.4.2",
+    "@ckeditor/ckeditor5-link": "~41.4.2",
+    "@ckeditor/ckeditor5-ui": "~41.4.2",
+    "@ckeditor/ckeditor5-utils": "~41.4.2",
+    "@ckeditor/ckeditor5-widget": "~41.4.2",
+    "ckeditor5": "~41.4.2",
+    "copy-webpack-plugin": "^11.0.0",
+    "fontawesome5": "npm:@fortawesome/fontawesome-free@5.15.4",
+    "fontawesome6": "npm:@fortawesome/fontawesome-free@6.4.2",
+    "raw-loader": "^4.0.2",
+    "terser-webpack-plugin": "^5.3.9",
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.1",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.4.0"
+  }
+}

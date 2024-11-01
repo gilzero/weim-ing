@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Default EBT Settings implementation for EBT Block.
+ *
+ * Available variables
+ * - ebt_settings: A list of EBT Block settings.
+ *
+ * @see template_preprocess_ebt_settings_default()
+ *
+ * @ingroup themeable
+ */
+#}
+{% for key, setting in ebt_settings %}
+  {% if setting is iterable %}
+    {% for child_key, child_setting in setting %}
+      {% if child_setting is not iterable %}
+        <div>{{ child_key }}: {{ child_setting }}</div>
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <div>{{ key }}: {{ setting }}</div>
+  {% endif %}
+{% endfor %}

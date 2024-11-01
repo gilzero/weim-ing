@@ -1,0 +1,10 @@
+phpmailer_smtp.settings:
+  title: 'PHPMailer SMTP'
+  route_name: phpmailer_smtp.settings
+  parent: system.admin_config_system
+  description: "Configure the PHPMailer SMTP module."
+phpmailer_smtp.format:
+  title: Format
+  route_name: phpmailer_smtp.format
+  parent: phpmailer_smtp.settings
+  description: "Configure PHPMailer SMTP email format."

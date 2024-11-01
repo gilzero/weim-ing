@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Vrstva_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #006894;
+        stroke-linejoin: round;
+        stroke-width: 1.3px;
+      }
+    </style>
+  </defs>
+  <polygon class="cls-1" points="9.8497 19.0723 4.7459 20.8789 6.8396 15.886 18.3222 5.0383 21.3324 8.2246 9.8497 19.0723"/>
+  <line class="cls-1" x1="15.595" y1="7.6907" x2="18.571" y2="10.841"/>
+</svg>

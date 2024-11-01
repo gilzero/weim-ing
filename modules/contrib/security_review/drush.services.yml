@@ -1,0 +1,6 @@
+services:
+  security_review.commands:
+    class: Drupal\security_review\Commands\SecurityReviewCommands
+    arguments: ['@security_review', '@plugin.manager.security_review.security_check']
+    tags:
+      - { name: drush.command }

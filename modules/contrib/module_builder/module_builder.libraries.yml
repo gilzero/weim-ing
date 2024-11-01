@@ -1,0 +1,29 @@
+typed_data_defaults:
+  version: 1.x
+  js:
+    js/typed_data_defaults.js: {  }
+  header: true
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+
+hooks:
+  version: 1.x
+  js:
+    js/hooks.js: {  }
+  header: true
+  dependencies:
+    - core/jquery
+    - core/drupal
+
+generated_files:
+  version: 1.x
+  css:
+    component:
+      css/generated_files.css: {  }
+  js:
+    js/generated_files.js: {  }
+  dependencies:
+    - core/jquery
+    - core/drupal

@@ -1,0 +1,73 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a Bulma navbar block.
+ */
+#}
+{{ attach_library('drulma/drulmajs') }}
+{% if configuration.navbar_color %}
+  {% set attributes = attributes.addClass('is-' ~ configuration.navbar_color) %}
+{% endif %}
+{% set heading_id = attributes.id ~ '-menu'|clean_id %}
+{% set collapsible_menu_id = attributes.id ~ '-collapsible-menu'|clean_id %}
+<nav role="navigation" aria-labelledby="{{ heading_id }}"{{ attributes.addClass('navbar')|without('role', 'aria-labelledby') }}>
+  {% if configuration.horizontally_centered %}
+  <div class="container">
+  {% endif %}
+  <div class="navbar-brand">
+
+  {% if content.site_logo['#access'] %}
+    <a class="navbar-item site-logo" href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">
+      {{ content.site_logo }}
+    </a>
+  {% endif %}
+
+  {% if content.site_name['#access'] %}
+    <a class="navbar-item site-name" href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">
+      <{{ configuration.navbar_title_tag }} class="title is-size-{{ configuration.site_name_size }}">
+        {{ content.site_name }}
+      </{{ configuration.navbar_title_tag }}>
+    </a>
+  {% endif %}
+
+  {% if content.site_slogan['#access'] %}
+    <div class="navbar-item site-slogan is-size-{{ configuration.site_slogan_size }}">
+      {{ content.site_slogan }}
+    </div>
+  {% endif %}
+
+    {# Label. If not displayed, we still provide it for screen readers. #}
+    {% if not configuration.label_display %}
+      {% set title_attributes = title_attributes.addClass('visually-hidden') %}
+    {% endif %}
+
+    {{ title_prefix }}
+    <h2{{ title_attributes.setAttribute('id', heading_id).addClass(['navbar-item', 'navbar-title']) }}>
+      {{ configuration.label }}
+    </h2>
+    {{ title_suffix }}
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="{{ collapsible_menu_id }}">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div id="{{ collapsible_menu_id }}" class="navbar-menu">
+  {% if content.navbar_start['#access'] %}
+    {{ content.navbar_start }}
+  {% endif %}
+
+  {% if content.navbar_end['#access'] %}
+    {{ content.navbar_end }}
+  {% endif %}
+
+  </div>
+
+
+  {# Content that other modules might be adding. #}
+  {{ content|without('site_logo', 'site_name', 'site_slogan', 'navbar_start', 'navbar_end') }}
+  {% if configuration.horizontally_centered %}
+  </div>
+  {% endif %}
+</nav>

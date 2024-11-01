@@ -1,0 +1,63 @@
+saml_sp.admin:
+  path: /admin/config/people/saml_sp
+  defaults:
+    _title: 'SAML'
+    _form: \Drupal\saml_sp\Form\SamlSpConfig
+  requirements:
+    _permission: 'configure saml sp'
+
+saml_sp.consume:
+  path: '/saml/consume'
+  defaults:
+    _title: 'SAML Consume Callback'
+    _controller: '\Drupal\saml_sp\Controller\SamlSPController::consume'
+  requirements:
+    _access: 'TRUE'
+  options:
+    _maintenance_access: TRUE
+
+saml_sp.logout:
+  path: '/saml/logout'
+  defaults:
+    _title: 'SAML Logout Callback'
+    _controller: '\Drupal\saml_sp\Controller\SamlSPController::logout'
+
+saml_sp.metadata:
+  path: '/saml/metadata.xml'
+  defaults:
+    _title: 'Metadata'
+    _controller: '\Drupal\saml_sp\Controller\SamlSPController::metadata'
+  requirements:
+    _access: 'TRUE'
+
+entity.idp.collection:
+  path: '/admin/config/people/saml_sp/idp_collection'
+  defaults:
+    _entity_list: 'idp'
+    _title: 'SAML'
+  requirements:
+    _permission: 'configure saml sp'
+
+entity.idp.add_form:
+  path: 'admin/config/people/saml_sp/idp/add'
+  defaults:
+    _entity_form: 'idp.add'
+    _title: 'Add Identity Provider'
+  requirements:
+    _permission: 'configure saml sp'
+
+entity.idp.edit_form:
+  path: 'admin/config/people/saml_sp/idp/edit/{idp}'
+  defaults:
+    _entity_form: 'idp.edit'
+    _title: 'Edit Identity Provider'
+  requirements:
+    _permission: 'configure saml sp'
+
+entity.idp.delete_form:
+  path: 'admin/config/people/saml_sp/idp/delete/{idp}'
+  defaults:
+    _entity_form: 'idp.delete'
+    _title: 'Edit Identity Provider'
+  requirements:
+    _permission: 'configure saml sp'

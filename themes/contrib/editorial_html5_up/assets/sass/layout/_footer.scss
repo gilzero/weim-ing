@@ -1,0 +1,36 @@
+///
+/// Editorial by HTML5 UP
+/// html5up.net | @ajlkn
+/// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+///
+
+/* custom */
+
+	.footer {
+		flex: 1;
+		background-color: $background-color;
+		.row {
+			padding: 20px 0 10px 0;
+			&__leftside {
+				display: flex;
+				align-items: center;
+			}
+		}
+		@include media(msp) {
+			.col-sm-6 {
+				display: flex;
+				justify-content: center;
+			}
+		}
+	}
+
+	.region-footer {
+		display: flex;
+		.block-menu:not(:last-child) {
+			margin-right: 70px;
+			@include media(msl) {
+				margin-right: 40px;
+			}
+		}
+	}
+

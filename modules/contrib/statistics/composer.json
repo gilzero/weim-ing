@@ -1,0 +1,22 @@
+{
+    "description": "Logs how many times content is viewed.",
+    "homepage": "https://drupal.org/project/statistics",
+    "license": "GPL-2.0-or-later",
+    "minimum-stability": "dev",
+    "name": "drupal/statistics-statistics",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    ],
+    "support": {
+        "docs": "https://www.drupal.org/docs/8/core/modules/statistics/statistics-module-overview",
+        "issues": "https://www.drupal.org/project/issues/statistics",
+        "source": "https://git.drupalcode.org/project/statistics"
+    },
+    "require": {
+        "php": ">=8.1.6"
+    },
+    "type": "drupal-module"
+}

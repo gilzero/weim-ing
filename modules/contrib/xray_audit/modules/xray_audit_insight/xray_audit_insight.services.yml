@@ -1,0 +1,4 @@
+services:
+  plugin_manager.xray_audit_insight:
+    class: Drupal\xray_audit_insight\Plugin\XrayAuditInsightPluginManager
+    parent: default_plugin_manager

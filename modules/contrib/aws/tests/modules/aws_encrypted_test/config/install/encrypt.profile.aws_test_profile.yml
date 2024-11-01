@@ -1,0 +1,10 @@
+dependencies:
+  config:
+    - key.key.aws_test_key
+  module:
+    - real_aes
+id: aws_test_profile
+label: 'AWS Test Profile'
+encryption_method: real_aes
+encryption_method_configuration: {  }
+encryption_key: aws_test_key

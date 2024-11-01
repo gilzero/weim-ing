@@ -1,0 +1,16 @@
+{
+    "name": "drupal/ebt_starterkit",
+    "type": "drupal-module",
+    "description": "Extra Block Types (EBT): Starterkit",
+    "keywords": ["Drupal"],
+    "license": "GPL-2.0-or-later",
+    "homepage": "http://drupal.org/project/ebt_starterkit",
+    "minimum-stability": "dev",
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/ebt_starterkit",
+        "source": "https://git.drupalcode.org/project/ebt_starterkit"
+    },
+    "require": {
+        "drupal/ebt_core": "^1.4"
+    }
+}

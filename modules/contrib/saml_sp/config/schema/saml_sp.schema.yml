@@ -1,0 +1,149 @@
+saml_sp.settings:
+  type: config_object
+  label: 'Settings'
+  mapping:
+    contact:
+      type: mapping
+      label: 'Contact'
+      mapping:
+        technical:
+          type: mapping
+          label: 'Technical'
+          mapping:
+            name:
+              type: string
+              label: 'Name'
+            email:
+              type: email
+              label: 'Email'
+        support:
+          type: mapping
+          label: 'Support'
+          mapping:
+            name:
+              type: string
+              label: 'Name'
+            email:
+              type: email
+              label: 'Email'
+    organization:
+      type: mapping
+      label: 'Organization'
+      mapping:
+        name:
+          type: string
+          label: 'Name'
+          description: 'This is a short name for the organization'
+        display_name:
+          type: string
+          label: 'Display Name'
+          description: 'This is a long name for the organization'
+        url:
+          type: string
+          label: 'URL'
+          description: 'This is a URL for the organization'
+    strict:
+      type: boolean
+      label: 'Strict'
+      description: 'SAML 2 Strict protocol will be used.'
+    security:
+      type: mapping
+      label: Security
+      mapping:
+        nameIdEncrypted:
+          type: boolean
+          label: 'NameID Encrypted'
+        authnRequestsSigned:
+          type: boolean
+          label: 'Authn Requests Signed'
+        logoutRequestSigned:
+          type: boolean
+          label: 'Logout Requests Signed'
+        logoutResponseSigned:
+          type: boolean
+          label: 'Logout Response Signed'
+        wantMessagesSigned:
+          type: boolean
+          label: 'Want Messages Signed'
+        wantAssertionsSigned:
+          type: boolean
+          label: 'Want Assertions Signed'
+        wantNameIdEncrypted:
+          type: boolean
+          label: 'Want NameID Encrypted'
+        signMetaData:
+          type: boolean
+          label: 'Sign Meta Data'
+        signatureAlgorithm:
+          type: string
+          label: 'Signature Algorithm'
+        lowercaseUrlencoding:
+          type: boolean
+          label: 'Lowercase Url Encoding'
+    cert_location:
+      type: string
+      label: 'Certificate Location'
+      description: 'The location of the X.509 certificate file on the server. This must be a location that PHP can read.'
+    key_location:
+      type: string
+      label: 'Key Location'
+      description: 'The location of the x.509 key file on the server. This must be a location that PHP can read.'
+    new_cert_location:
+      type: string
+      label: 'New Certificate Location'
+      description: 'The location of the x.509 certificate file on the server. If the certificate above is about to expire add your new certificate here after you have obtained it. This will add the new certificate to the metadata to let the IdP know of the new certificate. This must be a location that PHP can read.'
+    entity_id:
+      type: string
+      label: 'Entity ID'
+      description: 'The unique identifier that the IdP intentifies this site for the Relying Party Trust.'
+    valid_until:
+      type: string
+      label: 'Metadata valid until'
+      description: 'Expiration date of the metadata. If not empty, it must be a date/time string that can be parsed by PHP or the special value "<certificate>".'
+    debug:
+      type: boolean
+      label: 'Debug Mode'
+
+
+saml_sp.idp.*:
+  type: config_entity
+  label: 'SAML Identity Provider'
+  mapping:
+    label:
+      type: label
+      label: 'Name'
+    id:
+      type: string
+      label: 'Machine-readable name'
+    entity_id:
+      type: string
+      label: 'Entity ID'
+      description: 'The entityID identifier which the Identity Provider will use to identiy itself by, this may sometimes be a URL.'
+    app_name:
+      type: string
+      label: 'App name'
+      description: 'The app name is provided to the Identiy Provider, to identify the origin of the request.'
+    nameid_field:
+      type: string
+      label: 'NameID field'
+      description: 'Mail is usually used between IdP and SP, but if you want to let users change the email address in IdP, you need to use a custom field to store the ID.'
+    login_url:
+      type: string
+      label: 'IdP login URL'
+      description: 'Login URL of the Identity Provider server.'
+    logout_url:
+      type: string
+      label: 'IdP logout URL'
+      description: 'Logout URL of the Identity Provider server.'
+    x509_cert:
+      type: sequence
+      label: 'X.509 certificates'
+      description: 'Enter the application certificate provided by the IdP.'
+      sequence:
+        type: string
+    authn_context_class_ref:
+      type: sequence
+      label: 'Authentication methods'
+      description: 'What authentication methods would you like to use with this IdP?'
+      sequence:
+        type: string

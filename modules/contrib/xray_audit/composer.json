@@ -1,0 +1,12 @@
+{
+  "name": "drupal/xray_audit",
+  "type": "drupal-module",
+  "description": "This module generates audit reports about a Drupal site",
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://www.drupal.org/project/xray_audit",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/xray_audit",
+    "source": "https://git.drupalcode.org/project/xray_audit"
+  },
+  "require": {}
+}

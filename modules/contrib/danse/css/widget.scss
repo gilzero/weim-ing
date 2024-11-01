@@ -1,0 +1,38 @@
+.danse-user-notification-widget {
+  position: relative;
+  color: var(--color--white);
+  background-color: var(--color--primary-40);
+}
+.danse-user-notification-widget .view-header {
+  width: 2rem;
+  height: 2rem;
+  text-align: center;
+  line-height: 2rem;
+  font-size: 1rem;
+  margin-block-start: var(--sp2);
+  margin-block-end: 0;
+}
+.danse-user-notification-widget .view-content, .danse-user-notification-widget .view-empty {
+  display: none;
+}
+.danse-user-notification-widget:hover .view-content, .danse-user-notification-widget:hover .view-empty {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  z-index: 999;
+  width: auto;
+  max-height: 80vh;
+  overflow-y: auto;
+  background-color: inherit;
+  padding: 0.25rem;
+  transition: all 2s;
+}
+.danse-user-notification-widget:hover .view-content a {
+  line-height: 1.2rem;
+  white-space: nowrap;
+  color: var(--color--white);
+}
+.danse-user-notification-widget:hover .view-content a span.date {
+  font-size: 0.5rem;
+}

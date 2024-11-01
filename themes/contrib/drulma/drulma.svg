@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Sodipodi ("http://www.sodipodi.com/") -->
+
+<svg
+   xmlns:xhtml="http://www.w3.org/1999/xhtml"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg410"
+   viewBox="0 0 541 747"
+   sodipodi:version="0.29win"
+   sodipodi:docname="Angelo-Gemmi-drop.svg"
+   version="1.1"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <defs
+     id="defs7" />
+  <sodipodi:namedview
+     id="base"
+     showgrid="false"
+     inkscape:zoom="0.31593039"
+     inkscape:cx="-365.7161"
+     inkscape:cy="360.83898"
+     inkscape:window-width="2560"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g4567" />
+  <path
+     id="path412"
+     style="fill:#25aae1;fill-opacity:1"
+     d="m541 462v33c-2.2 6.1-0.3 14.6-3 21-12.4 108-104.8 206.1-212 225-10.9 4.3-23.8 4.2-35 6h-41c-11.2-1.8-24.1-1.7-35-6-115.6-19.9-209.75-131.3-215-247v-34c3.663-22.6 8.322-46.1 17.25-67.7 9.04-17.4 18.35-34.7 29-51l34-46c76.05-90.4 142.65-187.5 192.75-293.3l13.8 29.25c41.4 100.85 106.7 190.15 178 274.05 7.7 11.3 16 22.3 25 33 13.4 20.6 26.5 41.4 37 64 7.2 19.1 11.7 39.7 14.2 59.7z" />
+  <g
+     transform="translate(-49.754237,257.77966)"
+     style="fill:#00d1b2;fill-rule:evenodd;stroke:none;stroke-width:1"
+     id="g4567">
+    <polygon
+       id="Path"
+       points="136,296 156,156 236,76 336,176 276,236 356,316 236,396 "
+       transform="matrix(1.6429423,0,0,1.6429423,-73.980146,-195.38481)" />
+  </g>
+  <metadata
+     id="metadata4">
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/publicdomain/" />
+        <dc:publisher>
+          <cc:Agent
+             rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>drop</dc:title>
+        <dc:date>2008-02-02T15:17:34</dc:date>
+        <dc:description />
+        <dc:source>https://openclipart.org/detail/12507/drop-by-angelo_gemmi</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Angelo_Gemmi</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>drop</rdf:li>
+            <rdf:li>water</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <xhtml:iframe
+     class="cleanslate hidden"
+     src="Angelo-Gemmi-drop_files/commandline.html"
+     id="cmdline_iframe"
+     style="height: 0px !important;" />
+</svg>

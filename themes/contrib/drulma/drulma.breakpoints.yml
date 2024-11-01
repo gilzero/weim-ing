@@ -1,0 +1,32 @@
+# Set breakpoints according to the documentation:
+# https://bulma.io/documentation/overview/responsiveness/
+drulma.mobile:
+  label: mobile
+  mediaQuery: 'all and (max-width: 768px)'
+  weight: 0
+  multipliers:
+    - 1x
+drulma.tablet:
+  label: tablet
+  mediaQuery: 'all and (min-width: 769px) and (max-width: 1023px)'
+  weight: 1
+  multipliers:
+    - 1x
+drulma.desktop:
+  label: desktop
+  mediaQuery: 'all and (min-width: 1024px) and (max-width: 1215px)'
+  weight: 2
+  multipliers:
+    - 1x
+drulma.widescreen:
+  label: widescreen
+  mediaQuery: 'all and (min-width: 1216px) and (max-width: 1407px)'
+  weight: 2
+  multipliers:
+    - 1x
+drulma.fullhd:
+  label: fullhd
+  mediaQuery: 'all and (min-width: 1408px)'
+  weight: 3
+  multipliers:
+    - 1x

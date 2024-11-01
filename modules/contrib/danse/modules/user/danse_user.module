@@ -1,0 +1,93 @@
+<?php
+
+/**
+ * @file
+ * The DANSE User module file.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\danse_user\Plugin\Danse\Role;
+use Drupal\danse_user\Plugin\Danse\User;
+use Drupal\danse_user\UserPayload;
+use Drupal\user\RoleInterface;
+use Drupal\user\UserInterface;
+
+/**
+ * Get the DANSE user plugin.
+ *
+ * @return \Drupal\danse_user\Plugin\Danse\User
+ *   The DANSE user plugin.
+ */
+function _danse_user_plugin(): User {
+  return Drupal::service('plugin.manager.danse.plugin')->createInstance('user');
+}
+
+/**
+ * Get the DANSE user role plugin.
+ *
+ * @return \Drupal\danse_user\Plugin\Danse\Role
+ *   The DANSE user role plugin.
+ */
+function _danse_user_role_plugin(): Role {
+  return Drupal::service('plugin.manager.danse.plugin')->createInstance('role');
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function danse_user_user_cancel(array $edit, UserInterface $account, string $method): void {
+  _danse_user_plugin()->createUserEvent(UserPayload::TOPIC_CANCEL, $account);
+}
+
+/**
+ * Implements hook_user_login().
+ */
+function danse_user_user_login(UserInterface $account): void {
+  _danse_user_plugin()->createUserEvent(UserPayload::TOPIC_LOGIN, $account);
+}
+
+/**
+ * Implements hook_user_logout().
+ */
+function danse_user_user_logout(AccountInterface $account): void {
+  _danse_user_plugin()->createUserEvent(UserPayload::TOPIC_LOGOUT, $account);
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function danse_user_entity_insert(EntityInterface $entity): void {
+  if ($entity instanceof UserInterface) {
+    $plugin = _danse_user_plugin();
+    $plugin->createUserEvent(UserPayload::TOPIC_INSERT, $entity);
+    _danse_user_plugin()->createChangedRolesEvents([], $entity);
+  }
+  elseif ($entity instanceof RoleInterface) {
+    _danse_user_role_plugin()->createChangedPermissionsEvents([], $entity);
+  }
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function danse_user_entity_update(EntityInterface $entity): void {
+  if (property_exists($entity, 'original')) {
+    if ($entity instanceof UserInterface) {
+      /**
+       * @var \Drupal\user\UserInterface $originalUser
+       */
+      $originalUser = $entity->original;
+      $plugin = _danse_user_plugin();
+      $plugin->createUserEvent(UserPayload::TOPIC_UPDATE, $entity);
+      $plugin->createChangedRolesEvents($originalUser->getRoles(TRUE), $entity);
+    }
+    elseif ($entity instanceof RoleInterface) {
+      /**
+       * @var \Drupal\user\RoleInterface $originalRole
+       */
+      $originalRole = $entity->original;
+      _danse_user_role_plugin()->createChangedPermissionsEvents($originalRole->getPermissions(), $entity);
+    }
+  }
+}

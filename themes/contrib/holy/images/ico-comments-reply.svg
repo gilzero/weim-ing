@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Vrstva_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-linecap: round;
+      }
+
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke: #006894;
+        stroke-linejoin: round;
+        stroke-width: 1.3px;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M19.4233,12.8693v-6.8029c0-.744-.6031-1.3471-1.3471-1.3471H2.6223c-.744,0-1.3471.6031-1.3471,1.3471v9.109c0,.744.6031,1.3471,1.3471,1.3471h1.4915v3.5004c0,.4463.5194.6912.8637.4072l4.7024-3.9076h2.11"/>
+  <line class="cls-2" x1="4.6369" y1="8.5589" x2="13.1839" y2="8.5589"/>
+  <line class="cls-2" x1="4.6369" y1="11.3382" x2="9.0943" y2="11.3382"/>
+  <g>
+    <polygon class="cls-2" points="13.9342 15.152 12.5842 11.3382 16.3151 12.9027 24.4209 21.4829 22.04 23.7322 13.9342 15.152"/>
+    <line class="cls-2" x1="22.4389" y1="19.445" x2="20.0849" y2="21.6688"/>
+  </g>
+</svg>

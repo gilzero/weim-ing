@@ -1,0 +1,13 @@
+name: 'Raven: Sentry Integration'
+description: Integrates with Sentry application monitoring and error tracking platform (sentry.io).
+type: module
+core_version_requirement: ^10.2 || ^11
+configure: system.logging_settings
+test_dependencies:
+  - csp:csp
+  - seckit:seckit
+
+# Information added by Drupal.org packaging script on 2024-10-04
+version: '6.0.10'
+project: 'raven'
+datestamp: 1728022664

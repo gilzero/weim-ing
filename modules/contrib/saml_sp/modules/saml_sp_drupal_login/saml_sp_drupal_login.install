@@ -1,0 +1,75 @@
+<?php
+
+/**
+ * @file
+ * Update functions for the SAML SP Drupal Login module.
+ */
+
+/**
+ * Fix mismatch between config form and schema.
+ */
+function saml_sp_drupal_login_update_8301() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('saml_sp_drupal_login.config');
+  $data = $config->get();
+  $old_keys = ['request_account', 'site_mail', 'site_administrators'];
+  foreach ($old_keys as $old) {
+    $new = 'account_request_' . $old;
+    if (array_key_exists($old, $data) && !array_key_exists($new, $data)) {
+      $config->set($new, $data[$old]);
+    }
+  }
+  $config->save(TRUE);
+}
+
+/**
+ * set new default path to redirect already authenticated user to if they try to authenticate again
+ */
+function saml_sp_drupal_login_update_8302() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('saml_sp_drupal_login.config');
+  $config->set('logged_in_redirect', '<front>');
+  $config->save(TRUE);
+}
+
+/**
+ * Add config option to force authentication.
+ */
+function saml_sp_drupal_login_update_8303() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('saml_sp_drupal_login.config');
+  $config->set('force_authentication', FALSE);
+  $config->save(TRUE);
+}
+
+/**
+ * Remove config options for sending account request mail to site admin.
+ */
+function saml_sp_drupal_login_update_8401() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('saml_sp_drupal_login.config');
+  $data = $config->get();
+  $keys = ['account_request_site_mail', 'account_request_site_administrators'];
+  foreach ($keys as $key) {
+    if (array_key_exists($key, $data)) {
+      $config->clear($key);
+    }
+  }
+  $config->save(TRUE);
+}
+
+/**
+ * Add/update config option to create accounts for authenticated users.
+ */
+function saml_sp_drupal_login_update_9401() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('saml_sp_drupal_login.config');
+  $data = $config->get();
+  $create = FALSE;
+  if (array_key_exists('user_register_bypass__saml_auth', $data)) {
+    $create = $data['user_register_bypass__saml_auth'];
+    $config->clear('user_register_bypass__saml_auth');
+  }
+  $config->set('account_request_create_account', $create);
+  $config->save(TRUE);
+}

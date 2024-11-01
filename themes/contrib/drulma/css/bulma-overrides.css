@@ -1,0 +1,4 @@
+/* Remove a weird gap before the text format when editing. */
+.field--widget-text-textarea-with-summary .field {
+  margin-bottom: 0;
+}

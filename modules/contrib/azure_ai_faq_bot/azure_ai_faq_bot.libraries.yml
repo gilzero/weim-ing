@@ -1,0 +1,13 @@
+azure_ai_faq_bot:
+  js:
+    js/azure_ai_faq_bot.js: { attributes: { defer: true } }
+  dependencies:
+    - core/drupalSettings
+    - azure_ai_faq_bot/webchat
+
+botframework.webchat:
+  remote: https://cdn.botframework.com/botframework-webchat/
+  version: 1.0
+  license: GPL-2.0-or-later
+  js:
+    https://cdn.botframework.com/botframework-webchat/latest/webchat.js: { type: external, minified: true }

@@ -1,0 +1,61 @@
+services:
+  http_client_middleware.raven:
+    class: Drupal\raven\Http\HttpClientMiddleware
+    tags:
+      - { name: http_client_middleware }
+    arguments:
+      - '@raven.request_subscriber'
+
+  logger.raven:
+    class: Drupal\raven\Logger\Raven
+    arguments:
+      - '@config.factory'
+      - '@logger.log_message_parser'
+      - '%kernel.environment%'
+      - '@current_user'
+      - '@request_stack'
+      - '@settings'
+      - '@event_dispatcher'
+      - '@raven.request_fetcher'
+    tags:
+      - { name: logger }
+
+  raven.csp_subscriber:
+    class: Drupal\raven\EventSubscriber\CspSubscriber
+    arguments:
+      - '@config.factory'
+    tags:
+      - { name: event_subscriber }
+
+  raven.request_subscriber:
+    class: Drupal\raven\EventSubscriber\RequestSubscriber
+    arguments:
+      - '@config.factory'
+      - '@logger.raven'
+      - '@datetime.time'
+      - '@event_dispatcher'
+      - '@service_container'
+      - '@current_user'
+    tags:
+      - { name: event_subscriber }
+
+  raven.twig_tracing_extension:
+    class: Drupal\raven\Twig\TwigTracingExtension
+    arguments:
+      - '@config.factory'
+    tags:
+      - { name: twig.extension }
+
+  raven.seckit_overrider:
+    class: Drupal\raven\Config\SecKitOverrides
+    arguments:
+      - '@config.factory'
+      - '%kernel.environment%'
+    tags:
+      - { name: config.factory.override }
+
+  raven.request_fetcher:
+    class: Drupal\raven\Integration\RequestFetcher
+    arguments:
+      - '@request_stack'
+      - '@psr7.http_message_factory'

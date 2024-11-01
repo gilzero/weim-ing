@@ -1,0 +1,15 @@
+/**
+ * @file
+ * Skin based on safe CSS file name: ultimenu--top-right-header.
+ */
+
+.ultimenu--top-right-header {
+  --ultiflyout: #eaeaea;
+
+  float: right;
+}
+
+html.is-ultidesktop .is-ultihover.ultimenu--orange .block {
+  display: inline-block;
+  vertical-align: top;
+}

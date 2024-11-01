@@ -1,0 +1,35 @@
+.view-faq {
+    .views-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        background-color: #eff1f2;
+        padding: 10px;
+    }
+
+    .views-field-title {
+        max-width: 80%;
+        display: block;
+        font-weight: 600;
+        font-style: italic;
+
+        a {
+            color: #3d4449;
+        }
+    }
+}
+
+.view-taxonomy-term {
+    .views-row:not(:last-child) {
+        margin-bottom: 60px;
+    }
+}
+
+.faq {
+    h2 {
+        a {
+            border-bottom: 0;
+            padding: 0;
+        }
+    }
+}

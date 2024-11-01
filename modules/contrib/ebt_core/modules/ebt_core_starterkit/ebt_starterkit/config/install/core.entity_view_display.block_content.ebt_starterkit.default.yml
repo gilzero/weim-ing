@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.ebt_starterkit
+    - field.field.block_content.ebt_starterkit.body
+    - field.field.block_content.ebt_starterkit.field_ebt_settings
+  module:
+    - ebt_core
+    - text
+id: block_content.ebt_starterkit.default
+targetEntityType: block_content
+bundle: ebt_starterkit
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_ebt_settings:
+    type: ebt_settings_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

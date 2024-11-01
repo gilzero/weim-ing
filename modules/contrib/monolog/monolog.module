@@ -1,0 +1,22 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Hooks provided by the Monolog module.
+ */
+
+use Drupal\Core\Render\Markup;
+
+/**
+ * Implements hook_mail().
+ */
+function monolog_mail($key, &$message, $params): void {
+  $content = $params['content'];
+  $records = $params['records'];
+
+  $message['subject'] = t('A new @level message has been logged', ['@level' => $records[0]['level_name']]);
+  $message['headers']['Content-Type'] = 'text/html';
+  $message['body'][] = Markup::create($content);
+}

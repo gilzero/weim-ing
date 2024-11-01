@@ -1,0 +1,13 @@
+matomo_reports.matomo_reports_settings:
+  title: 'Matomo Reports'
+  route_name: matomo_reports.matomo_reports_settings
+  description: 'Configure the settings for your Matomo reports.'
+  parent: system.admin_config_system
+  weight: 99
+
+matomo_reports.reports:
+  title: 'Matomo Web Analytics'
+  parent: system.admin_reports
+  description: 'Reports on your website visitors, your popular pages, the search engines keywords they used... and so much more.'
+  route_name: matomo_reports.reports
+  weight: -1

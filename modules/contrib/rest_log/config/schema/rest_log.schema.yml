@@ -1,0 +1,12 @@
+# Schema for the configuration files of the Rest log module.
+
+rest_log.settings:
+  type: config_object
+  label: 'Rest log'
+  mapping:
+    maximum_lifetime:
+      type: integer
+      label: 'Maximum lifetime for rest logs'
+    include_same_host:
+      type: boolean
+      label: 'Include requests with same-host referrer'

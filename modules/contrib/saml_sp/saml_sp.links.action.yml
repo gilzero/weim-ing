@@ -1,0 +1,5 @@
+entity.idp.add_form:
+  route_name: entity.idp.add_form
+  title: 'Add Identity Provider'
+  appears_on:
+    - entity.idp.collection

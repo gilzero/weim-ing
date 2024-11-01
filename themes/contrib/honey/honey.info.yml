@@ -1,0 +1,24 @@
+name: Honey
+type: theme
+description: Created for the Drupal User Guide to demonstrate installing themes
+base theme: stable9
+core_version_requirement: ^9 || ^10 || ^11
+libraries:
+  - core/normalize
+  - honey/global-styling
+regions:
+  header: Header
+  primary_menu: 'Primary menu'
+  breadcrumb: Breadcrumb
+  secondary_menu: 'Secondary menu'
+  highlighted: Highlighted
+  help: 'Help'
+  content: Content
+  sidebar_first: 'Sidebar first'
+  sidebar_second: 'Sidebar second'
+  footer: 'Footer'
+
+# Information added by Drupal.org packaging script on 2024-08-19
+version: '1.1.1'
+project: 'honey'
+datestamp: 1724093354

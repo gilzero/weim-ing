@@ -1,0 +1,10 @@
+services:
+  site_audit_send.event_subscriber:
+    class: Drupal\site_audit_send\EventSubscriber\SiteAuditSendSubscriber
+    arguments: ['@messenger']
+    tags:
+      - { name: event_subscriber }
+
+  site_audit_send.rest_client:
+    class: Drupal\site_audit_send\RestClient
+    arguments: ['@config.factory']

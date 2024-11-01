@@ -1,0 +1,13 @@
+name: UI Patterns Settings
+type: module
+description: Configure patterns with settings
+package: User interface
+core_version_requirement: ^10.2 || ^11
+dependencies:
+  - ui_patterns:ui_patterns
+  - token:token
+
+# Information added by Drupal.org packaging script on 2024-09-14
+version: '8.x-2.4'
+project: 'ui_patterns_settings'
+datestamp: 1726298109

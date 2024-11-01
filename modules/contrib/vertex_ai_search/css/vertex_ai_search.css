@@ -1,0 +1,62 @@
+ol.search-results li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: none;
+}
+
+ol.search-results ol {
+  padding-inline-start: 0;
+}
+
+ol.search-results .promotion,
+ol.search-results .spelling {
+  width: 55%;
+  padding: 1em;
+  border-color: #fff;
+  background-color: #f6f6f6;
+}
+
+ol.search-results .result {
+  padding: 1em 0;
+}
+
+ol.search-results .result .title {
+  font-size: 1.2em;
+  font-weight: normal;
+  line-height: 1.7em;
+}
+
+ol.search-results .promotion .title {
+  font-size: 1.1em;
+  font-weight: normal;
+  line-height: 1.5em;
+}
+
+ol.search-results .spelling {
+  font-size: 1.1em;
+}
+
+.vais-results--message {
+  padding: 1em 0;
+  font-size: 1.4em;
+  font-weight: normal;
+}
+
+.vais-results-no-results--message {
+  padding: 1em 0;
+  font-size: 1.4em;
+  font-weight: normal;
+}
+
+.vais-results-no-keywords--message {
+  padding: 1em 0;
+  font-size: 1.4em;
+  font-weight: normal;
+}
+
+.vais-results-limitation--message {
+  padding: 1em 0;
+  font-size: 1.2em;
+  font-weight: normal;
+}

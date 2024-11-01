@@ -1,0 +1,16 @@
+{
+    "name": "drupal/simplelogin",
+    "type": "drupal-module",
+    "description": "Simple Login, Register, Password Reset with Background Image.",
+    "homepage": "https://www.drupal.org/project/simplelogin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "thirstysix",
+            "homepage": "https://www.drupal.org/user/824886"
+        }
+    ],
+    "support": {
+        "source": "https://git.drupalcode.org/project/simplelogin"
+    }
+}

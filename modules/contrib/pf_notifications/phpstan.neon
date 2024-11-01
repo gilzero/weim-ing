@@ -1,0 +1,9 @@
+parameters:
+  level: 6
+  scanDirectories:
+    - ../../../../vendor/drush/drush/src-symfony-compatibility
+    - ../../../../web/core
+    - ../../../../web/modules
+    - ../../../../web/themes
+  ignoreErrors:
+    - identifier: missingType.iterableValue

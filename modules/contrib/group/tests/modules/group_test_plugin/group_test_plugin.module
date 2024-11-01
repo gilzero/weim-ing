@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Helper module for the Group plugin tests.
+ */
+
+/**
+ * Implements hook_entity_bundle_info_alter().
+ */
+function group_test_plugin_entity_bundle_info_alter(&$bundles) {
+  if (!empty($GLOBALS['specific_bundle_id'])) {
+    $bundles['group_relationship'][$GLOBALS['specific_bundle_id']]['class'] = '\Drupal\group_test_plugin\Entity\GroupedUserSpecific';
+  }
+}

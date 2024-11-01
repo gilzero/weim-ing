@@ -1,0 +1,105 @@
+.block-local-tasks-block {
+  nav.tabs {
+    
+    @media (max-width: $screen-sm-max) {
+
+      ul.tabs {
+        margin: 0 0 30px 0;
+        display: flex;
+        flex-direction: column;
+        border-top: 1px solid var(--primary-damped);
+
+        li {
+          margin: 0 0 0 -2px;
+          padding: 0;
+          line-height: 1.5;
+          border-bottom: 1px solid var(--primary-damped);
+          border-right: 1px solid var(--primary-damped);
+
+          a {
+            display: block;
+            margin: 0;
+            padding: 0px 28px;
+            font-size: 17px;
+            height: 50px;
+            line-height: 50px;
+            box-sizing: border-box;
+            color: var(--black-60);
+            white-space: nowrap;
+            background: none;
+            border-left: 7px solid var(--primary-damped);
+
+            &:hover {
+              border-left: 7px solid var(--primary);
+              text-decoration: none;
+              color: var(--black);
+            }
+          }
+
+          &.is-active a {
+            border-left: 7px solid var(--primary);
+            color: var(--black);
+            font-weight: bold;
+  
+            &:hover {
+              border-left: 7px solid var(--primary);
+              color: var(--black);
+            }
+          }
+
+        }
+      }
+
+    }
+
+    @media (min-width: $screen-md-min) {
+
+      ul.tabs {
+        margin: 0 0 40px 0;
+        padding: 0 25px;
+        border: 0;
+        border-bottom: 2px solid var(--primary-damped);
+        display: flex;
+  
+        li {
+          margin: 0 6px -2px 0;
+          padding: 0;
+          line-height: 1.5;
+  
+          a {
+            display: block;
+            margin: 0;
+            padding: 0px 28px;
+            font-size: 17px;
+            height: 60px;
+            line-height: 60px;
+            box-sizing: border-box;
+            color: var(--black-60);
+            white-space: nowrap;
+            background: none;
+
+            &:hover {
+              border-bottom: 2px solid var(--primary);
+              text-decoration: none;
+              color: var(--black);
+            }
+          }
+  
+          &.is-active a {
+            border-bottom: 7px solid var(--primary);
+            color: var(--black);
+            font-weight: bold;
+  
+            &:hover {
+              border-bottom: 7px solid var(--primary);
+              color: var(--black);
+            }
+          }
+  
+        }
+      }
+
+    }
+
+  }
+}

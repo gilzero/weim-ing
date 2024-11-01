@@ -1,0 +1,377 @@
+/* Mobile and desktop display
+--------------------------------- */
+.view-in-mobile {
+  display: block;
+}
+.view-in-desktop {
+  display: none;
+}
+/* Color and background
+--------------------------------- */
+.primary,
+.color-primary {
+  color: var(--primary);
+}
+.secondary,
+.color-secondary {
+  color: var(--secondary);
+}
+.dark,
+.color-dark {
+  color: var(--dark);
+}
+.light,
+.color-light {
+  color: var(--light);
+}
+.bg-light {
+  background-color: var(--light);
+}
+/* Text Alignment
+--------------------------------- */
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+.text-justify {
+  text-align: justify;
+}
+.center {
+  margin: 0 auto;
+}
+/* Inline content
+--------------------------------- */
+.inline {
+  display: inline-block;
+}
+.inline:not(:last-child) {
+  padding-right: 1rem;
+}
+
+/* Direction
+--------------------------------- */
+.rtl {
+  direction: rtl;
+}
+.ltr {
+  direction: ltr;
+}
+
+/* Font Size
+--------------------------------- */
+.font-small {
+  font-size: 0.75rem;
+}
+.font-medium {
+  font-size: 1.25rem;
+}
+.font-large {
+  font-size: 1.5rem;
+}
+.font-2x {
+  font-size: 2rem;
+}
+.font-3x {
+  font-size: 2.5rem;
+}
+.font-4x {
+  font-size: 3rem;
+}
+.font-5x {
+  font-size: 4rem;
+}
+.font-6x {
+  font-size: 5rem;
+}
+.font-7x {
+  font-size: 6rem;
+}
+.font-8x {
+  font-size: 7rem;
+}
+
+/* Font Icon Size
+--------------------------------- */
+.size-xs {
+  font-size: 0.5em;
+}
+.size-small {
+  font-size: 0.75em;
+}
+.size-medium {
+  font-size: 1.25em;
+}
+.size-large {
+  font-size: 1.5em;
+}
+.size-2x {
+  font-size: 2em;
+}
+.size-3x {
+  font-size: 3em;
+}
+.size-4x {
+  font-size: 4em;
+}
+.size-5x {
+  font-size: 5em;
+}
+.size-6x {
+  font-size: 6em;
+}
+.size-7x {
+  font-size: 7em;
+}
+.size-8x {
+  font-size: 8em;
+}
+.size-9x {
+  font-size: 9em;
+}
+.size-10x {
+  font-size: 10em;
+}
+
+/* image icons size
+--------------------------------- */
+.icon-s {
+  max-height: 1rem;
+}
+.icon-m {
+  max-height: 1.5rem;
+}
+.icon-l {
+  max-height: 2rem;
+}
+.icon-xl {
+  max-height: 3rem;
+}
+.icon-x2 {
+  max-height: 4rem;
+}
+.icon-x3 {
+  max-height: 5rem;
+}
+.icon-x4 {
+  max-height: 6rem;
+}
+.icon-x5 {
+  max-height: 7rem;
+}
+.icon-x6 {
+  max-height: 8rem;
+}
+.icon-x7 {
+  max-height: 9rem;
+}
+.icon-x8 {
+  max-height: 10rem;
+}
+/* Content width
+--------------------------------- */
+.width30,
+.width40,
+.width50,
+.width60,
+.width70,
+.width80,
+.width90 {
+  width: 100%;
+  clear: both;
+  display: block;
+}
+/* Empty width and height
+--------------------------------- */
+.w20px {
+  display: inline-block;
+  width: 20px;
+}
+.w30px {
+  display: inline-block;
+  width: 30px;
+}
+.w40px {
+  display: inline-block;
+  width: 40px;
+}
+.w50px {
+  display: inline-block;
+  width: 50px;
+}
+.w70px {
+  display: inline-block;
+  width: 70px;
+}
+.w100px {
+  display: inline-block;
+  width: 100px;
+}
+.empty,
+.spacer,
+.spacer-x2,
+.spacer-x3 {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.empty,
+.spacer {
+  padding: 1rem 0;
+}
+.spacer-x2 {
+  padding: 2rem 0;
+}
+.spacer-x3 {
+  padding: 3rem 0;
+}
+/* sections
+--------------------------------- */
+.section,
+.section-small,
+.section-large {
+  display: block;
+  width: 100%;
+}
+.section {
+  padding: 2rem 0;
+}
+.section-small {
+  padding: 1rem 0;
+}
+.section-large {
+  padding: 3rem 0;
+}
+/* Responsive Columns
+--------------------------------- */
+.flex,
+.grid,
+.items,
+.columns,
+.grid-container,
+.flex-container {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  list-style-type: none;
+}
+.flex,
+.flex-container,
+.columns {
+  display: flex;
+  flex-wrap: wrap;
+}
+.grid {
+  display: grid;
+}
+.grid-container {
+  display: grid;
+  grid-auto-flow: column;
+}
+.items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+  grid-gap: 1rem;
+  gap: 1rem;
+}
+.item img {
+  display: block;
+}
+/* Create Equal width columns with no gap */
+.column {
+  flex: 1 1 250px;
+  margin: 0;
+  padding: 0;
+}
+/* flex-items width */
+.w10,
+.w20,
+.w30,
+.w40,
+.w50,
+.w60,
+.w70,
+.w80,
+.w90 {
+  flex: 1 1 100%;
+}
+/* Flex - Common for all
+--------------------------------- */
+.space-between {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.v-center {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.h-center {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.vh-center {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.gap {
+  gap: 1rem;
+}
+.gap-2x {
+  gap: 2rem;
+}
+.gap-small {
+  gap: 0.5rem;
+}
+.no-gap {
+  gap: 0;
+}
+/* Flex properties */
+.flex-row {
+  flex-direction: row;
+}
+.flex-column {
+  flex-direction: column;
+}
+.wrap {
+  flex-wrap: wrap;
+}
+.no-wrap {
+  flex-wrap: nowrap;
+}
+/* Shortcodes -> box, icon box
+--------------------------------- */
+.box,
+.icon-box {
+  position: relative;
+  display: block;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.box p:last-of-type,
+.icon-box p:last-of-type {
+  margin: 0;
+}
+/* Shortcodes -> grid column
+--------------------------------- */
+.grid-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 1rem;
+  gap: 1rem;
+}

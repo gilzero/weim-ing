@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Xray Audit Insight module.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function xray_audit_insight_requirements($phase) {
+  $requirements = [];
+  if ($phase !== 'runtime') {
+    return $requirements;
+  }
+
+  /** @var \Drupal\Component\Plugin\PluginManagerInterface $plugin_manager_insight */
+  $plugin_manager_insight = Drupal::getContainer()
+    ->get('plugin_manager.xray_audit_insight');
+
+  $definitions = $plugin_manager_insight->getDefinitions();
+  if (empty($definitions)) {
+    return $requirements;
+  }
+
+  foreach ($definitions as $definition) {
+    /** @var \Drupal\xray_audit_insight\Plugin\XrayAuditInsightPluginInterface $created_instance */
+    $created_instance = $plugin_manager_insight->createInstance($definition['id']);
+    if ($created_instance->isActive()) {
+      $requirements = array_merge($requirements, $created_instance->getInsightsForDrupalReport());
+    }
+  }
+  return $requirements;
+}

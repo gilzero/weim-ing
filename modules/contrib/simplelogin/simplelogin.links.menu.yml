@@ -1,0 +1,5 @@
+simplelogin.admin:
+  title: 'Simplelogin settings'
+  description: 'Configuration page for Login, Register, Password Reset with Background Image.'
+  parent: system.admin_config_system
+  route_name: simplelogin.admin_settings_form

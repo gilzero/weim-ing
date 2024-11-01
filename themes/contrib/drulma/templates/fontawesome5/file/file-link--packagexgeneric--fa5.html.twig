@@ -1,0 +1,10 @@
+{#
+/**
+ * @file
+ * Drulma theme implementation for a link to an archive file.
+ */
+#}
+
+{{ attach_library('lp_fontawesome/fontawesome') }}
+<i class="fas fa-file-archive"></i>
+<span{{ attributes.removeClass('file') }}>{{ link }}</span>

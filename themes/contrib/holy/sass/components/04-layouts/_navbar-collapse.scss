@@ -1,0 +1,36 @@
+@media (max-width: $screen-sm-max) {
+  #navbar-collapse {
+    display: none;
+
+    .container {
+      padding: 0 50px;
+    }
+  }
+
+  body.menu-open {
+    overflow: hidden;
+    
+    #navbar-collapse {
+      position: fixed;
+      z-index: 1000;
+      top: 90px;
+      left: 0;
+      display: flex;
+      overflow-y: auto;
+      flex-direction: column;
+      width: 100%;
+      height: calc(100% - 90px);
+      padding-top: 50px;
+      color: var(--white);
+      background: var(--primary);
+
+      #header {
+        order: 2;
+      }
+
+      #menu {
+        order: 1;
+      }
+    }
+  }
+}

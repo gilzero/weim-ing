@@ -1,0 +1,122 @@
+/**
+ * @file
+ * Provides .ultimenu__caret styles.
+ *
+ * ::before is for background, or extra CSS caret elements.
+ * ::after for the icon at most cases.
+ * .ultimenu__caret is expandable, will span 100% if the link is removed so to
+ *   be still clickable to display the flyout regions.
+ * .ultimenu__caret i is fixed width, still, to support more complex styles.
+ */
+
+/* Mobile or collapsible submenu needs a handler for click event. */
+.ultimenu__caret,
+.ultimenu__caret i {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  right: 0;
+  left: auto;
+  display: block;
+  overflow: hidden;
+  width: 48px;
+  height: 100%;
+  cursor: pointer;
+}
+
+/* To avoid confusion, in case old approaches. */
+.ultimenu__caret::before,
+.ultimenu__caret::after {
+  display: none;
+}
+
+.ultimenu__caret i {
+  inset: 0;
+  pointer-events: none;
+  /* background-color: rgba(0, 0, 0, 0.2); */
+}
+
+[dir="rtl"] .ultimenu__caret {
+  right: auto;
+  left: 0;
+}
+
+.is-unlinked .ultimenu__caret {
+  width: 100%;
+  inset: 0;
+}
+
+.is-unlinked .ultimenu__caret i {
+  inset: 0 0 0 auto;
+}
+
+.is-unlinked .ultimenu__caret,
+.ultimenusub .ultimenu__caret {
+  background-color: transparent;
+}
+
+.ultimenu__caret i::before,
+.ultimenu__caret i::after {
+  position: absolute;
+  /* Hide it till required. */
+  display: none;
+  content: "";
+  transition: all 0.25s ease-in-out;
+  text-align: center;
+  color: var(--ulticaret-normal);
+  font-size: 18px;
+  font-weight: unset;
+  font-style: normal;
+  line-height: 16px;
+}
+
+/* Normally holds the icon. */
+.ultimenu__caret i::after {
+  top: 50%;
+  right: 18px;
+  left: auto;
+  /* At most stylings, this is required. */
+  display: block;
+  transform: translateY(-50%);
+}
+
+[dir="rtl"] .ultimenu__caret i::after {
+  right: auto;
+  left: 18px;
+}
+
+/* To hold caret. */
+.ultimenu.is-ulticaret > li.has-ultimenu > .ultimenu__link,
+.is-uitem-collapsible .ultimenu__link {
+  padding-right: 64px;
+}
+
+.is-ultidesktop .is-ultihover:not(.is-ulticaret) .ultimenu__link {
+  padding-right: 1.5em;
+}
+
+/**
+ * We are here at desktop up.
+ *
+ * .is-ultihover is for when off-canvas is disabled for desktop.
+ */
+.is-ultidesktop .is-ultihover .ultimenu__caret {
+  background-color: transparent;
+}
+
+/**
+ * 1025px = 64.063em with 16px base font, assumes no-touch devices.
+ * These rules should work without javascript.
+ */
+/* Unless you want to show caret for laptop up, hide the caret.
+    Remove this if you want to have clickable Ultimenu for all devices.
+    Be sure to remove the hover rules above. */
+.is-ultidesktop .ultimenu--htt:not(.is-ulticaret) .ultimenu__caret,
+.is-ultidesktop .ultimenu--vertical:not(.is-ulticaret) .ultimenu__caret,
+.is-ultidesktop .is-ultihover:not(.is-ulticaret) .ultimenu__caret {
+  display: none;
+}
+
+.is-ultidesktop .ultimenu .ultimenusub .ultimenu__caret {
+  display: block;
+}

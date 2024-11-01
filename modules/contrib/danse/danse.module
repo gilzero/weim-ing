@@ -1,0 +1,132 @@
+<?php
+
+/**
+ * @file
+ * DANSE module file.
+ */
+
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
+use Drupal\Core\Entity\EntityFormInterface;
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\danse\Service;
+use Drupal\user\UserInterface;
+
+/**
+ * Gets the DANSE service.
+ *
+ * @return \Drupal\danse\Service
+ *   The DANSE service.
+ */
+function _danse_service(): Service {
+  return Drupal::service('danse.service');
+}
+
+/**
+ * Implements hook_cron().
+ */
+function danse_cron(): void {
+  _danse_service()->createNotifications();
+  Drupal::service('danse.cron')->prune();
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function danse_form_alter(array &$form, FormStateInterface $form_state): void {
+  _danse_service()->buildForm($form, $form_state);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function danse_form_user_form_alter(array &$form, FormStateInterface $form_state): void {
+  $formObject = $form_state->getFormObject();
+  if ($formObject instanceof EntityFormInterface) {
+    try {
+      // @phpstan-ignore-next-line
+      _danse_service()->buildUserSubscriptionForm($form, $formObject->getEntity());
+    }
+    catch (InvalidPluginDefinitionException | PluginNotFoundException $e) {
+      // @todo Log this exception.
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function danse_preprocess_views_view__danse_user_notifications(array &$variables): void {
+  if ($variables['view']->current_display === 'block_1') {
+    $variables['#attached']['library'][] = 'danse/widget';
+  }
+}
+
+/**
+ * Helper function to prune DANSE entities in a batch.
+ *
+ * @param string $plugin_id
+ *   The DANSE plugin ID.
+ * @param string $entity_type
+ *   The entity type ID.
+ * @param array $ids
+ *   List of IDs.
+ * @param array $context
+ *   The batch context.
+ */
+function danse_batch_prune(string $plugin_id, string $entity_type, array $ids, array &$context): void {
+  if (empty($context['sandbox'])) {
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['current_id'] = 0;
+    $context['sandbox']['max'] = count($ids);
+    if ($context['sandbox']['max'] === 0) {
+      $context['finished'] = 1;
+      return;
+    }
+  }
+  $limit = 50;
+  $i = 0;
+  foreach ($ids as $id) {
+    $i++;
+    if ($i <= $context['sandbox']['current_id']) {
+      continue;
+    }
+    if ($i > $context['sandbox']['max'] || $limit === 0) {
+      break;
+    }
+    $limit--;
+    $context['sandbox']['current_id'] = $i;
+    $context['sandbox']['progress']++;
+    $context['sandbox']['current_id'] = $i;
+    try {
+      if ($entity = Drupal::entityTypeManager()->getStorage($entity_type)->load($id)) {
+        $entity->delete();
+      }
+    }
+    catch (InvalidPluginDefinitionException | PluginNotFoundException | EntityStorageException $e) {
+      // @todo Log these exceptions.
+    }
+  }
+  if ($context['sandbox']['progress'] < $context['sandbox']['max']) {
+    $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+  }
+
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function danse_user_cancel(mixed $edit, UserInterface $account, string $method): void {
+  switch ($method) {
+    case 'user_cancel_block':
+    case 'user_cancel_block_unpublish':
+      _danse_service()->markUserNotificationsDelivered((int) $account->id());
+      break;
+
+    case 'user_cancel_reassign':
+    case 'user_cancel_delete':
+      _danse_service()->deleteUserNotifications((int) $account->id());
+      break;
+  }
+}

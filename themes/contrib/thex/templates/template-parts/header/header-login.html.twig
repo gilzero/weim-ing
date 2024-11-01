@@ -1,0 +1,7 @@
+<div class="header-login">
+  {% if logged_in %}
+    <a href="{{ front_page }}user">My Account</a> | <a href="{{ front_page }}user/logout">Logout</a>
+  {% else %}
+    <a href="{{ front_page }}user/login">Login</a> | <a href="{{ front_page }}user/register">Register</a>
+  {% endif %}
+</div><!-- /header-login -->

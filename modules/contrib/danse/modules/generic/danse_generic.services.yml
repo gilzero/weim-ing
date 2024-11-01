@@ -1,0 +1,5 @@
+services:
+  danse_generic:
+    class: Drupal\danse_generic\Service
+    arguments:
+      - '@plugin.manager.danse.plugin'

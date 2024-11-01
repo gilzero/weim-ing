@@ -1,0 +1,157 @@
+// Colors
+
+$color-primary-base: #546e7a !default;
+$color-secondary-base: #00c9f8 !default;
+$color-accent-base: $color-secondary-base !default;
+
+$color-primary: $color-primary-base !default;
+$color-primary-light: lighten($color-primary, 10) !default;
+$color-primary-dark: darken($color-primary, 10) !default;
+
+$color-secondary: $color-secondary-base !default;
+$color-secondary-light: lighten($color-secondary, 10) !default;
+$color-secondary-dark: darken($color-secondary, 10) !default;
+
+$color-accent: $color-accent-base !default;
+$color-accent-light: lighten($color-accent, 10) !default;
+$color-accent-dark: darken($color-accent, 10) !default;
+
+$color-bg-light: #FFF !default;
+$color-bg-dark: #121212 !default;
+$color-bg-body: $color-bg-light !default;
+
+$color-bg-highlighted: darken($color-bg-body, 12) !default;
+$color-bg-hover: rgba(#000, 0.04) !default;
+$color-border: darken($color-bg-body, 20) !default;
+
+$theme-primary: $color-primary !default;
+$theme-secondary: $color-secondary !default;
+$theme-background: $color-bg-body !default;
+
+$color-text-dark-base: #000 !default;
+$color-text-dark: $color-text-dark-base !default;
+
+$color-text-light-base: #FFF !default;
+$color-text-light: $color-text-light-base !default;
+
+$color-text-base: $color-text-dark !default;
+$color-text: rgba($color-text-base, .87) !default;
+$color-heading: darken($theme-primary, 20) !default;
+$color-link: darken($theme-secondary, 10) !default;
+$color-text-secondary: rgba($color-text-base, .60) !default;
+$color-text-disabled: rgba($color-text-base, .38) !default;
+
+$color-on-primary: $color-text-light !default;
+$color-on-primary-light: $color-text-light !default;
+$color-on-primary-dark: $color-text-light !default;
+
+$color-on-secondary: $color-text-light !default;
+$color-on-secondary-light: $color-text-dark !default;
+$color-on-secondary-dark: $color-text-light !default;
+
+$color-on-accent: $color-text-light !default;
+$color-on-accent-light: $color-text-dark !default;
+$color-on-accent-dark: $color-text-light !default;
+
+$color-text-placeholer: rgba($color-text-base, .6) !default;
+
+// Fonts & typography
+
+$font-family-base: 'Roboto', sans-serif !default;
+$font-family-additional: $font-family-base !default;
+
+$font-family-text: $font-family-base !default;
+$font-family-heading: $font-family-additional !default;
+
+$font-size-base: 16px !default;
+$line-height-base: 1.5 !default;
+
+$font-size-h1: 6rem !default; // 96sp
+$line-height-h1: 6rem !default;
+$font-weight-h1: 300 !default;
+
+$font-size-h2: 3.75rem !default; // 60sp
+$line-height-h2: 3.75rem !default;
+$font-weight-h2: 300 !default;
+
+$font-size-h3: 3rem !default; // 48sp
+$line-height-h3: 3.125rem !default; // 50sp
+$font-weight-h3: 400 !default;
+
+$font-size-h4: 2.125rem !default; // 34sp
+$line-height-h4: 2.5rem !default; // 40sp
+$font-weight-h4: 400 !default;
+
+$font-size-h5: 1.5rem !default; // 24sp
+$line-height-h5: 2rem !default; // 32sp
+$font-weight-h5: 400 !default;
+
+$font-size-h6: 1.25rem !default; // 20sp
+$line-height-h6: 2rem !default; // 32sp
+$font-weight-h6: 500 !default;
+
+$font-size-st1: 1rem !default; // 16sp
+$line-height-st1: 1.75rem !default; // 28sp
+$font-weight-st1: 400 !default;
+
+$font-size-st2: .875rem !default; // 14sp
+$line-height-st2: 1.375rem !default; // 22sp
+$font-weight-st2: 500 !default;
+ 
+// body 
+$font-size-text: 1rem !default; // 16sp
+$line-height-text: 1.5rem !default; // 24sp
+$font-weight-text: 400 !default;
+
+$font-size-text-small: .875rem !default; // 14sp
+$line-height-text-small: 1.25rem !default; // 20sp
+$font-weight-text-small: 400 !default;
+
+$font-size-caption: .75rem !default; // 12sp
+$line-height-caption: 1.25rem !default; // 20sp
+$font-weight-caption: 400 !default;
+
+$font-size-button: .875rem !default; // 14sp
+$line-height-button: 2.25rem !default; // 36sp
+$font-weight-button: 500 !default;
+
+$font-size-overline: .75rem !default; // 12sp
+$line-height-overline: 2rem !default; // 32sp
+$font-weight-overline: 500 !default;
+
+// Spacing
+
+$spacing: 8px !default;
+
+// Breakpoints (Bootstrap 3 flavour)
+
+$ss: 360px !default;
+$ms: 480px !default;
+$xs: 576px !default;
+$sm: 768px !default;
+$md: 992px !default;
+$lg: 1200px !default;
+$xl: 1520px !default;
+
+// Grid
+
+$gutter: $spacing * 2 !default;
+
+// Flexbox Grid http://flexboxgrid.com/
+// used as Flexbox Grid Sass https://github.com/hugeinc/flexboxgrid-sass
+
+// Master namespace
+$flexboxgrid-grid-columns: 12 !default;
+$flexboxgrid-gutter-width: $gutter !default;
+$flexboxgrid-outer-margin: $gutter !default;
+$flexboxgrid-breakpoints:
+  sm $sm auto,
+  md $md auto,
+  lg $lg $lg !default;
+$flexboxgrid-max-width: $lg !default;
+
+// 8.0.5 namespace
+$grid-columns: $flexboxgrid-grid-columns;
+$gutter-width: $flexboxgrid-gutter-width;
+$outer-margin: $flexboxgrid-outer-margin;
+$breakpoints: $flexboxgrid-breakpoints;

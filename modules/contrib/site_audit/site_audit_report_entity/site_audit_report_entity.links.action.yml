@@ -1,0 +1,5 @@
+site_audit.report.save:
+  title: 'Save Report'
+  route_name: entity.site_audit_report.add_form
+  appears_on:
+    - site_audit.report

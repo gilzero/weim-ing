@@ -1,0 +1,31 @@
+aws.overview:
+  path: /admin/config/services/aws
+  defaults:
+    _controller: '\Drupal\aws\Controller\AwsController::overview'
+    _title: 'Amazon Web Services'
+  requirements:
+    _permission: 'administer aws'
+
+aws.service.add:
+  path: '/admin/config/services/aws/service/add'
+  defaults:
+    _form: 'Drupal\aws\Form\ServiceOverrideForm'
+    _title: 'Add service override'
+  requirements:
+    _permission: 'administer aws'
+
+aws.service.edit:
+  path: '/admin/config/services/aws/service/{service_id}'
+  defaults:
+    _form: 'Drupal\aws\Form\ServiceOverrideForm'
+    _title_callback: '\Drupal\aws\Controller\AwsController::getTitle'
+  requirements:
+    _permission: 'administer aws'
+
+aws.service.delete:
+  path: '/admin/config/services/aws/service/{service_id}/delete'
+  defaults:
+    _form: 'Drupal\aws\Form\ServiceOverrideDeleteForm'
+    _title_callback: '\Drupal\aws\Controller\AwsController::getTitle'
+  requirements:
+    _permission: 'administer aws'

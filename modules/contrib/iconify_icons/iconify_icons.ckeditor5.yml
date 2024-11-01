@@ -1,0 +1,32 @@
+iconify_icons_icons:
+  ckeditor5:
+    plugins: [iconifyIcons.IconifyIcons]
+    config:
+      htmlSupport:
+        allow:
+          -
+            name:
+              regexp:
+                pattern: /.*/
+            attributes: true
+            classes: true
+            styles: true
+      iconifyIcons:
+        openDialog:
+          func:
+            name: Drupal.ckeditor5.openDialog
+            invoke: false
+        dialogSettings:
+          height: 75%
+          dialogClass: iconify-icons-widget-modal
+          title: Insert Iconify Icons
+  drupal:
+    label: Iconify Icons
+    admin_library: iconify_icons/iconify_icons.admin
+    toolbar_items:
+      iconifyIcons:
+        label: Iconify Icons
+    library: iconify_icons/iconify_icons.editor
+    elements:
+      - <img class src alt>
+    class: Drupal\iconify_icons\Plugin\CKEditor5Plugin\IconifyIcons

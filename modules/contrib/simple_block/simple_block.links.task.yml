@@ -1,0 +1,19 @@
+entity.simple_block.collection:
+  title: 'Simple blocks'
+  base_route: block.admin_display
+  route_name: entity.simple_block.collection
+
+entity.simple_block.edit:
+  title: 'Edit'
+  base_route: entity.simple_block.edit_form
+  route_name: entity.simple_block.edit_form
+
+entity.simple_block.clone:
+  title: 'Clone'
+  base_route: entity.simple_block.edit_form
+  route_name: entity.simple_block.clone_form
+
+entity.simple_block.delete:
+  title: 'Delete'
+  base_route: entity.simple_block.edit_form
+  route_name: entity.simple_block.delete_form

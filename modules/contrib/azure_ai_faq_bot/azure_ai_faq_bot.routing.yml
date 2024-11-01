@@ -1,0 +1,15 @@
+azure_ai_faq_bot.token:
+  path: '/azure-ai-faq-bot/token'
+  defaults:
+    _title: 'Get Direct Line Token'
+    _controller: '\Drupal\azure_ai_faq_bot\Controller\WebChatController::generateToken'
+  requirements:
+    _permission: 'access content'
+
+azure_ai_faq_bot.azure_ai_faq_bot_config_form:
+  path: '/admin/config/services/azure-ai-faq-bot'
+  defaults:
+    _title: 'Azure AI FAQ Bot'
+    _form: 'Drupal\azure_ai_faq_bot\Form\AzureAIFAQBotForm'
+  requirements:
+    _permission: 'administer azure_ai_faq_bot'

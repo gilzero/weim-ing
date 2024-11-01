@@ -1,0 +1,15 @@
+module_builder_devel.analyse-select:
+  path: /admin/config/development/module_builder/analyse-select
+  defaults:
+    _title: 'Analyse site code'
+    _form: Drupal\module_builder_devel\Form\ProcessDevelForm
+  requirements:
+    _access: 'TRUE'
+
+module_builder_devel.analyse-test-samples:
+  path: /admin/config/development/module_builder/analyse-test-samples
+  defaults:
+    _title: 'Update test sample data'
+    _form: Drupal\module_builder_devel\Form\ProcessTestSamplesForm
+  requirements:
+    _access: 'TRUE'

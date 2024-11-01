@@ -1,0 +1,13 @@
+services:
+  # Replacement DCB service: switches the Generate class to one that showcases
+  # different data formats to test the component form UI.
+  module_builder_test_component_type.drupal_code_builder:
+    decorates: module_builder.drupal_code_builder
+    # Give this a lower priority than module_builder_devel.drupal_code_builder
+    # so it decorates the service last, meaning that this replacement service is
+    # the actual one that's in use when both this module and
+    # module_builder_devel are enabled. This isn't the case in tests, but to
+    # develop the tests it's useful to enable this module and use the form
+    # manually.
+    decoration_priority: -5
+    class: Drupal\module_builder_test_component_type\TestDrupalCodeBuilder

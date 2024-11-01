@@ -1,0 +1,15 @@
+name: Type Tray
+type: module
+description: Improve usability of the 'Node Add' page with more help text, functional grouping and iconography.
+core_version_requirement: ^9.2 || ^10 || ^11
+configure: type_tray.settings.form
+package: Other
+
+dependencies:
+  - drupal:node
+  - drupal:filter
+
+# Information added by Drupal.org packaging script on 2024-07-16
+version: '1.3.0'
+project: 'type_tray'
+datestamp: 1721133759

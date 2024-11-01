@@ -1,0 +1,23 @@
+# PF channel plugin
+active: 1
+use_default_settings: 1
+danse: 1
+# WebPush options.
+ttl: 2419200
+urgency: 'normal'
+batch_size: 1000
+topic: '[danse_notification:topic]'
+debug: false
+# Flood.
+enable: false
+threshold: 5
+window: 3600
+ip: null
+# Subscription.
+skip: false
+title: '[push-object:op] "[push-object:label]" updates notifications!'
+body: 'Relevant updates on the current post will [push-object:op_push] notifications to your subscription in this browser/device - [push-object:client] 😎'
+icon: null
+url: null
+# Test.
+subscribe: false

@@ -1,0 +1,14 @@
+configure: statistics.settings
+core_version_requirement: "^10.3 || ^11"
+dependencies:
+  - drupal:node
+description: 'Logs how many times content is viewed.'
+name: Statistics
+package: Statistics
+php: 8.1
+type: module
+
+# Information added by Drupal.org packaging script on 2024-05-07
+version: '1.0.0'
+project: 'statistics'
+datestamp: 1715094460

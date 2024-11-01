@@ -1,0 +1,12 @@
+name: Block Visibility Groups
+type: module
+description: Allows the site administrator to easily manage complex visibility settings that apply to any block placed in a visibility group.
+core_version_requirement: ^9 || ^10 || ^11
+package: Other
+dependencies:
+  - drupal:block
+
+# Information added by Drupal.org packaging script on 2024-10-15
+version: '2.0.3'
+project: 'block_visibility_groups'
+datestamp: 1728988748

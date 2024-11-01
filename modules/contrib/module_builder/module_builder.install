@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file module_builder.install
+ * Contains install hooks.
+ */
+
+use Drupal\module_builder\LibraryWrapper;
+
+/**
+ * Implements hook_requirements().
+ */
+function module_builder_requirements($phase) {
+  $requirements = array();
+
+  // Check our library is present
+  if ($phase == 'install') {
+    // TODO: Remove use of this wrapper, just check \DrupalCodeBuilder\Factory
+    // exists.
+    // Our classes aren't available in the install phase.
+    // See https://www.drupal.org/node/2667588.
+    require_once(__DIR__ . '/src/LibraryWrapper.php');
+    try {
+      LibraryWrapper::loadLibrary();
+    }
+    catch (Exception $e) {
+      $requirements['drupal_code_builder_library'] = array(
+        'title' => t('Drupal Code Builder library'),
+        'description' => t("The Drupal Code Builder library could not be initialised. Check README.txt for instructions. Error message was: @message.", [
+          '@message' => $e->getMessage(),
+        ]),
+        'severity' => REQUIREMENT_ERROR,
+      );
+    }
+  }
+
+  return $requirements;
+}

@@ -1,0 +1,14 @@
+<footer class="footer-bottom footer">
+  <div class="container">
+    <div class="footer-bottom-container">
+      <div class="website-copyright">
+        &copy; {{ "now"|date("Y") }} {{ site_name }}, All rights reserved.
+      </div>
+      {% if page.footer_bottom_last %}
+        <div class="footer-bottom-last">
+          {{ page.footer_bottom_last }}
+        </div><!-- /footer-bottom-last -->
+      {% endif %}
+    </div><!-- /footer-bottom-container -->
+  </div><!-- /container -->
+</footer><!-- /footer-bottom -->

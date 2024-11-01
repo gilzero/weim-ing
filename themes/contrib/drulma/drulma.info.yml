@@ -1,0 +1,40 @@
+name: Drulma
+description: >-
+  Enables the use of Bulma:
+  a free, open source CSS framework based on Flexbox.
+package: 'Bulma'
+type: theme
+base theme: false
+core_version_requirement: ^9 || ^10 || ^11
+
+regions:
+  primary_menu: 'Navbar'
+  header: 'Hero Header'
+  title: 'Hero body (title)'
+  secondary_menu: 'Hero footer (tabs)'
+  breadcrumb: 'Breadcrumb'
+  highlighted: 'Highlighted'
+  help: 'Help'
+  content: 'Content'
+  sidebar_first: 'Sidebar First'
+  sidebar_second: 'Sidebar Second'
+  footer: 'Footer'
+
+libraries:
+  - 'drulma/global'
+
+libraries-extend:
+  contextual/drupal.contextual-links:
+    - drulma/drupal.contextual-links
+  core/drupal.dropbutton:
+    - drulma/drupal.dropbutton
+
+libraries-override:
+  text/drupal.text:
+    js:
+      text.js: js/text.js
+
+# Information added by Drupal.org packaging script on 2024-08-10
+version: '2.0.1'
+project: 'drulma'
+datestamp: 1723288925

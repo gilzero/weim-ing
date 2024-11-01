@@ -1,0 +1,22 @@
+{
+  "name": "drupal/danse",
+  "license": "GPL-2.0-or-later",
+  "type": "drupal-module",
+  "description": "Event driven framework to audit system activity, create notifications from them and allow users to subscribe to them.",
+  "support": {
+    "issues": "https://drupal.org/project/issues/danse",
+    "source": "https://drupal.org/project/danse"
+  },
+  "keywords": [
+    "Drupal",
+    "Notification",
+    "Subscription"
+  ],
+  "require": {
+    "php": ">=8.1"
+  },
+  "require-dev": {
+    "drupal/eca": "^2.0",
+    "drupal/push_framework": "^2.3"
+  }
+}

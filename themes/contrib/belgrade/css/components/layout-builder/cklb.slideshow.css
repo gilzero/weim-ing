@@ -1,0 +1,106 @@
+.cklb-slideshow {
+  opacity: 0;
+  transition: opacity 0.15s linear;
+}
+.cklb-slideshow.layout-builder__region, .cklb-slideshow.slick-initialized {
+  opacity: 1;
+}
+.cklb-slideshow.layout-builder__region .cklb-hero .content, .cklb-slideshow.slick-initialized .cklb-hero .content {
+  position: relative;
+  z-index: 2;
+}
+.cklb-slideshow.layout-builder__region .cklb-hero::after, .cklb-slideshow.slick-initialized .cklb-hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: block;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.cklb-slideshow .block-layout-builder > .content {
+  --beo-gutter-x: 0.75rem;
+  --beo-gutter-y: 0;
+  width: 100%;
+  padding-right: calc(var(--beo-gutter-x) * .5);
+  padding-left: calc(var(--beo-gutter-x) * .5);
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+@media (min-width: 992px) {
+  .cklb-slideshow .block-layout-builder > .content {
+    display: grid;
+    align-content: center;
+    min-height: 500px;
+    width: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  .cklb-slideshow .block-layout-builder > .content {
+    width: 1140px;
+  }
+}
+@media (min-width: 1400px) {
+  .cklb-slideshow .block-layout-builder > .content {
+    width: 1320px;
+  }
+}
+
+.slick-track {
+  display: flex !important;
+}
+
+.slick-slide {
+  height: inherit;
+}
+.slick-slide > div,
+.slick-slide .cklb-hero {
+  height: 100%;
+}
+
+.slick-dotted.slick-slider {
+  margin-bottom: 0;
+}
+
+.slick-dots {
+  bottom: 1.5rem;
+}
+.slick-dots li button:before {
+  font-size: 0.875rem;
+}
+
+.slick-arrow {
+  width: 2rem;
+  height: 2rem;
+  color: currentColor;
+  z-index: 55;
+}
+.slick-arrow::before {
+  font-size: 2rem;
+  color: currentColor;
+  opacity: 1;
+}
+@media (max-width: 991.98px) {
+  .slick-arrow {
+    top: auto;
+    bottom: 0.75rem;
+  }
+}
+
+.slick-next {
+  right: 1.5rem;
+}
+
+.slick-prev {
+  left: 1.5rem;
+}
+
+.slick-next:focus,
+.slick-next:hover,
+.slick-prev:focus,
+.slick-prev:hover {
+  color: currentColor;
+}

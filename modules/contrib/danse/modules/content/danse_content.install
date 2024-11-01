@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * @file
+ * The DANSE Content install file.
+ */
+
+use Drupal\danse_content\SubscriptionOperation;
+
+/**
+ * Implements hook_install().
+ */
+function danse_content_install(): void {
+  $moduleHandler = Drupal::moduleHandler();
+  if ($moduleHandler->moduleExists('sane_content')) {
+    // Replace SANE with DANSE,
+    // see https://www.drupal.org/project/danse/issues/3164561.
+    // Copy content entity configs.
+    foreach (Drupal::configFactory()->listAll('sane.settings.content.') as $oldConfigName) {
+      $newConfigName = 'danse' . substr($oldConfigName, 4);
+      $config = Drupal::configFactory()->getEditable($newConfigName);
+      $config->setData(Drupal::configFactory()->get($oldConfigName)->getRawData());
+      $config->save();
+    }
+  }
+}
+
+/**
+ * Update subscription keys in user data table.
+ */
+function danse_content_update_8001(): void {
+  $subscriptions = Drupal::database()->select('users_data', 'u')
+    ->fields('u', ['uid', 'name'])
+    ->condition('u.module', 'danse')
+    ->execute()
+    ->fetchAll();
+  foreach ($subscriptions as $subscription) {
+    $parts = explode('-', $subscription->name);
+    if ($parts[0] !== 'content' || count($parts) !== 4) {
+      continue;
+    }
+    $entityMode = ((int) $parts[3] > 0);
+    $parts[4] = $parts[3];
+    $parts[3] = $entityMode ? SubscriptionOperation::SUBSCRIPTION_MODE_ENTITY : SubscriptionOperation::SUBSCRIPTION_MODE_ENTITY_TYPE;
+    $newName = implode('-', $parts);
+    Drupal::database()->update('users_data')
+      ->fields(['name' => $newName])
+      ->condition('uid', $subscription->uid)
+      ->condition('module', 'danse')
+      ->condition('name', $subscription->name)
+      ->execute();
+  }
+}

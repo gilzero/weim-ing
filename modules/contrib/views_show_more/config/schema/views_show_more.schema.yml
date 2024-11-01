@@ -1,0 +1,46 @@
+views.pager.show_more:
+  type: views_pager_sql
+  label: 'Show more pager'
+  mapping:
+    show_more_text:
+      type: label
+      label: 'Show more pager link text'
+    result_display_method:
+      type: string
+      label: 'Display method'
+    initial:
+      type: integer
+      label: 'Initial'
+    effects:
+      type: mapping
+      mapping:
+        type:
+          type: string
+          label: 'Type'
+        speed_type:
+          type: string
+          label: 'Speed type'
+        speed:
+          type: string
+          label: 'Speed'
+        speed_value:
+          type: integer
+          label: 'Speed value'
+        scroll_offset:
+          type: integer
+          label: 'Scroll offset'
+    advance:
+      type: mapping
+      mapping:
+        content_selector:
+          type: string
+          label: 'Content selector'
+        pager_selector:
+          type: string
+          label: 'Pager selector'
+        header_selector:
+          type: string
+          label: 'Header selector'
+        footer_selector:
+          type: string
+          label: 'Footer selector'

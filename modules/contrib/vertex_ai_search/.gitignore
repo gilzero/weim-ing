@@ -1,0 +1,6 @@
+# excluding local artifacts when using DDEV (see README).
+
+.gitattributes
+.editorconfig
+/web
+/vendor

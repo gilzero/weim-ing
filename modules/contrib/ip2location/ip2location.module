@@ -1,0 +1,14 @@
+<?php
+/**
+ * Get geolocation information from visitor IP address.
+ *
+ * @return stdClass|bool Geolocation object or false if geolocation was not found
+ */
+function ip2location_get_records()
+{
+	$session = Drupal::service('session')->get('ip2location');
+
+	if (($json = json_decode($session)) !== null) {
+		return $json;
+	}
+}

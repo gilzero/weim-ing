@@ -1,0 +1,5 @@
+entity.test_component.add_form:
+  route_name: entity.test_component.add_form
+  title: 'Add test component'
+  appears_on:
+    - entity.test_component.collection

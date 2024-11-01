@@ -1,0 +1,146 @@
+<?php
+
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Template\Attribute;
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function bem_element_info_alter(array &$types) {
+  foreach ($types as $name => $type) {
+    if (isset($type['#theme_wrappers']) && in_array('form_element', $type['#theme_wrappers'])) {
+      $types[$name]['#process'][] = '_bem_process_form_element';
+    }
+    if (isset($type['#theme_wrappers']) && in_array('details', $type['#theme_wrappers'])) {
+      $types[$name]['#process'][] = '_bem_process_form_element';
+    }
+  }
+}
+
+function _bem_process_form_element(array &$element, FormStateInterface $form_state, &$complete_form) {
+  if (!empty($complete_form['#form_id'])) {
+    $element['#bem_form_id'] = $complete_form['#form_id'];
+  }
+  return $element;
+}
+
+/**
+ * @see template_preprocess_form_element()
+ */
+function bem_preprocess_form_element(array &$variables) {
+  $element = &$variables['element'];
+
+  $variables['form_id'] = $element['#bem_form_id'] ?? '';
+}
+
+/**
+ * @see template_preprocess_details()
+ */
+function bem_preprocess_details(array &$variables) {
+  $element = &$variables['element'];
+
+  $variables['form_id'] = $element['#bem_form_id'] ?? '';
+  $variables['name'] = isset($element['#id']) ? preg_replace(['/^edit\-/', '/\-\d+$/'], '', $element['#id']) : '';
+}
+
+/**
+ * @see template_preprocess_form_element()
+ */
+function bem_preprocess_form(array &$variables) {
+  $element = &$variables['element'];
+
+  $variables['form_id'] = $element['#form_id'];
+}
+
+/**
+ * Implements THEME_preprocess_HOOK() for field.html.twig.
+ *
+ * @see hook_preprocess_HOOK()
+ * @see template_preprocess_field()
+ */
+function bem_preprocess_field(array &$variables) {
+  $element = $variables['element'];
+
+  $variables['bundle'] = $element['#bundle'];
+  $variables['view_mode'] = $element['#view_mode'];
+
+  // @todo Remove when possible.
+  // When rendered inside a view or field, default is used instead of full.
+  if ($variables['entity_type'] == 'block_content' && $variables['view_mode'] == 'default') {
+    $variables['view_mode'] = 'full';
+  }
+}
+
+/**
+ * Implements THEME_preprocess_HOOK() for block.html.twig.
+ *
+ * @see hook_preprocess_HOOK()
+ * @see template_preprocess_block()
+ */
+function bem_preprocess_block(array &$variables) {
+  $elements = $variables['elements'];
+  $variables['id'] = $elements['#id'];
+  $variables['region'] = $elements['#region'] ?? NULL;
+
+  switch ($variables['base_plugin_id']) {
+    case 'block_content':
+      /** @var \Drupal\block_content\Entity\BlockContent $block_content */
+      $block_content = $variables['content']['#block_content'];
+      $variables['block_content_bundle'] = $block_content->bundle();
+
+      break;
+
+    case 'menu_block':
+    case 'system_menu_block':
+      if ($variables['content_attributes'] instanceof Attribute === FALSE) {
+        $variables['content_attributes'] = new Attribute($variables['content_attributes']);
+      }
+
+      $variables['content']['#attributes'] = $variables['content_attributes'];
+
+      break;
+  }
+}
+
+/**
+ * Implements THEME_preprocess_HOOK() for item_list.
+ *
+ * @see hook_preprocess_HOOK()
+ * @see template_preprocess_item_list()
+ */
+function bem_preprocess_item_list(array &$variables) {
+  $hook = explode('__', $variables['theme_hook_original']);
+  $variables['bem_block'] = Html::cleanCssIdentifier(implode('-', $hook));
+}
+
+/**
+ * Implements THEME_preprocess_HOOK() for user.html.twig.
+ *
+ * @see hook_preprocess_HOOK()
+ * @see template_preprocess_user()
+ */
+function bem_preprocess_user(array &$variables) {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ *
+ * @see hook_theme_suggestions_HOOK_alter()
+ * @see taxonomy_theme_suggestions_taxonomy_term()
+ */
+function bem_theme_suggestions_taxonomy_term_alter(array &$suggestions, array $variables) {
+  /** @var \Drupal\taxonomy\TermInterface $term */
+  $term = $variables['elements']['#taxonomy_term'];
+  // Insert before taxonomy-term--{bundle}:
+  $bundle_suggestion_pos = array_search('taxonomy_term__' . $term->bundle(), $suggestions);
+  array_splice($suggestions, $bundle_suggestion_pos, 0, [
+    'taxonomy_term__' . $variables['elements']['#view_mode'],
+  ]);
+  // Insert before taxonomy-term--{id}:
+  $id_suggestion_pos = array_search('taxonomy_term__' . $term->id(), $suggestions);
+  array_splice($suggestions, $id_suggestion_pos, 0, [
+    'taxonomy_term__' . $term->bundle() . '__' . $variables['elements']['#view_mode'],
+  ]);
+}

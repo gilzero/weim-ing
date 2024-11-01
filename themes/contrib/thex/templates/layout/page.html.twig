@@ -1,0 +1,35 @@
+{% if page.header_top_left or page.header_top_right %}
+  {% include '@thex/template-parts/header/header-top.html.twig' %}
+{% endif %}
+{% include '@thex/template-parts/header/header.html.twig' %}
+{% if not is_front and page.page_header %}
+  {% include '@thex/template-parts/header/header-page.html.twig' %}
+{% endif %}
+{% if page.highlighted %}
+  {% include '@thex/template-parts/highlighted.html.twig' %}
+{% endif %}
+<div class="main-wrapper">
+  <div class="container">
+    <a id="main-content" tabindex="-1"></a>
+    <div class="main-container">
+      <main id="main" class="main-content">
+        {% if page.content_top %}
+          {% include '@thex/template-parts/content-parts/content_top.html.twig' %}
+        {% endif %}
+        <div class="node-content">
+          {{ page.content }}
+        </div>
+        {% if page.content_bottom %}
+          {% include '@thex/template-parts/content-parts/content_bottom.html.twig' %}
+        {% endif %}
+      </main>
+    {% if page.sidebar_first %}
+      {% include '@thex/template-parts/sidebar/sidebar_left.html.twig' %}
+    {% endif %}
+    {% if page.sidebar_second %}
+      {% include '@thex/template-parts/sidebar/sidebar_right.html.twig' %}
+    {% endif %}
+    </div><!--/main-container -->
+  </div><!--/container -->
+</div><!--/main-wrapper -->
+{% include '@thex/template-parts/footer/footer.html.twig' %}

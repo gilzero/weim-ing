@@ -1,0 +1,15 @@
+/* Status icons. */
+.field-permissions-status-on a {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  text-indent: -9999em;
+  background: url(../images/field_permissions.status-on.svg) no-repeat 0 0;
+}
+.field-permissions-status-off a {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  text-indent: -9999em;
+  background: url(../images/field_permissions.status-off.svg) no-repeat 0 0;
+}

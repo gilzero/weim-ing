@@ -1,0 +1,64 @@
+input,
+select,
+textarea {
+  width: 100%;
+  transition: 0.18s ease-out;
+  vertical-align: bottom;
+  color:  var(--black);
+  border: 1px solid var(--primary-damped);
+  border-radius: 7px;
+  outline: none;
+  background: var(--white);
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: bold;
+}
+
+input,
+select {
+  height: 43px;
+  padding: 0 13px;
+}
+
+textarea {
+  padding: 13px;
+}
+
+input[type='checkbox'],
+input[type='radio'],
+input[type='file'] {
+  width: auto;
+}
+
+input[type='reset'],
+input[type='submit'] {
+  width: auto;
+  cursor: pointer;
+  color: var(--white);
+  border: 1px solid transparent;
+  background: var(--primary);
+  font-weight: 600;
+  font-size: 17px;
+
+}
+
+// hover
+input:hover,
+select:hover,
+textarea:hover {
+  color: var(--black);
+}
+
+input[type='reset']:hover,
+input[type='submit']:hover {
+  background: var(--primary-darker);
+  color: var(--white);
+}
+
+// focus
+input:focus,
+textarea:focus,
+select:focus {
+  color: var(--black);
+}

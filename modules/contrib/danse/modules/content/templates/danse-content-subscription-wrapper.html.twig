@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a danse content subscription wrapper.
+ *
+ * Available variables:
+ * - children: Contains the child elements of the widget.
+ * - id: The ID of the widget.
+ *
+ * @see template_preprocess()
+ *
+ * @ingroup themeable
+ */
+#}
+{% if children %}
+  {% apply spaceless %}
+    <div id="{{ id }}" class="danse-content-subscription-widget">
+      {{ children }}
+    </div>
+  {% endapply %}
+{% endif %}

@@ -1,0 +1,4 @@
+services:
+  plugin.manager.phpmailer_oauth2:
+    class: 'Drupal\phpmailer_smtp\PluginManager\PhpmailerOauth2PluginManager'
+    parent: default_plugin_manager

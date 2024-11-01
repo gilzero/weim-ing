@@ -1,0 +1,39 @@
+simple_popup_blocks.add:
+  path: 'admin/config/media/simple-popup-blocks/add'
+  defaults:
+    _title: 'Add Popup Blocks'
+    _form: '\Drupal\simple_popup_blocks\Form\SimplePopupBlocksAddForm'
+  requirements:
+    _permission: 'administer simple_popup_blocks'
+  options:
+    _admin_route: TRUE
+
+simple_popup_blocks.manage:
+  path: 'admin/config/media/simple-popup-blocks/manage'
+  defaults:
+    _controller: '\Drupal\simple_popup_blocks\Controller\SimplePopupBlocksController::manage'
+    _title: 'Manage popups'
+  requirements:
+    _permission: 'administer simple_popup_blocks'
+
+simple_popup_blocks.edit:
+  path: 'admin/config/media/simple-popup-blocks/manage/{uid}'
+  defaults:
+    _title: 'Manage Popup Blocks'
+    _form: '\Drupal\simple_popup_blocks\Form\SimplePopupBlocksEditForm'
+  requirements:
+    _permission: 'administer simple_popup_blocks'
+  options:
+    _admin_route: TRUE
+    no_cache: 'TRUE'
+
+simple_popup_blocks.delete:
+  path: 'admin/config/media/simple-popup-blocks/delete/{uid}'
+  defaults:
+    _title: 'Delete Popup Blocks'
+    _form: '\Drupal\simple_popup_blocks\Form\SimplePopupBlocksDeleteForm'
+  requirements:
+    _permission: 'administer simple_popup_blocks'
+  options:
+    _admin_route: TRUE
+    no_cache: 'TRUE'

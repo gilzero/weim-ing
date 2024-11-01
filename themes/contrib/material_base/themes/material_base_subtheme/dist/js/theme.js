@@ -1,0 +1,1 @@
+!function(n,t){"use strict";n.behaviors.THEMENAME_Functions={attach:function(n,t){}}}(Drupal,once);

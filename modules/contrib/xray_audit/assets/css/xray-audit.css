@@ -1,0 +1,57 @@
+.xray-audit__sticky-header thead {
+  position: sticky;
+  top: 79px;
+}
+
+.toolbar-vertical .xray-audit__sticky-header thead {
+  top: 39px;
+}
+
+.xray-audit__table.alignment-vertical-center tbody td {
+  vertical-align: top;
+}
+
+.xray-audit__table [data-highlight-target] {
+  cursor: pointer;
+}
+
+.xray-audit__table .xray-audit--highlighted {
+  background-color: #eefdfc;
+}
+
+.xray-audit__table .xray-audit--highlighted td {
+  font-weight: 600;
+}
+
+.xray-audit--transparent {
+  opacity: .4;
+}
+
+.xray-audit--popup {
+  background-color: red;
+}
+
+.xray-audit--popup.ui-dialog .xray-audit--popup-content {
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.xray-audit--message {
+  text-align: center;
+  font-size: 2em;
+}
+
+.xray-audit--iframe {
+  position: absolute;
+  tep: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.xray-audit-cell-background-color-gray {
+  background-color: #f3f5f5;
+}

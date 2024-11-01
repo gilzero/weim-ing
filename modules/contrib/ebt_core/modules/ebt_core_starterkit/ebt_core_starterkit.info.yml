@@ -1,0 +1,16 @@
+type: module
+name: 'Extra Block Types (EBT): Core Starterkit'
+description: 'EBT module generator.'
+core_version_requirement: ^9.3 || ^10 || ^11
+package: 'Extra Block Types'
+configure: ebt_core.settings
+
+dependencies:
+  - drupal:block_content
+  - drupal:media
+  - ebt_core:ebt_core
+
+# Information added by Drupal.org packaging script on 2024-10-13
+version: '1.4.30'
+project: 'ebt_core'
+datestamp: 1728848855

@@ -1,0 +1,11 @@
+services:
+  danse_log.logger:
+    class: Drupal\danse_log\Logger
+    arguments: ['@logger.log_message_parser', '@plugin.manager.danse.plugin', '@event_dispatcher']
+    tags:
+      - { name: logger }
+      - { name: backend_overridable }
+  danse_log.log_subscriber:
+    class: Drupal\danse_log\EventSubscriber\DefaultLog
+    tags:
+      - { name: event_subscriber }

@@ -1,0 +1,92 @@
+# Schema for the configuration files of the Push framework notifications module.
+pf_notifications.settings:
+  type: config_object
+  label: 'Push framework notifications settings'
+  mapping:
+    # PF channel options:
+    channel:
+      type: mapping
+      label: 'PF Channel options'
+      mapping:
+        active:
+          type: integer
+          label: 'PF nChannel active'
+        use_default_settings:
+          type: integer
+          label: 'Use PF default settings'
+        danse:
+          type: boolean
+          label: 'Use with DANSE data'
+    # WebPush options.
+    options:
+      type: mapping
+      label: 'Options'
+      mapping:
+        ttl:
+          type: integer
+          label: 'Time to live'
+        urgency:
+          type: string
+          label: 'Urgency'
+        batch_size:
+          type: integer
+          label: 'Batch size'
+        topic:
+          type: string
+          label: 'Topic'
+        debug:
+          type: boolean
+          label: 'Debug'
+    # Subscription.
+    subscription:
+      type: mapping
+      label: 'Subscription notification content'
+      mapping:
+        skip:
+          type: boolean
+          label: 'Skip subscription welcome message'
+        title:
+          type: string
+          label: 'Notification title'
+        body:
+          type: text
+          label: 'Notification content'
+        icon:
+          type: uri
+          label: 'Notification icon'
+        url:
+          type: uri
+          label: 'Notification link url'
+    # Flood.
+    flood:
+      type: mapping
+      label: 'Flood'
+      mapping:
+        enable:
+          type: boolean
+          label: 'Enable flood'
+        threshold:
+          type: integer
+          label: 'Threshold'
+        window:
+          type: integer
+          label: 'Window'
+        ip:
+          type: string
+          label: 'IP address to clear flood'
+    # Test.
+    test:
+      type: mapping
+      label: 'Test notification'
+      mapping:
+        subscribe:
+          type: boolean
+          label: 'Subscribe to test'
+
+action.configuration.pf_notifications_unsubscribe:
+  type: mapping
+  label: 'Configuration for "Remove push notifications subscriptions" action'
+  mapping:
+    example:
+      type: string
+      label: Example

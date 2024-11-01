@@ -1,0 +1,42 @@
+/**
+ * @file
+ */
+
+.is-ulticaret--arrow .ultimenu__caret i::before,
+.is-ulticaret--arrow .ultimenu__caret i::after {
+  position: absolute;
+  top: 50%;
+  right: 22px;
+  display: block;
+  width: 3px;
+  height: 9px;
+  min-height: 9px;
+  content: "";
+  background-color: var(--ulticaret-normal);
+}
+
+.is-ulticaret--arrow .is-ulink-active .ultimenu__caret i::before,
+.is-ulticaret--arrow .is-ulink-active .ultimenu__caret i::after {
+  background-color: var(--ulticaret-active);
+}
+
+[dir="rtl"] .is-ulticaret--arrow .ultimenu__caret i::before,
+[dir="rtl"] .is-ulticaret--arrow .ultimenu__caret i::after {
+  left: 22px;
+}
+
+.is-ulticaret--arrow .ultimenu__caret i::before {
+  transform: translate(-2px, -50%) rotate(45deg);
+}
+
+.is-ulticaret--arrow .ultimenu__caret i::after {
+  transform: translate(2px, -50%) rotate(-45deg);
+}
+
+.is-ulticaret--arrow .is-ulink-active .ultimenu__caret i::before {
+  transform: translate(2px, -50%) rotate(45deg);
+}
+
+.is-ulticaret--arrow .is-ulink-active .ultimenu__caret i::after {
+  transform: translate(-2px, -50%) rotate(-45deg);
+}

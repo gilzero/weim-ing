@@ -1,0 +1,18 @@
+.iconify-icons-preview {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.iconify-icons-preview svg {
+  height: 30px;
+}
+
+/* Dark mode */
+.gin--dark-mode .iconify-icons-preview {
+  background-color: var(--gin-bg-input);
+}
+
+.gin--dark-mode .iconify-result-collection,
+.gin--edit-form .iconify-result-collection {
+  color: var(--gin-color-primary);
+}

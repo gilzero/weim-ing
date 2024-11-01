@@ -1,0 +1,8 @@
+{% set spelling_markup = [{'#markup': spelling|render}] %}
+<div class="spelling">
+  {% if corrected == FALSE %}
+    Did you mean '<a href="{{ url }}">{{ spelling_markup }}</a>'?
+  {% elseif corrected == TRUE %}
+    Searching on '<a href="{{ url }}">{{ spelling_markup }}</a>' instead.
+  {% endif %}
+</div>

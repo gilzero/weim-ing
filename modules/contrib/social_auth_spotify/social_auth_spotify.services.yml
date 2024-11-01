@@ -1,0 +1,7 @@
+services:
+  social_auth_spotify.manager:
+    class: Drupal\social_auth_spotify\SpotifyAuthManager
+    arguments:
+      - '@config.factory'
+      - '@logger.factory'
+      - '@request_stack'

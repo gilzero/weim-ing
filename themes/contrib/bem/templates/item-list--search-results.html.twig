@@ -1,0 +1,10 @@
+{% extends "item-list.html.twig" %}
+{%
+  set bem_block = 'search-results'
+%}
+{%
+  set item_classes = [
+    bem_block ~ '__item',
+    'search-result',
+  ]
+%}

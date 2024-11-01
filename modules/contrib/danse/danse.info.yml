@@ -1,0 +1,21 @@
+name: Drupal Audit Notification Subscription Event
+type: module
+description: Event driven framework to audit system activity, create notifications from them and allow users to subscribe to them.
+core_version_requirement: ^10.3 || ^11
+package: DANSE
+configure: danse.settings
+
+config_devel:
+  install:
+    - danse.settings
+  optional:
+    - block.block.views_block__danse_user_notifications_block_1
+    - views.view.danse_events
+    - views.view.danse_notification_actions
+    - views.view.danse_notifications
+    - views.view.danse_user_notifications
+
+# Information added by Drupal.org packaging script on 2024-08-27
+version: '2.3.6'
+project: 'danse'
+datestamp: 1724743564

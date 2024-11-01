@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * @file
+ * PHPMailer SMTP installation functions.
+ */
+
+use PHPMailer\PHPMailer\PHPMailer;
+
+/**
+ * Implements hook_requirements().
+ */
+function phpmailer_smtp_requirements($phase) {
+  $requirements = [];
+
+  if (class_exists('PHPMailer\PHPMailer\PHPMailer')) {
+    $mail = new PHPMailer();
+  }
+
+  if (empty($mail)) {
+    $requirements['phpmailer_smtp'] = [
+      'title' => (string) t('PHPMailer library'),
+      'value' => (string) t('Missing'),
+      'severity' => REQUIREMENT_ERROR,
+      'description' => (string) t("Please install the PHPMailer library by executing 'composer update' in your site's root directory."),
+    ];
+  }
+  else {
+    $required_version = '6.9.1';
+    $installed_version = $mail::VERSION;
+    $requirements['phpmailer_smtp'] = [
+      'title' => (string) t('PHPMailer library'),
+      'value' => $installed_version,
+    ];
+    if (!version_compare($installed_version, $required_version, '>=')) {
+      $requirements['phpmailer_smtp']['severity'] = REQUIREMENT_ERROR;
+      $requirements['phpmailer_smtp']['description'] = (string) t("PHPMailer library @version or higher is required. Please install a newer version by executing 'composer update' in your site's root directory.", [
+        '@version' => $required_version,
+      ]);
+    }
+    else {
+      $requirements['phpmailer_smtp']['severity'] = REQUIREMENT_OK;
+    }
+  }
+
+  return $requirements;
+}
+
+/**
+ * Add SMTP timeout setting.
+ */
+function phpmailer_smtp_update_8001() {
+  \Drupal::configFactory()->getEditable('phpmailer_smtp.settings')
+    ->set('smtp_timeout', 30)
+    ->save(TRUE);
+}
+
+/**
+ * Add Authentication type setting.
+ */
+function phpmailer_smtp_update_8002() {
+  \Drupal::configFactory()->getEditable('phpmailer_smtp.settings')
+    ->set('smtp_authentication_type', 'basic_auth')
+    ->save(TRUE);
+}
+
+/**
+ * Add Email format setting.
+ */
+function phpmailer_smtp_update_8003() {
+  \Drupal::configFactory()->getEditable('phpmailer_smtp.format')
+    ->set('format', 'plain_text')
+    ->save(TRUE);
+}
+
+/**
+ * Add Send all email as HTML setting.
+ */
+function phpmailer_smtp_update_8004() {
+  \Drupal::configFactory()->getEditable('phpmailer_smtp.format')
+    ->set('force_html', 0)
+    ->save(TRUE);
+}

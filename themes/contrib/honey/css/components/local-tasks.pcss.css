@@ -1,0 +1,35 @@
+/**
+ * Page local-tasks styles.
+ */
+
+@import "../base/variables.pcss.css";
+
+.block-local-tasks-block .block__content ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.block-local-tasks-block .block__content ul li {
+  margin-right: var(--space-l);
+}
+
+.block-local-tasks-block .block__content ul li:last-child {
+  margin-right: 0;
+}
+
+.block-local-tasks-block a {
+  display: block;
+  padding: var(--space-xs) var(--space-l);
+  text-decoration: none;
+  color: var(--color-ui-bg);
+  border-radius: var(--space-m)  var(--space-m) 0 0;
+  background-color: var(--color-ui);
+  font-size: var(--font-size-h6);
+}
+
+.block-local-tasks-block a:hover {
+  transition: var(--transition-hover);
+  background-color: var(--color-ui-hover);
+}

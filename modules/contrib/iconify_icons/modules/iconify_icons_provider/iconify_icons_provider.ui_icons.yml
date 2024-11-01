@@ -1,0 +1,2296 @@
+# Collections from https://icon-sets.iconify.design/
+
+iconify_flags:
+  enabled: true
+  label: Iconify Flags
+  extractor: iconify
+  config:
+    collections:
+      - flag
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_circle_flags:
+  enabled: true
+  label: Iconify Circle Flags
+  extractor: iconify
+  config:
+    collections:
+      - circle-flags
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_mdi:
+  enabled: true
+  label: Iconify Material Design Icons
+  extractor: iconify
+  config:
+    collections:
+      - mdi
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_fa:
+  enabled: true
+  label: Iconify Font Awesome
+  extractor: iconify
+  config:
+    collections:
+      - fa
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_fa_brands:
+  enabled: true
+  label: Iconify Font Awesome Brands
+  extractor: iconify
+  config:
+    collections:
+      - fa-brands
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_fa_solid:
+  enabled: true
+  label: Iconify Font Awesome Solid
+  extractor: iconify
+  config:
+    collections:
+      - fa-solid
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_feather:
+  enabled: true
+  label: Iconify Feather Icons
+  extractor: iconify
+  config:
+    collections:
+      - feather
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_ionicons:
+  enabled: true
+  label: Iconify Ionicons
+  extractor: iconify
+  config:
+    collections:
+      - ion
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_heroicons_outline:
+  enabled: true
+  label: Iconify Heroicons Outline
+  extractor: iconify
+  config:
+    collections:
+      - heroicons-outline
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_heroicons_solid:
+  enabled: true
+  label: Iconify Heroicons Solid
+  extractor: iconify
+  config:
+    collections:
+      - heroicons-solid
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_bi:
+  enabled: true
+  label: Iconify Bootstrap Icons
+  extractor: iconify
+  config:
+    collections:
+      - bi
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_bx:
+  enabled: true
+  label: Iconify Boxicons
+  extractor: iconify
+  config:
+    collections:
+      - bx
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_tabler:
+  enabled: true
+  label: Iconify Tabler Icons
+  extractor: iconify
+  config:
+    collections:
+      - tabler
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_ant_design:
+  enabled: true
+  label: Iconify Ant Design Icons
+  extractor: iconify
+  config:
+    collections:
+      - ant-design
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_bxl:
+  enabled: true
+  label: Iconify Boxicons Logos
+  extractor: iconify
+  config:
+    collections:
+      - bxl
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_bxs:
+  enabled: true
+  label: Iconify Boxicons Solid
+  extractor: iconify
+  config:
+    collections:
+      - bxs
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_cil:
+  enabled: true
+  label: Iconify CoreUI Icons Line
+  extractor: iconify
+  config:
+    collections:
+      - cil
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_cilx:
+  enabled: true
+  label: Iconify CoreUI Icons Solid
+  extractor: iconify
+  config:
+    collections:
+      - cilx
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_crypto:
+  enabled: true
+  label: Iconify Crypto Icons
+  extractor: iconify
+  config:
+    collections:
+      - crypto
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_devicon:
+  enabled: true
+  label: Iconify Devicons
+  extractor: iconify
+  config:
+    collections:
+      - devicon
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_fluent:
+  enabled: true
+  label: Iconify Fluent Icons
+  extractor: iconify
+  config:
+    collections:
+      - fluent
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_fl:
+  enabled: true
+  label: Iconify Flat Icons
+  extractor: iconify
+  config:
+    collections:
+      - flat-color-icons
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_game_icons:
+  enabled: true
+  label: Iconify Game Icons
+  extractor: iconify
+  config:
+    collections:
+      - game-icons
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_grommet_icons:
+  enabled: true
+  label: Iconify Grommet Icons
+  extractor: iconify
+  config:
+    collections:
+      - grommet-icons
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_icon_park:
+  enabled: true
+  label: Iconify Icon Park
+  extractor: iconify
+  config:
+    collections:
+      - icon-park
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_icon_park_outline:
+  enabled: true
+  label: Iconify Icon Park Outline
+  extractor: iconify
+  config:
+    collections:
+      - icon-park-outline
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_icon_park_solid:
+  enabled: true
+  label: Iconify Icon Park Solid
+  extractor: iconify
+  config:
+    collections:
+      - icon-park-solid
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_ionicons_outline:
+  enabled: true
+  label: Iconify Ionicons Outline
+  extractor: iconify
+  config:
+    collections:
+      - ionicons-outline
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_line_md:
+  enabled: true
+  label: Iconify Line MD
+  extractor: iconify
+  config:
+    collections:
+      - line-md
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_logos:
+  enabled: true
+  label: Iconify Logos
+  extractor: iconify
+  config:
+    collections:
+      - logos
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_lucide:
+  enabled: true
+  label: Iconify Lucide Icons
+  extractor: iconify
+  config:
+    collections:
+      - lucide
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_map_icons:
+  enabled: true
+  label: Iconify Map Icons
+  extractor: iconify
+  config:
+    collections:
+      - map-icons
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_mdi_light:
+  enabled: true
+  label: Iconify Material Design Icons Light
+  extractor: iconify
+  config:
+    collections:
+      - mdi-light
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_ph:
+  enabled: true
+  label: Iconify Phosphor Icons
+  extractor: iconify
+  config:
+    collections:
+      - ph
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_si_glyph:
+  enabled: true
+  label: Iconify Streamline Glyph Icons
+  extractor: iconify
+  config:
+    collections:
+      - si-glyph
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_suse:
+  enabled: true
+  label: Iconify Suse Icons
+  extractor: iconify
+  config:
+    collections:
+      - suse
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_svg_spinners:
+  enabled: true
+  label: Iconify SVG Spinners
+  extractor: iconify
+  config:
+    collections:
+      - svg-spinners
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_system_uicons:
+  enabled: true
+  label: Iconify System UI Icons
+  extractor: iconify
+  config:
+    collections:
+      - system-uicons
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_typicons:
+  enabled: true
+  label: Iconify Typicons
+  extractor: iconify
+  config:
+    collections:
+      - typicons
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_uiw:
+  enabled: true
+  label: Iconify UIw Icons
+  extractor: iconify
+  config:
+    collections:
+      - uiw
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_vsicons:
+  enabled: true
+  label: Iconify VS Icons
+  extractor: iconify
+  config:
+    collections:
+      - vsicons
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_weather_icons:
+  enabled: true
+  label: Iconify Weather Icons
+  extractor: iconify
+  config:
+    collections:
+      - weather-icons
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_windows:
+  enabled: true
+  label: Iconify Windows Icons
+  extractor: iconify
+  config:
+    collections:
+      - windows
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_themify:
+  enabled: true
+  label: Iconify Themify Icons
+  extractor: iconify
+  config:
+    collections:
+      - themify
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_remixicon:
+  enabled: true
+  label: Iconify Remix Icons
+  extractor: iconify
+  config:
+    collections:
+      - remixicon
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_pixelarticons:
+  enabled: true
+  label: Iconify Pixelart Icons
+  extractor: iconify
+  config:
+    collections:
+      - pixelarticons
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_teenyicons:
+  enabled: true
+  label: Iconify Teeny Icons
+  extractor: iconify
+  config:
+    collections:
+      - teenyicons
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_material_symbols:
+  enabled: true
+  label: Iconify Material Symbols
+  extractor: iconify
+  config:
+    collections:
+      - material-symbols
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_crisp_icons:
+  enabled: true
+  label: Iconify Crisp Icons
+  extractor: iconify
+  config:
+    collections:
+      - crisp-icons
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_material_design:
+  enabled: true
+  label: Iconify Material Design Icons
+  extractor: iconify
+  config:
+    collections:
+      - material-design
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_cssgg:
+  enabled: true
+  label: Iconify CSS.gg Icons
+  extractor: iconify
+  config:
+    collections:
+      - cssgg
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_flat_icons:
+  enabled: true
+  label: Iconify Flat Icons
+  extractor: iconify
+  config:
+    collections:
+      - flat-icons
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_coreui_icons:
+  enabled: true
+  label: Iconify CoreUI Icons
+  extractor: iconify
+  config:
+    collections:
+      - coreui-icons
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_boxicons:
+  enabled: true
+  label: Iconify Boxicons
+  extractor: iconify
+  config:
+    collections:
+      - boxicons
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_outline_md:
+  enabled: true
+  label: Iconify Outline MD Icons
+  extractor: iconify
+  config:
+    collections:
+      - outline-md
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_healthicons:
+  enabled: true
+  label: Iconify Health Icons
+  extractor: iconify
+  config:
+    collections:
+      - healthicons
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_raphael:
+  enabled: true
+  label: Iconify Raphael Icons
+  extractor: iconify
+  config:
+    collections:
+      - raphael
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_octicons:
+  enabled: true
+  label: Iconify Octicons
+  extractor: iconify
+  config:
+    collections:
+      - octicons
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_sdd_icons:
+  enabled: true
+  label: Iconify SDD Icons
+  extractor: iconify
+  config:
+    collections:
+      - sdd-icons
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_world_flags:
+  enabled: true
+  label: Iconify World Flags
+  extractor: iconify
+  config:
+    collections:
+      - world-flags
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_vaadin_icons:
+  enabled: true
+  label: Iconify Vaadin Icons
+  extractor: iconify
+  config:
+    collections:
+      - vaadin-icons
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+
+iconify_streamline_icons:
+  enabled: true
+  label: Iconify Streamline Icons
+  extractor: iconify
+  config:
+    collections:
+      - streamline-icons
+  settings:
+    size:
+      title: "Size"
+      type: "integer"
+      default: 32
+    flip:
+      title: "Flip"
+      type: "text"
+      enum:
+        - original
+        - horizontal
+        - vertical
+        - horizontal,vertical
+    rotate:
+      title: "Rotate"
+      type: "text"
+      enum:
+        - 0deg
+        - 90deg
+        - 180deg
+        - 270deg
+  template: >
+    {% set params = {
+      width: size,
+      height: size,
+      rotate: rotate,
+      flip: flip
+    }|filter(v => v is not null) %}
+    <img src="{{ source }}?{{ params|url_encode }}" />
+

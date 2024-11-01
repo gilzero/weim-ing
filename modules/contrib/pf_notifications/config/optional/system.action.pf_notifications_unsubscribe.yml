@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - pf_notifications
+id: pf_notifications_unsubscribe
+label: 'Unsubsribe user from all push notifications subscriptions.'
+type: user
+plugin: pf_notifications_unsubscribe

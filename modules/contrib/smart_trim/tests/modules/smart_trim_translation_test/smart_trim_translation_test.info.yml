@@ -1,0 +1,11 @@
+name: 'Smart Trim translation test'
+type: module
+description: 'Used to test Smart Trim translations.'
+package: Testing
+dependencies:
+  - smart_trim:smart_trim
+
+# Information added by Drupal.org packaging script on 2024-08-16
+version: '2.2.0'
+project: 'smart_trim'
+datestamp: 1723847278

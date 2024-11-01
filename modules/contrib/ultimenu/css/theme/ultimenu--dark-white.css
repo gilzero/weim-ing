@@ -1,0 +1,45 @@
+/**
+ * @file
+ * Skin based on safe CSS file name: ultimenu--dark-white.
+ */
+
+:root {
+  --ultidark: #222;
+  --ultidark-light: #333;
+  --ultidarker: #111;
+}
+
+.ultimenu--dark-white {
+  --ultibg: var(--ultidark);
+  --ultinormal: #555;
+  --ultiactive: #000;
+  --ultiflyout: var(--ultidarker);
+  --ultiregion: #fff;
+  --ultilink-normal: #eaeaea;
+  --ultilink-active: #fff;
+  --ultilink-bg-active: var(--ultidarker);
+  --ulticaret-normal: var(--ultilink-normal);
+  --ulticaret-active: var(--ultilink-active);
+
+  background-color: var(--ultidark);
+}
+
+.ultimenu--dark-white .ultimenusub .menu {
+  --ulticaret-normal: var(--ultinormal);
+  --ulticaret-active: var(--ultiactive);
+}
+
+.is-ultimenu--active .is-ultimenu__canvas-off .ultimenu--dark-white {
+  --ultibg: var(--ultidark);
+  --ultinormal: #eaeaea;
+  --ultiactive: #fff;
+}
+
+.ultimenu--dark-white .ultimenu__flyout,
+.ultimenu--dark-white .ultimenusub .is-uitem-expanded {
+  border-top: 1px solid var(--ultidark-light);
+}
+
+.ultimenu--dark-white .ultimenu__link {
+  border-top: 1px solid transparent;
+}

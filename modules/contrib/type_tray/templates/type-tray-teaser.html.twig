@@ -1,0 +1,63 @@
+{#
+/**
+ * @file
+ * Template implementation for the type_tray_teaser theme hook.
+ *
+ * Available variables:
+ * - content_type_entity: The entity type object.
+ * - content_type_link: A link render array for the node/add/[type] page
+ * - nodes_by_type_link: A link render array for the content listing page
+ * - thumbnail_url: The URL of the thumbnail
+ * - thumbnail_alt: The ALT text to be used for the thumbnail
+ * - icon_url: The URL of the icon
+ * - icon_alt: The ALT text to be used for the icon
+ * - short_description: The default description text string.
+ * - extended_description: The extended description (formatted), to be used
+ *   when the layout is "list".
+ * - layout: The layout being used: either "grid" (default) or "list".
+ * - favorite_link_text: The text to use in the Add to Favorites link.
+ * - favorite_link_url: The URL to use in the Add to Favorites link.
+ * - favorite_link_action: The action of the favorite link (add/remove).
+ */
+#}
+<div class="type-tray-teaser type-tray-teaser--{{ content_type_entity.id }}">
+  <div class="type-tray__gray-bar">
+    {% if favorite_link_text and favorite_link_url and favorite_link_action %}
+      <div class="type-tray__favorite">
+        {% set aria_value = favorite_link_action == 'add' ? 'false' : 'true' %}
+        <a href="{{ favorite_link_url }}" class="favorite-link" role="checkbox" aria-checked="{{ aria_value }}">
+          <span class="favorite-link__icon"></span>
+          <span class="favorite-link__message">{{ favorite_link_text }}</span>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="type-tray__icon">
+    {% if icon_url %}
+      <img width="36" height="36" alt="{{ icon_alt }}" src="{{ icon_url }}" />
+    {% endif %}
+  </div>
+
+  <div class="type-tray__text">
+    <h3 data-type-tray="title">{{ content_type_link }}</h3>
+
+    <div class="type-tray__short-desc">{{ short_description }}</div>
+
+    {% if layout == 'list' %}
+      <div class="type-tray__long-desc">{{ extended_description }}</div>
+    {% endif %}
+
+    {% if nodes_by_type_link %}
+      <div class="type-tray__node-link">{{ nodes_by_type_link }}</div>
+    {% endif %}
+  </div>
+
+  {% if layout == 'list' %}
+    <div class="type-tray__image">
+      {% if thumbnail_url %}
+        <img alt="{{ thumbnail_alt }}" src="{{ thumbnail_url }}" />
+      {% endif %}
+    </div>
+  {% endif %}
+</div>

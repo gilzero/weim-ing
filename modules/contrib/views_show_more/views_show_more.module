@@ -1,0 +1,67 @@
+<?php
+
+/**
+ * @file
+ * Views Show More module.
+ */
+
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Template\Attribute;
+use Drupal\Core\Url;
+
+/**
+ * Theme function for pager link generation.
+ */
+function views_show_more_preprocess_views_show_more_pager(&$vars) {
+  /** @var \Drupal\Core\Pager\PagerManagerInterface $pager_manager */
+  $pager_manager = \Drupal::service('pager.manager');
+
+  $element = $vars['element'];
+  $parameters = $vars['parameters'];
+  $pager = $pager_manager->getPager($element);
+  if (!$pager) {
+    return;
+  }
+  $current = $pager->getCurrentPage();
+  $total = $pager->getTotalPages();
+  $pager_classes = ['js-pager__items', 'pager__items', 'pager-show-more'];
+
+  if ($current < ($total - 1)) {
+    $options = [
+      'query' => $pager_manager->getUpdatedParameters($parameters, $element, $current + 1),
+    ];
+
+    $vars['item'] = [
+      'href' => Url::fromRoute('<none>', [], $options),
+      'text' => $vars['options']['show_more_text'],
+      'attributes' => [
+        'title' => t('Go to next page'),
+      ],
+    ];
+  }
+  else {
+    $pager_classes[] = 'pager-show-more-empty';
+  }
+
+  $vars['attributes'] = new Attribute([
+    'class' => $pager_classes,
+  ]);
+
+  // This is based on the entire current query string. We need to ensure
+  // cacheability is affected accordingly.
+  $vars['#cache']['contexts'][] = 'url.query_args';
+
+  $vars['heading_id'] = Html::getUniqueId('pagination-heading');
+}
+
+/**
+ * Implements hook_help().
+ */
+function views_show_more_help($route_name, RouteMatchInterface $route_match) {
+  if ($route_name === 'help.page.views_show_more') {
+    $text = file_get_contents(__DIR__ . '/README.md');
+    return '<pre>' . Html::escape($text) . '</pre>';
+  }
+  return '';
+}

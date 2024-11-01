@@ -1,0 +1,22 @@
+{
+    "name": "drupal/aws",
+    "description": "Provides a unified AWS profile management system.",
+    "type": "drupal-module",
+    "homepage": "http://drupal.org/project/aws",
+    "authors": [
+        {
+            "name": "Ben Davis (davisben)",
+            "homepage": "https://www.drupal.org/u/davisben",
+            "role": "Maintainer"
+        }
+    ],
+    "support": {
+        "issues": "https://drupal.org/project/issues/aws",
+        "source": "https://git.drupalcode.org/project/aws"
+    },
+    "license": "GPL-2.0+",
+    "minimum-stability": "dev",
+    "require": {
+        "aws/aws-sdk-php": "^3.54"
+    }
+}

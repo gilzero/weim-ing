@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Default implementation for Iconify Icon field.
+ *
+ * Available variables:
+ * - element: The full icon element.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% set icon = element['#icon'] %}
+{% set settings = element['#settings'] %}
+{% set link_url = settings['link_url'] %}
+{% set link_text = settings['link_text'] %}
+{% set target_attribute = link_url starts with '#' ? '' : 'target="_blank"' %}
+
+<div class="iconify-icon">
+    {% if link_url %}
+        <a class="iconify-icon-link" href="{{ link_url }}" {{ target_attribute|raw }}>
+            {{ iconify_icon(icon, settings)|raw }}
+            {% if link_text %}
+                <p class="iconify-icon-link-title">{{ link_text }}</p>
+            {% endif %}
+        </a>
+    {% else %}
+        {{ iconify_icon(icon, settings)|raw }}
+    {% endif %}
+</div>

@@ -1,0 +1,31 @@
+#footer {
+
+  @media (min-width: $screen-md-min) {
+    .block {
+      flex: 1;
+    }
+  }
+
+  .block {
+    & > h2 {
+      display: none;
+    }
+
+    .field {
+      margin: 0;
+
+      p {
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      a {
+        color: #fff;
+
+        &:hover {
+          color: var(--primary);
+        }
+      }
+    }
+  }
+}

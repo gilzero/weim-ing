@@ -1,0 +1,209 @@
+<?php
+
+/**
+ * @file
+ * Make blocks collapsible.
+ */
+
+use Drupal\block\BlockInterface;
+use Drupal\block\Entity\Block;
+use Drupal\collapsiblock\Form\CollapsiblockGlobalSettings;
+use Drupal\Core\Block\BlockPluginInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Entity builder for the block form with third party options.
+ *
+ * @see collapsiblock_form_block_form_alter()
+ */
+function collapsiblock_block_form_form_builder($entity_type, Block $block, &$form, FormStateInterface $form_state) {
+  $collapse_action = (int) $form_state->getValue([
+    'collapsiblock_settings',
+    'collapse_action',
+  ]);
+  if ($collapse_action == 0) {
+    $block->unsetThirdPartySetting('collapsiblock', 'collapse_action');
+  }
+  else {
+    $block->setThirdPartySetting('collapsiblock', 'collapse_action', $collapse_action);
+  }
+}
+
+/**
+ * Implements hook_block_view_alter().
+ */
+function collapsiblock_block_view_alter(array &$build, BlockPluginInterface $block) {
+  if (empty($build['#block']) || !$build['#block'] instanceof BlockInterface) {
+    return;
+  }
+
+  $block_entity = $build['#block'];
+  $action = (int) $block_entity->getThirdPartySetting('collapsiblock', 'collapse_action', 0);
+
+  // If the block is set to global default, get that default and use it instead
+  // of 0.
+  if ($action == 0) {
+    $action = \Drupal::config('collapsiblock.settings')->get('default_action');
+  }
+
+  // If the action is anything other than 'none', create our wrapper elements.
+  if ($action != 1) {
+    $id = 'collapsiblock-wrapper-' . $block_entity->id();
+
+    $build['#collapsiblock']['prefix'] = [
+      '#markup' => '<div id="' . $id . '" class="collapsiblockTitle" data-collapsiblock-action="' . $action . '">',
+    ];
+
+    $build['#collapsiblock']['suffix'] = [
+      'collapsiblock' => [
+        '#markup' => '</div>',
+      ],
+    ];
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Alter the layout builder "Add Block" and "Update Block" forms.
+ */
+function collapsiblock_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Affect the Layout Builder's "Add Block" and "Update Block" forms.
+  if ($form['#form_id'] === 'layout_builder_add_block' || $form['#form_id'] === 'layout_builder_update_block') {
+    /** @var \Drupal\layout_builder\SectionComponent $current_layout_builder_component */
+    $current_layout_builder_component = $form_state->getFormObject()->getCurrentComponent();
+    $saved_settings = $current_layout_builder_component->get('collapsiblock') ?: ['collapse_action' => 0];
+
+    $form['settings']['collapsiblock_settings'] = [
+      '#type' => 'details',
+      '#title' => t('Collapsible'),
+      '#open' => TRUE,
+    ];
+
+    $options = CollapsiblockGlobalSettings::ACTION_OPTIONS;
+    $settings = \Drupal::config('collapsiblock.settings');
+    $default_action = $options[$settings->get('default_action')];
+    $options = [0 => 'Global default, currently set to: ' . $default_action] + $options;
+
+    $form['settings']['collapsiblock_settings']['collapse_action'] = [
+      '#type' => 'radios',
+      '#title' => t('Block collapse behavior'),
+      '#options' => $options,
+      '#default_value' => $saved_settings['collapse_action'],
+    ];
+
+    // Add our own form submit handler at the start of the #submit callbacks
+    // so that it can modify the SectionComponent configuration before it is
+    // saved by the default form submit handler,
+    // \Drupal\layout_builder\Form\ConfigureBlockFormBase::submitForm().
+    array_unshift($form['#submit'], 'collapsiblock_form_layout_builder_submit');
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for \Drupal\block\BlockForm.
+ *
+ * Alter the "Configure block" form.
+ */
+function collapsiblock_form_block_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  $form['collapsiblock_settings'] = [
+    '#type' => 'details',
+    '#title' => t('Collapsible'),
+    '#open' => TRUE,
+  ];
+
+  // Add the global default to the list of options for the per-block setting.
+  $block = $form_state->getFormObject()->getEntity();
+  $options = CollapsiblockGlobalSettings::ACTION_OPTIONS;
+  $settings = \Drupal::config('collapsiblock.settings');
+  $default_action = $options[$settings->get('default_action')];
+  $options = [0 => 'Global default, currently set to: ' . $default_action] + $options;
+
+  $form['collapsiblock_settings']['collapse_action'] = [
+    '#type' => 'radios',
+    '#title' => t('Block collapse behavior'),
+    '#options' => $options,
+    '#default_value' => $block->getThirdPartySetting('collapsiblock', 'collapse_action', 0),
+  ];
+
+  $form['#entity_builders'][] = 'collapsiblock_block_form_form_builder';
+}
+
+/**
+ * Layout builder form submit callback.
+ *
+ * @see collapsiblock_form_alter()
+ */
+function collapsiblock_form_layout_builder_submit(array $form, FormStateInterface $form_state) {
+  /** @var \Drupal\layout_builder\SectionComponent $current_layout_builder_component */
+  $current_layout_builder_component = $form_state->getFormObject()->getCurrentComponent();
+
+  // Update the settings to include our additional collapsiblock settings.
+  $additional = $current_layout_builder_component->get('additional');
+  $collapse_action = (int) $form_state->getValue([
+    'settings',
+    'collapsiblock_settings',
+    'collapse_action',
+  ]);
+  if ($collapse_action === 0) {
+    // Don't add any new settings if using default settings.
+    unset($additional['collapsiblock']);
+  }
+  else {
+    $additional['collapsiblock']['collapse_action'] = $collapse_action;
+  }
+  $current_layout_builder_component->set('additional', $additional);
+}
+
+/**
+ * Implements hook_help().
+ */
+function collapsiblock_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.collapsiblock':
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The Collapsiblock module makes blocks collapsible.') . '</p>';
+
+      $output .= '<h3>' . t('Settings') . '</h3>';
+      $output .= '<ul>';
+      $output .= '<li>' . t('Access the settings page at <a href="@settings_page@">Configuration » User interface » Collapsiblock</a>', ['@settings_page@' => '/admin/config/user-interface/collapsiblock']) . '</li>';
+      $output .= '<li>' . t('Select a default behavior for all blocks at "Default block collapse behavior" and other configurations like "Menu blocks to be collapsed on page load", "Animation speed" or "Cookie lifetime"') . '</li>';
+      $output .= '<li>' . t('Save the settings form') . '</li>';
+      $output .= '<li>' . t('Place any block as described by <a href="@block_documentation@" target="blank">Placing a Block documentation</a>', ['@block_documentation@' => 'https://www.drupal.org/docs/user_guide/en/block-place.html']) . '</li>';
+      $output .= '<li>' . t('Each block may be given a setting to override the default in its own configuration form.') . '</li>';
+      $output .= '</ul>';
+      $output .= '<p>' . t('For a full description of the module visit: <a href="@project_url@" target="blank">@project_url@</a>', ['@project_url@' => 'https://www.drupal.org/project/collapsiblock']) . '</p>';
+      $output .= '<p>' . t('To submit bug reports and feature suggestions, or to track changes visit: <a href="@project_issues_url@" target="blank">@project_issues_url@</a>', ['@project_issues_url@' => 'https://www.drupal.org/project/issues/collapsiblock']) . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ *
+ * Attach our library and global settings.
+ */
+function collapsiblock_page_attachments_alter(array &$attachments) {
+  $attachments['#attached']['library'][] = 'collapsiblock/core';
+  $settings = \Drupal::config('collapsiblock.settings');
+  $collapsiblock = [
+    'active_pages' => $settings->get('active_pages'),
+    'slide_speed' => $settings->get('slide_speed'),
+    'cookie_lifetime' => $settings->get('cookie_lifetime'),
+  ];
+  $attachments['#attached']['drupalSettings']['collapsiblock'] = $collapsiblock;
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * Wrap the title in a div that contains the Collapsiblock elements.
+ */
+function collapsiblock_preprocess_block(&$variables) {
+  if (isset($variables['elements']['#collapsiblock'])) {
+    $variables['title_prefix']['collapsiblock'] = $variables['elements']['#collapsiblock']['prefix'];
+    $variables['title_suffix']['collapsiblock'] = $variables['elements']['#collapsiblock']['suffix'];
+  }
+}

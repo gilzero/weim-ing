@@ -1,0 +1,364 @@
+<?php
+
+/**
+ * @file
+ * Make base fields such as 'title' available in "Manage Display".
+ */
+
+use Drupal\comment\CommentInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Template\Attribute;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_entity_type_build().
+ */
+function manage_display_entity_type_build(array &$entity_types) {
+  $attributes = [
+    'enable_base_field_custom_preprocess_skipping' => [
+      'node',
+      'taxonomy_term',
+      'aggregator_feed',
+      'aggregator_item',
+      'comment',
+    ],
+    'enable_page_title_template' => [
+      'node',
+      'taxonomy_term',
+      'aggregator_feed',
+      'media',
+    ],
+  ];
+
+  foreach ($attributes as $property => $types) {
+    foreach ($types as $type) {
+      if (isset($entity_types[$type])) {
+        $entity_types[$type]->set($property, TRUE);
+      }
+    }
+  }
+
+  if (isset($entity_types['user'])) {
+    // Set user name as a label else it gets printed twice on the user page.
+    $keys = $entity_types['user']->get('entity_keys');
+    $keys['label'] = 'name';
+    $entity_types['user']->set('entity_keys', $keys);
+  }
+}
+
+/**
+ * Implements hook_entity_base_field_info_alter().
+ */
+function manage_display_entity_base_field_info_alter(&$base_field_definitions, EntityTypeInterface $entity_type) {
+  $info = manage_display_base_field_info($entity_type->id());
+  foreach ($info as $field => $options) {
+    $base_field_definitions[$field]
+      ->setDisplayConfigurable('view', TRUE)
+      ->setDisplayOptions('view', $options);
+  }
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function manage_display_entity_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+  $owner_key = $entity->getEntityType()->getKey('owner');
+  $owner_formatter = $build[$owner_key]['#formatter'] ?? '';
+
+  if ($owner_formatter == 'submitted') {
+    // Build the submitted render element.
+    $build['submitted'] = [
+      '#theme' => 'submitted',
+      '#entity' => $entity,
+      '#weight' => $build[$owner_key]['#weight'],
+      '#author_name' => $build[$owner_key] + ['#is_inline' => TRUE],
+    ];
+
+    if ($user_picture = $build[$owner_key]['user_picture'] ?? NULL) {
+      $build['submitted']['#user_picture'] = $user_picture;
+    }
+    unset($build[$owner_key]);
+
+    $created_type = $build['created']['#field_type'] ?? '';
+    if ($created_type == 'created') {
+      $build['submitted']['#date'] = $build['created'] + ['#is_inline' => TRUE];
+      unset($build['created']);
+    }
+
+    if (isset($build['pid'][0]) && ($entity->getEntityTypeId() == 'comment')) {
+      $build['submitted']['#parent'] = $build['pid'] + ['#is_inline' => TRUE];
+      unset($build['pid']);
+    }
+  }
+}
+
+/**
+ * Return information about the base fields that can be managed.
+ *
+ * @param string $entity_type_id
+ *   Entity type ID to return fields for.
+ *
+ * @return array
+ *   Array keyed by field name with value equal to the default display options.
+ */
+function manage_display_base_field_info($entity_type_id) {
+  // Node.
+  // - Default uid and created to hidden as that's most often correct,
+  //   especially on teaser.
+  $info['node']['title'] = [
+    'type' => 'title',
+    'label' => 'hidden',
+    'weight' => -49,
+  ];
+  $info['node']['created'] = ['region' => 'hidden'];
+  $info['node']['uid'] = ['region' => 'hidden'];
+
+  // User.
+  // - Default user name to hidden to match Drupal default.
+  $info['user']['name'] = ['region' => 'hidden'];
+
+  // Taxonomy term.
+  $info['taxonomy_term']['name'] = $info['node']['title'];
+
+  // Aggregator feed.
+  $info['aggregator_feed']['title'] = $info['node']['title'];
+  $info['aggregator_feed']['image'] = [
+    'type' => 'uri_link',
+    'label' => 'hidden',
+    'weight' => 2,
+  ];
+  $info['aggregator_feed']['description'] = [
+    'type' => 'aggregator_xss',
+    'label' => 'hidden',
+    'weight' => 3,
+  ];
+
+  // Aggregator item.
+  $info['aggregator_item']['title'] = $info['node']['title'];
+  $info['aggregator_item']['title']['settings']['tag'] = 'h3';
+  $info['aggregator_item']['description'] = [
+    'type' => 'aggregator_xss',
+    'label' => 'hidden',
+    'weight' => 2,
+  ];
+
+  // Comment.
+  $info['comment']['subject'] = $info['aggregator_item']['title'];
+  $info['comment']['uid'] = [
+    'type' => 'submitted',
+    'label' => 'hidden',
+    'weight' => -51,
+  ];
+  $info['comment']['created'] = [
+    'type' => 'timestamp',
+    'label' => 'hidden',
+  ];
+  $info['comment']['pid'] = [
+    'type' => 'in_reply_to',
+    'label' => 'hidden',
+  ];
+  return $info[$entity_type_id] ?? [];
+}
+
+/**
+ * Implements hook_theme().
+ */
+function manage_display_theme() {
+  $node_path = \Drupal::service('extension.path.resolver')->getPath('module', 'node');
+  return [
+    'submitted' => [
+      'variables' => [
+        'author_name' => NULL,
+        'date' => NULL,
+        'user_picture' => NULL,
+        'entity' => NULL,
+        // For comments.
+        'parent' => NULL,
+      ],
+    ],
+    'submitted__comment' => [
+      'base hook' => 'submitted',
+    ],
+    'in_reply_to' => [
+      'render element' => 'elements',
+    ],
+    // Reuse the special 'inline' node templates for other entity types.
+    'field__uid' => [
+      'base hook' => 'field',
+      'path' => $node_path . '/templates',
+      'template' => 'field--node--uid',
+    ],
+    'field__created' => [
+      'base hook' => 'field',
+      'path' => $node_path . '/templates',
+      'template' => 'field--node--created',
+    ],
+    'field__comment__pid' => [
+      'base hook' => 'field',
+      'path' => $node_path . '/templates',
+      'template' => 'field--node--title',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK() for 'submitted'.
+ */
+function manage_display_theme_suggestions_submitted(array $variables) {
+  return ['submitted__' . $variables['entity']->getEntityTypeId()];
+}
+
+/**
+ * Prepares variables for 'submitted' field formatter template.
+ */
+function template_preprocess_submitted(&$variables) {
+  $variables['author_attributes'] = new Attribute();
+  $variables['entity_type'] = $variables['entity']->getEntityTypeId();
+
+  // For consistency with node.html.twig.
+  $variables['author_picture'] = $variables['user_picture'];
+
+  // Force rendering.
+  // @todo Remove after fixing core bug.
+  // @see https://www.drupal.org/project/drupal/issues/2334319
+  $renderer = \Drupal::service('renderer');
+  $variables['author_name'] = $renderer->render($variables['author_name']);
+  $variables['date'] = $renderer->render($variables['date']);
+}
+
+/**
+ * Prepares variables for 'in_reply_to' field formatter template.
+ */
+function template_preprocess_in_reply_to(&$variables) {
+  // Force rendering.
+  // @todo Remove after fixing core bug.
+  // @see https://www.drupal.org/project/drupal/issues/2334319
+  $renderer = \Drupal::service('renderer');
+  $variables['subject'] = $renderer->render($variables['elements']['subject']);
+  $variables['uid'] = $renderer->render($variables['elements']['uid']);
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for 'field'.
+ *
+ * @todo Use a more specific hook field_comment_subject or field_comment.
+ * Currently that doesn't work because of ambiguity that causes the wrong
+ * template to be used. The hook field_comment is widely used to refer to
+ * #field_name = comment.
+ *
+ * @see system_theme_suggestions_field()
+ * @see olivero_preprocess_field__comment()
+ * @see https://www.drupal.org/project/drupal/issues/1367354
+ */
+function manage_display_preprocess_field(&$variables) {
+  _manage_display_preprocess_inline_field($variables);
+  $element = $variables['element'];
+
+  if ($element['#entity_type'] == 'comment' && !$element['#object']->isNew()) {
+    $formatters = [
+      'subject' => ['title' => TRUE, 'string' => TRUE],
+      'uid' => ['submitted' => TRUE, 'author' => TRUE],
+    ];
+
+    if (!empty($formatters[$element['#field_name']][$element['#formatter']])) {
+      foreach ($variables['items'] as &$item) {
+        _manage_display_fix_comment_item($item['content'], $element['#field_name'], $element['#object']);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for 'field__node_created'.
+ *
+ * We have to implement this more specific hook to run after
+ * node_preprocess_field__node().
+ */
+function manage_display_preprocess_field__node__created(&$variables) {
+  _manage_display_preprocess_inline_field($variables);
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for 'field__node__uid'.
+ *
+ * We have to implement this more specific hook to run after
+ * node_preprocess_field__node().
+ */
+function manage_display_preprocess_field__node__uid(&$variables) {
+  _manage_display_preprocess_inline_field($variables);
+}
+
+/**
+ * Shared code for hook_preprocess_field() functions.
+ */
+function _manage_display_preprocess_inline_field(&$variables) {
+  if ($variables['element']['#is_inline'] ?? FALSE) {
+    $variables['is_inline'] = TRUE;
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for 'submitted__comment'.
+ */
+function manage_display_preprocess_submitted__comment(&$variables) {
+  // Set extra variables.
+  $comment = $variables['entity'];
+  $variables['permalink_url'] = $comment->isNew() ? Url::fromRoute('<front>') : $comment->permalink();
+  $variables['permalink'] = Link::fromTextAndUrl(t('Permalink'), $variables['permalink_url'])->toString();
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function manage_display_form_node_type_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Hide display_submitted in GUI.
+  $form['display']['#access'] = FALSE;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function manage_display_form_system_theme_settings_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Hide the theme settings for user_pictures because the submitted formatter
+  // has its own setting.
+  $form['theme_settings']['toggle_node_user_picture']['#access'] = FALSE;
+  $form['theme_settings']['toggle_comment_user_picture']['#access'] = FALSE;
+}
+
+/**
+ * Fixes a render array for a single item of a comment field.
+ *
+ * Match the default behavior of Drupal Core custom pre-processing.
+ *
+ * @param array $item
+ *   The render array for a single item of a field.
+ * @param string $name
+ *   The field name.
+ * @param \Drupal\comment\CommentInterface $comment
+ *   The comment.
+ *
+ * @see template_preprocess_comment()
+ */
+function _manage_display_fix_comment_item(array &$item, string $name, CommentInterface $comment) {
+  if ($name == 'subject') {
+    // Use permalink and add attributes to match Core default behavior.
+    $url = $comment->permalink();
+    $attributes = $url->getOption('attributes') ?: [];
+    $attributes += ['class' => ['permalink'], 'rel' => 'bookmark'];
+    $url->setOption('attributes', $attributes);
+    $item['#url'] = $url;
+  }
+  elseif ($name == 'uid') {
+    // Use the owner to get the correct author name for anonymous comments.
+    if ($item['#theme'] == 'submitted') {
+      $item['#author_name']['#account'] = $comment->getOwner();
+    }
+    else {
+      $item['#account'] = $comment->getOwner();
+    }
+  }
+}

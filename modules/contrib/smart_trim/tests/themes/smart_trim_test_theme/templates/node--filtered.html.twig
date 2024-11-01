@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Node template for testing Smart Trim Twig filter.
+ * Formats body field to various smart trimmed lengths.
+ */
+#}
+
+<article>
+  <div id="body">
+    {{ content.body }}
+  </div>
+  <div id="body-trim-20-chars">{{ content.body | render | smart_trim_chars(20) }}</div>
+  <div id="body-trim-25-chars-dash">{{ content.body | render | smart_trim_chars(25, '-') }}</div>
+  <div id="body-trim-20-chars-html">
+    {{ content.body | render | smart_trim_chars(20, '', FALSE) }}
+  </div>
+  <div id="body-trim-5-words">{{ content.body | render | smart_trim_words(5) }}</div>
+  <div id="body-trim-7-words-ellipses-html">
+    {{ content.body | render | smart_trim_words(7, '...', FALSE) }}
+  </div>
+</article>

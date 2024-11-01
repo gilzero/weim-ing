@@ -1,0 +1,61 @@
+#navbar {
+  .block-system-branding-block {
+    float: left;
+    height: 90px;
+    margin: 0;
+
+    a.logo {
+      display: inline-block;
+      height: 90px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+
+      .image {
+        display: block;
+        padding-right: 13px;
+
+        img {
+          width: auto;
+          height: 61px;
+        }
+      }
+
+      .title {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .site-name {
+          display: block;
+          color: var(--primary-dark);
+          font-size: 28px;
+          font-weight: 600;
+          font-family: 'Geologica';
+        }
+
+        .site-slogan {
+          display: block;
+          color: var(--black);
+          font-size: 15px;
+          position: relative;
+          top: -5px;
+          color: var(--primary-dark);
+          font-family: 'Geologica';
+          font-weight: 100;
+        }
+      }
+    }
+
+    @media (max-width: $screen-xs-max) {
+      & {
+        a {
+          .title {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

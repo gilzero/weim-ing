@@ -1,0 +1,36 @@
+services:
+  pf_notifications.base:
+    class: Drupal\pf_notifications\Service\Base
+    arguments: [
+      '@config.factory',
+      '@request_stack',
+      '@current_user',
+      '@messenger',
+      '@user.data',
+      '@logger.factory',
+      '@module_handler',
+      '@token',
+      '@entity_type.manager',
+      '@permission_checker',
+      '@flood',
+      '@pf_notifications.keys_manager',
+      '@danse_content.service'
+    ]
+
+  pf_notifications.subscription:
+    class: Drupal\pf_notifications\Service\Subscription
+    parent: pf_notifications.base
+
+  pf_notifications.push:
+    class: Drupal\pf_notifications\Service\Push
+    parent: pf_notifications.base
+
+  pf_notifications.keys_manager:
+    class: Drupal\pf_notifications\Service\KeysManager
+    arguments: ['@database']
+    Drupal\ban\BanIpManagerInterface: '@pf_notifications.keys_manager'
+
+  pf_notifications.route_subscriber:
+    class: Drupal\pf_notifications\EventSubscriber\DanseRoute
+    tags:
+      - { name: event_subscriber }

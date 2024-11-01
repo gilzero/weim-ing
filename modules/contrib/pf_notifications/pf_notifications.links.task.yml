@@ -1,0 +1,8 @@
+pf_notifications.settings:
+  title: Notifications
+  route_name: pf_notifications.settings
+  base_route: push_framework.settings
+pf_notifications.settings.notifications:
+  title: Push notifications
+  route_name: pf_notifications.settings
+  parent_id: pf_notifications.settings

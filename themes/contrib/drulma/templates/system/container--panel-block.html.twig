@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Drulma theme implementation of a container used to wrap child elements.
+ *
+ * Wrapper for the blocks of a panel.
+ */
+#}
+{%
+  set classes = [
+    'panel-block',
+    has_parent ? 'js-form-wrapper',
+    has_parent ? 'form-wrapper',
+  ]
+%}
+<div{{ create_attribute().addClass(classes) }}>{{ children }}</div>

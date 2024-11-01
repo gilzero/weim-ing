@@ -1,0 +1,72 @@
+<?php
+
+/**
+ * @file
+ * Contains matomo_reports.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function matomo_reports_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the matomo_reports module.
+    case 'matomo_reports.matomo_reports_settings':
+      return t('<a href=":pk_url">Matomo - Web analytics</a> is an open source (GPL license) web analytics software. It gives interesting reports on your website visitors, your popular pages, the search engines keywords they used, the language they speak... and so much more. Matomo aims to be an open source alternative to Google Analytics.', [':pk_url' => 'http://www.matomo.org/']);
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function matomo_reports_theme() {
+  return [
+    'matomo_reports' => [
+      'variables' => [
+        'data_url' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function matomo_reports_form_user_form_alter(&$form, $form_state, $form_id) {
+  $config = \Drupal::config('matomo_reports.matomoreportssettings');
+  $account = $form_state->getFormObject()->getEntity();
+  $userData = \Drupal::service('user.data');
+  if ($account->hasPermission('access matomo reports') && ($config->get('matomo_reports_token_auth') == '')) {
+    $account = \Drupal::currentUser();
+    $form['matomo_reports'] = [
+      '#type' => 'fieldset',
+      '#title' => t('Matomo reports configuration'),
+      '#weight' => 3,
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    ];
+    $form['matomo_reports']['matomo_reports_token_auth'] = [
+      '#type' => 'textfield',
+      '#title' => t('Matomo authentication string'),
+      '#default_value' => (!empty($userData->get('matomo_reports', $account->id(), 'matomo_reports_token_auth')) ? $userData->get('matomo_reports', $account->id(), 'matomo_reports_token_auth') : ''),
+      '#size' => 40,
+      '#maxlength' => 40,
+      '#description' => t('Click the <strong>Settings</strong> link in your Matomo account, then the <strong>Users</strong> tab and copy and paste your personal <strong>token_auth</strong> value into this field. If anonymous users have view permissions in Matomo you can set this value to <strong>anonymous</strong>. Or just ask the Matomo server administrator.'),
+    ];
+    // hook_user_update() is missing in D8, add custom submit handler.
+    $form['actions']['submit']['#submit'][] = 'matomo_reports_user_profile_form_submit';
+  }
+}
+
+/**
+ * Submit callback for user profile form to save the Matomo Reports setting.
+ */
+function matomo_reports_user_profile_form_submit($form, FormStateInterface $form_state) {
+  $account = $form_state->getFormObject()->getEntity();
+  if ($account->id() && $form_state->hasValue('matomo_reports_token_auth')) {
+    \Drupal::service('user.data')->set('matomo_reports', $account->id(), 'matomo_reports_token_auth', $form_state->getValue('matomo_reports_token_auth'));
+  }
+}

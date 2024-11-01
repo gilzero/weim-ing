@@ -1,0 +1,32 @@
+#block-drupalarticles {
+  .menu {
+    ul {
+      padding: 0 0 0 7px;
+      list-style: none outside;
+      text-align: left;
+      width: 100%;
+    }
+
+    li.expanded {
+      list-style-type: disc;
+      list-style-image: url(../../images/menu-collapsed.png);
+
+      &.active-trail {
+        list-style-image: url(../../images/menu-expanded.png);
+      }
+    }
+
+    li {
+      width: 100%;
+    }
+    a {
+      border-bottom: 0;
+      color: inherit;
+      cursor: pointer;
+      display: block;
+      font-size: 1em;
+      padding: 0.625em 0;
+      border-bottom: 1px solid #dadfe0;
+    }
+  }
+}

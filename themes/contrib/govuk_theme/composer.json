@@ -1,0 +1,17 @@
+{
+  "name": "drupal/govuk_theme",
+  "description": "A Drupal 8/9 theme based on GOV.UK Frontend.",
+  "type": "drupal-theme",
+  "homepage": "https://www.drupal.org/project/govuk_theme",
+  "authors": [
+    {
+      "name": "John Burch",
+      "email": "john@johnburch.co.uk",
+      "homepage": "https://www.drupal.org/u/webfaqtory",
+      "role": "Maintainer"
+    }
+  ],
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "require": { }
+}

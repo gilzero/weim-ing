@@ -1,0 +1,16 @@
+{%
+  set bem_block = 'region-' ~ region|clean_class
+%}
+{% set wrapper_tag = wrapper_tag ?: 'div' %}
+{%
+  set classes = [
+    bem_block,
+  ]
+%}
+{% if content %}
+  <{{ wrapper_tag }}{{ attributes.addClass(classes) }}>
+    {% block content %}
+      {{ content }}
+    {% endblock %}
+  </{{ wrapper_tag }}>
+{% endif %}

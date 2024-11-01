@@ -1,0 +1,16 @@
+# @see quicklink_library_info_build() in quicklink.module for the quicklink library.
+
+quicklink_init:
+  js:
+    js/quicklink_init.js: { weight: -10 }
+  dependencies:
+    - core/drupal
+
+quicklink_debug:
+  css:
+    component:
+      css/quicklink-debug.css: {}
+
+quicklink_polyfill:
+  js:
+    https://polyfill-fastly.io/v3/polyfill.min.js?features=IntersectionObserver%2CIntersectionObserverEntry%2CURL%2CObject.assign%2CArray.from%2CArray.prototype.includes%2CString.prototype.includes%2CElement.prototype.matches%2CPromise%2CPromise.prototype.finally: { weight: -100, type: external, minified: true }

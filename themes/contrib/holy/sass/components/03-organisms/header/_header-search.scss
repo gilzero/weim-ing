@@ -1,0 +1,103 @@
+#header {
+  .region-header-search {
+
+    .block-search {
+      & > h2 {
+        display: none;
+      }
+  
+      // base
+      form,
+      div,
+      input,
+      span {
+        margin: 0;
+        padding: 0;
+      }
+  
+      form {
+        display: flex;
+      }
+  
+      .form-submit {
+        padding-left: 53px;
+        padding-right: 30px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        background-image: url("../images/search.svg");
+        background-repeat: no-repeat;
+        background-position: 24px 50%;
+        background-size: 18px 18px;
+        width: 142px;
+        margin: 0;
+        
+        &:hover {
+          background-color: var(--primary-vivid);
+          border-color: var(--primary);
+          color: var(--black);
+          background-image: url("../images/search-hover.svg");
+        }
+      }
+      
+      .form-search {
+        padding-left: 15px;
+        padding-right: 15px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+  
+        @media (min-width: $screen-md-min) {
+          width: 220px;
+        }
+      }
+    }
+  
+    @media (max-width: $screen-sm-max) {
+      margin-bottom: 25px;
+      
+      .form-item {
+        width: 100%;
+
+        .form-search {
+          background: transparent;
+          border-color: var(--primary-darker);
+          border-width: 1.5px;
+          color: var(--primary-darker);
+          height: 55px;
+        }
+  
+      }
+
+      .form-actions {
+        .form-submit {
+          background-color: var(--primary-darker);
+          background-position: 50% 50%;
+          background-size: 18px 18px;
+          height: 55px;
+          text-indent: 300px;
+          width: 78px !important;
+          overflow: hidden;
+          padding-left: 0 !important;
+          padding-right: 0 !important;
+          border-color: var(--primary-darker);
+          border-width: 1.5px;
+
+          &:hover {
+            background-color: var(--primary-darker);
+            border-color: var(--primary-darker);
+            border-width: 1.5px;
+            background-image: url("../images/search.svg");
+          }
+        }
+      }
+
+    }
+
+    @media (min-width: $screen-md-min) {
+      position: absolute;
+      right: 0;
+      bottom: 35px;
+      display: flex;
+    }
+  }
+
+}

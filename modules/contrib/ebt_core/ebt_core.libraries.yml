@@ -1,0 +1,79 @@
+ebt_core:
+  js:
+    js/ebt_core.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+    - core/drupalSettings
+
+ebt_settings:
+  css:
+    component:
+      css/ebt_settings.css: {}
+      css/ebt_settings-olivero.css: {}
+
+ebt_styles:
+  css:
+    theme:
+      css/ebt_core.css: {}
+
+ebt_colorpicker:
+  js:
+    js/ebt_colorpicker.js: {}
+  css:
+    component:
+      css/ebt_colorpicker.css: {}
+  dependencies:
+    - core/jquery
+    - core/once
+    - core/drupalSettings
+
+colorpicker:
+  remote: https://github.com/levmyshkin/jquery_colorpicker
+  license:
+    name: MIT
+    url: https://github.com/levmyshkin/jquery_colorpicker/blob/master/LICENSE
+  js:
+    /libraries/jquery-colorpicker/js/colorpicker.js: {}
+  css:
+    component:
+      /libraries/jquery-colorpicker/css/colorpicker.css: {}
+  dependencies:
+    - ebt_core/ebt_colorpicker
+
+parallax:
+  remote: https://github.com/levmyshkin/parallax.js
+  license:
+    name: MIT
+    url: https://github.com/levmyshkin/parallax.js/blob/master/LICENSE
+  js:
+    /libraries/parallaxjs/parallax.min.js: { minified: true }
+  dependencies:
+    - ebt_core/ebt_core
+
+jquery_mb_ytplayer:
+  remote: https://github.com/levmyshkin/jquery.mb.YTPlayer
+  license:
+    name: MIT
+    url: https://github.com/levmyshkin/jquery.mb.YTPlayer/blob/master/licences/MIT-LICENSE.txt
+  js:
+    /libraries/jquery-mb-ytplayer/dist/jquery.mb.YTPlayer.min.js: { minified: true }
+  css:
+    component:
+      /libraries/jquery-mb-ytplayer/dist/css/jquery.mb.YTPlayer.min.css: { minified: true }
+  dependencies:
+    - ebt_core/ebt_core
+
+vidbg:
+  remote: https://github.com/levmyshkin/vidbg
+  license:
+    name: MIT
+    url: https://github.com/levmyshkin/vidbg/blob/master/LICENSE
+  js:
+    /libraries/vidbg/dist/vidbg.js: { minified: true }
+  css:
+    component:
+      /libraries/vidbg/dist/vidbg.css: { }
+  dependencies:
+    - ebt_core/ebt_core

@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * Implements hook_requirements().
+ */
+function ebt_core_starterkit_requirements($phase) {
+  if ($phase != 'install') {
+    return [];
+  }
+
+  $drush_version = (class_exists('\Drush\Drush')) ? \Drush\Drush::getMajorVersion() : 8;
+
+  if ($drush_version >= 12) {
+    return [];
+  }
+
+  return [
+    'ebt_core_starterkit_drush_version' => [
+      'title' => t('Drush 12+ is required'),
+      'value' => t('Not created'),
+      'description' => t('The EBT Starterkit requires Drush 12+ version.'),
+      'severity' => REQUIREMENT_ERROR,
+    ],
+  ];
+}

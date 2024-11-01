@@ -1,0 +1,50 @@
+saml_sp_drupal_login.config:
+  type: config_object
+  label: 'Configuration'
+  mapping:
+    idp:
+      type: sequence
+      label: 'IdP'
+      description: 'The IdP(s) which are enabled for login'
+      sequence:
+        type: string
+    logout:
+      type: boolean
+      label: 'Single Logout'
+      description: 'When logging out of the site also logout of the IdP'
+    logged_in_redirect:
+      type: string
+      label: 'Logged in Redirect'
+      description: 'If a user tries to authenticate again after they are already logged in redirect them to this path'
+    update_email:
+      type: boolean
+      label: 'Update Email address'
+      description: 'If an account can be found on the site but the e-mail address differs from the IdP update the email on record with the new address from the IdP.'
+    update_language:
+      type: boolean
+      label: 'Update Language'
+      description: 'If the account language of the site differs from that of the IdP update the site account to match.'
+    no_account_authenticated_user_role:
+      type: boolean
+      label: 'Login users without a user account as an authenticated user.'
+      description: 'If a user is authenticated by the SAML Service Provider but no matching account can be found the user will be logged in as an authenticated user. This will allow users to be authenticated to receive more permissions than an anonymous user but less than a user with any other role.'
+    no_account_authenticated_user_account:
+      type: integer
+      label: 'Authenticated user account'
+      description: 'This is the account with only the authenticated user role which a user is logged in as if no matching account exists. As this account will be used for all users make sure that this account has only the "Authenticated User" role.'
+    force_authentication:
+      type: boolean
+      label: 'Force authentication'
+      description: 'Users with a single sign-on session at the IdP are required to re-authenticate to log in here.'
+    force_saml_only:
+      type: boolean
+      label: 'Force SAML Login'
+      description: 'The User Login form will not be used, when an anonymous user goes to /user they will be automatically redirected to the SAML authentication page.'
+    account_request_request_account:
+      type: boolean
+      label: 'Allow Account Request'
+      description: 'Allow users who do not have an account on the site to request an account on the site.'
+    account_request_create_account:
+      type: boolean
+      label: 'Create account upon authentication'
+      description: 'Create an account without administrator approval for authenticated users.'

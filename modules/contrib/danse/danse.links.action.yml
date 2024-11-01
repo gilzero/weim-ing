@@ -1,0 +1,5 @@
+danse.prune:
+  title: Prune records
+  route_name: danse.prune
+  appears_on:
+    - danse.settings

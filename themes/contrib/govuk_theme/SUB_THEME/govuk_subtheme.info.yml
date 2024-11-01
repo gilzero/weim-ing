@@ -1,0 +1,30 @@
+name: govuk_subtheme
+hidden: true  # REMOVE THIS LINE!!!
+type: theme
+description: 'Sub theme of the GOV.UK theme'
+# version: VERSION
+core_version_requirement: ^8 || ^9 || ^10 || ^11
+base theme: govuk
+
+libraries-override:
+  govuk/framework: govuk_subtheme/global-styling
+  
+libraries:
+  - govuk_subtheme/global-styling
+
+regions:
+  cookies: 'Cookies'
+  header: 'Header'
+  navigation: 'Navigation'
+  pre_content: 'Pre-content'
+  breadcrumb: Breadcrumb
+  highlighted: Highlighted
+  help: Help
+  content: Content
+  page_top: 'Page top'
+  sidebar_first: 'First sidebar'
+  footer: 'Footer'
+# Information added by Drupal.org packaging script on 2024-09-03
+version: '2.1.5'
+project: 'govuk_theme'
+datestamp: 1725376739

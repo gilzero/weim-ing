@@ -1,0 +1,14 @@
+{#
+/**
+ * @file
+ * Drulma theme implementation for an 'input' #type form element.
+ */
+#}
+
+{% block wrapper_opening %}
+<div class="control">
+{% endblock %}
+  <input{{ attributes.addClass('input') }} />{{ children }}
+  {% block icon %}
+  {% endblock %}
+</div>

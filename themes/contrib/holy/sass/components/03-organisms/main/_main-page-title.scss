@@ -1,0 +1,27 @@
+#main {
+  .block-page-title-block {
+    h1 {
+      margin: 0 0 40px 0;
+      color: var(--primary);
+
+      @media (max-width: $screen-sm-max) {
+        margin: 0 0 20px 0;
+      }
+    }
+  }
+}
+
+#center {
+  &.layout-builder {
+    #main {
+      .block-page-title-block {
+        @media (min-width: $screen-md-min) {
+          h1 {
+            margin: 0 0 60px 0;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}

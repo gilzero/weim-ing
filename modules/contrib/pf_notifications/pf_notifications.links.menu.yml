@@ -1,0 +1,6 @@
+pf_notifications.settings:
+  title: Push notifications
+  description: Configuration for notifications.
+  route_name: pf_notifications.settings
+  parent: push_framework.settings
+  weight: 10

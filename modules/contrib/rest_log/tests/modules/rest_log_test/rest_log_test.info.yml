@@ -1,0 +1,9 @@
+name: 'Rest log test'
+type: module
+description: 'Provides test resources for REST log module.'
+package: Testing
+
+# Information added by Drupal.org packaging script on 2024-10-17
+version: '2.3.1'
+project: 'rest_log'
+datestamp: 1729195148

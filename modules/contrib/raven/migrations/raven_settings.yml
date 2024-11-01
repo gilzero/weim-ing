@@ -1,0 +1,71 @@
+id: raven_settings
+label: Raven settings
+migration_tags:
+  - Drupal 7
+  - Configuration
+source:
+  plugin: variable
+  variables:
+    - raven_dsn
+    - raven_environment
+    - raven_release
+    - raven_watchdog_levels
+    - raven_stack
+    - raven_timeout
+    - raven_message_limit
+    - raven_trace
+    - raven_fatal_error_handler
+    - raven_fatal_error_handler_memory
+    - raven_js_enabled
+    - raven_public_dsn
+    - raven_ssl
+    - raven_ca_cert
+    - raven_ignored_types
+    - raven_send_user_data
+    - raven_rate_limit
+    - raven_send_request_body
+    - raven_js_traces_sample_rate
+    - raven_auto_session_tracking
+    - raven_send_client_reports
+    - raven_set_report_uri
+    - raven_modules
+  source_module: raven
+process:
+  client_key: raven_dsn
+  environment: raven_environment
+  release: raven_release
+  log_levels:
+    plugin: callback
+    unpack_source: true
+    callable:
+      - 'Drupal\raven\LogLevel'
+      - migrateLogLevels
+    source:
+      - raven_watchdog_levels
+  stack: raven_stack
+  timeout: raven_timeout
+  message_limit: raven_message_limit
+  trace: raven_trace
+  fatal_error_handler: raven_fatal_error_handler
+  fatal_error_handler_memory: raven_fatal_error_handler_memory
+  javascript_error_handler: raven_js_enabled
+  public_dsn: raven_public_dsn
+  ssl: raven_ssl
+  ca_cert: raven_ca_cert
+  ignored_channels:
+    plugin: callback
+    callable:
+      - 'Drupal\raven\Form\RavenConfigForm'
+      - stringToList
+    source: raven_ignored_types
+  send_user_data: raven_send_user_data
+  rate_limit: raven_rate_limit
+  send_request_body: raven_send_request_body
+  browser_traces_sample_rate: raven_js_traces_sample_rate
+  auto_session_tracking: raven_auto_session_tracking
+  send_client_reports: raven_send_client_reports
+  seckit_set_report_uri: raven_set_report_uri
+  modules: raven_modules
+destination:
+  plugin: config
+  config_name: raven.settings

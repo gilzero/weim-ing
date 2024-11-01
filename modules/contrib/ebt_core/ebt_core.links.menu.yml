@@ -1,0 +1,5 @@
+ebt_core.settings:
+  title: 'Extra Block Types (EBT) settings'
+  description: 'Breakpoints, containers width, colors and other settings for EBT blocks'
+  parent: system.admin_config_content
+  route_name: ebt_core.settings

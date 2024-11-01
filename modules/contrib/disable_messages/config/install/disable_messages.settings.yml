@@ -1,0 +1,12 @@
+disable_messages_enable: TRUE
+disable_messages_filter_by_page: 0
+disable_messages_page_filter_paths: ''
+disable_messages_enable_debug: FALSE
+disable_messages_debug_visible_div: FALSE
+disable_messages_ignore_patterns: ''
+disable_messages_exclude_users: ''
+disable_messages_ignore_case: FALSE
+disable_messages_strip_html_tags: FALSE
+disable_messages_ignore_regex: []
+disable_messages_ignore_exclude: FALSE
+disable_messages_enable_permissions: FALSE

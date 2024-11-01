@@ -1,0 +1,31 @@
+module_builder.settings:
+  path: '/admin/config/development/module_builder/settings'
+  defaults:
+    _form: '\Drupal\module_builder\Form\SettingsForm'
+    _title: 'Module Builder settings'
+  requirements:
+    _permission: 'create modules'
+
+module_builder.analyse:
+  path: '/admin/config/development/module_builder/analyse'
+  defaults:
+    _form: '\Drupal\module_builder\Form\ProcessForm'
+    _title: 'Analyse site code'
+  requirements:
+    _permission: 'create modules'
+
+module_builder.autocomplete:
+  path: '/module_builder/autocomplete/{property_address}'
+  defaults:
+    _controller: '\Drupal\module_builder\Controller\AutocompleteController::handleAutocomplete'
+    _format: json
+  requirements:
+    _permission: 'create modules'
+
+module_builder.adopt_module_form:
+  path: '/admin/config/development/module_builder/adopt-module'
+  defaults:
+    _form: '\Drupal\module_builder\Form\AdoptModuleForm'
+    _title: 'Adopt existing module'
+  requirements:
+    _permission: 'create modules'

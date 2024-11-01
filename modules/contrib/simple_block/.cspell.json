@@ -1,0 +1,15 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "ignoreWords": [
+    "Canil",
+    "Claudiu",
+    "Cristea",
+    "Holovachek",
+    "Neslee",
+    "Pocus",
+    "Viktor",
+    "amet",
+    "phplint"
+  ]
+}

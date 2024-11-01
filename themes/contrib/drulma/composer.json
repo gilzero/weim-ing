@@ -1,0 +1,79 @@
+{
+    "name": "drupal/drulma",
+    "description": "Enables the use of Bulma: a free, open source CSS framework based on Flexbox.",
+    "type": "drupal-theme",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://www.drupal.org/project/drulma",
+    "support": {
+        "source": "https://gitlab.com/upstreamable/drulma",
+        "issues": "https://gitlab.com/upstreamable/drulma/issues"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    ],
+    "require-dev": {
+        "drush/drush": "^12 || ^13@beta",
+        "mglaman/phpstan-drupal": "^1",
+        "php-parallel-lint/php-parallel-lint": "^1.2",
+        "phpstan/extension-installer": "^1.3",
+        "phpstan/phpstan-deprecation-rules": "^1",
+        "drupal/drulma_companion": "^2"
+    },
+    "suggest": {
+        "drupal/drulma_companion": "Enables Bulma designed blocks and drush commnands"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Drulma\\": "./src/"
+        }
+    },
+    "config": {
+        "process-timeout": 36000
+    },
+    "scripts": {
+        "si": "drush si -v --db-url=${SIMPLETEST_DB:-mysql://root:password@mariadb/db}",
+        "phpcs": "phpcs --runtime-set ignore_warnings_on_exit 1 --runtime-set ignore_errors_on_exit 1 web/modules/custom",
+        "lint": "parallel-lint --exclude web --exclude vendor .",
+        "webserver": "cd web && php -S 0.0.0.0:8888 .ht.router.php",
+        "chromedriver": "chromedriver --port=9515 --verbose --whitelisted-ips --log-path=/tmp/chromedriver.log --no-sandbox",
+        "unit": "phpunit --verbose web/modules/custom",
+        "phpstan": "phpstan analyse web/modules/custom",
+        "stylelint": "yarn --silent --cwd web/core stylelint --formatter verbose --config ./.stylelintrc.json ../modules/custom/**/*.css",
+        "eslint": "yarn --silent --cwd web/core eslint -c ./.eslintrc.json ../modules/custom",
+        "md-to-html": [
+            "MdToHtml\\composer\\ScriptHandler::transform"
+        ],
+        "generate-readme": [
+            "@md-to-html --remove-first-line README.md README.html"
+        ],
+        "generate-docs": [
+            "@md-to-html --remove-first-line docs docs/html"
+        ]
+    },
+    "scripts-descriptions": {
+        "generate-readme": "Generates a README.html from the README.md to use in the module page."
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-8.x-1.x": "1.x-dev"
+        },
+        "installer-paths": {
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/modules/contrib/{$name}": ["type:drupal-module"],
+            "web/profiles/{$name}": ["type:drupal-profile"],
+            "web/themes/{$name}": ["type:drupal-theme"],
+            "drush/{$name}": ["type:drupal-drush"]
+        },
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "web/"
+            }
+        }
+    }
+}

@@ -1,0 +1,11 @@
+ckeditor5.plugin.iconify_icons_icons:
+  type: mapping
+  label: 'Iconify Icons CKEditor 5 Plugin'
+  mapping:
+    collections:
+      type: sequence
+      label: 'Icon Collections'
+      sequence:
+        type: string
+        label: 'Collection ID'
+        maxlength: 128

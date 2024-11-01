@@ -1,0 +1,11 @@
+global-styling:
+  css:
+    theme:
+      css/fonts.css: {preprocess: false}
+      css/style.css: {}
+  js:
+    js/navbar.js: {} 
+    js/menu.js: {} 
+    js/search.js: {}      
+  dependencies:
+    - core/jquery 

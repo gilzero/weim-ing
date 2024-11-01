@@ -1,0 +1,18 @@
+{
+  "name": "drupal/openapi",
+  "type": "drupal-module",
+  "description": "Creates OpenAPI specification for Drupal resources.",
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://www.drupal.org/project/openapi",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/openapi",
+    "source": "http://cgit.drupalcode.org/openapi"
+  },
+  "require-dev": {
+    "drupal/openapi_ui": "1.x-dev"
+  },
+  "conflict": {
+    "drupal/core": "<8.7"
+  }
+}

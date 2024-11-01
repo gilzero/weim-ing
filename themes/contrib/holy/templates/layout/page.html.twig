@@ -1,0 +1,122 @@
+<div id="navbar-wrapper">
+  <div id="navbar" role="banner">
+    {{ page.navbar }}
+    <button class="icon-menu">
+      <span class="icon-menu-1"></span>
+      <span class="icon-menu-2"></span>
+      <span class="icon-menu-3"></span>
+    </button>
+  </div>
+</div>
+
+<div id="navbar-collapse">
+
+  <header id="header" role="banner">
+    <div class="container">
+      <div id="header-wrapper">
+        {{ page.header }}
+        {{ page.header_menu }}
+        {{ page.header_search }}
+      </div>
+    </div>
+  </header>
+
+  {% if page.menu %}
+  <div id="menu" class="main-navigation">
+    <div class="container">
+      {{ page.menu }}
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+
+{% if page.hero %}
+<div id="hero">
+  {{ page.hero }}
+</div>
+{% endif %}
+
+{% if not is_front %}
+<div id="breadcrumb">
+  <div class="container">
+    {{ page.breadcrumb }}
+  </div>
+</div>
+{% endif %}
+
+{% if has_page_section_layout == 1 %}
+
+  <div id="center" class="layout-builder">
+    <div class="container">
+      {{ page.highlighted }}
+      {{ page.help }}
+    </div>
+
+    <main id="main" role="main">
+      <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
+      {{ page.content }}
+    </main>
+  </div>
+
+{% else %}
+
+  {%
+    set content_classes = [
+      page.sidebar_first|render|striptags|trim and page.sidebar_second|render|striptags|trim ? 'two-sidebars',
+      page.sidebar_first|render|striptags|trim and page.sidebar_second|render|striptags|trim is empty ? 'one-sidebar sidebar-first',
+      page.sidebar_second|render|striptags|trim and page.sidebar_first|render|striptags|trim is empty ? 'one-sidebar sidebar-second',
+      page.sidebar_first|render|striptags|trim is empty and page.sidebar_second|render|striptags|trim is empty ? 'no-sidebars'
+    ]
+  %} 
+
+  <div id="center" {{ content_attributes.addClass(content_classes) }}>
+    <div class="container">
+
+      <div class="region region-center">
+
+        {% if page.sidebar_first|render|striptags|trim %}
+          <aside id="sidebar-first" class="sidebar" role="complementary">
+            {{ page.sidebar_first }}
+          </aside>
+        {% endif %}
+
+        <main id="main" role="main">
+          <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
+          {{ page.highlighted }}
+          {{ page.help }}
+          {{ page.tabs }}
+          {% if page.pager %}
+            <div id="pager" role="banner">
+            {{ page.pager }}
+            </div>
+          {% endif %}
+
+          {{ page.content }}
+        </main>
+
+        {% if page.sidebar_second|render|striptags|trim %}
+          <aside id="sidebar-second" class="side" role="complementary">
+            {{ page.sidebar_second }}
+          </aside>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+{% endif %}
+
+<footer id="footer" role="contentinfo">
+  <div class="container">
+    {{ page.footer }}
+  </div>
+</footer>
+
+{% if page.copyright %}
+<div id="copyright" role="contentinfo">
+  <div class="container">
+    {{ page.copyright }}
+  </div>
+</div>
+{% endif %}

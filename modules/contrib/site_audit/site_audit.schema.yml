@@ -1,0 +1,7 @@
+site.settings.*.third_party.site:
+  type: config_entity
+  label: 'Required Site Audit Checks'
+  mapping:
+    site_audit_required:
+      type: checkboxes
+      label: 'Required Checklists'

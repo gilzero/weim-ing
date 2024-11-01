@@ -1,0 +1,17 @@
+{
+  "name": "drupal/unique_entity_title",
+  "description": "UNIQUE ENTITY TITLE module is used to allow maintain unique title within the.",
+  "type": "drupal-module",
+  "keywords": ["Drupal", "unique_entity_title"],
+  "homepage": "https://www.drupal.org/project/unique_entity_title",
+  "authors": [
+    {
+      "name": "Malabya Tewari (imalabya)",
+      "homepage": "https://www.drupal.org/u/imalabya",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/unique_entity_title"
+  }
+}

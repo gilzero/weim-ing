@@ -1,0 +1,66 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions.
+ */
+
+/**
+ * Disables the now-unnecessary module.
+ */
+function manage_display_update_9201() {
+  $service_module_installer = \Drupal::service('module_installer');
+  $service_module_handler = \Drupal::service('module_handler');
+  if ($service_module_handler->moduleExists('manage_display_fix_title')) {
+    $service_module_installer->uninstall(['manage_display_fix_title'], FALSE);
+  }
+}
+
+/**
+ * Update the link setting for Title Formatter.
+ */
+function manage_display_update_9301() {
+  $storage = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+
+  foreach ($storage->loadMultiple() as $id => $display) {
+    $need_to_save = FALSE;
+
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display */
+    foreach ($display->getComponents() as $name => $options) {
+      $linked = $options['settings']['linked'] ?? NULL;
+
+      if (isset($options['type']) && $options['type'] == 'title' && !is_null($linked)) {
+        unset($options['settings']['linked']);
+        $options['settings']['link_to_entity'] = $linked;
+        $display->setComponent($name, $options);
+
+        $need_to_save = TRUE;
+      }
+    }
+
+    if ($need_to_save) {
+      $display->save();
+    }
+  }
+}
+
+/**
+ * Ensure created field is displayed if using submitted formatter.
+ */
+function manage_display_update_9302() {
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $storage = $entity_type_manager->getStorage('entity_view_display');
+
+  foreach ($storage->loadMultiple() as $id => $display) {
+    /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display */
+    $entity_type = $entity_type_manager->getDefinition($display->getTargetEntityTypeId());
+    if ($owner_key = $entity_type->getKey('owner')) {
+      $owner = $display->getComponent($owner_key);
+      $created = $display->getComponent('created');
+      if ($owner && ($owner['type'] == 'submitted') && !$created) {
+        $display->setComponent('created', ['type' => 'timestamp']);
+        $display->save();
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies: {  }
+id: rest_log_test
+plugin_id: rest_log_test
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - json
+    supported_auth:
+      - cookie

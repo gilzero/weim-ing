@@ -1,0 +1,77 @@
+phpmailer_smtp.settings:
+  type: config_object
+  label: 'PHPMailer SMTP Settings'
+  mapping:
+    smtp_host:
+      type: string
+      label: 'SMTP host'
+    smtp_hostbackup:
+      type: string
+      label: 'SMTP host backup'
+    smtp_port:
+      type: integer
+      label: 'SMTP port'
+    smtp_protocol:
+      type: string
+      label: 'SMTP protocol'
+    smtp_username:
+      type: string
+      label: 'SMTP username'
+    smtp_password:
+      type: string
+      label: 'SMTP password'
+    smtp_hide_password:
+      type: boolean
+      label: 'Hide password'
+    smtp_authentication_type:
+      type: string
+      label: 'SMTP authentication type'
+    smtp_fromname:
+      type: string
+      label: 'From name'
+    smtp_always_replyto:
+      type: boolean
+      label: 'Always set Reply-To'
+    smtp_keepalive:
+      type: boolean
+      label: 'Keep alive'
+    smtp_debug:
+      type: integer
+      label: 'Debug level'
+    smtp_debug_log:
+      type: boolean
+      label: 'Debug log'
+    phpmailer_smtp_test:
+      type: string
+      label: 'SMTP test address'
+    smtp_ssl_verify_peer:
+      type: boolean
+      label: 'Verify peer'
+    smtp_ssl_verify_peer_name:
+      type: boolean
+      label: 'Verify peer name'
+    smtp_ssl_allow_self_signed:
+      type: boolean
+      label: 'Allow self-sigend'
+    smtp_envelope_sender_option:
+      type: string
+      label: 'Envelope sender option'
+    smtp_envelope_sender:
+      type: email
+      label: 'Envelope sender'    
+    smtp_ehlo_host:
+      type: string
+      label: 'EHLO host'
+    smtp_timeout:
+      type: integer
+      label: 'SMTP timeout'
+phpmailer_smtp.format:
+  type: config_object
+  label: 'PHPMailer SMTP format Settings'
+  mapping:
+    format:
+      type: string
+      label: 'Email format'
+    force_html:
+      type: boolean
+      label: 'Send all email as HTML'

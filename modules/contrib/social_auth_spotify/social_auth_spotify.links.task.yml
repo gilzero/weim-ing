@@ -1,0 +1,6 @@
+social_auth_spotify.settings.tab:
+  title: 'Spotify'
+  route_name: social_auth.network.settings_form
+  route_parameters:
+    network: 'spotify'
+  base_route: social_auth.integrations

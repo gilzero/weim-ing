@@ -1,0 +1,11 @@
+/* Clearing
+--------------------------------------*/
+.clear {
+	position: relative;
+}
+.clear::before,
+.clear::after {
+  content: '';
+  display: table;
+  clear: both;
+}

@@ -1,0 +1,9 @@
+whatsapp_in.phone_number:
+  path: '/admin/config/whatsapp'
+  defaults:
+    _form: '\Drupal\whatsapp_in\Form\WhatsappForm'
+    _title: 'Add WhatsApp Number'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE

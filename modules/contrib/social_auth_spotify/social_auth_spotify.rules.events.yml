@@ -1,0 +1,14 @@
+social_auth_spotify.user_login:
+  label: 'User has logged in via Spotify login'
+  category: 'User'
+  context:
+    account:
+      type: 'entity:user'
+      label: 'Logged in user'
+social_auth_spotify.user_created:
+  label: 'User has been created via Spotify login'
+  category: 'User'
+  context:
+    account:
+      type: 'entity:user'
+      label: 'Logged in user'

@@ -1,0 +1,33 @@
+# Schema for the configuration files of the Simple Login module.
+---
+simplelogin.settings:
+  type: config_object
+  label: 'Simple Login settings'
+  mapping:
+    background_active:
+      type: boolean
+      label: 'Enable background image'
+    background_image:
+      type: sequence
+      label: 'Background images'
+      sequence:
+        type: integer
+        label: 'Background image'
+    background_color:
+      type: string
+      label: 'Background color'
+    background_opacity:
+      type: boolean
+      label: 'Background opacity'
+    button_background:
+      type: boolean
+      label: 'Change button backgrounds'
+    wrapper_width:
+      type: integer
+      label: 'Wrapper width'
+    unset_active_css:
+      type: boolean
+      label: 'Unset active theme CSS files'
+    unset_css:
+      type: string
+      label: 'Unset CSS file path'

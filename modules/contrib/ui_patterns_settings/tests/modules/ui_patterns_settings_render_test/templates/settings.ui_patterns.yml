@@ -1,0 +1,165 @@
+foo_settings:
+  label: Foo settings
+  fields:
+    dummy:
+      type: text
+      label: Dummy
+  allow_variant_token: true
+  allow_variant_expose: true
+  variants:
+    default:
+      label: Default
+    blue:
+      label: Blue
+      settings:
+        textfield: blue
+        setting_value: '%select_states'
+        media_style:
+          definition:
+            image_style: 'large'
+  settings:
+    setting_value:
+      type: value
+      label: Value Setting
+      default_value: text preview
+    textfield:
+      type: textfield
+      label: Textfield
+      allow_token: true
+      preview: text preview
+      required: true
+    number:
+      type: number
+      label: Number
+      preview: 10
+      required: true
+    token:
+      type: token
+      label: Token
+      preview: Token
+    media_library:
+      type: media_library
+      label: Media Library
+      view_mode: 'default'
+    media_style:
+      type: media_library
+      label: Media Style
+      allow_expose: true
+      image_style: 'medium'
+    url:
+      type: url
+      label: Url
+      preview: Url
+      allow_expose: true
+      expose_as_field: true
+    boolean:
+      type: boolean
+      allow_token: true
+      label: Boolean
+      preview: 1
+      allow_expose: true
+    colorwidget:
+      type: colorwidget
+      label: Colorwidget
+      options:
+        key: value/#000000
+        white: White/#ffffff
+    enumeration:
+      type: enumeration
+      enumeration_type: select
+      label: Enumeration
+      options:
+        key: value
+    select:
+      type: select
+      label: Select
+      allow_expose: true
+      options:
+        key: value
+        key2: value2
+    select_states:
+      type: select
+      label: Select States
+      states:
+        visible:
+          -
+            variant: blue
+          -
+            setting: select_config
+            value: key2
+      options:
+        key: value
+        key2: value2
+    select_config:
+      type: select
+      label: Select Config
+      options:
+        key:
+          label: select_config 1
+          configuration: config key
+        key2:
+          label: select_config 2
+          configuration: config key2
+    role_checkboxes:
+      type: role_checkboxes
+      label: Role checkboxes
+    role_access:
+      type: role_checkboxes
+      label: Role Access
+    language_checkboxes:
+      type: language_checkboxes
+      label: Language selection
+    language_access:
+      type: language_access
+      label: Language access
+    publish:
+      type: publish
+      label: Publish
+      default_value: true
+    checkboxes:
+      type: checkboxes
+      label: Checkboxes
+      options:
+        box1: Box1
+        box2: Box2
+    attributes:
+      type: attributes
+      label: Attributes
+    group:
+      type: group
+      label: Group
+      group_type: container
+    group_sub:
+      type: textfield
+      label: Textfield
+      group: group
+    tabs:
+      type: group
+      label: Tabs
+      group_type: horizontal_tabs
+    tab:
+      type: group
+      label: Tab
+      group_type: details
+      group: tabs
+    tab_2:
+      type: group
+      label: Tab 2
+      group_type: details
+      group: tabs
+    tab_element:
+      type: textfield
+      label: Textfield
+      group: tab
+    tab_element2:
+      type: select
+      label: Textfield 2
+      group: tab_2
+      options:
+        option1: Option 1
+    machine_name:
+      type: machine_name
+      label: Machine name
+
+  configuration:
+    config: config_value

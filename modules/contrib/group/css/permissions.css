@@ -1,0 +1,23 @@
+/**
+ * Group permissions table styling.
+ */
+
+/* Permissions page */
+.permissions .module {
+  font-weight: bold;
+}
+.permissions .section {
+  padding-left: 1.5em; /* LTR */
+  font-style: italic;
+}
+[dir="rtl"] .permissions .section {
+  padding-right: 1.5em;
+  padding-left: 0;
+}
+.permissions .permission {
+  padding-left: 2.5em; /* LTR */
+}
+[dir="rtl"] .permissions .permission {
+  padding-right: 2.5em;
+  padding-left: 0;
+}

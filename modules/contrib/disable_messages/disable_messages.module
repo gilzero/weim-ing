@@ -1,0 +1,369 @@
+<?php
+
+/**
+ * @file
+ * The disable_messages module file.
+ */
+
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Url;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function disable_messages_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.disable_messages':
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= t(
+        'The <a href="https://www.drupal.org/project/disable_messages">Disable
+        Messages</a> gives a site owner options to disable specific messages
+        shown to end users. The core drupal messaging system is an excellent
+        way for modules to send out messages to the end users. However not
+        all messages sent out by drupal core and all modules need to be shown
+        to the end users. This module gives site administrators a reasonably
+        powerful way to filter out messages shown to the end users using
+        regular expressions.');
+      $output .= '<h4>' . t('Features') . '</h4>';
+      $output .= '<dl>';
+      $output .= '<dd>' . t('Filter out messages that match a full text string exactly.') . '</dd>';
+      $output .= '<dd>' . t('Filter out messages that match a regular expression.') . '</dd>';
+      $output .= '<dd>' . t('Permissions to specifically hide all messages of a given type from any role.') . '</dd>';
+      $output .= '<dd>' . t('Disable all filtering for specific users.') . '</dd>';
+      $output .= '<dd>' . t('Disable all filtering for specific paths.') . '</dd>';
+      $output .= '<dd>' . t('Apply filtering only for specific paths.') . '</dd>';
+      $output .= '<dd>' . t('Debug system to get messages in the HTML without showing it to the end users.') . '</dd>';
+      $output .= '</dl>';
+      $output .= '<h4>' . t('Configuration') . '</h4>';
+      $output .= '<dl>';
+      $output .= '<dd>' . t('Visit the configuration page at:') . " " .
+        '<strong>"' . t('Administration &raquo; Configuration &raquo; Development &raquo; Disable Messages') . '"</strong></dd>';
+      $output .= '<dd>' . t(
+        'Add the specific messages you wish to filter out to the
+        <strong>"Messages to be disabled"</strong> text area.
+        These messages should be in the form of Regular
+        Expressions, with one entered per line. You do not have to
+        include the opening and closing forward slashes for each
+        regular expression. The system will automatically add /^ and $/ at
+        the beginning and end of the pattern to ensure that the match is
+        always a full match instead of a partial match. This will help
+        prevent unexpected filtering of messages. So if you want to
+        filter out a specific message ensure that you add the full message
+        including any punctuation and additional HTML if any. If you are
+        familiar with wildcard searches using *, and not Regular
+        Expressions, you can achieve the exact same thing by using .* as
+        your wildcard  character.  For example, you could wildcard filter
+        out any Article creation messages using the following Regular
+        Expression: Article .* has been created.'
+      ) . '</dd>';
+      $output .= '<dd>' . t(
+        'Next configure <strong>"Page Level Filtering Options."</strong>
+        By default, filtering is enabled for all users on all pages. Here
+        you can specify the pages where filtering should be added or
+        excluded by setting the "Apply filters by page" radio
+        and entering page paths, one per line.  These standard visibility
+        controls work just like the core Block system\'s.'
+      ) . '</dd>';
+      $output .= '<dd>' . t(
+        'You may also configure <strong>"User Level Filtering Options."</strong>
+        to turn filtering off for certain Drupal User ID\'s (uid). This can be
+        useful to turn off filtering for any specific admin users. You can
+        also turn off filtering for Anonymous users, whose uid is 0.
+        You can also filter message types entirely by roles and setting
+        the appropriate permissoins for the relevant roles to view the
+        different types of messages. You will have to explicitly enable
+        this option to allow filtering by types by permissions'
+      ) . '</dd>';
+      $output .= '<dd>' . t(
+        'If you are setting up the module for the first time, you should
+        enable one of the checkboxes under "Debug options". These
+        will output information about which messages are being excluded,
+        and why. If you are on a development site, check both boxes and
+        the debugging output will be printed at the bottom of each page.'
+      ) . '</dd>';
+      $output .= '<dd>' . t('Hit "Save Configuration" to save the settings.') . '</dd>';
+      $output .= '<dd>' . t(
+        'Visit <strong>Administration &raquo; People &raquo; Permissions"</strong>
+        to set permissions. When the module is first enabled it will
+        not give any permission to any roles to view any types of messages.
+        Assign the "view <type> message" to roles who should
+        be able to see the given <type> of messages. Users who do not have
+        the permission to see a given type of messages will not be able
+        to see any of the messages of the given type. Useful to hide
+        warning and error messages from end users on a production
+        site.'
+      ) . '</dd>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function disable_messages_preprocess_status_messages(&$variables) {
+  // Filter messages if filtering is enabled.
+  if (\Drupal::config('disable_messages.settings')->get('disable_messages_enable')) {
+    // Retrieve messages.
+    $messages = $variables['message_list'];
+    // Cache the messages for debugging.
+    $cache = [];
+    $cache['messages'] = $messages;
+    \Drupal::cache()->set('disable_messages:cache_messages', $cache);
+    // Filter messages.
+    $message_list = disable_messages_apply_filters($messages);
+    $variables['message_list'] = $message_list;
+
+  }
+}
+
+/**
+ * Apply the filters to the messages.
+ *
+ * @param array $messages
+ *   Messages to apply filers.
+ *
+ * @return array
+ *   return filtered messages.
+ */
+function disable_messages_apply_filters(array $messages) {
+  $user = \Drupal::currentUser();
+  // Retrieve the debugging cache.
+  $cache = \Drupal::cache()->get('disable_messages:cache_messages');
+  if (!empty($cache->data)) {
+    $cache = $cache->data;
+  }
+  else {
+    $cache = [];
+  }
+  // @todo Store the path to debug. The debug div is delayed.
+  $cache['url'] = Url::fromRoute('<current>')->toString();
+  // Check userid level filtering.
+  $is_user_excluded = in_array(
+    (string) $user->id(),
+    explode(
+      ',',
+      \Drupal::config('disable_messages.settings')->get('disable_messages_exclude_users')
+    ),
+    TRUE
+  );
+  // Store flags for debug.
+  $cache['excluded']['uid'] = FALSE;
+  if ($is_user_excluded) {
+    $cache['excluded']['uid'] = TRUE;
+  }
+  // If exclude from filtering permission is not disabled.
+  if (!\Drupal::config('disable_messages.settings')->get('disable_messages_ignore_exclude')) {
+    // If the user is not already excluded through an id filter and the user has
+    // the permission exclude from message filtering, exclude from filtering.
+    if (!$is_user_excluded && $user->hasPermission('exclude from message filtering')) {
+      $is_user_excluded = TRUE;
+      $cache['excluded']['excluded'] = TRUE;
+    }
+  }
+
+  // Check page level filtering.
+  $filter_by_page = \Drupal::config('disable_messages.settings')->get('disable_messages_filter_by_page');
+  if ($filter_by_page > 0) {
+    $filter_paths = \Drupal::config('disable_messages.settings')->get('disable_messages_page_filter_paths');
+    $current_url = Url::fromRoute('<current>');
+    $internal_path = disable_messages_remove_white_space($current_url->getInternalPath());
+    $path = \Drupal::service('path_alias.manager')->getPathByAlias(($internal_path));
+    $page_match = \Drupal::service('path.matcher')->matchPath($path, $filter_paths);
+    if ($path != $internal_path) {
+      $page_match = $page_match || \Drupal::service('path.matcher')->matchPath($internal_path, $filter_paths);
+    }
+    // If $filter_by_page is 1 then listed paths are excluded from any filtering
+    // and if 2 then filtering is applied only on listed paths.
+    if ($filter_by_page == 1) {
+      $is_page_excluded = $page_match;
+    }
+    else {
+      $is_page_excluded = !$page_match;
+    }
+    // Store the page info for debugging. The comparison might happen
+    // on a page and message display might happen on another.
+    $cache['page']['url'] = $path;
+    $cache['page']['path'] = $internal_path;
+    $cache['page']['matched'] = $page_match;
+  }
+  else {
+    $is_page_excluded = FALSE;
+  }
+  // Store flags for debug.
+  $cache['excluded']['page'] = $is_page_excluded;
+  // If userid is excluded from filtering don't do any filtering.
+  if (!$is_user_excluded && !$is_page_excluded) {
+    $strip_html_check = \Drupal::config('disable_messages.settings')->get('disable_messages_strip_html_tags');
+    foreach ($messages as $type => $arr_messages) {
+      // If permission based filtering is enabled, then filter based on type
+      // and permission of the user to view the type.
+      if (\Drupal::config('disable_messages.settings')->get('disable_messages_enable_permissions')) {
+        // If the user does not have permission to view messages of type 'type'
+        // unset all messages of the type. Do this only for the standard types
+        // status, warning and error.
+        if (in_array($type, ['status', 'warning', 'error']) &&
+            !($user->hasPermission('view ' . $type . ' messages'))) {
+          unset($messages[$type]);
+          $cache['excluded']['permission'][$type] = TRUE;
+          $arr_messages = [];
+          continue;
+        }
+      }
+      foreach ($arr_messages as $key => $message) {
+        if (is_object($message) && method_exists($message, "__toString")) {
+          $message = $message->__toString();
+        }
+        // If this is an array type, eg: from webform, squash it
+        // and run the test.
+        if (!is_string($message)) {
+          $message = print_r($message, TRUE);
+        }
+        // If the message is not a string then handle it after rendering.
+        if (!is_string($message)) {
+          /*
+          // @todo Potentially could make this or a similar approach work
+          // @codingStandardsIgnoreStart
+          // foreach ($message as $item_key => $message_item) {
+          //   \Drupal::logger('disable_messages_items')->notice(print_r($message_item, TRUE));
+          //   $messages[$type][$key][$item_key]['#post_render'][] = function ($markup, array $element) {
+          //     $cached = \Drupal::cache()->get('disable_messages:cache_messages');
+          //     $cached = $cached->data;
+          //     \Drupal::logger('disable_messages_callback')->notice(print_r($cached, TRUE));
+          //     $regexps = \Drupal::config('disable_messages.settings')->get('disable_messages_ignore_regex');
+          //     foreach ($regexps as $regex) {
+          //       if (preg_match($regex, $markup)) {
+          //         // Keep track of the regular expression that
+          //         // matched the string.
+          //         \Drupal::logger('disable_messages_hide')->notice(print_r($markup, TRUE));
+          //         $cached['excluded']['render']['regex'] = $regex;
+          //         $markup = NULL;
+          //         break;
+          //       }
+          //     }
+          //     \Drupal::cache()->set('disable_messages:cache_messages', $cached);
+          //     return $markup;
+          //   };
+          // }
+          // @codingStandardsIgnoreEnd
+           */
+        }
+        else {
+          // If Strip HTMl tags is enabled then remove HTML tags from messages.
+          if ($strip_html_check) {
+            $message = strip_tags($message);
+          }
+          $regexps = \Drupal::config('disable_messages.settings')->get('disable_messages_ignore_regex');
+          foreach ($regexps as $regex) {
+            // Squash multiline strings to one line to allow for
+            // simple regex matching.
+            $message = preg_replace("/[\n\r]/", " ", $message);
+            if (preg_match($regex, $message)) {
+              // Keep track of the regular expression that matched the string.
+              $cache['excluded']['regex'][$type][$key] = $regex;
+              unset($messages[$type][$key]);
+              break;
+            }
+          }
+        }
+      }
+      // If all the messages of a type has been filtered out,
+      // then clear the parent.
+      if (isset($messages[$type]) && count($messages[$type]) == 0) {
+        $cache[$type]['empty'] = TRUE;
+        unset($messages[$type]);
+      }
+    }
+  }
+  \Drupal::cache()->set('disable_messages:cache_messages', $cache);
+  return $messages;
+}
+
+/**
+ * Remove white space from the path.
+ *
+ * @param string $string
+ *   String to remove white space.
+ *
+ * @return string
+ *   Return clean string
+ */
+function disable_messages_remove_white_space($string) {
+  return preg_replace('/\s+/', '', $string);
+}
+
+/**
+ * Custom error handler.
+ *
+ * To catch the preg error while validating the regular expressions.
+ *
+ * @param int $errno
+ *   Number of errors.
+ * @param string $errstr
+ *   Error string.
+ * @param string $errfile
+ *   Error File name.
+ * @param int $errline
+ *   Error line.
+ */
+function _disable_messages_error_handler($errno, $errstr, $errfile, $errline) {
+  global $_disable_messages_error, $_disable_messages_error_no;
+  $_disable_messages_error = $errstr;
+  $_disable_messages_error_no = $errno;
+  // Don't do anything other than set the error string.
+}
+
+/**
+ * Pre render function to render the debug output into the page footer.
+ *
+ * A separate pre-render function is required because the messages
+ * would not yet be processed by the time page_alter is called.
+ *
+ * @param string $elements
+ *   Elements.
+ *
+ * @return mixed
+ *   Return elements.
+ */
+function disable_messages_pre_render_debug_output(&$elements) {
+  $cache_messages = \Drupal::cache()->get('disable_messages:cache_messages');
+  $style = '';
+  if (\Drupal::config('disable_messages.settings')->get('disable_messages_debug_visible_div') == '0') {
+    $style = 'style="display:none;"';
+  }
+  $cache_data = '';
+  if ($cache_messages) {
+    $cache_data = Html::escape(var_export($cache_messages->data, TRUE));
+  }
+  $elements['#children'] =
+    '<div id="disable_messages-debug-div" ' . $style . '>
+      <pre>' . $cache_data . '</pre>
+    </div>';
+  \Drupal::cache()->delete('disable_messages:cache_messages');
+  return $elements;
+}
+
+/**
+ * Implements hook_page_bottom().
+ */
+function disable_messages_page_bottom(array &$page_bottom) {
+  // Swtich to anonymous function for the pre-render callback.
+  // see - https://www.drupal.org/node/2966725
+  // Found from - https://www.drupal.org/project/amswap/issues/3149894.
+  $callback = function ($elements) {
+    return disable_messages_pre_render_debug_output($elements);
+  };
+  // @todo The debug output is actually from the previous page load
+  // in form submissions. Need to figure out why and fix. Also need
+  // to test on regular pages where messages are shown.
+  if (\Drupal::config('disable_messages.settings')->get('disable_messages_enable_debug')) {
+    $page_bottom['disable_messages_debug'] = [
+      '#type' => 'markup',
+      '#markup' => '',
+      '#pre_render' => [$callback],
+      '#cache' => [
+        'max-age' => 0,
+      ],
+    ];
+  }
+}

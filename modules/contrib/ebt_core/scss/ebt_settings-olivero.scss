@@ -1,0 +1,176 @@
+.design-options__margin-box label {
+  color: #000 !important;
+}
+
+#drupal-off-canvas-wrapper .olivero-details__wrapper {
+  .design-options__margin-box {
+    background: #ffcca2;
+    border: 1px dashed #000;
+    position: relative;
+    color: #000;
+    padding: 3px;
+    height: 240px;
+    width: 443px;
+    margin-top: 20px;
+    label {
+      font-size: 12px !important;
+    }
+    .form-item {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+    }
+    input {
+      height: 26px !important;
+      box-sizing: border-box !important;
+    }
+  }
+
+  .design-options__border-box {
+    background: #fcdc9f;
+    border: 1px solid #000;
+    padding: 3px;
+    margin: 2px;
+    position: relative;
+    left: 52px;
+    width: 328px;
+    height: 164px;
+    top: 15px;
+  }
+
+  .design-options__padding-box {
+    background: #c4cc8c;
+    border: 1px dashed #000;
+    padding: 3px;
+    margin: 3px;
+    position: relative;
+    left: 52px;
+    height: 90px;
+    width: 210px;
+    top: 12px;
+  }
+
+  .design-options__margin-box {
+    .form-item label {
+      display: none !important;
+    }
+    input[type="text"] {
+      width: 45px !important;
+      padding: 7px;
+    }
+  }
+
+  .form-item-settings-block-form-field-ebt-settings-0-ebt-settings-design-options-box1-margin-top,
+  .form-item-field-ebt-settings-0-ebt-settings-design-options-box1-margin-top,
+  .form-item--field-ebt-settings-0-ebt-settings-design-options-box1-margin-top,
+  .form-item-settings-block-form-field-ebt-settings-0-ebt-settings-design-options-box1-box2-border-top,
+  .form-item-field-ebt-settings-0-ebt-settings-design-options-box1-box2-border-top,
+  .form-item--field-ebt-settings-0-ebt-settings-design-options-box1-box2-border-top,
+  .form-item-settings-block-form-field-ebt-settings-0-ebt-settings-design-options-box1-box2-box3-padding-top,
+  .form-item-field-ebt-settings-0-ebt-settings-design-options-box1-box2-box3-padding-top,
+  .form-item--field-ebt-settings-0-ebt-settings-design-options-box1-box2-box3-padding-top {
+    position: absolute;
+    left: 50%;
+    margin-left: -14px !important;
+    top: 3px;
+  }
+
+  .form-item-settings-block-form-field-ebt-settings-0-ebt-settings-design-options-box1-margin-right,
+  .form-item-field-ebt-settings-0-ebt-settings-design-options-box1-margin-right,
+  .form-item--field-ebt-settings-0-ebt-settings-design-options-box1-margin-right,
+  .form-item-settings-block-form-field-ebt-settings-0-ebt-settings-design-options-box1-box2-border-right,
+  .form-item-field-ebt-settings-0-ebt-settings-design-options-box1-box2-border-right,
+  .form-item--field-ebt-settings-0-ebt-settings-design-options-box1-box2-border-right,
+  .form-item-settings-block-form-field-ebt-settings-0-ebt-settings-design-options-box1-box2-box3-padding-right,
+  .form-item-field-ebt-settings-0-ebt-settings-design-options-box1-box2-box3-padding-right,
+  .form-item--field-ebt-settings-0-ebt-settings-design-options-box1-box2-box3-padding-right {
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    margin-top: -14px !important;
+  }
+
+  .form-item-settings-block-form-field-ebt-settings-0-ebt-settings-design-options-box1-margin-bottom,
+  .form-item-field-ebt-settings-0-ebt-settings-design-options-box1-margin-bottom,
+  .form-item--field-ebt-settings-0-ebt-settings-design-options-box1-margin-bottom,
+  .form-item-settings-block-form-field-ebt-settings-0-ebt-settings-design-options-box1-box2-border-bottom,
+  .form-item-field-ebt-settings-0-ebt-settings-design-options-box1-box2-border-bottom,
+  .form-item--field-ebt-settings-0-ebt-settings-design-options-box1-box2-border-bottom,
+  .form-item-settings-block-form-field-ebt-settings-0-ebt-settings-design-options-box1-box2-box3-padding-bottom,
+  .form-item-field-ebt-settings-0-ebt-settings-design-options-box1-box2-box3-padding-bottom,
+  .form-item--field-ebt-settings-0-ebt-settings-design-options-box1-box2-box3-padding-bottom {
+    position: absolute;
+    left: 50%;
+    margin-left: -14px !important;
+    bottom: 3px;
+  }
+
+  .form-item-settings-block-form-field-ebt-settings-0-ebt-settings-design-options-box1-margin-left,
+  .form-item-field-ebt-settings-0-ebt-settings-design-options-box1-margin-left,
+  .form-item--field-ebt-settings-0-ebt-settings-design-options-box1-margin-left,
+  .form-item-settings-block-form-field-ebt-settings-0-ebt-settings-design-options-box1-box2-border-left,
+  .form-item-field-ebt-settings-0-ebt-settings-design-options-box1-box2-border-left,
+  .form-item--field-ebt-settings-0-ebt-settings-design-options-box1-box2-border-left,
+  .form-item-settings-block-form-field-ebt-settings-0-ebt-settings-design-options-box1-box2-box3-padding-left,
+  .form-item-field-ebt-settings-0-ebt-settings-design-options-box1-box2-box3-padding-left,
+  .form-item--field-ebt-settings-0-ebt-settings-design-options-box1-box2-box3-padding-left {
+    position: absolute;
+    left: 3px;
+    top: 50%;
+    margin-top: -14px !important;
+  }
+
+  .design-options__logo-box {
+    position: absolute;
+    top: 50%;
+    margin-top: -9px;
+    left: 50%;
+    margin-left: -4px;
+    width: 24px;
+    white-space: nowrap;
+    height: 18px;
+    color: #81875d;
+    label {
+      color: #81875d;
+      text-shadow: 1px 1px 2px #fff;
+    }
+  }
+
+  .js-off-canvas-dialog-open {
+    .dialog-off-canvas-main-canvas {
+      padding-right: 420px !important;
+    }
+    .ui-widget.ui-dialog.ui-dialog-off-canvas {
+      width: 420px !important;
+    }
+    .field-multiple-drag .tabledrag-handle {
+      margin-right: 0;
+      margin-left: 5px;
+    }
+  }
+
+  #drupal-off-canvas {
+    .design-options__margin-box .design-options__logo-box label {
+      color: #81875d;
+      text-shadow: 1px 1px 2px #fff;
+    }
+    td:first-child {
+      width: 40px;
+    }
+    tr th:first-child {
+      padding-left: 5px;
+      padding-right: 5px;
+      width: 30px;
+    }
+  }
+}
+
+.olivero-details__wrapper .design-options__padding-box {
+  top: 2px;
+}
+
+.olivero-details__wrapper .design-options__border-box {
+  top: 6px;
+}
+

@@ -1,0 +1,116 @@
+#header {
+  .region-header-menu {
+
+    .block-menu {
+      margin-left: 30px;
+
+      & > h2 {
+        display: none;
+      }
+
+      ul.menu {
+        display: flex;
+        gap: 25px;
+
+        li {
+          &:last-child {
+            border-right: 0;
+          }
+
+          a {
+            display: block;
+            color: var(--black);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 5px 0;
+
+            &[data-drupal-link-system-path='user'] {
+              background: url('../images/user.svg') no-repeat 0 50%;
+              background-size: auto 18px;
+              padding-left: 26px;
+            }
+
+            &[data-drupal-link-system-path='user/logout'] {
+              background: url('../images/logout.svg') no-repeat 0 50%;
+              background-size: auto 18px;
+              padding-left: 23px;
+            }
+
+            &[data-drupal-link-system-path='user/login'] {
+              background: url('../images/logout.svg') no-repeat 0 50%;
+              background-size: auto 18px;
+              padding-left: 23px;
+
+              &.is-active {
+                color: var(--primary);
+              }
+            }
+          }
+
+          &.menu-item--active-trail {
+            a {
+              font-weight: bold;
+            }
+          }
+
+          // 2
+          ul.menu {
+            li {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+
+    @media (max-width: $screen-sm-max) {
+
+      .block-menu {
+
+        ul.menu {
+          justify-content: flex-end;
+
+          li {
+
+            a {
+              font-size: 18px;
+              text-decoration: none;
+              line-height: 30px;
+
+              &[data-drupal-link-system-path='user'] {
+                background: url('../images/user.svg') no-repeat 0 50%;
+                background-size: auto 30px;
+                padding-left: 37px;
+              }
+  
+              &[data-drupal-link-system-path='user/logout'] {
+                background: url('../images/mobile-logout.svg') no-repeat 0 50%;
+                background-size: auto 30px;
+                padding-left: 35px;
+              }
+  
+              &[data-drupal-link-system-path='user/login'] {
+                background: url('../images/mobile-logout.svg') no-repeat 0 50%;
+                background-size: auto 30px;
+                padding-left: 35px;
+  
+                &.is-active {
+                  color: var(--primary);
+                }
+              }
+            }
+          }
+        }
+      }
+
+    }
+
+    @media (min-width: $screen-md-min) {
+      position: absolute;
+      top: 20px;
+      right: 0;
+      display: flex;
+    }
+
+  }
+}

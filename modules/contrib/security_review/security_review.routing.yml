@@ -1,0 +1,31 @@
+security_review:
+  path: '/admin/reports/security-review'
+  defaults:
+    _controller: '\Drupal\security_review\Controller\ChecklistController::index'
+    _title: 'Security Review'
+  requirements:
+    _permission: 'access security review list'
+
+security_review.help:
+  path: '/admin/reports/security-review/help/{namespace}/{title}'
+  defaults:
+    _controller: '\Drupal\security_review\Controller\HelpController::index'
+    namespace: ~
+    title: ~
+  requirements:
+    _permission: 'access security review list'
+
+security_review.settings:
+  path: '/admin/config/security-review'
+  defaults:
+    _form: '\Drupal\security_review\Form\SettingsForm'
+    _title: 'Security Review Settings'
+  requirements:
+    _permission: 'access security review list'
+
+security_review.toggle:
+  path: '/admin/reports/security-review/toggle/{check_id}'
+  defaults:
+    _controller: '\Drupal\security_review\Controller\ToggleController::index'
+  requirements:
+    _permission: 'access security review list'

@@ -1,0 +1,133 @@
+parameters:
+  # Handlers per channel.
+  monolog.channel_handlers:
+    # If not specified use the default handlers.
+    default: ['syslog']
+    # Log php channel to web server's error log.
+    php: ['error_log']
+  # Enabled processors.
+  monolog.processors: ['message_placeholder', 'current_user', 'request_uri', 'ip', 'referer', 'filter_backtrace']
+
+services:
+  # Monolog handlers.
+  monolog.handler.browser_console:
+    class: Monolog\Handler\BrowserConsoleHandler
+    shared: false
+  monolog.handler.chrome_php:
+    class: Monolog\Handler\ChromePHPHandler
+    shared: false
+  monolog.handler.fire_php:
+    class: Monolog\Handler\FirePHPHandler
+    shared: false
+  monolog.handler.error_log:
+    class: Monolog\Handler\ErrorLogHandler
+    shared: false
+  monolog.handler.syslog:
+    class: Monolog\Handler\SyslogHandler
+    arguments: ['drupal']
+    shared: false
+  monolog.handler.null:
+    class: Monolog\Handler\NullHandler
+    shared: false
+
+  # Monolog processors.
+  monolog.processor.current_user:
+    class: Drupal\monolog\Logger\Processor\CurrentUserProcessor
+    arguments: ['@current_user']
+    shared: false
+  monolog.processor.request_uri:
+    class: Drupal\monolog\Logger\Processor\RequestUriProcessor
+    arguments: ['@request_stack']
+    shared: false
+  monolog.processor.server_host:
+    class: Drupal\monolog\Logger\Processor\ServerHostProcessor
+    arguments: [ '@request_stack' ]
+    shared: false
+  monolog.processor.referer:
+    class: Drupal\monolog\Logger\Processor\RefererProcessor
+    arguments: ['@request_stack']
+    shared: false
+  monolog.processor.ip:
+    class: Drupal\monolog\Logger\Processor\IpProcessor
+    arguments: ['@request_stack']
+    shared: false
+  monolog.processor.message_placeholder:
+    class: Drupal\monolog\Logger\Processor\MessagePlaceholderProcessor
+    arguments: ['@logger.log_message_parser']
+    shared: false
+  monolog.processor.filter_backtrace:
+    class: Drupal\monolog\Logger\Processor\ContextKeyFilterProcessor
+    arguments: [['backtrace']]
+    shared: false
+  monolog.processor.introspection:
+    class: Drupal\monolog\Logger\Processor\IntrospectionProcessor
+    shared: false
+  monolog.processor.git:
+    class: Monolog\Processor\GitProcessor
+    shared: false
+  monolog.processor.memory_usage:
+    class: Monolog\Processor\MemoryUsageProcessor
+    shared: false
+  monolog.processor.memory_peak_usage:
+    class: Monolog\Processor\MemoryPeakUsageProcessor
+    shared: false
+  monolog.processor.process_id:
+    class: Monolog\Processor\ProcessIdProcessor
+    shared: false
+
+  # Monolog formatters.
+  monolog.formatter.chrome_php:
+    class: Monolog\Formatter\ChromePHPFormatter
+    shared: false
+  monolog.formatter.fluentd:
+    class: Monolog\Formatter\FluentdFormatter
+    shared: false
+  monolog.formatter.html:
+    class: Monolog\Formatter\HtmlFormatter
+    shared: false
+  monolog.formatter.json:
+    class: Monolog\Formatter\JsonFormatter
+    shared: false
+  monolog.formatter.line:
+    class: Monolog\Formatter\LineFormatter
+    shared: false
+  monolog.formatter.loggly:
+    class: Monolog\Formatter\LogglyFormatter
+    shared: false
+  monolog.formatter.mongodb:
+    class: Monolog\Formatter\MongoDBFormatter
+    shared: false
+  monolog.formatter.normalizer:
+    class: Monolog\Formatter\NormalizerFormatter
+    shared: false
+  monolog.formatter.scalar:
+    class: Monolog\Formatter\ScalarFormatter
+    shared: false
+  monolog.formatter.wildfire:
+    class: Monolog\Formatter\WildfireFormatter
+    shared: false
+  monolog.formatter.drush:
+    class: Drupal\monolog\Logger\Formatter\DrushLineFormatter
+    shared: false
+  monolog.formatter.drush_or_json:
+    class: Drupal\monolog\Logger\Formatter\ConditionalFormatter
+    arguments: ['@monolog.formatter.drush', '@monolog.formatter.json', '@monolog.condition_resolver.cli']
+    shared: false
+
+  # Condition resolvers.
+  monolog.condition_resolver.cli:
+    class: Drupal\monolog\Logger\ConditionResolver\CLI
+
+  # Should not be needed.
+  monolog.processor.psr_log_message:
+    class: Monolog\Processor\PsrLogMessageProcessor
+    shared: false
+  monolog.processor.tag:
+    class: Monolog\Processor\TagProcessor
+    shared: false
+  monolog.processor.uid:
+    class: Monolog\Processor\UidProcessor
+    shared: false
+  monolog.processor.web:
+    class: Monolog\Processor\WebProcessor
+    shared: false

@@ -1,0 +1,19 @@
+services:
+  iconify_icons.iconify_service:
+    class: Drupal\iconify_icons\IconifyService
+    arguments: [
+      '@http_client',
+      '@logger.channel.default',
+      '@iconify_icons.icons_cache'
+    ]
+
+  iconify_icons.twig.IconifyIcon:
+    class: Drupal\iconify_icons\Twig\Extension\IconifyIcon
+    arguments:
+      - '@iconify_icons.iconify_service'
+    tags:
+      - { name: twig.extension }
+
+  iconify_icons.icons_cache:
+    class: Drupal\iconify_icons\IconsCache
+    arguments: ['@file_system']

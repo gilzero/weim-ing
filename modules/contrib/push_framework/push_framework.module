@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Push Framework module file.
+ */
+
+use Drupal\push_framework\Service;
+
+/**
+ * Implements hook_cron().
+ */
+function push_framework_cron(): void {
+  /**
+   * @var \Drupal\push_framework\Service $service
+   */
+  $service = Drupal::service('push_framework.service');
+  $service->collectAllSourceItems();
+  $service->processQueue();
+}
+
+/**
+ * Implements hook_mail_alter().
+ */
+function push_framework_mail_alter(array &$message): void {
+  if ($user = user_load_by_mail($message['to'])) {
+    /**
+     * @var \Drupal\user\UserInterface $user
+     */
+    /**
+     * @var \Drupal\user\UserDataInterface $user_data
+     */
+    $user_data = Drupal::service('user.data');
+    if ($user_data->get('push_framework', $user->id(), Service::BLOCK_PUSH)) {
+      $message['send'] = FALSE;
+    }
+  }
+}

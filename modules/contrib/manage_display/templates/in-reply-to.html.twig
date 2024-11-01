@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display 'in-reply-to' information.
+ *
+ * This template is formed from the code from template_preprocess_comment() to
+ * set the 'parent' variable.
+ *
+ * Available variables:
+ * - subject: Rendered output for comment subject.
+ * - uid: Rendered output for comment UID.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% trans %}In reply to {{ subject }} by {{ uid }}{% endtrans %}

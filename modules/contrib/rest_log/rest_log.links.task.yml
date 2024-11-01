@@ -1,0 +1,12 @@
+system.logging_settings:
+  title: 'Logging and errors'
+  route_name: system.logging_settings
+  base_route: system.logging_settings
+  weight: -10
+
+rest_log.settings_tab:
+  title: 'REST Log settings'
+  description: 'Configure the REST Log module.'
+  route_name: rest_log.settings
+  base_route: system.logging_settings
+  weight: 10

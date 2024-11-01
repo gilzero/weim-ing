@@ -1,0 +1,19 @@
+{% set configuration = pattern_configuration('foo_settings', '', 'config') %}
+<div style="border: 1px solid blue">
+    <div class="textfield">Textfield: {{ textfield }}</div>
+    <div class="number">Number: {{ number }}</div>
+    <div class="token">Token: {{ token }}</div>
+    <div class="boolean">Boolean: {{ boolean }}</div>
+    <div class="url">Url: {{ url }}</div>
+    <div class="select">Select: {{ select }}</div>
+  <div class="enumeration">Enumeration: {{ enumeration }}</div>
+    <div class="checkboxes">Checkboxes: {% for i in checkboxes %}  {{- i -}} {% endfor %}</div>
+    <div class="language_checkboxes">language_checkboxes: {% for index, language in language_checkboxes.selected %}  {{- index -}}-{{ language }} {% endfor %}</div>
+    <div class="attributes">Attributes: {{ attributes }}</div>
+    <div class="config">Configuration: {{ configuration }}</div>
+    <div class="group_sub">Group sub: {{ group_sub }}</div>
+  <div class="media_style">Media Style: {{ media_style }}</div>
+  <div class="select_config">select_config: {{ pattern_configuration('foo_settings', '', 'select_config')[select_config] }}</div>
+  <div class="value">Value: {{ setting_value }}</div>
+  <div class="machine_name">Machine name: {{ machine_name }}</div>
+</div>

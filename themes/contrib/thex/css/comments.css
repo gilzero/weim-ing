@@ -1,0 +1,83 @@
+#comments {
+  position: relative;
+  margin: 0;
+}
+.comments-title i,
+.add-comment-title i {
+  font-size: 1em;
+}
+/* Comment -> comment form */
+.comment-form-wrap {
+  position: relative;
+  margin: 2rem 0 1rem 0;
+}
+.add-comment-title {
+  margin: 0;
+}
+.comment-form label {
+  display: block;
+}
+/* Comments -> single comment */
+.comment {
+  position: relative;
+  background-color: var(--light);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+.comment-header {
+  position: relative;
+  display: flex;
+  width: 100%;
+  border-bottom: 2px solid var(--border);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.comment-user-picture {
+  position: relative;
+  text-align: center;
+  align-self: center;
+}
+.comment-user-picture img {
+  max-width: 100px;
+  height: auto;
+}
+.comment-user-picture .image-field {
+  margin: 0;
+}
+.comment-meta {
+  padding-left: 1rem;
+}
+h3.comment-title {
+  font-size: 1.2rem;
+  margin: 0.1rem 0;
+}
+.comment-meta p {
+  margin: 0
+}
+.comment-body {
+  position: relative;
+  width: 100%;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1;
+  flex: 1 1;
+}
+#comments .indented {
+  margin-left: 3rem;
+}
+.comment-body .links {
+  display: flex;
+  gap: 1rem;
+}
+.comment-body .links a {
+  padding: 4px 12px;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+}
+.comment-body .links a:hover {
+  background-color: #ffffff;
+}

@@ -1,0 +1,5 @@
+rest_log.list:
+  title: REST API Logging
+  description: 'View all incoming requests to REST resources.'
+  parent: system.admin_reports
+  url: 'internal:/admin/reports/rest_log'

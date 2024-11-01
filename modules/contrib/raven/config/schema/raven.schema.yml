@@ -1,0 +1,176 @@
+raven.settings:
+  type: config_object
+  label: 'Raven settings'
+  mapping:
+    client_key:
+      type: uri
+      label: 'Sentry DSN (PHP)'
+      nullable: true
+    environment:
+      type: string
+      label: 'Environment'
+      nullable: true
+    release:
+      type: string
+      label: 'Release'
+      nullable: true
+    log_levels:
+      type: mapping
+      label: 'Log levels'
+      mapping:
+        emergency:
+          type: boolean
+          label: 'Emergency'
+        alert:
+          type: boolean
+          label: 'Alert'
+        critical:
+          type: boolean
+          label: 'Critical'
+        error:
+          type: boolean
+          label: 'Error'
+        warning:
+          type: boolean
+          label: 'Warning'
+        notice:
+          type: boolean
+          label: 'Notice'
+        info:
+          type: boolean
+          label: 'Info'
+        debug:
+          type: boolean
+          label: 'Debug'
+    stack:
+      type: boolean
+      label: 'Stacktraces'
+    timeout:
+      type: float
+      label: 'Timeout'
+    message_limit:
+      type: integer
+      label: 'Message limit'
+    trace:
+      type: boolean
+      label: 'Reflection tracing'
+    fatal_error_handler:
+      type: boolean
+      label: 'Fatal error handler'
+    fatal_error_handler_memory:
+      type: integer
+      label: 'Reserved memory'
+    javascript_error_handler:
+      type: boolean
+      label: 'JavaScript error handler'
+    drush_error_handler:
+      type: boolean
+      label: 'Drush error handler'
+    public_dsn:
+      type: uri
+      label: 'Sentry DSN (JavaScript)'
+      nullable: true
+    ssl:
+      type: string
+      label: 'Options to Verify SSL'
+    ca_cert:
+      type: string
+      label: 'Path to the CA certificate file of the Sentry server specified in the DSN'
+    ignored_channels:
+      type: sequence
+      label: 'Log channels that should be ignored'
+      sequence:
+        type: string
+        label: 'Log channel'
+    ignored_messages:
+      type: sequence
+      label: 'Log messages that should be ignored'
+      sequence:
+        type: string
+        label: 'Log message'
+    send_user_data:
+      type: boolean
+      label: 'Send user data'
+    rate_limit:
+      type: integer
+      label: 'Rate limit'
+    send_request_body:
+      type: boolean
+      label: 'Send request body'
+    request_tracing:
+      type: boolean
+      label: 'Request/response performance tracing'
+    traces_sample_rate:
+      type: float
+      label: 'Performance traces sample rate'
+      nullable: true
+    browser_traces_sample_rate:
+      type: float
+      label: 'Browser performance traces sample rate'
+      nullable: true
+    database_tracing:
+      type: boolean
+      label: 'Database performance tracing'
+    twig_tracing:
+      type: boolean
+      label: 'Twig performance tracing'
+    auto_session_tracking:
+      type: boolean
+      label: 'Auto session tracking'
+    send_client_reports:
+      type: boolean
+      label: 'Send client reports'
+    drush_tracing:
+      type: boolean
+      label: 'Drush performance tracing'
+    seckit_set_report_uri:
+      type: boolean
+      label: 'Send security header reports to Sentry'
+    send_monitoring_sensor_status_changes:
+      type: boolean
+      label: 'Send Monitoring sensor status changes to Sentry'
+    404_tracing:
+      type: boolean
+      label: '404 response performance tracing'
+    show_report_dialog:
+      type: boolean
+      label: 'Show user feedback dialog'
+    error_embed_url:
+      type: uri
+      label: 'Error embed URL'
+      nullable: true
+    tunnel:
+      type: boolean
+      label: 'Enables tunneling of Sentry requests through the website'
+    modules:
+      type: boolean
+      label: 'Send list of installed Composer packages to Sentry, including the root project.'
+    cron_monitor_id:
+      type: string
+      label: 'Cron monitor slug'
+      nullable: true
+    profiles_sample_rate:
+      type: float
+      label: 'Profiling sample rate'
+      nullable: true
+    http_compression:
+      type: boolean
+      label: 'HTTP compression (requires Zlib PHP extension)'
+    send_inp_spans:
+      type: boolean
+      label: 'Send Interaction to Next Paint (INP) spans'
+    trace_propagation_targets_backend:
+      type: sequence
+      label: 'Frontend trace propagation targets'
+      sequence:
+        type: string
+        label: 'Host'
+    trace_propagation_targets_frontend:
+      type: sequence
+      label: 'Backend trace propagation targets'
+      sequence:
+        type: string
+        label: 'Regular expression'
+    database_tracing_args:
+      type: boolean
+      label: 'Database performance tracing query arguments'

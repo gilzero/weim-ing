@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Push Framework install file.
+ */
+
+/**
+ * Enable token module.
+ */
+function push_framework_update_8001(): void {
+  // Enabling of token module removed as it isn't required.
+}

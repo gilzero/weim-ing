@@ -1,0 +1,12 @@
+danse_content.api.subscribe:
+  path: '/api/danse/content/{entity_type}/{entity_id}/subscribe/{key}'
+  defaults:
+    _controller: '\Drupal\danse_content\Controller\Subscription::subscribe'
+  requirements:
+    _custom_access: '\Drupal\danse_content\Controller\Subscription::checkAccessSubscribe'
+danse_content.api.unsubscribe:
+  path: '/api/danse/content/{entity_type}/{entity_id}/unsubscribe/{key}'
+  defaults:
+    _controller: '\Drupal\danse_content\Controller\Subscription::unsubscribe'
+  requirements:
+    _custom_access: '\Drupal\danse_content\Controller\Subscription::checkAccessUnsubscribe'

@@ -1,0 +1,334 @@
+<?php
+
+/**
+ * @file
+ * Main functionality and hooks of regcode module.
+ */
+
+// phpcs:ignore Drupal.Commenting.InlineComment.SpacingAfter
+// cspell:ignore lastused hexadec alphanum abcdefghijklmnopqrstuvwqyz
+
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\regcode\RegistrationCodeInterface;
+
+/**
+ * Implements hook_help().
+ */
+function regcode_help($path, $arg) {
+  $output = '';
+  switch ($path) {
+    case 'view.regcode.page_admin':
+      $output = '<p>' . t('View and manage created registration codes.') . '</p>';
+      break;
+
+    case 'regcode.admin_create':
+      $output = '<p>' . t('Create manually or generate new registration codes.') . '</p>';
+      break;
+
+    case 'regcode.admin_manage':
+      $output = '<p>' . t('Provides bulk management features for created registration codes.') . '</p>';
+      break;
+
+    case 'regcode.admin_settings':
+      $output = '<p>' . t('Configure the registration code module.') . '</p>';
+      break;
+  }
+  return $output;
+}
+
+/**
+ * Implements hook_entity_extra_field_info().
+ */
+function regcode_entity_extra_field_info() {
+  $extra = [];
+
+  $config = \Drupal::config('regcode.settings');
+
+  $extra['user']['user']['form']['regcode'] = [
+    'label' => $config->get('regcode_field_title'),
+    'description' => $config->get('regcode_field_description'),
+    'weight' => 10,
+    'visible' => TRUE,
+  ];
+
+  return $extra;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for user_register_form.
+ */
+function regcode_form_user_register_form_alter(&$form, FormStateInterface $form_state) {
+  // Only display the regcode field when it's attached to the form display.
+  if ($form_state->get('form_display')->getComponent('regcode')) {
+    $config = \Drupal::config('regcode.settings');
+
+    $form['regcode'] = [
+      '#type' => 'textfield',
+      '#title' => Html::escape($config->get('regcode_field_title')),
+      '#description' => Html::escape($config->get('regcode_field_description')),
+      '#required' => !($config->get('regcode_optional') || \Drupal::currentUser()->hasPermission('administer users')),
+      '#element_validate' => ['regcode_code_element_validate'],
+    ];
+
+    $form['actions']['submit']['#submit'][] = 'regcode_user_register_form_submit_handler';
+
+    // Capture the code from the URL, if present, and inject it into the
+    // registration form.
+    if (\Drupal::request()->query->has('regcode')) {
+      // The Form API can handle potentially unsafe characters as long as they
+      // are not printed directly. This code gets trimmed in
+      // \Drupal::service('registration_code')->validateCode($regcode).
+      $form['regcode']['#value'] = \Drupal::request()->query->get('regcode');
+      $form['regcode']['#description'] = NULL;
+      $form['regcode']['#disabled'] = TRUE;
+    }
+  }
+}
+
+/**
+ * Validates the content of the code-field on user registration.
+ */
+function regcode_code_element_validate(array &$element, FormStateInterface $form_state) {
+  $regcode = $form_state->getValue('regcode');
+  if (!empty($regcode)) {
+    $code = \Drupal::service('registration_code')->validateCode($regcode);
+    if (!is_object($code)) {
+      $form_state->setError($element, regcode_errormsg($code));
+      \Drupal::logger('regcode')->warning('User entered invalid registration code (@code)', ['@code' => $regcode]);
+    }
+  }
+}
+
+/**
+ * Updates data for a regcode in the database.
+ */
+function regcode_user_register_form_submit_handler(array &$form, FormStateInterface $form_state) {
+  $regcode = $form_state->getValue('regcode');
+  $uid = $form_state->getValue('uid');
+  if (!empty($regcode) && !empty($uid)) {
+    $code = \Drupal::service('registration_code')->consumeCode($regcode, $uid);
+    if ($code) {
+      $username = $form_state->getValue('name');
+      \Drupal::logger('regcode')->info(
+        t('The registration code "@code" was used by user @user with UID @uid.', [
+          '@code' => $regcode,
+          '@uid' => $uid,
+          '@user' => $username,
+        ])
+      );
+    }
+    else {
+      \Drupal::logger('regcode')->error(t('Error checking code @code.', ['@code' => $code]));
+    }
+  }
+}
+
+/**
+ * Returns text message requested by given identifier/constant.
+ *
+ * @param int $err
+ *   The error message code.
+ *
+ * @return string|false
+ *   The text of the message or FALSE if the error code is unknown.
+ */
+function regcode_errormsg($err) {
+  $messages = [
+    RegistrationCodeInterface::VALIDITY_NOT_EXISTING => t('Registration code does not exist'),
+    RegistrationCodeInterface::VALIDITY_NOT_AVAILABLE => t('Registration code is not available'),
+    RegistrationCodeInterface::VALIDITY_TAKEN => t('Registration code has already been used'),
+    RegistrationCodeInterface::VALIDITY_EXPIRED => t('Registration code has expired'),
+  ];
+  return $messages[$err] ?? FALSE;
+}
+
+/**
+ * Loads a registration code.
+ *
+ * Usage example:
+ * @code
+ *   regcode_load(1231); // Loads the regcode with rid=1231
+ *   regcode_load(NULL, ['code'=>'foobar']); // Loads the "foobar" regcode
+ * @endcode
+ *
+ * @param int|null $id
+ *   The database primary key (rid).
+ * @param array $conditions
+ *   An associative array containing the search conditions.
+ *
+ * @return object|false
+ *   The regcode object or FALSE if the code does not exist.
+ *
+ * @deprecated in regcode:2.0.0 and is removed from regcode:3.0.0
+ *   Use the registration_code service instead. For example,
+ *   \Drupal::service('registration_code')->load($id, $conditions).
+ *
+ * @see https://www.drupal.org/node/3471716
+ */
+function regcode_load_single($id, array $conditions = []) {
+  @trigger_error("regcode_load_single() is deprecated in regcode:2.0.0 and is removed from regcode:3.0.0. Use \Drupal::service('registration_code')->load() instead. See https://www.drupal.org/node/3471716", E_USER_DEPRECATED);
+  return \Drupal::service('registration_code')->load($id, $conditions);
+}
+
+/**
+ * Validates a regcode.
+ *
+ * @param string $regcode
+ *   The regcode alphanumeric code.
+ *
+ * @return int|object
+ *   An error code, or the loaded regcode.
+ *
+ * @deprecated in regcode:2.0.0 and is removed from regcode:3.0.0.
+ *   Use the registration_code service instead. For example,
+ *   \Drupal::service('registration_code')->validateCode($regcode).
+ *
+ * @see https://www.drupal.org/node/3471716
+ */
+function regcode_code_validate($regcode) {
+  @trigger_error("regcode_get_vocab_terms() is deprecated in regcode:2.0.0 and is removed from regcode:3.0.0. Use \Drupal::service('registration_code')->getVocabTerms() instead. See https://www.drupal.org/node/3471716", E_USER_DEPRECATED);
+  return \Drupal::service('registration_code')->validateCode($regcode);
+}
+
+/**
+ * Consumes a regcode and attribute it to a user.
+ *
+ * Calls hook_regcode_used() to allow other modules to react.
+ *
+ * @param string $regcode
+ *   The registration code.
+ * @param int $uid
+ *   Optional user id to assign the given code to.
+ *
+ * @return mixed
+ *   An error code, or TRUE if the code was assigned successfully.
+ *
+ * @deprecated in regcode:2.0.0 and is removed from regcode:3.0.0
+ *   Use the registration_code service instead. For example,
+ *   \Drupal::service('registration_code')->consumeCode($regcode, $uid).
+ *
+ * @see https://www.drupal.org/node/3471716
+ */
+function regcode_code_consume($regcode, $uid) {
+  @trigger_error("regcode_code_consume() is deprecated in regcode:2.0.0 and is removed from regcode:3.0.0. Use \Drupal::service('registration_code')->consumeCode() instead. See https://www.drupal.org/node/3471716", E_USER_DEPRECATED);
+  return \Drupal::service('registration_code')->consumeCode($regcode, $uid);
+}
+
+/**
+ * Saves code in the database and calls hook_regcode_presave().
+ *
+ * @param object $code
+ *   A code object (required fields are code, begins, expires, is_active, and
+ *   maxuses.
+ * @param int $action
+ *   Action to perform when saving the code.
+ *
+ * @return int|false
+ *   The regcode ID if the code was saved. Otherwise FALSE.
+ *
+ * @deprecated in regcode:2.0.0 and is removed from regcode:3.0.0.
+ *   Use the registration_code service instead. For example,
+ *   \Drupal::service('registration_code')->save($code, $action).
+ *
+ * @see https://www.drupal.org/node/3471716
+ */
+function regcode_save($code, $action = RegistrationCodeInterface::MODE_REPLACE) {
+  @trigger_error("regcode_save() is deprecated in regcode:2.0.0 and is removed from regcode:3.0.0. Use \Drupal::service('registration_code')->save() instead. See https://www.drupal.org/node/3471716", E_USER_DEPRECATED);
+  return \Drupal::service('registration_code')->save($code, $action);
+}
+
+/**
+ * Deletes regcode codes.
+ *
+ * @param int $op
+ *   The operation ID.
+ *
+ * @return bool|object|int
+ *   The number of deleted rows or FALSE if nothing happened or TRUE if tables
+ *   were empty.
+ *
+ * @deprecated in regcode:2.0.0 and is removed from regcode:3.0.0.
+ *   Use the registration_code service instead. For example,
+ *   \Drupal::service('registration_code')->clean($op).
+ *
+ * @see https://www.drupal.org/node/3471716
+ */
+function regcode_clean($op) {
+  @trigger_error("regcode_get_vocab_terms() is deprecated in regcode:2.0.0 and is removed from regcode:3.0.0. Use \Drupal::service('registration_code')->getVocabTerms() instead. See https://www.drupal.org/node/3471716", E_USER_DEPRECATED);
+  return \Drupal::service('registration_code')->clean($op);
+}
+
+/**
+ * Generates a code.
+ *
+ * @deprecated in regcode:2.0.0 and is removed from regcode:3.0.0.
+ *   Use the registration_code service instead. For example,
+ *   \Drupal::service('registration_code')->generate($length, $output, $case).
+ *
+ * @see https://www.drupal.org/node/3471716
+ */
+function regcode_generate($length, $output, $case) {
+  @trigger_error("regcode_get_vocab_terms() is deprecated in regcode:2.0.0 and is removed from regcode:3.0.0. Use \Drupal::service('registration_code')->getVocabTerms() instead. See https://www.drupal.org/node/3471716", E_USER_DEPRECATED);
+  return \Drupal::service('registration_code')->generate($length, $output, $case);
+}
+
+/**
+ * Regcode delete action.
+ *
+ * @deprecated in regcode:2.0.0 and is removed from regcode:3.0.0.
+ *   Use the registration_code service instead. For example,
+ *   \Drupal::service('registration_code')->deleteAction($object, $context).
+ *
+ * @see https://www.drupal.org/node/3471716
+ */
+function regcode_delete_action(&$object, array $context = []): void {
+  @trigger_error("regcode_delete_action() is deprecated in regcode:2.0.0 and is removed from regcode:3.0.0. Use \Drupal::service('registration_code')->deleteAction() instead. See https://www.drupal.org/node/3471716", E_USER_DEPRECATED);
+  \Drupal::service('registration_code')->deleteAction($object, $context);
+}
+
+/**
+ * Regcode activate action.
+ *
+ * @deprecated in regcode:2.0.0 and is removed from regcode:3.0.0.
+ *   Use the registration_code service instead. For example,
+ *   \Drupal::service('registration_code')->activateAction(&$object, $context).
+ *
+ * @see https://www.drupal.org/node/3471716
+ */
+function regcode_activate_action(&$object, array $context = []): void {
+  @trigger_error("regcode_activate_action() is deprecated in regcode:2.0.0 and is removed from regcode:3.0.0. Use \Drupal::service('registration_code')->activateAction() instead. See https://www.drupal.org/node/3471716", E_USER_DEPRECATED);
+  \Drupal::service('registration_code')->activateAction($object, $context);
+}
+
+/**
+ * Regcode deactivate action.
+ *
+ * phpcs:disable Drupal.Files.LineLength.TooLong
+ *
+ * @deprecated in regcode:2.0.0 and is removed from regcode:3.0.0.
+ *   Use the registration_code service instead. For example,
+ *   \Drupal::service('registration_code')->deactivateAction(&$object, $context).
+ *
+ * @see https://www.drupal.org/node/3471716
+ *
+ * phpcs:enable Drupal.Files.LineLength.TooLong
+ */
+function regcode_deactivate_action(&$object, array $context = []): void {
+  @trigger_error("regcode_deactivate_action() is deprecated in regcode:2.0.0 and is removed from regcode:3.0.0. Use \Drupal::service('registration_code')->deactivateAction() instead. See https://www.drupal.org/node/3471716", E_USER_DEPRECATED);
+  \Drupal::service('registration_code')->deactivateAction($object, $context);
+}
+
+/**
+ * Gets a list of terms from the registration code vocabulary.
+ *
+ * @deprecated in regcode:2.0.0 and is removed from regcode:3.0.0.
+ *   Use the registration_code service instead. For example,
+ *   \Drupal::service('registration_code')->getVocabTerms().
+ *
+ * @see https://www.drupal.org/node/3471716
+ */
+function regcode_get_vocab_terms(): array {
+  @trigger_error("regcode_get_vocab_terms() is deprecated in regcode:2.0.0 and is removed from regcode:3.0.0. Use \Drupal::service('registration_code')->getVocabTerms() instead. See https://www.drupal.org/node/3471716", E_USER_DEPRECATED);
+  return \Drupal::service('registration_code')->getVocabTerms();
+}

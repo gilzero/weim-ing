@@ -1,0 +1,28 @@
+/**
+ * @file
+ */
+
+.ultimenu__caret,
+.is-unlinked .ultimenu__caret i::before {
+  min-height: 34px;
+  /* background-color: rgba(0, 0, 0, 0.2); */
+}
+
+.is-ulticaret--triangle .ultimenu__caret i::after {
+  border: 5px solid transparent;
+  border-top: 8px solid var(--ulticaret-normal);
+}
+
+.is-ulticaret--triangle .is-ulink-active .ultimenu__caret i::after {
+  border-top: 0;
+  border-bottom: 8px solid var(--ulticaret-active);
+}
+
+/* Carets. */
+.is-ulticaret--triangle .ultimenusub .ultimenu__caret i::after {
+  border-top-color: var(--ulticaret-normal);
+}
+
+.is-ulticaret--triangle .ultimenusub .is-ulink-active .ultimenu__caret i::after {
+  border-bottom-color: var(--ulticaret-active);
+}

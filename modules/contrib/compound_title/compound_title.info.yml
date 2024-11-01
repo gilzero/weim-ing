@@ -1,0 +1,13 @@
+name: Compound title
+type: module
+description: 'Provides a simple compound title field type.'
+core_version_requirement: ^9 || ^10 || ^11
+package: Field types
+dependencies:
+  - drupal:field
+  - drupal:auto_entitylabel
+
+# Information added by Drupal.org packaging script on 2024-10-22
+version: '2.0.0-rc1'
+project: 'compound_title'
+datestamp: 1729594587

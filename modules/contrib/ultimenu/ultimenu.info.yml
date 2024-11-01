@@ -1,0 +1,16 @@
+name: Ultimenu
+type: module
+description: Provides Ultimenu blocks, and regions based on available menus.
+core_version_requirement: '>=9.4'
+configure: ultimenu.settings
+dependencies:
+  - drupal:block
+  - blazy:blazy (>= 3.x)
+
+# Add a fake version so local drush and Git checkouts do not fail dependencies.
+# version: 3.x
+
+# Information added by Drupal.org packaging script on 2024-10-18
+version: '3.0.5'
+project: 'ultimenu'
+datestamp: 1729250332

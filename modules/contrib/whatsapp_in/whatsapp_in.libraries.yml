@@ -1,0 +1,9 @@
+whatsapp_in:
+  version: 1.x
+  js:
+    js/whatsapp.js: {}
+  css:
+    layout:
+      css/style.css: {}
+  dependencies:
+    - core/jquery

@@ -1,0 +1,7 @@
+ebt_core_remove_helper.ebt_remove_helper:
+  path: '/admin/structure/block/remove-ebt-blocks'
+  defaults:
+    _form: 'Drupal\ebt_core_remove_helper\Form\EbtRemoveHelperForm'
+    _title: 'Remove EBT Blocks'
+  requirements:
+    _permission: 'administer site configuration'

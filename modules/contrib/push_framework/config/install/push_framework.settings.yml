@@ -1,0 +1,6 @@
+display_modes: {  }
+pattern:
+  subject: '[site:name] notification: [push-object:label]'
+  body:
+    value: "[user:display-name],\r\n\r\n[push-object:content]"
+    format: plain_text

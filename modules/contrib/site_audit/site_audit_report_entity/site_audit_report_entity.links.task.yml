@@ -1,0 +1,23 @@
+entity.site_audit_report.settings:
+  title: 'Settings'
+  route_name: entity.site_audit_report.settings
+  base_route: entity.site_audit_report.settings
+entity.site_audit_report.view:
+  title: 'View'
+  route_name: entity.site_audit_report.canonical
+  base_route: entity.site_audit_report.canonical
+entity.site_audit_report.edit_form:
+  title: 'Edit'
+  route_name: entity.site_audit_report.edit_form
+  base_route: entity.site_audit_report.canonical
+entity.site_audit_report.delete_form:
+  title: 'Delete'
+  route_name: entity.site_audit_report.delete_form
+  base_route: entity.site_audit_report.canonical
+  weight: 10
+
+site_audit.saved_reports_tab:
+  route_name: entity.site_audit_report.collection
+  title: 'Saved Reports'
+  base_route: site_audit.report
+  weight: 100

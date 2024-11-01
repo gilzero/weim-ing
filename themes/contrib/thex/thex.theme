@@ -1,0 +1,34 @@
+<?php
+/**
+ * @file
+ * Extra Functions for The X
+ */
+function thex_preprocess_page(array &$variables) {
+  $config = \Drupal::config('system.site');
+  $variables['site_name'] = $config->get('name');
+  $variables['site_slogan'] = $config->get('slogan');
+  $variables['base_path'] = base_path();
+  $variables['scrolltotop_on'] = 1;
+}
+/**
+ * Add current page to breadcrumb.
+ */
+function thex_preprocess_breadcrumb(&$variables) {
+	$request = \Drupal::request();
+	$route_match = \Drupal::routeMatch();
+	$page_title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
+	if (!empty($page_title)) {
+		$variables['breadcrumb'][] = [
+			'text' => $page_title,
+		];
+		// Add cache context based on url.
+		$variables['#cache']['contexts'][] = 'url';
+	}
+  $variables['breadcrumb_icon_style'] = '/';
+}
+/**
+	* Html preprocess for the theme.
+*/
+function thex_preprocess_html(&$variables) {
+  $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
+}

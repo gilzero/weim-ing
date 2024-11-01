@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Module file for the bpmn_io module.
+ */
+
+/**
+ * Implements hook_gin_content_form_routes().
+ */
+function bpmn_io_gin_content_form_routes(): array {
+  return [
+    'bpmn_io.add',
+    'entity.eca.edit_form',
+  ];
+}

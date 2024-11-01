@@ -1,0 +1,20 @@
+# Schema for the configuration files of the Site Audit Remote Client module.
+site_audit_send.settings:
+  type: config_object
+  label: 'Site Audit Remote Client settings'
+  mapping:
+    remote_url:
+      type: string
+      label: 'Remote URL'
+    remote_label:
+      type: string
+      label: 'Remote Report Label'
+    cron_save_interval:
+      type: integer
+      label: 'Save report on Cron'
+    cron_send_interval:
+      type: integer
+      label: 'Send report on Cron'
+    cron_delete_interval:
+      type: integer
+      label: 'Send report on Cron'

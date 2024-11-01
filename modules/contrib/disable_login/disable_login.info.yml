@@ -1,0 +1,11 @@
+name: 'Disable Login Page'
+type: module
+description: 'Disables anonymous access to the public login page without a secret key.'
+core: 8.x
+core_version_requirement: ">=8"
+configure: disable_login.settings_form
+
+# Information added by Drupal.org packaging script on 2022-12-28
+version: '1.1.2'
+project: 'disable_login'
+datestamp: 1672190751

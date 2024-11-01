@@ -1,0 +1,11 @@
+entity.module_builder_module.collection:
+  title: Module Builder
+  parent: system.admin_config_development
+  description: 'Build scaffold code for custom modules.'
+  route_name: entity.module_builder_module.collection
+
+module_builder.analyse:
+  title: Code analysis
+  parent: entity.module_builder_module.collection
+  description: "Analyse your site's code."
+  route_name: module_builder.analyse

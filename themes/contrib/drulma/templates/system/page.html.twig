@@ -1,0 +1,75 @@
+{#
+/**
+ * @file
+ * Drulma theme implementation to display a single page.
+ */
+#}
+
+{% block header %}
+
+{{ page.primary_menu }}
+
+<header{{ header_attributes }}>
+  <div class="hero-head">
+    {{ page.header }}
+  </div>
+  {% if page.title %}
+  <div class="hero-body">
+    {{ page.title }}
+  </div>
+  {% endif %}
+  <div class="hero-foot">
+    {{ page.secondary_menu }}
+  </div>
+</header>
+
+{% endblock header %}
+
+{% block main %}
+
+<main role="main">
+  <section class="section">
+    <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
+    {{ page.breadcrumb }}
+
+    {{ page.highlighted }}
+
+    {{ page.help }}
+
+    {% if wrap_content_in_container %}
+    <div class="container">
+    {% endif %}
+      <div class="columns">
+        <div class="column">
+        {{ page.content }}
+        </div>
+
+        {% if page.sidebar_first %}
+          <aside class="column is-narrow" role="complementary">
+            {{ page.sidebar_first }}
+          </aside>
+        {% endif %}
+
+        {% if page.sidebar_second %}
+          <aside class="column is-narrow" role="complementary">
+            {{ page.sidebar_second }}
+          </aside>
+        {% endif %}
+      </div>
+    {% if wrap_content_in_container %}
+    </div>
+    {% endif %}
+  </section>
+</main>
+
+{% endblock main %}
+
+{% block footer %}
+
+{% if page.footer %}
+  <footer class="footer" role="contentinfo">
+    {{ page.footer }}
+  </footer>
+{% endif %}
+
+{% endblock footer %}

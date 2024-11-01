@@ -1,0 +1,19 @@
+p {
+  margin: 0 0 18px 0;
+  line-height: 1.5;
+
+  &.perex {
+    margin: 0 0 40px 0;
+    color: var(--primary-dark);
+    font-family: 'Geologica';
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.6;
+
+    @media (max-width: $screen-sm-max) {
+      font-size: 20px;
+      margin: 0 0 20px 0;
+      line-height: 1.5;
+    }
+  }
+}

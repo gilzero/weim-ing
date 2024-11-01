@@ -1,0 +1,13 @@
+module_builder_test_component_type.test_component.*:
+  type: config_entity
+  label: 'Test component'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    name:
+      type: label
+      label: 'Name'
+    data:
+      type: mapping
+      label: 'Component data'

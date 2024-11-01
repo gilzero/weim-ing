@@ -1,0 +1,13 @@
+sa11y:
+  js:
+    js/sa11y.js: {}
+  dependencies:
+    - core/drupal
+    - sa11y/sa11y-files
+
+sa11y-files:
+  js:
+    https://cdn.jsdelivr.net/combine/gh/ryersondmp/sa11y@3.2.3/dist/js/lang/en.umd.js,gh/ryersondmp/sa11y@3.2.3/dist/js/sa11y.umd.min.js: { type: external, minified: true}
+  css:
+    theme:
+      https://cdn.jsdelivr.net/gh/ryersondmp/sa11y@3.2.1/dist/css/sa11y.min.css: { type: external, minified: true}

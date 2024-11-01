@@ -1,0 +1,71 @@
+/**
+ * @file
+ * Skin based on safe CSS file name: ultimenu--orange.
+ */
+
+:root {
+  --ultiorange: #f50;
+  --ultiorange-light: #dbb7b3;
+  --ultiorange-dark: #5e1f00;
+}
+
+.ultimenu--orange {
+  --ultinormal: var(--ultiorange);
+  --ultiactive: var(--ultiorange-dark);
+  --ultiflyout: var(--ultiorange);
+  --ultiregion: #fff;
+  --ultiregion-color: #000;
+  --ultilink-normal: var(--ultiorange);
+  --ultilink-active: var(--ultiorange-dark);
+  --ultisub-expanded: var(--ultiorange);
+  --ultisub2-normal: var(--ultiorange-light);
+  --ultisub2-active: #fff;
+  --ulticaret-normal: var(--ultiorange);
+  --ulticaret-active: var(--ultiorange-dark);
+}
+
+.ultimenu--orange .ultimenusub .menu .menu {
+  --ulticaret-normal: var(--ultiorange-light);
+  --ulticaret-active: #fff;
+}
+
+.is-ultimenu--active .is-ultimenu__canvas-off .ultimenu--orange {
+  --ultinormal: var(--ultiorange);
+  --ultiactive: #fff;
+  --ultiflyout: var(--ultiorange);
+  --ultiregion: transparent;
+  --ultilink-normal: var(--ultiorange-light);
+  --ultilink-active: var(--ultiactive);
+  --ultisub-expanded: rgba(0, 0, 0, 0.2);
+  --ultisub-normal: var(--ultiorange-light);
+  --ultisub-active: var(--ultiactive);
+  --ulticaret-normal: var(--ultiorange);
+  --ulticaret-active: var(--ultiactive);
+}
+
+.is-ultimenu--active
+  .is-ultimenu__canvas-off
+  .ultimenu--orange
+  .ultimenusub
+  .menu {
+  --ulticaret-normal: var(--ultiorange-light);
+  --ulticaret-active: #fff;
+}
+
+/**
+ * When hamburger is visible, desktop or mobile.
+ */
+html.is-ultimenu--active
+  .ultimenu--orange
+  .is-uitem-expanded
+  > .ultimenu__flyout {
+  padding: 0;
+}
+
+/**
+ * When hamburger is gone, or hover.
+ */
+html.is-ultidesktop .is-ultihover.ultimenu--orange .block {
+  display: inline-block;
+  vertical-align: top;
+}

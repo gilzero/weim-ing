@@ -1,0 +1,15 @@
+name: "AI: Summarize Document"
+type: module
+description: 'Provides an integration with CKEditor and Drupal AI modules to summarize documents via LLMs.'
+core_version_requirement: ^10 || ^11
+package: AI
+
+dependencies:
+  - drupal:ai
+  - drupal:ai_ckeditor
+  - drupal:media
+
+# Information added by Drupal.org packaging script on 2024-10-18
+version: '1.0.0-alpha1'
+project: 'ai_summarize_document'
+datestamp: 1729269727

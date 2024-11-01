@@ -1,0 +1,13 @@
+{#
+/**
+ * @file
+ * Drulma theme implementation for an 'input' #type form element.
+ */
+#}
+{{ attach_library('lp_fontawesome/fontawesome') }}
+<div class="control has-icons-left">
+  <input{{ attributes.addClass('input') }} />{{ children }}
+  <span class="icon is-left">
+    <i class="fas fa-user"></i>
+  </span>
+</div>

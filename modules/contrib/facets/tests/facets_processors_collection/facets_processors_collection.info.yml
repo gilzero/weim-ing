@@ -1,0 +1,12 @@
+name: 'Facets processors collection'
+type: module
+description: 'Contains collection of test facet processors'
+package: 'Testing'
+hidden: true
+dependencies:
+  - facets:facets
+
+# Information added by Drupal.org packaging script on 2024-10-09
+version: '2.0.9'
+project: 'facets'
+datestamp: 1728458766

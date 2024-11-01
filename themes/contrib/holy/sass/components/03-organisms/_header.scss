@@ -1,0 +1,33 @@
+#header {
+  @media (max-width: $screen-sm-max) {
+    margin-top: auto;
+
+    #header-wrapper {
+      display: flex;
+      flex-direction: column;
+
+      .region-header {
+        display: none;
+      }
+
+      .region-header-search {
+        order: 1;
+      }
+
+      .region-header-menu {
+        order: 2;
+        margin-bottom: 50px;
+      }
+    }
+  }
+
+  @media (min-width: $screen-md-min) {
+    #header-wrapper {
+      position: relative;
+    }
+
+    .region-header {
+      display: flex;
+    }
+  }
+}

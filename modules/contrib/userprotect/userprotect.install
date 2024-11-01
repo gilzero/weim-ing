@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the userprotect module.
+ */
+
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
+
+/**
+ * Implements hook_install().
+ *
+ * Installs default userprotect permissions for authenticated users.
+ */
+function userprotect_install($is_syncing) {
+  if ($is_syncing) {
+    return;
+  }
+
+  $role = Role::load(RoleInterface::AUTHENTICATED_ID);
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('userprotect.mail.edit');
+    $role->grantPermission('userprotect.pass.edit');
+    $role->grantPermission('userprotect.account.edit');
+    $role->trustData()->save();
+  }
+}

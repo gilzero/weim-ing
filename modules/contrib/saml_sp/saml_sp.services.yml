@@ -1,0 +1,6 @@
+services:
+ saml_sp_event_subscriber:
+    class: Drupal\saml_sp\EventSubscriber\SamlSpSubscriber
+    arguments: ['@config.factory', '@messenger', '@current_user', '@date.formatter']
+    tags:
+      - {name: event_subscriber}

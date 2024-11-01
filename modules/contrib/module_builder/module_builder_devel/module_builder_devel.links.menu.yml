@@ -1,0 +1,5 @@
+module_builder_devel.analyse_select:
+  title: 'Analyse selective'
+  parent: entity.module_builder_module.collection
+  route_name: module_builder_devel.analyse-select
+  weight: 10

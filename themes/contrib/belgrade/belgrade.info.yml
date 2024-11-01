@@ -1,0 +1,67 @@
+name: Belgrade
+description: Bootstrap Drupal theme built for Centarro Commerce
+screenshot: screenshot.png
+core_version_requirement: ^9.2 || ^10 || ^11
+engine: twig
+type: theme
+base theme: false
+
+regions:
+  navigation: 'Navigation'
+  top_bar: 'Top bar'
+  header: 'Header'
+  highlighted: 'Highlighted'
+  help: 'Help'
+  content: 'Content'
+  sidebar_first: 'Primary'
+  sidebar_second: 'Secondary'
+  footer: 'Footer'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  hidden: 'HIDDEN'
+
+libraries:
+  - belgrade/global
+
+ckeditor_stylesheets:
+  - css/main.css
+
+libraries-extend:
+  core/drupal.ajax:
+    - belgrade/throbber
+  bootstrap_styles/themes-overrides:
+    - belgrade/layout-builder.theme
+  commerce_kickstart_layout_builder/cklb-slideshow:
+    - belgrade/cklb.slideshow
+  core/drupal.message:
+    - belgrade/drupal.message
+
+libraries-override:
+  commerce_cart/cart_block:
+    css:
+      theme:
+        css/commerce_cart.theme.css: css/components/commerce/commerce_cart_block.css
+  commerce_checkout/checkout_progress:
+    css:
+      theme:
+        css/commerce_checkout.progress.css: css/components/commerce/commerce_checkout-progress.css
+  commerce_wishlist/user:
+    css:
+      layout:
+        css/commerce_wishlist.user.css: css/components/commerce/commerce_wishlist.css
+  better_exposed_filters/general:
+    css:
+      theme:
+        css/better_exposed_filters.css: css/theme/better-exposed-filters.css
+
+  commerce_order/address_book: false
+  commerce_product/rendered-attributes: false
+  commerce_checkout/form:
+    css:
+      theme:
+        css/commerce_checkout.form.css: false
+
+# Information added by Drupal.org packaging script on 2024-07-31
+version: '2.0.2'
+project: 'belgrade'
+datestamp: 1722432073

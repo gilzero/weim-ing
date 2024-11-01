@@ -1,0 +1,9 @@
+{
+    "name": "levmyshkin/jquery-colorpicker",
+    "description": "The jQuery Colorpicker JS/CSS library. Fork from jaypan/jquery_colorpicker.",
+    "homepage": "https://www.eyecon.ro/colorpicker/",
+    "type": "drupal-library",
+    "license": "(MIT or GPL-1.0)",
+    "keywords": ["Drupal","EBT","colorpicker","jquery"],
+    "require": {}
+}

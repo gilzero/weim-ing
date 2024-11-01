@@ -1,0 +1,20 @@
+# Main tab set.
+entity.module_builder_module.collection:
+  title: 'List'
+  route_name: entity.module_builder_module.collection
+  base_route: entity.module_builder_module.collection
+
+module_builder.settings:
+  title: 'Settings'
+  route_name: module_builder.settings
+  base_route: entity.module_builder_module.collection
+
+module_builder.analyse:
+  title: 'Analyse code'
+  route_name: module_builder.analyse
+  base_route: entity.module_builder_module.collection
+
+# Component tabs.
+module_builder.component_entity.admin_local_tasks:
+  deriver: 'Drupal\module_builder\Plugin\Derivative\ComponentSectionFormsLocalTasks'
+  weight: 100

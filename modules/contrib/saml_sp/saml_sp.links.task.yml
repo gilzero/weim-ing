@@ -1,0 +1,9 @@
+saml_sp.settings_tab:
+  route_name: saml_sp.admin
+  base_route: saml_sp.admin
+  title: 'Settings'
+saml_sp.idp_list_tab:
+  route_name: entity.idp.collection
+  base_route: saml_sp.admin
+  title: 'Identity Providers'
+  weight: 20

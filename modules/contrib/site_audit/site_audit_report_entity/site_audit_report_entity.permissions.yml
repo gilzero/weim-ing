@@ -1,0 +1,11 @@
+administer site audit report:
+  title: 'Administer site audit report settings'
+  restrict access: true
+delete site audit report:
+  title: Delete site audit report
+create site audit report:
+  title: Create site audit report
+view site audit report:
+  title: View site audit report
+edit site audit report:
+  title: Edit site audit report

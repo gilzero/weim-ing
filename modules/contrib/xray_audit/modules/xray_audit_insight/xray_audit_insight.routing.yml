@@ -1,0 +1,9 @@
+xray_audit_insight.settings_form:
+  path: '/admin/config/xray_audit_insight/settings'
+  defaults:
+    _form: '\Drupal\xray_audit_insight\Form\SettingsForm'
+    _title: 'Xray Audit Insight settings'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE

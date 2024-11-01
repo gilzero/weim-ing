@@ -1,0 +1,14 @@
+name: 'Views Slideshow Test Config'
+type: module
+description: 'Provides default views for tests.'
+package: Testing
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:views
+  - views_slideshow:views_slideshow
+  - views_slideshow:views_slideshow_cycle
+
+# Information added by Drupal.org packaging script on 2024-08-19
+version: '5.0.1'
+project: 'views_slideshow'
+datestamp: 1724040373

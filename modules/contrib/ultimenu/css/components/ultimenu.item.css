@@ -1,0 +1,180 @@
+/**
+ * @file
+ * Provides .ultimenu__link styles.
+ */
+
+/* Add "position: relative;" to make flyout relative to LI for smaller flyout */
+.ultimenu > li {
+  display: block;
+  margin: 0;
+  word-wrap: break-word;
+}
+
+.ultimenusub .is-uitem-expanded {
+  background-color: var(--ultisub-expanded);
+}
+
+.ultimenusub .is-uitem-expanded .is-uitem-expanded {
+  background-color: var(--ultisub2-expanded);
+}
+
+.ultimenusub .is-uitem-collapsible > ul {
+  padding: 0 var(--ultispace);
+}
+
+.ultimenusub .is-uitem-collapsible.is-uitem-expanded > ul {
+  margin: 0;
+  padding: var(--ultispace);
+}
+
+/**
+ * Link item may or may not have A tag given <nolink>.
+ */
+.ultimenu__link {
+  padding: 10px var(--ultispace);
+}
+
+.ultimenu .ultimenu__link {
+  position: relative; /* To hold arrows for small device */
+  display: block;
+  transition: background-color 0.5s, color 0.5s;
+  text-decoration: none;
+  line-height: 1.6;
+}
+
+.ultimenu > li > .ultimenu__link {
+  z-index: 103; /* Above the flyout z-index: 102 */
+}
+
+/* Without direct decendants > to be inherited as needed. */
+.ultimenu li .ultimenu__link {
+  color: var(--ultilink-normal);
+}
+
+.ultimenu li .ultimenu__link:hover,
+.ultimenu li .ultimenu__link:active,
+.ultimenu li .is-ulink-active {
+  color: var(--ultilink-active);
+}
+
+/* With direct decendants > to avoid submenus from inheritance. */
+.ultimenu > li > .ultimenu__link {
+  background-color: var(--ultilink-bg-normal);
+}
+
+.ultimenu > li > .ultimenu__link:hover {
+  background-color: var(--ultilink-bg-hover);
+}
+
+.ultimenu > li > .ultimenu__link:active,
+.ultimenu > li:hover > .ultimenu__link {
+  background-color: var(--ultilink-bg-active);
+}
+
+.ultimenu > .is-active-trail > .ultimenu__link /* ,
+.ultimenu > li:hover > .ultimenu__link,
+.ultimenu > li > .is-ulink-active */ {
+  color: var(--ultilink-active);
+}
+
+/* Submenus. */
+.ultimenusub .menu > li > a {
+  color: var(--ultisub-normal);
+}
+
+.ultimenusub .menu > li > a:hover,
+.ultimenusub .menu > li > a:active,
+.ultimenusub .menu > li > .is-ulink-active {
+  color: var(--ultisub-active);
+}
+
+/* Collapsible submenus. */
+.ultimenusub .is-uitem-expanded > .menu > li > a {
+  color: var(--ultisub2-normal);
+}
+
+.ultimenusub .is-uitem-expanded > a,
+.ultimenusub .is-uitem-expanded > .menu > li > a:hover,
+.ultimenusub .is-uitem-expanded > .menu > li > a:active,
+.ultimenusub .is-uitem-expanded > .menu > li > .is-ulink-active {
+  color: var(--ultisub2-active);
+}
+
+/**
+ * We are here at desktop up.
+ * 1025px = 64.063em with 16px base font, assumes no-touch devices.
+ * These rules should work without javascript.
+ * Generic rules for all Ultimenu flyout being hovered.
+ * Hover can disabled for carets via Use caret option at blocks since 3.0.3.
+ */
+
+/* stylelint-disable */
+.is-ultidesktop .is-ultihover:not(.is-ulticaret) li .ultimenu__flyout:focus,
+.is-ultidesktop .is-ultihover:not(.is-ulticaret) li:hover > .ultimenu__flyout,
+.is-ultidesktop
+  .is-ultihover:not(.is-ulticaret)
+  li
+  a:active
+  + .ultimenu__flyout,
+.is-ultidesktop
+  .is-ultihover:not(.is-ulticaret)
+  li
+  a:focus
+  + .ultimenu__flyout {
+  height: auto;
+  max-height: none;
+  min-height: 64px;
+  padding: var(--ultispace) 0;
+  overflow: visible;
+  opacity: 1;
+  transition-delay: 0.1s;
+  visibility: visible;
+}
+
+/** Ultimenu placed in the footer, htt: horizontal to top. */
+.is-ultidesktop .ultimenu--htt:not(.is-ulticaret) li .ultimenu__flyout:focus,
+.is-ultidesktop .ultimenu--htt:not(.is-ulticaret) li:hover > .ultimenu__flyout,
+.is-ultidesktop
+  .ultimenu--htt:not(.is-ulticaret)
+  li
+  a:active
+  + .ultimenu__flyout,
+.is-ultidesktop
+  .ultimenu--htt:not(.is-ulticaret)
+  li
+  a:focus
+  + .ultimenu__flyout {
+  height: auto;
+  bottom: 100%;
+  max-height: none;
+  top: auto;
+}
+
+/**
+ * When hamburger is gone, or hover, basically to merge backgrounds.
+  */
+.ultimenu .is-uitem-expanded > .ultimenu__flyout,
+.ultimenu li:hover > .ultimenu__flyout,
+.ultimenu li .ultimenu__flyout:focus-within,
+.ultimenu li a:focus + .ultimenu__flyout {
+  margin-top: -1px;
+}
+/* stylelint-enable */
+
+/**
+ * .is-ultihover is for when off-canvas is disabled for desktop.
+ */
+.is-ultidesktop .is-ultihover > li {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+/**
+ * Mobile stylings.
+ * See ultimenu.css @file description.
+ */
+html.is-ultimobile .ultimenu > li,
+html.is-ultimobile .ultimenu .ultimenu__link {
+  width: 100%;
+  min-width: 100%;
+}
